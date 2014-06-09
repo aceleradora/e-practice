@@ -17,7 +17,6 @@ public class SolucaoDoExercicio extends Model{
     @Constraints.Required
     public String codigo = "oi";
 
-
     public String getCodigo() {
         return codigo;
     }
