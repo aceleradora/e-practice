@@ -10,6 +10,10 @@ import java.util.List;
 @Entity
 public class SolucaoDoExercicio extends Model{
 
+    public SolucaoDoExercicio(String cod){
+        codigo = cod;
+    }
+
     @Id
     @Constraints.Required
     public Long id;
@@ -18,6 +22,7 @@ public class SolucaoDoExercicio extends Model{
     public String codigo = "oi";
 
     public String getCodigo() {
+
         return codigo;
     }
 
@@ -26,6 +31,7 @@ public class SolucaoDoExercicio extends Model{
     );
 
     public static List<SolucaoDoExercicio> all() {
+
         return find.all();
     }
 
