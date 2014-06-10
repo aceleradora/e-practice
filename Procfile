@@ -1,0 +1,1 @@
+web: target/universal/stage/bin/e-practice -Dhttp.port=${PORT}
