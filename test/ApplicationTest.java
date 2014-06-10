@@ -37,7 +37,7 @@ public class ApplicationTest {
 
     @Test
     public void SolucaoNaoPodeTerCorpoVazio() throws Exception {
-        SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio();
+        SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio("codigo");
         assertNotNull(solucaoDoExercicio.getCodigo());
 
     }
