@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/e-practice -Dhttp.port=${PORT}
+web: target/universal/stage/bin/e-practice -Dhttp.port=${PORT} -DapplyEvolutions.default=true
