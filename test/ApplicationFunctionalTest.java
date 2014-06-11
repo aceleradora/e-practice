@@ -1,5 +1,4 @@
 import play.libs.F;
-import play.mvc.*;
 import org.junit.*;
 import play.test.TestBrowser;
 
@@ -12,7 +11,7 @@ public class ApplicationFunctionalTest {
     public void verificaSeOTituloEIgualAePractice() {
         running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {
             public void invoke(TestBrowser browser) {
-                browser.goTo("http://localhost:3333");
+                browser.goTo("http://e-practice.herokuapp.com/");
                 assertThat(browser.$("title").getTexts().get(0)).isEqualTo("e-Practice");
                 //browser.$("a").click();
                 //assertThat(browser.url()).isEqualTo("http://localhost:3333/Coco");
