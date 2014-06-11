@@ -1,0 +1,61 @@
+.row {
+    padding: 5px;
+}
+
+#button {
+    position: absolute;
+    color: black;
+    font-size: 12px;
+    bottom: 6px;
+    right: 5px;
+}
+
+#logo {
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: 1px;
+    border: 1px solid black;
+    height: 132px;
+}
+
+#manual-de-sintaxe {
+    padding: 10px 0px 0px 10px;
+    border: 1px solid black;
+}
+
+#enunciado-exercicio {
+    margin-left: 1px;
+    padding: 0px 10px 10px 10px;
+    border: 1px solid black;
+    height: 400px;
+}
+
+#terminal {
+    position: relative;
+    height: 400px;
+    padding: 0px 10px 10px 10px;
+    border: 1px solid black;
+
+}
+
+#feedback {
+    padding: 10px 0px 0px 10px;
+    border: 1px solid black;
+    height: 400px;
+
+}
+
+#categorias {
+    border: 1px solid black;
+    text-align: center;
+}
+
+textarea {
+    font:10px verdana, arial, helvetica, sans-serif;
+    height: 355px;
+    width: 585px;
+    position: absolute;
+    left: 0px;
+}
+
