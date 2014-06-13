@@ -30,15 +30,14 @@ import static org.fest.assertions.Assertions.*;
 public class ApplicationTest {
 
     @Test
-    public void testandoSnapCI() throws Exception {
+    public void testandoSnapCI() {
         assertThat(true);
-
     }
 
     @Test
-    public void SolucaoNaoPodeTerCorpoVazio() throws Exception {
+    public void SolucaoNaoPodeTerCorpoVazio() {
         SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio("codigo");
         assertNotNull(solucaoDoExercicio.getCodigo());
-
     }
+
 }
