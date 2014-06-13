@@ -11,8 +11,11 @@ public class ApplicationFunctionalTest {
     public void verificaSeOTituloEIgualAePractice() {
         running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {
             public void invoke(TestBrowser browser) {
-                browser.goTo("http://localhost:3333");
+                browser.goTo(System.getenv("URL_ENVIRONMENT"));
                 assertThat(browser.$("title").getTexts().get(0)).isEqualTo("e-Practice");
+                //browser.$("a").click();
+                //assertThat(browser.url()).isEqualTo("http://localhost:3333/Coco");
+                //assertThat(browser.$("#title", 0).getText()).isEqualTo("Hello Coco");
             }
         });
     }

@@ -16,6 +16,8 @@ import play.i18n.Lang;
 import play.libs.F;
 import play.libs.F.*;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
