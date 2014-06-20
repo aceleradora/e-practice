@@ -4,7 +4,7 @@
 
 # Home page
 GET     /                           controllers.Application.index()
-#controller.Application.salvarCodigo(String codigo);
+# GET    /salvar                      controller.Application.salvarCodigo(String codigo);
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
