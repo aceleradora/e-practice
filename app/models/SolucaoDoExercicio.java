@@ -16,7 +16,7 @@ public class SolucaoDoExercicio extends Model{
 
     @Id
     @Constraints.Required
-    public Long id;
+    public int id;
 
     @Constraints.Required
     public String codigo = "oi";
@@ -26,8 +26,8 @@ public class SolucaoDoExercicio extends Model{
         return codigo;
     }
 
-    public static Finder<Long,SolucaoDoExercicio> find = new Finder(
-            Long.class, SolucaoDoExercicio.class
+    public static Finder<Integer,SolucaoDoExercicio> find = new Finder(
+            Integer.class, SolucaoDoExercicio.class
     );
 
     public static List<SolucaoDoExercicio> all() {
@@ -35,7 +35,12 @@ public class SolucaoDoExercicio extends Model{
         return find.all();
     }
 
-    public static void create(SolucaoDoExercicio solucaoDoExercicio) {
+    public static String create(SolucaoDoExercicio solucaoDoExercicio) {
         solucaoDoExercicio.save();
+        if(solucaoDoExercicio.find.byId(solucaoDoExercicio.id) != null){
+            return "inserido com sucesso!";
+        }
+        else
+            return "Erro: Exercicio não inserido";
     }
 }
