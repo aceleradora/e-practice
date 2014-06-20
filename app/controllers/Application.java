@@ -14,10 +14,10 @@ public class Application extends Controller {
     }
 
 
-    public static void  salvarCodigo(String codigo){
+    public static String  salvarCodigo(String codigo){
 
         SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio(codigo);
-        SolucaoDoExercicio.create(solucaoDoExercicio);
+        return SolucaoDoExercicio.create(solucaoDoExercicio);
     }
 
 
