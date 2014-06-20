@@ -1,5 +1,5 @@
-@(message: String)
-
+@(message: String, tasks: List[SolucaoDoExercicio], taskForm: Form[SolucaoDoExercicio])
+@import helper._
 @main("e-Practice") {
 
     <div class="row">
@@ -44,13 +44,12 @@
         <div class="col-sm-6">
             <section id="terminal" in>
                 <form name="form6" method="post" action="">
-                    <textarea style="resize:none"  name="textarea"></textarea>
+                    <textarea style="resize:none" name="textarea"></textarea>
                 </form>
                 <a id="button" class="btn btn-default" role="button" href="#">
                     Enviar Exercicio
                 </a>
             </section>
-
         </div>
 
 
@@ -69,7 +68,12 @@
     <div class="row">
         <div class="col-sm-12">
             <section id="categorias">
-                <h3> <img src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/arrow-left-128.png" width="50px"> | Categorias | <img src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/arrow-right-128.png" width="50px> </h3>
+                <h3>
+                    <img src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/arrow-left-128.png" width="50px">
+                         | Categorias |
+                    <img src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/arrow-right-128.png" width="50px">
+
+                </h3>
             </section>
         </div>
     </div>
