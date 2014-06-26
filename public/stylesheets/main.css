@@ -1,13 +1,15 @@
+
 .row {
     padding: 5px;
+    overflow:auto;
 }
 
 #button {
     position: absolute;
     color: black;
     font-size: 12px;
-    bottom: 6px;
-    right: 5px;
+    bottom: 0px;
+    right: 2px;
 }
 
 #logo {
@@ -17,25 +19,34 @@
     margin-left: 1px;
     border: 1px solid black;
     height: 132px;
-}
 
-#manual-de-sintaxe {
-    padding: 10px 0px 0px 10px;
-    border: 1px solid black;
+    overflow:auto;
 }
 
 #enunciado-exercicio {
+    padding: 10px 0px 0px 10px;
+    border: 1px solid black;
+    height: 132px;
+
+    overflow:auto;
+}
+
+#lista-de-exercicio {
     margin-left: 1px;
     padding: 0px 10px 10px 10px;
     border: 1px solid black;
     height: 400px;
+
+    overflow:auto;
 }
 
-#terminal {
-    position: relative;
-    height: 400px;
+#manual-de-sintaxe{
+    margin-left: 1px;
     padding: 0px 10px 10px 10px;
     border: 1px solid black;
+    overflow:auto;
+    height: 132px;
+
 
 }
 
@@ -43,6 +54,17 @@
     padding: 10px 0px 0px 10px;
     border: 1px solid black;
     height: 400px;
+
+    overflow:auto;
+}
+
+#terminal {
+    position: relative;
+    height: 400px;
+
+    padding: 18px 10px 10px 10px;
+    border: 1px solid black;
+    overflow:auto;
 
 }
 
@@ -53,9 +75,7 @@
 
 textarea {
     font:10px verdana, arial, helvetica, sans-serif;
-    height: 355px;
-    width: 578px;
+    height: 343px;
+    width: 563px;
     position: absolute;
-    left: 0px;
 }
-
