@@ -1,12 +1,8 @@
 package funcional;
 
-import org.junit.runner.RunWith;
-import org.specs2.Specification;
-import org.specs2.runner.JUnitRunner;
+import org.junit.Test;
 import play.libs.F;
-import org.junit.*;
 import play.test.TestBrowser;
-import org.junit.runner.RunWith;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.*;

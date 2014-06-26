@@ -21,12 +21,10 @@ public class SolucaoDoExercicio extends Model{
         this.codigo = codigo;
     }
 
-    //ebean helper
     public static Finder<Integer,SolucaoDoExercicio> find = new Finder(
             Integer.class, SolucaoDoExercicio.class
     );
 
-    //CRUD
     public static List<SolucaoDoExercicio> all() {
 
         return find.all();

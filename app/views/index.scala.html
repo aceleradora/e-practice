@@ -54,9 +54,9 @@
                         </li>
                     }
                 </ul>
-                <h2>Adicionar uma nova Solução</h2>
+
                 @form(routes.Application.novaSolucao()){
-                    @inputText(solucaoForm("codigo"))
+                    @textarea(solucaoForm("codigo"), 'rows -> 2)
 
                     <input type="submit" value="Criar">
                 }
