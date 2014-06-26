@@ -1,4 +1,4 @@
-@(message : String)
+@(solucoes: List[SolucaoDoExercicio], solucaoForm: Form[SolucaoDoExercicio])
 @import helper._
 @main("e-Practice") {
 
@@ -43,7 +43,13 @@
 
         <div class="col-sm-6">
             <section id="terminal" in>
-                <h1>blabla</h1>
+
+                <h2>Adicionar uma nova Solução</h2>
+                @form(routes.Application.novaSolucao()){
+                    @inputText(solucaoForm("label"))
+
+                    <input type="submit" value="Create">
+                }
 
 
             </section>

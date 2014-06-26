@@ -10,10 +10,6 @@ import java.util.List;
 @Entity
 public class SolucaoDoExercicio extends Model{
 
-    public SolucaoDoExercicio(String codigo){
-        this.codigo = codigo;
-    }
-
     @Id
     @Constraints.Required
     public int id;
@@ -21,7 +17,12 @@ public class SolucaoDoExercicio extends Model{
     @Constraints.Required
     public String codigo;
 
+    @Constraints.Required
     public String label;
+
+    public SolucaoDoExercicio(String codigo){
+        this.codigo = codigo;
+    }
 
     public static Finder<Integer,SolucaoDoExercicio> find = new Finder(
             Integer.class, SolucaoDoExercicio.class

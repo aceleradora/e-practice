@@ -1,12 +1,14 @@
 package controllers;
 
 import play.*;
+import play.data.Form;
 import play.mvc.*;
-import models.SolucaoDoExercicio;
+import models.*;
 import views.html.*;
 
 public class Application extends Controller {
 
+    static Form<SolucaoDoExercicio> solucaoDoExercicioForm = Form.form(SolucaoDoExercicio.class);
 
     public static Result index() {
 
@@ -14,7 +16,7 @@ public class Application extends Controller {
     }
 
     public static Result solucoes(){
-        return TODO;
+        return ok(views.html.index.render(SolucaoDoExercicio.all(), solucaoDoExercicioForm));
     }
 
 
