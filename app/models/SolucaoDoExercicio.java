@@ -10,8 +10,8 @@ import java.util.List;
 @Entity
 public class SolucaoDoExercicio extends Model{
 
-    public SolucaoDoExercicio(String cod){
-        codigo = cod;
+    public SolucaoDoExercicio(String codigo){
+        this.codigo = codigo;
     }
 
     @Id
@@ -19,12 +19,9 @@ public class SolucaoDoExercicio extends Model{
     public int id;
 
     @Constraints.Required
-    public String codigo = "oi";
+    public String codigo;
 
-    public String getCodigo() {
-
-        return codigo;
-    }
+    public String label;
 
     public static Finder<Integer,SolucaoDoExercicio> find = new Finder(
             Integer.class, SolucaoDoExercicio.class
@@ -35,12 +32,7 @@ public class SolucaoDoExercicio extends Model{
         return find.all();
     }
 
-    public static String create(SolucaoDoExercicio solucaoDoExercicio) {
-        solucaoDoExercicio.save();
-        if(solucaoDoExercicio.find.byId(solucaoDoExercicio.id) != null){
-            return "inserido com sucesso!";
-        }
-        else
-            return "Erro: Exercicio não inserido";
+    public static void create(SolucaoDoExercicio solucaoDoExercicio) {
+
     }
 }

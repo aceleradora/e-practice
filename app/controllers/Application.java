@@ -10,16 +10,21 @@ public class Application extends Controller {
 
     public static Result index() {
 
-        return ok(index.render("e-Pr@ctice"));
+        return redirect(routes.Application.solucoes());
+    }
+
+    public static Result solucoes(){
+        return TODO;
     }
 
 
-    public static String  salvarCodigo(String codigo){
-
-        SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio(codigo);
-        return SolucaoDoExercicio.create(solucaoDoExercicio);
+    public static Result  novaSolucao(){
+        return TODO;
     }
 
-
+    public static Result deletaSolucao(int id){
+        return TODO;
     }
+
+}
 
