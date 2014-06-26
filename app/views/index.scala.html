@@ -1,5 +1,6 @@
-@(message: String)
+@(solucoes: List[SolucaoDoExercicio], solucaoForm: Form[SolucaoDoExercicio])
 @import helper._
+
 @main("e-Practice") {
 
 <script type='text/javascript'>
@@ -71,16 +72,26 @@ function alttela() {
 
         <div class="col-sm-6">
             <section id="terminal" in>
-                <form name="form6" method="post" action="">
-                    <textarea name="codigo"></textarea>
-                    <textarea style="resize:none" name="textarea"></textarea>
-                </form>
-                <a id="button" class="btn btn-default" role="button" href="#">
-                    Enviar Exercicio
-                </a>
+                <ul>
+                    @for(solucao <- solucoes){
+                        <li>
+                            @solucao.codigo
+
+                            @form(routes.Application.deletaSolucao(solucao.id)){
+                            <input type="submit" value="Deletar">
+                            }
+                        </li>
+                    }
+                </ul>
+
+                @form(routes.Application.novaSolucao()){
+                    @textarea(solucaoForm("codigo"), 'rows -> 2)
+
+                     <input type="submit" value="Criar">
+                }
             </section>
         </div>
-        <!--@Application.salvarCodigo("var x = 2"); Provisório! Stub -->
+
 
         <div class="col-sm-3">
             <section id="feedback">

@@ -10,20 +10,15 @@ import java.util.List;
 @Entity
 public class SolucaoDoExercicio extends Model{
 
-    public SolucaoDoExercicio(String cod){
-        codigo = cod;
-    }
-
     @Id
     @Constraints.Required
     public int id;
 
     @Constraints.Required
-    public String codigo = "oi";
+    public String codigo;
 
-    public String getCodigo() {
-
-        return codigo;
+    public SolucaoDoExercicio(String codigo){
+        this.codigo = codigo;
     }
 
     public static Finder<Integer,SolucaoDoExercicio> find = new Finder(
@@ -35,12 +30,11 @@ public class SolucaoDoExercicio extends Model{
         return find.all();
     }
 
-    public static String create(SolucaoDoExercicio solucaoDoExercicio) {
+    public static void create(SolucaoDoExercicio solucaoDoExercicio) {
         solucaoDoExercicio.save();
-        if(solucaoDoExercicio.find.byId(solucaoDoExercicio.id) != null){
-            return "inserido com sucesso!";
-        }
-        else
-            return "Erro: Exercicio não inserido";
+    }
+
+    public static void delete(int id){
+        find.ref(id).delete();
     }
 }
