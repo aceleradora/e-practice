@@ -43,12 +43,22 @@
 
         <div class="col-sm-6">
             <section id="terminal" in>
+                <ul>
+                    @for(solucao <- solucoes){
+                        <li>
+                            @solucao.codigo
 
+                            @form(routes.Application.deletaSolucao(solucao.id)){
+                                <input type="submit" value="Deletar">
+                            }
+                        </li>
+                    }
+                </ul>
                 <h2>Adicionar uma nova Solução</h2>
                 @form(routes.Application.novaSolucao()){
-                    @inputText(solucaoForm("label"))
+                    @inputText(solucaoForm("codigo"))
 
-                    <input type="submit" value="Create">
+                    <input type="submit" value="Criar">
                 }
 
 

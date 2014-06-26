@@ -17,23 +17,26 @@ public class SolucaoDoExercicio extends Model{
     @Constraints.Required
     public String codigo;
 
-    @Constraints.Required
-    public String label;
-
     public SolucaoDoExercicio(String codigo){
         this.codigo = codigo;
     }
 
+    //ebean helper
     public static Finder<Integer,SolucaoDoExercicio> find = new Finder(
             Integer.class, SolucaoDoExercicio.class
     );
 
+    //CRUD
     public static List<SolucaoDoExercicio> all() {
 
         return find.all();
     }
 
     public static void create(SolucaoDoExercicio solucaoDoExercicio) {
+        solucaoDoExercicio.save();
+    }
 
+    public static void delete(int id){
+        find.ref(id).delete();
     }
 }

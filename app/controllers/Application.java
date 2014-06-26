@@ -21,7 +21,15 @@ public class Application extends Controller {
 
 
     public static Result  novaSolucao(){
-        return TODO;
+        Form<SolucaoDoExercicio> formPreenchido = solucaoDoExercicioForm.bindFromRequest();
+
+        if(formPreenchido.hasErrors()){
+            return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido));
+        } else{
+            SolucaoDoExercicio.create(formPreenchido.get());
+            return redirect(routes.Application.solucoes());
+        }
+
     }
 
     public static Result deletaSolucao(int id){

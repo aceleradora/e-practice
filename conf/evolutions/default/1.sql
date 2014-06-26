@@ -6,7 +6,6 @@
 create table solucao_do_exercicio (
   id                        integer not null,
   codigo                    varchar(255),
-  label                     varchar(255),
   constraint pk_solucao_do_exercicio primary key (id))
 ;
 
