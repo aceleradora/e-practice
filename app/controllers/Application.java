@@ -33,7 +33,8 @@ public class Application extends Controller {
     }
 
     public static Result deletaSolucao(int id){
-        return TODO;
+        SolucaoDoExercicio.delete(id);
+        return redirect(routes.Application.solucoes());
     }
 
 }
