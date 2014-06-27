@@ -75,7 +75,6 @@
 
 textarea {
     font:10px verdana, arial, helvetica, sans-serif;
-    height: 343px;
+    height: 250px;
     width: 563px;
-    position: absolute;
 }
