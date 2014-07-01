@@ -89,8 +89,5 @@ public class TesteLexer {
         tokens = lexer.tokenizar("nome = \"Joao Henrique Stocker Pinto\"");
         assertThat(tokens.size(), is(3));
         assertThat(tokens.get(2), is("\"Joao Henrique Stocker Pinto\""));
-
     }
-
-
 }

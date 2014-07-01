@@ -28,6 +28,16 @@ public class Lexer {
                     }
                     temporaria += " " + stringDividida[i];
                     tokens.add(temporaria);
+                } else if (stringDividida[i].length() > 1 && stringDividida[i].contains("=")) {
+                    String[] tokenComIgualdadeNoMeio = stringDividida[i].split("=");
+                    tokens.add(tokenComIgualdadeNoMeio[0]);
+                    tokens.add("=");
+                    tokens.add(tokenComIgualdadeNoMeio[1]);
+                } else if (stringDividida[i].length() > 1 && stringDividida[i].contains("<>")) {
+                    String[] tokenComConcatenacaoNoMeio = stringDividida[i].split("<>");
+                    tokens.add(tokenComConcatenacaoNoMeio[0]);
+                    tokens.add("<>");
+                    tokens.add(tokenComConcatenacaoNoMeio[1]);
                 } else {
                     tokens.add(stringDividida[i]);
                 }
