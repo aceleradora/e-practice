@@ -14,7 +14,7 @@ public class SolucaoDoExercicio extends Model{
     @Constraints.Required
     public int id;
 
-    @Constraints.Required
+    @Constraints.Required (message = "A solução do exercício está vazia. Preencha corretamente.")
     public String codigo;
 
     public SolucaoDoExercicio(String codigo){
