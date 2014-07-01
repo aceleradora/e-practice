@@ -67,4 +67,6 @@ public class TesteLexer {
         assertThat(tokens.get(2), is(":"));
         assertThat(tokens.get(3), is("Integer"));
     }
+
+
 }

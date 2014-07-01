@@ -18,6 +18,16 @@ public class Lexer {
                     tokens.add(tokenComDoisPontosNoMeio[0]);
                     tokens.add(":");
                     tokens.add(tokenComDoisPontosNoMeio[1]);
+                } else if (token.length() > 1 && token.contains("=")) {
+                    String[] tokenComIgualdadeNoMeio = token.split("=");
+                    tokens.add(tokenComIgualdadeNoMeio[0]);
+                    tokens.add("=");
+                    tokens.add(tokenComIgualdadeNoMeio[1]);
+                } else if (token.length() > 1 && token.contains("<>")) {
+                    String[] tokenComConcatenacaoNoMeio = token.split("<>");
+                    tokens.add(tokenComConcatenacaoNoMeio[0]);
+                    tokens.add("<>");
+                    tokens.add(tokenComConcatenacaoNoMeio[1]);
                 } else {
                     tokens.add(token);
                 }
