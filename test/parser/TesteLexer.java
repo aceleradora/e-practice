@@ -67,4 +67,30 @@ public class TesteLexer {
         assertThat(tokens.get(2), is(":"));
         assertThat(tokens.get(3), is("Integer"));
     }
+
+    @Test
+    public void dadaUmaAtribuicaoDeStringComUmaUnicaPalavraDeveRetornarUmaListaComTresTokens() throws Exception {
+        tokens = lexer.tokenizar("nome = \"Joao\"");
+        assertThat(tokens.size(), is(3));
+        assertThat(tokens.get(0), is("nome"));
+        assertThat(tokens.get(1), is("="));
+        assertThat(tokens.get(2), is("\"Joao\""));
+    }
+
+    @Test
+    public void dadaUmaAtribuicaoDeStringComDuasPalavrasDeeveRetornarUmaListaComTresTokens() throws Exception {
+        tokens = lexer.tokenizar("nome = \"Joao Henrique\"");
+        assertThat(tokens.size(), is(3));
+        assertThat(tokens.get(2), is("\"Joao Henrique\""));
+    }
+
+    @Test
+    public void dadaUmaAtribuicaoDeStringComQuatroPalavrasDeveRetornarUmaListaComTresTokens() throws Exception {
+        tokens = lexer.tokenizar("nome = \"Joao Henrique Stocker Pinto\"");
+        assertThat(tokens.size(), is(3));
+        assertThat(tokens.get(2), is("\"Joao Henrique Stocker Pinto\""));
+
+    }
+
+
 }
