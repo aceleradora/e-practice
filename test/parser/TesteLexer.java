@@ -50,9 +50,9 @@ public class TesteLexer {
 
     @Test
     public void dadaUmaLinhaComPalavrasSeparadasPorEspacoDeveRetornarUmaListaComUmTokenParaCadaPalavra() throws Exception {
-        tokens = lexer.tokenizar("Numero umNumero : Integer");
+        tokens = lexer.tokenizar("var umNumero : Integer");
         assertThat(tokens.size(), is(4));
-        assertThat(tokens.get(0), is("Numero"));
+        assertThat(tokens.get(0), is("var"));
         assertThat(tokens.get(1), is("umNumero"));
         assertThat(tokens.get(2), is(":"));
         assertThat(tokens.get(3), is("Integer"));
@@ -60,9 +60,9 @@ public class TesteLexer {
 
     @Test
     public void dadaUmaAtribuicaoSemEspacamentoDeveRetornarUmaListaComUmTokenParaCadaPalavra() throws Exception {
-        tokens = lexer.tokenizar("Numero umNumero:Integer");
+        tokens = lexer.tokenizar("var umNumero:Integer");
         assertThat(tokens.size(), is(4));
-        assertThat(tokens.get(0), is("Numero"));
+        assertThat(tokens.get(0), is("var"));
         assertThat(tokens.get(1), is("umNumero"));
         assertThat(tokens.get(2), is(":"));
         assertThat(tokens.get(3), is("Integer"));

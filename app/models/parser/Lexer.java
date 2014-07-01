@@ -14,10 +14,10 @@ public class Lexer {
             String[] stringDividida = frase.split("[ ]+");
             for (String token : stringDividida) {
                 if (token.length() > 1 && token.contains(":")) {
-                    String[] tokenComIgualdadeNoMeio = token.split(":");
-                    tokens.add(tokenComIgualdadeNoMeio[0]);
+                    String[] tokenComDoisPontosNoMeio = token.split(":");
+                    tokens.add(tokenComDoisPontosNoMeio[0]);
                     tokens.add(":");
-                    tokens.add(tokenComIgualdadeNoMeio[1]);
+                    tokens.add(tokenComDoisPontosNoMeio[1]);
                 } else {
                     tokens.add(token);
                 }
