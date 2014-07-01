@@ -25,8 +25,12 @@ public class Application extends Controller {
             status = "Status: erro!";
             return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido, status));
         } else{
-            SolucaoDoExercicio.create(formPreenchido.get());
-            status = "Status: enviado!";
+            try{
+                SolucaoDoExercicio.create(formPreenchido.get());
+                status = "Status: sua solução foi salva com sucesso!";
+            } catch (Exception e){
+                status = "Status: sua solução não foi salva!";
+            }
             return redirect(routes.Application.solucoes());
         }
     }
