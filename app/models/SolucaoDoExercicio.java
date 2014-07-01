@@ -1,5 +1,6 @@
 package models;
 
+import org.hibernate.validator.constraints.ConstraintComposition;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
@@ -16,6 +17,7 @@ public class SolucaoDoExercicio extends Model{
 
     @Constraints.Required (message = "A solução do exercício está vazia. Preencha corretamente.")
     public String codigo;
+
 
     public SolucaoDoExercicio(String codigo){
         this.codigo = codigo;
