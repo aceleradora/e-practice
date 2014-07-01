@@ -71,20 +71,9 @@ function alttela() {
 
         <div class="col-sm-6">
             <section id="terminal" in>
-                <ul>
-                    @for(solucao <- solucoes){
-                        <li>
-                            @solucao.codigo
-
-                            @form(routes.Application.deletaSolucao(solucao.id)){
-                            <input class="enviar" type="submit" value="Deletar">
-                            }
-                        </li>
-                    }
-                </ul>
 
                 @form(routes.Application.novaSolucao()){
-                    @textarea(solucaoForm("codigo"), 'rows -> 2)
+                    @textarea(solucaoForm("codigo"), 'rows -> 2, 'placeholder -> "Digite a resolução do exercício")
                     <input type="submit" name="valor" value="Enviar" /><label id="status">@statusBotao</label>
                 }
             </section>
@@ -94,10 +83,18 @@ function alttela() {
         <div class="col-sm-3">
             <section id="feedback">
                 <h3>FeedBack | Dicas:</h3>
-
                 <p>
-                    mé fais elementum girarzis, nisi eros vermio, in elementis mé pra quem
-                    é amistosis quis leo. Manduma pindureta quium dia nois paga
+                    <ul>
+                        @for(solucao <- solucoes){
+                        <li>
+                            @solucao.codigo
+
+                            @form(routes.Application.deletaSolucao(solucao.id)){
+                            <input class="enviar" type="submit" value="Deletar">
+                            }
+                        </li>
+                        }
+                    </ul>
                 </p>
             </section>
         </div>
