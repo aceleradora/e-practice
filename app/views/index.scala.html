@@ -73,7 +73,7 @@ function alttela() {
             <section id="terminal" in>
 
                 @form(routes.Application.novaSolucao()){
-                    @textarea(solucaoForm("codigo"), 'rows -> 2, 'placeholder -> "Digite a solução do exercício")
+                    @textarea(solucaoForm("codigo"), 'rows -> 2, 'placeholder -> "Digite a solução do exercício", '_showConstraints -> false)
                     <input type="submit" name="valor" value="Enviar" /><label id="status">@statusBotao</label>
                 }
             </section>

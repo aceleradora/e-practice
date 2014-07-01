@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import controllers.Application;
 import models.SolucaoDoExercicio;
 import org.junit.*;
 
@@ -42,6 +43,12 @@ public class ApplicationTest {
     public void SolucaoNaoPodeTerCorpoVazio() {
         SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio("codigo");
         assertNotNull(solucaoDoExercicio.codigo);
+    }
+
+    @Test
+    public void quandoChamaOMetodoIndexRedirecionaParaSolucoes() {
+        Result result = callAction(controllers.routes.ref.Application.index());
+        assertThat(status(result)).isPositive();
     }
 
 }
