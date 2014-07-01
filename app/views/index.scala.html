@@ -1,4 +1,4 @@
-@(solucoes: List[SolucaoDoExercicio], solucaoForm: Form[SolucaoDoExercicio])
+@(solucoes: List[SolucaoDoExercicio], solucaoForm: Form[SolucaoDoExercicio], statusBotao: String)
 @import helper._
 
 @main("e-Practice") {
@@ -19,8 +19,7 @@ function alttela() {
 
 </script>
 
-
-    <div class="row" id="head">
+<div class="row" id="head">
         <div class="col-sm-3">
             <div id="logo" class="left">
                 <h1>e-practice</h1>
@@ -86,8 +85,7 @@ function alttela() {
 
                 @form(routes.Application.novaSolucao()){
                     @textarea(solucaoForm("codigo"), 'rows -> 2)
-
-                     <input type="submit" value="Criar">
+                    <input type="submit" name="valor" value="Enviar" /><label id="status">@statusBotao</label>
                 }
             </section>
         </div>
