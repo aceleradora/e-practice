@@ -32,7 +32,7 @@ public class SolucaoDoExercicio extends Model{
         return find.all();
     }
 
-    public static void create(SolucaoDoExercicio solucaoDoExercicio) {
+    public static void create(SolucaoDoExercicio solucaoDoExercicio) throws Exception {
         solucaoDoExercicio.save();
     }
 
