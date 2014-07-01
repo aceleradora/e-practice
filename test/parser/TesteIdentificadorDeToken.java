@@ -55,38 +55,38 @@ public class TesteIdentificadorDeToken {
 
     @Test
     public void simboloDeAdicaoDeveRetornarTipoDeTokenAdicao() throws Exception {
-        tokenID = tokenIdentifier.identifica("+");
+        tokenID = identificadorDeToken.identifica("+");
         assertThat(tokenID, is("ADICAO"));
     }
 
     @Test
     public void simboloDeSubtracaoDeveRetornarTipoDeTokenSubtracao() throws Exception {
-        tokenID = tokenIdentifier.identifica("-");
+        tokenID = identificadorDeToken.identifica("-");
         assertThat(tokenID,is("SUBTRACAO"));
     }
 
     @Test
     public void simboloDeMultiplicacaoDeveRetornarTipoDeTokenMultiplicacao() throws Exception {
 
-        tokenID = tokenIdentifier.identifica("*");
+        tokenID = identificadorDeToken.identifica("*");
         assertThat(tokenID,is("MULTIPLICACAO"));
     }
 
     @Test
     public void simboloDeDivisaoDeveRetornarTipoDeTokenDivisao() throws Exception {
-        tokenID = tokenIdentifier.identifica("/");
+        tokenID = identificadorDeToken.identifica("/");
         assertThat(tokenID,is("DIVISAO"));
     }
 
     @Test
     public void simboloParentesesAbertoDeveRetornarTipoDeTokenParentesesAberto() throws Exception {
-        tokenID = tokenIdentifier.identifica("(");
+        tokenID = identificadorDeToken.identifica("(");
         assertThat(tokenID,is("PARENTESES_ABERTO"));
     }
 
     @Test
     public void simboloParentesesFechadoDeveRetornarTipoDeTokenParentesesFechado() throws Exception {
-        tokenID = tokenIdentifier.identifica(")");
+        tokenID = identificadorDeToken.identifica(")");
         assertThat(tokenID,is("PARENTESES_FECHADO"));
     }
 
