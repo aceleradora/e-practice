@@ -25,12 +25,14 @@ public class IdentificadorDeToken {
             return "PARENTESES_ABERTO";
         } else if (token.equals(")")) {
             return "PARENTESES_FECHADO";
-	} else if (Character.isLetter(token.charAt(0))) {
+	    } else if (Character.isLetter(token.charAt(0))) {
             return "IDV";
         } else if (Character.isDigit(token.charAt(0))) {
             if(!verificaSeTodasOsCaracteresSaoNumeros(token)) return "ERRO";
             else return "NUMERO";
-        } else return "";
+        } else if (token.equals("<>")) {
+            return "CONCATENACAO";
+        } else return "INVALIDO";
     }
 
     public boolean verificaSeTodasOsCaracteresSaoNumeros(String token){

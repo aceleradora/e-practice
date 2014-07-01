@@ -95,4 +95,10 @@ public class TesteIdentificadorDeToken {
         tokenID = identificadorDeToken.identifica("abc_ABC_123");
         assertThat(tokenID, is("IDV"));
     }
+
+    @Test
+    public void simboloDeConcatenacaoDeveRetornarTipoDeTokenSimboloDeConcatenacao() throws Exception {
+        tokenID = identificadorDeToken.identifica("<>");
+        assertThat(tokenID,is("CONCATENACAO"));
+    }
 }
