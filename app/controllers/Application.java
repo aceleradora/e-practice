@@ -18,7 +18,7 @@ public class Application extends Controller {
         return ok(views.html.index.render(SolucaoDoExercicio.all(), solucaoDoExercicioForm, status));
     }
 
-    public static Result  novaSolucao(){
+    public static Result novaSolucao(){
         Form<SolucaoDoExercicio> formPreenchido = solucaoDoExercicioForm.bindFromRequest();
 
         if(formPreenchido.hasErrors()){

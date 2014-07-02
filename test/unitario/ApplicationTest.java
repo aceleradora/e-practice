@@ -10,6 +10,7 @@ import controllers.Application;
 import models.SolucaoDoExercicio;
 import org.junit.*;
 
+import play.api.libs.openid.Errors;
 import play.mvc.*;
 import play.test.*;
 import play.data.DynamicForm;
@@ -18,10 +19,10 @@ import play.data.validation.Constraints.RequiredValidator;
 import play.i18n.Lang;
 import play.libs.F;
 import play.libs.F.*;
+import views.html.defaultpages.badRequest;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
 
@@ -46,9 +47,10 @@ public class ApplicationTest {
     }
 
     @Test
-    public void quandoChamaOMetodoIndexRedirecionaParaSolucoes() {
+    public void quandoChamaOMetodoIndexRetornaPositivo() {
         Result result = callAction(controllers.routes.ref.Application.index());
         assertThat(status(result)).isPositive();
     }
+
 
 }
