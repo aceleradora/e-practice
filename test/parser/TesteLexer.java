@@ -4,6 +4,8 @@ import models.parser.Lexer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.Console;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -81,6 +83,8 @@ public class TesteLexer {
     public void dadaUmaAtribuicaoDeStringComDuasPalavrasDeeveRetornarUmaListaComTresTokens() throws Exception {
         tokens = lexer.tokenizar("nome = \"Joao Henrique\"");
         assertThat(tokens.size(), is(3));
+        assertThat(tokens.get(0), is("nome"));
+        assertThat(tokens.get(1), is("="));
         assertThat(tokens.get(2), is("\"Joao Henrique\""));
     }
 
@@ -88,6 +92,51 @@ public class TesteLexer {
     public void dadaUmaAtribuicaoDeStringComQuatroPalavrasDeveRetornarUmaListaComTresTokens() throws Exception {
         tokens = lexer.tokenizar("nome = \"Joao Henrique Stocker Pinto\"");
         assertThat(tokens.size(), is(3));
+        assertThat(tokens.get(0), is("nome"));
+        assertThat(tokens.get(1), is("="));
         assertThat(tokens.get(2), is("\"Joao Henrique Stocker Pinto\""));
+    }
+
+    @Test
+    public void dadaUmaAtribuicaoDeStringComUmaPalavraMasSemEspacosDeveRetornarUmaListaComTresTokens() throws Exception {
+        tokens = lexer.tokenizar("nome=\"Joao\"");
+        assertThat(tokens.size(), is(3));
+        assertThat(tokens.get(0), is("nome"));
+        assertThat(tokens.get(1), is("="));
+        assertThat(tokens.get(2), is("\"Joao\""));
+    }
+
+    @Test
+    public void dadaUmaConcatenacaoDeDuasStringsDeveRetornarUmaListaComCincoTokens() throws Exception {
+        tokens = lexer.tokenizar("nome = \"Joao\" <> \"Henrique\"");
+        assertThat(tokens.size(), is(5));
+        assertThat(tokens.get(0), is("nome"));
+        assertThat(tokens.get(1), is("="));
+        assertThat(tokens.get(2), is("\"Joao\""));
+        assertThat(tokens.get(3), is("<>"));
+        assertThat(tokens.get(4), is("\"Henrique\""));
+    }
+
+    @Test
+    public void dadaUmaConcatenacaoDeDuasStringsMasSemEspacoNaConcatenacaoDeveRetornarUmaListaComCincoTokens() throws Exception {
+        tokens = lexer.tokenizar("nome = \"Joao\"<>\"Henrique\"");
+        assertThat(tokens.size(), is(5));
+        assertThat(tokens.get(0), is("nome"));
+        assertThat(tokens.get(1), is("="));
+        assertThat(tokens.get(2), is("\"Joao\""));
+        assertThat(tokens.get(3), is ("<>"));
+        assertThat(tokens.get(4), is("\"Henrique\""));
+
+    }
+
+    @Test
+    public void dadaUmaConcatenacaoDeDuasStringsMasSemEspacoNaAtribuicaoENaConcatenacaoDeveRetornarUmaListaComCincoTokens() throws Exception {
+        tokens = lexer.tokenizar("nome=\"Joao\"<>\"Henrique\"");
+        assertThat(tokens.size(), is(5));
+        assertThat(tokens.get(0), is("nome"));
+        assertThat(tokens.get(1), is("="));
+        assertThat(tokens.get(2), is("\"Joao\""));
+        assertThat(tokens.get(3), is("<>"));
+        assertThat(tokens.get(4), is("\"Henrique\""));
     }
 }
