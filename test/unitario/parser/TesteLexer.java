@@ -1,11 +1,10 @@
-package parser;
+package unitario.parser;
 
 import models.parser.Lexer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.Console;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
