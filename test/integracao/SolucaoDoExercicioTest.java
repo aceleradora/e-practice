@@ -1,6 +1,7 @@
 package integracao;
 
 import models.SolucaoDoExercicio;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -16,15 +17,14 @@ public class SolucaoDoExercicioTest {
     public void quandoChamaOMetodoCreateSalvaUmaSolucaoNoBanco() {
         running(fakeApplication(), new Runnable() {
             public void run() {
+            SolucaoDoExercicio novaSolucao = new SolucaoDoExercicio("var x = 1");
+            novaSolucao.save();
 
-                SolucaoDoExercicio novaSolucao = new SolucaoDoExercicio("var x = 1");
-                novaSolucao.save();
+            SolucaoDoExercicio novaSolucaoNoBanco = SolucaoDoExercicio.find.ref(novaSolucao.id);
 
-                SolucaoDoExercicio novaSolucaoNoBanco = SolucaoDoExercicio.find.ref(novaSolucao.id);
-
-                assertEquals(novaSolucaoNoBanco.solucaoDoUsuario, "var x = 1");
+            assertEquals(novaSolucaoNoBanco.solucaoDoUsuario, "var x = 1");
+            SolucaoDoExercicio.delete(novaSolucao.id);
             }
         });
     }
-
 }
