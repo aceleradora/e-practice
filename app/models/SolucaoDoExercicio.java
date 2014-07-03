@@ -31,7 +31,11 @@ public class SolucaoDoExercicio extends Model{
         return find.all();
     }
 
-    public static void create(SolucaoDoExercicio solucaoDoExercicio) throws Exception {
+    public void create() {
+        this.save();
+    }
+
+    public static void create(SolucaoDoExercicio solucaoDoExercicio){
         solucaoDoExercicio.save();
     }
 

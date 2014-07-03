@@ -1,25 +1,9 @@
 package unitario;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import controllers.Application;
 import models.SolucaoDoExercicio;
 import org.junit.*;
 
-import play.api.libs.openid.Errors;
 import play.mvc.*;
-import play.test.*;
-import play.data.DynamicForm;
-import play.data.validation.ValidationError;
-import play.data.validation.Constraints.RequiredValidator;
-import play.i18n.Lang;
-import play.libs.F;
-import play.libs.F.*;
-import views.html.defaultpages.badRequest;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -42,8 +26,8 @@ public class ApplicationTest {
 
     @Test
     public void SolucaoNaoPodeTerCorpoVazio() {
-        SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio("codigo");
-        assertNotNull(solucaoDoExercicio.codigo);
+        SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio("solucaoDoUsuario");
+        assertNotNull(solucaoDoExercicio.solucaoDoUsuario);
     }
 
     @Test

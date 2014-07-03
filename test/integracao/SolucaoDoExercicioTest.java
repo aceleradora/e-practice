@@ -6,40 +6,25 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.running;
 
 public class SolucaoDoExercicioTest {
 
     @Test
-    public void quandoChamaOMetodoCreateCriaUmaSolucao() {
+    public void quandoChamaOMetodoCreateSalvaUmaSolucaoNoBanco() {
         running(fakeApplication(), new Runnable() {
             public void run() {
 
                 SolucaoDoExercicio novaSolucao = new SolucaoDoExercicio("var x = 1");
+                novaSolucao.save();
 
-                try {
-                    SolucaoDoExercicio.create(novaSolucao);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                SolucaoDoExercicio novaSolucaoNoBanco = SolucaoDoExercicio.find.ref(novaSolucao.id);
 
-                assertThat(novaSolucao.codigo).isNotNull();
+                assertEquals(novaSolucaoNoBanco.solucaoDoUsuario, "var x = 1");
             }
         });
-
     }
 
-    @Test
-    public void quandoChamaOMetodoAllRetornaOsObjetosDoBanco() throws Exception {
-        running(fakeApplication(), new Runnable(){
-            public void run(){
-
-                List<SolucaoDoExercicio> lista = SolucaoDoExercicio.all();
-                assertThat(lista).isNotEmpty();
-
-            }
-        });
-
-    }
 }
