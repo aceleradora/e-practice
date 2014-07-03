@@ -1,6 +1,5 @@
 package models;
 
-import org.hibernate.validator.constraints.ConstraintComposition;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
@@ -16,11 +15,11 @@ public class SolucaoDoExercicio extends Model{
     public int id;
 
     @Constraints.Required (message = "A solução do exercício está vazia. Preencha corretamente.")
-    public String codigo;
+    public String solucaoDoUsuario;
 
 
-    public SolucaoDoExercicio(String codigo){
-        this.codigo = codigo;
+    public SolucaoDoExercicio(String solucaoDoUsuario){
+        this.solucaoDoUsuario = solucaoDoUsuario;
     }
 
     public static Finder<Integer,SolucaoDoExercicio> find = new Finder(
