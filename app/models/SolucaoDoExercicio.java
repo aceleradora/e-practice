@@ -2,6 +2,7 @@ package models;
 
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
+import scala.languageFeature;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -35,7 +36,7 @@ public class SolucaoDoExercicio extends Model{
         this.save();
     }
 
-    public static void create(SolucaoDoExercicio solucaoDoExercicio){
+    public static void create(SolucaoDoExercicio solucaoDoExercicio) throws Exception{
         solucaoDoExercicio.save();
     }
 
