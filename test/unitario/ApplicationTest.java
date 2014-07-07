@@ -1,12 +1,10 @@
 package unitario;
 
 import models.SolucaoDoExercicio;
-import models.parser.TabelaDeSimbolos;
 import org.junit.*;
 
 import play.mvc.*;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
@@ -37,24 +35,4 @@ public class ApplicationTest {
         assertThat(status(result)).isPositive();
     }
 
-    @Test
-    public void quandoAtribuiInteiroAVarDoTipoInteiroRetornaTrue() throws Exception {
-        TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
-        tabelaDeSimbolos.adicionaSimbolo("x", "Inteiro");
-
-        boolean resultado = tabelaDeSimbolos.verificaSeTipoCombina("x", "Inteiro");
-
-        assertThat(resultado, is(true));
-    }
-
-    @Test
-    public void quandoAtribuiStringAVarDoTipoInteiroRetornaFalse() throws Exception {
-        TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
-        tabelaDeSimbolos.adicionaSimbolo("x", "Inteiro");
-
-        boolean resultado = tabelaDeSimbolos.verificaSeTipoCombina("x", "String");
-
-        assertThat(resultado, is(false));
-
-    }
 }
