@@ -1,7 +1,9 @@
 package unitario.parser;
 
+import models.SolucaoDoExercicio;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
+import models.analisadorSintatico.ValidadorDeAtribuicao;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -48,5 +50,17 @@ public class TesteValidadorDeAtribuicao {
 
     }
 
+    @Test
+    public void quandoEscreveAtribuicaoCorretamenteRetornaMensagemOk() throws Exception {
+        String frase = "abacaxi = 1";
+        Lexer lexer = new Lexer();
+        IdentificadorDeToken tokenizer = new IdentificadorDeToken();
+        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(lexer, tokenizer);
+
+        String resultado = validadorDeAtribuicao.validarAtribuicao(frase);
+
+        assertThat(resultado, is("Código correto!"));
+
+    }
 
 }
