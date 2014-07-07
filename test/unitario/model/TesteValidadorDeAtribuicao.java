@@ -50,7 +50,7 @@ public class TesteValidadorDeAtribuicao {
     }
 
     @Test
-    public void quandoEscreveAbacaxiIGUALa1RetornaDeMensagemOk() throws Exception {
+    public void quandoEscreveIdentificadorIGUALa1RetornaMensagemOk() throws Exception {
         String frase = "abacaxi = 1";
         Lexer lexer = new Lexer();
         IdentificadorDeToken tokenizer = new IdentificadorDeToken();
@@ -63,7 +63,7 @@ public class TesteValidadorDeAtribuicao {
     }
 
     @Test
-    public void quandoEscreve1IGUALaAbacaxiRetornaMensagemDeErro() throws Exception {
+    public void quandoEscreve1IGUALaIdentificadorRetornaMensagemDeErro() throws Exception {
         String frase = "1 = abacaxi";
         Lexer lexer = new Lexer();
         IdentificadorDeToken tokenizer = new IdentificadorDeToken();
