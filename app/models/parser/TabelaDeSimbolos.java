@@ -6,7 +6,7 @@ public class TabelaDeSimbolos {
     private HashMap<String, String> tabela;
 
     public TabelaDeSimbolos() {
-        tabela = new HashMap<>();
+        tabela = new HashMap<String, String>();
     }
 
     public void adicionaSimbolo(String identificador, String tipo){
