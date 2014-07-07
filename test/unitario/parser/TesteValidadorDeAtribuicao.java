@@ -51,7 +51,7 @@ public class TesteValidadorDeAtribuicao {
     }
 
     @Test
-    public void quandoEscreveAtribuicaoCorretamenteRetornaMensagemOk() throws Exception {
+    public void quandoEscreveAbacaxiIGUALa1RetornaDeMensagemOk() throws Exception {
         String frase = "abacaxi = 1";
         Lexer lexer = new Lexer();
         IdentificadorDeToken tokenizer = new IdentificadorDeToken();
@@ -63,4 +63,15 @@ public class TesteValidadorDeAtribuicao {
 
     }
 
+    @Test
+    public void quandoEscreve1IGUALaAbacaxiRetornaMensagemDeErro() throws Exception {
+        String frase = "1 = abacaxi";
+        Lexer lexer = new Lexer();
+        IdentificadorDeToken tokenizer = new IdentificadorDeToken();
+        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(lexer, tokenizer);
+
+        String resultado = validadorDeAtribuicao.validarAtribuicao(frase);
+
+        assertThat(resultado, is("Erro de sintaxe!"));
+    }
 }
