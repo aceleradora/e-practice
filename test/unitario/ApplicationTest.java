@@ -3,7 +3,11 @@ package unitario;
 import models.SolucaoDoExercicio;
 import org.junit.*;
 import play.mvc.*;
+<<<<<<< HEAD
 import static org.hamcrest.CoreMatchers.is;
+=======
+
+>>>>>>> ea6003d1a395ad24f8fe4742fef4c5ceb61ebfd7
 import static org.junit.Assert.*;
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
@@ -33,6 +37,5 @@ public class ApplicationTest {
         Result result = callAction(controllers.routes.ref.Application.index());
         assertThat(status(result)).isPositive();
     }
-
 
 }
