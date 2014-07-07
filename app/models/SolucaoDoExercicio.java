@@ -28,7 +28,6 @@ public class SolucaoDoExercicio extends Model{
     );
 
     public static List<SolucaoDoExercicio> all() {
-
         return find.all();
     }
 
