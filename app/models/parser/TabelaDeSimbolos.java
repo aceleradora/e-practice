@@ -14,7 +14,7 @@ public class TabelaDeSimbolos {
     }
 
 
-    public boolean verifica(String idv, String tipo) {
+    public boolean verificaSeTipoCombina(String idv, String tipo) {
         if(tipo.equals(tabela.get(idv))) return true;
         else return false;
     }
