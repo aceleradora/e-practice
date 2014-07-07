@@ -4,7 +4,6 @@ public class IdentificadorDeToken {
 
 
     public String identifica(String token) {
-
         if (token.equals("var")) {
             return "PALAVRA_RESERVADA";
         } else if (token.equals("String")) {
