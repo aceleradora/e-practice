@@ -1,6 +1,6 @@
 package unitario.parser;
 
-import models.parser.IdentificadorDeToken;
+import models.analisadorLexico.IdentificadorDeToken;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -101,4 +101,13 @@ public class TesteIdentificadorDeToken {
         tokenID = identificadorDeToken.identifica("<>");
         assertThat(tokenID,is("CONCATENACAO"));
     }
+
+    @Test
+    public void constanteDeveRetornarTipoDeTOkenConstante() throws Exception {
+        tokenID = identificadorDeToken.identifica("\"teste\"");
+        assertThat(tokenID, is("CONSTANTE"));
+    }
+
+
+
 }
