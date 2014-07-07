@@ -1,7 +1,4 @@
 package models.analisadorLexico;
-
-import com.sun.javafx.fxml.expression.Expression;
-
 public class IdentificadorDeToken {
 
 
