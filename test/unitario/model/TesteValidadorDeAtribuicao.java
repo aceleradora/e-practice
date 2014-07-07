@@ -73,4 +73,5 @@ public class TesteValidadorDeAtribuicao {
 
         assertThat(resultado, is("Erro de sintaxe!"));
     }
+
 }
