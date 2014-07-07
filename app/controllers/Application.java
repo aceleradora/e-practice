@@ -4,10 +4,17 @@ import play.data.Form;
 import play.mvc.*;
 import models.*;
 
+import java.util.List;
+
 public class Application extends Controller {
 
     static Form<SolucaoDoExercicio> solucaoDoExercicioForm = Form.form(SolucaoDoExercicio.class);
     static String status;
+    private static SolucaoDoExercicio solucaoDoExercicio;
+
+    public Application(SolucaoDoExercicio solucaoDoExercicio) {
+        this.solucaoDoExercicio = solucaoDoExercicio;
+    }
 
     public static Result index() {
         status = "";
@@ -15,7 +22,9 @@ public class Application extends Controller {
     }
 
     public static Result solucoes(){
-        return ok(views.html.index.render(SolucaoDoExercicio.all(), solucaoDoExercicioForm, status));
+        List<SolucaoDoExercicio> all = solucaoDoExercicio.all();
+
+        return ok(views.html.index.render(all, solucaoDoExercicioForm, status));
     }
 
     public static Result novaSolucao(){
