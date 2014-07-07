@@ -1,5 +1,7 @@
 package models.parser;
 
+import com.sun.javafx.fxml.expression.Expression;
+
 public class IdentificadorDeToken {
 
 
@@ -25,13 +27,16 @@ public class IdentificadorDeToken {
             return "PARENTESES_ABERTO";
         } else if (token.equals(")")) {
             return "PARENTESES_FECHADO";
-	    } else if (Character.isLetter(token.charAt(0))) {
+        } else if (token.charAt(0) == '\"' && token.charAt(token.length()-1) == '\"') {
+            return "CONSTANTE";
+        } else if (Character.isLetter(token.charAt(0))) {
             return "IDV";
         } else if (Character.isDigit(token.charAt(0))) {
             if(!verificaSeTodasOsCaracteresSaoNumeros(token)) return "ERRO";
             else return "NUMERO";
         } else if (token.equals("<>")) {
             return "CONCATENACAO";
+
         } else return "INVALIDO";
     }
 

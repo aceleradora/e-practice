@@ -101,4 +101,13 @@ public class TesteIdentificadorDeToken {
         tokenID = identificadorDeToken.identifica("<>");
         assertThat(tokenID,is("CONCATENACAO"));
     }
+
+    @Test
+    public void constanteDeveRetornarTipoDeTOkenConstante() throws Exception {
+        tokenID = identificadorDeToken.identifica("\"teste\"");
+        assertThat(tokenID, is("CONSTANTE"));
+    }
+
+
+
 }

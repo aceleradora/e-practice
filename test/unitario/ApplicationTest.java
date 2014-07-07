@@ -2,9 +2,7 @@ package unitario;
 
 import models.SolucaoDoExercicio;
 import org.junit.*;
-
 import play.mvc.*;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static play.test.Helpers.*;
