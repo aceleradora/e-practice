@@ -1,14 +1,14 @@
 package integracao;
 
+import controllers.Application;
 import models.SolucaoDoExercicio;
 import org.junit.Test;
 
-import java.util.List;
-
-import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.running;
+
 
 public class SolucaoDoExercicioTest {
 
@@ -16,15 +16,14 @@ public class SolucaoDoExercicioTest {
     public void quandoChamaOMetodoCreateSalvaUmaSolucaoNoBanco() {
         running(fakeApplication(), new Runnable() {
             public void run() {
+            SolucaoDoExercicio novaSolucao = new SolucaoDoExercicio("var x = 1");
 
-                SolucaoDoExercicio novaSolucao = new SolucaoDoExercicio("var x = 1");
-                novaSolucao.save();
+            novaSolucao.save();
+            SolucaoDoExercicio novaSolucaoNoBanco = SolucaoDoExercicio.find.ref(novaSolucao.id);
 
-                SolucaoDoExercicio novaSolucaoNoBanco = SolucaoDoExercicio.find.ref(novaSolucao.id);
-
-                assertEquals(novaSolucaoNoBanco.solucaoDoUsuario, "var x = 1");
+            assertEquals(novaSolucaoNoBanco.solucaoDoUsuario, "var x = 1");
+            SolucaoDoExercicio.delete(novaSolucao.id);
             }
         });
     }
-
 }

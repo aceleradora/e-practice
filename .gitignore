@@ -16,3 +16,4 @@ dist
 /*.sql
 /sbt
 /*.jar
+*.iml
