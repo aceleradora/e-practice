@@ -1,6 +1,6 @@
 package unitario.parser;
 
-import models.parser.Lexer;
+import models.analisadorLexico.Lexer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

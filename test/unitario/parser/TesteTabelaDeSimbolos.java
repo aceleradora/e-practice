@@ -1,6 +1,6 @@
 package unitario.parser;
 
-import models.parser.TabelaDeSimbolos;
+import models.TabelaDeSimbolos;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

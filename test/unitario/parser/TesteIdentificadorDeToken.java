@@ -1,6 +1,6 @@
 package unitario.parser;
 
-import models.parser.IdentificadorDeToken;
+import models.analisadorLexico.IdentificadorDeToken;
 import org.junit.Before;
 import org.junit.Test;
 

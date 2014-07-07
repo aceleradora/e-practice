@@ -1,4 +1,4 @@
-package models.parser;
+package models.analisadorLexico;
 
 import java.util.ArrayList;
 
