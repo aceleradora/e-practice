@@ -1,6 +1,6 @@
-package unitario.parser;
+package unitario.model;
 
-import models.parser.ValidadorDeDeclaracaoDeVariavel;
+import models.analisadorSintatico.ValidadorDeDeclaracaoDeVariavel;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package unitario.parser;
+package unitario.model;
 
 import models.analisadorLexico.Lexer;
 import org.junit.After;

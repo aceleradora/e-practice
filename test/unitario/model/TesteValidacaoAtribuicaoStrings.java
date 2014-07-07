@@ -1,11 +1,8 @@
-package unitario.parser;
+package unitario.model;
 
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
-import static play.test.Helpers.*;
-import static org.fest.assertions.Assertions.*;
 
 public class TesteValidacaoAtribuicaoStrings {
 

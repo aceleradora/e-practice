@@ -1,4 +1,4 @@
-package unitario.parser;
+package unitario.model;
 
 import models.TabelaDeSimbolos;
 import org.junit.Test;

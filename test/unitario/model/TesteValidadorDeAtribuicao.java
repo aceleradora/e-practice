@@ -1,6 +1,5 @@
-package unitario.parser;
+package unitario.model;
 
-import models.SolucaoDoExercicio;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
 import models.analisadorSintatico.ValidadorDeAtribuicao;
