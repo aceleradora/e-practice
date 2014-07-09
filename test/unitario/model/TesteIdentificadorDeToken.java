@@ -105,7 +105,7 @@ public class TesteIdentificadorDeToken {
     @Test
     public void constanteDeveRetornarTipoDeTOkenConstante() throws Exception {
         tokenID = identificadorDeToken.identifica("\"teste\"");
-        assertThat(tokenID, is("CONSTANTE"));
+        assertThat(tokenID, is("CONSTANTE_TIPO_STRING"));
     }
 
     @Test
