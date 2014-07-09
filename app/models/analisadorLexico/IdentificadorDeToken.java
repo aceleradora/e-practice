@@ -11,7 +11,9 @@ public class IdentificadorDeToken {
             return "TIPO_DE_VARIAVEL";
         } else if (token.equals("=")) {
             return "IGUAL";
-     	} else if (token.equals("+")) {
+        } else if (token.equals(":")) {
+            return "DECLARACAO";
+        } else if (token.equals("+")) {
             return "ADICAO";
         } else if (token.equals("-")) {
             return "SUBTRACAO";

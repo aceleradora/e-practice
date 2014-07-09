@@ -108,6 +108,9 @@ public class TesteIdentificadorDeToken {
         assertThat(tokenID, is("CONSTANTE"));
     }
 
-
-
+    @Test
+    public void testdoisPontosDeveRetornarDeclaracao() throws Exception {
+        tokenID = identificadorDeToken.identifica(":");
+        assertThat(tokenID, is("DECLARACAO"));
+    }
 }
