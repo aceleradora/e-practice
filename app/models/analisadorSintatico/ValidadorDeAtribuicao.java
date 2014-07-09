@@ -14,26 +14,20 @@ public class ValidadorDeAtribuicao {
         this.identificadorDeTokens = identificadorDeTokens;
     }
 
-    public String validarAtribuicao(String frase) {
+    public boolean validaPrimeiroToken(String primeiroToken) {
 
-        ArrayList<String> tokens = lexer.tokenizar(frase);
+        String token = identificadorDeTokens.identifica(primeiroToken);
+        if(token == "IDV")
+            return true;
+        else
+            return false;
+    }
 
-        ArrayList<String> pilhaDeTokens = new ArrayList<String>();
-
-        for(int i = 0; i < tokens.size(); i++){
-
-            if(identificadorDeTokens.identifica(tokens.get(i)) == "IDV") pilhaDeTokens.add("IDV");
-            else if(identificadorDeTokens.identifica(tokens.get(i)) == "IGUAL") pilhaDeTokens.add("IGUAL");
-            else if(identificadorDeTokens.identifica(tokens.get(i)) == "NUMERO") pilhaDeTokens.add("NUMERO");
-
-        }
-
-        if(pilhaDeTokens.get(0) != "IDV") return "Erro de sintaxe!";
-        else if(pilhaDeTokens.get(1) != "IGUAL") return "Erro de sintaxe!";
-        else if(pilhaDeTokens.get(2) != "NUMERO") return "Erro de sintaxe!";
-        else return "Código correto!";
-
-        //if(frase == "abacaxi = 1") return "Código correto!";
-        //else if(frase == "1 = abacaxi") return "Erro de sintaxe!";
+    public boolean validaSegundoToken(String segundoToken){
+        String token = identificadorDeTokens.identifica(segundoToken);
+        if(token == "IGUAL")
+            return true;
+        else
+            return false;
     }
 }

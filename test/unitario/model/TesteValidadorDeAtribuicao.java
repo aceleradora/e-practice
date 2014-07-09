@@ -3,6 +3,7 @@ package unitario.model;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
 import models.analisadorSintatico.ValidadorDeAtribuicao;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -10,11 +11,20 @@ import static org.hamcrest.CoreMatchers.*;
 import java.util.ArrayList;
 
 public class TesteValidadorDeAtribuicao {
+    Lexer lexer;
+    IdentificadorDeToken identificadorDeToken;
+    ValidadorDeAtribuicao validadorDeAtribuicao;
+
+    @Before
+    public void setUp() throws Exception {
+        lexer = new Lexer();
+        identificadorDeToken = new IdentificadorDeToken();
+        validadorDeAtribuicao = new ValidadorDeAtribuicao(lexer, identificadorDeToken);
+
+    }
 
     @Test
     public void quandoPrimeiraPalavraEUmIDVRetornaIDV() throws Exception {
-        Lexer lexer = new Lexer();
-        IdentificadorDeToken identificadorDeToken = new IdentificadorDeToken();
 
         ArrayList<String> tokens = lexer.tokenizar("x = 1");
 
@@ -25,8 +35,6 @@ public class TesteValidadorDeAtribuicao {
 
     @Test
     public void quandoSegundaPalavraEUmOperadorIgualRetornaIgual() throws Exception {
-        Lexer lexer = new Lexer();
-        IdentificadorDeToken identificadorDeToken = new IdentificadorDeToken();
 
         ArrayList<String> tokens = lexer.tokenizar("x = 1");
 
@@ -38,8 +46,6 @@ public class TesteValidadorDeAtribuicao {
 
     @Test
     public void quandoTerceiraPalavraEUmNumeroRetornaNumero() throws Exception {
-        Lexer lexer = new Lexer();
-        IdentificadorDeToken identificadorDeToken = new IdentificadorDeToken();
 
         ArrayList<String> tokens = lexer.tokenizar("x = 1");
 
@@ -50,28 +56,20 @@ public class TesteValidadorDeAtribuicao {
     }
 
     @Test
-    public void quandoEscreveIdentificadorIGUALa1RetornaMensagemOk() throws Exception {
-        String frase = "abacaxi = 1";
-        Lexer lexer = new Lexer();
-        IdentificadorDeToken tokenizer = new IdentificadorDeToken();
-        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(lexer, tokenizer);
+    public void retornaTrueQuandoOPrimeirTokenForUmIDV() throws Exception {
 
-        String resultado = validadorDeAtribuicao.validarAtribuicao(frase);
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi = 1");
+        boolean resultado = validadorDeAtribuicao.validaPrimeiroToken(tokens.get(0));
 
-        assertThat(resultado, is("Código correto!"));
-
+        assertThat(resultado, is(true));
     }
 
     @Test
-    public void quandoEscreve1IGUALaIdentificadorRetornaMensagemDeErro() throws Exception {
-        String frase = "1 = abacaxi";
-        Lexer lexer = new Lexer();
-        IdentificadorDeToken tokenizer = new IdentificadorDeToken();
-        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(lexer, tokenizer);
+    public void retornaTrueQuandoOSegundoTokenForUmOperadorIgual() throws Exception {
 
-        String resultado = validadorDeAtribuicao.validarAtribuicao(frase);
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi = 1");
+        boolean resultado = validadorDeAtribuicao.validaSegundoToken(tokens.get(1));
 
-        assertThat(resultado, is("Erro de sintaxe!"));
+        assertThat(resultado, is(true));
     }
-
 }
