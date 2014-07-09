@@ -1,5 +1,6 @@
 package unitario.model;
 
+import models.analisadorLexico.IdentificadorDeToken;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -24,12 +25,9 @@ public class TesteValidacaoAtribuicaoStrings {
 
     @Test
     public void verificaSeAtribuicaoFeitaFoiUmaString() throws Exception {
-        ValidacaoAtribuicaoStrings validacaoAtribuicaoStrings = new ValidacaoAtribuicaoStrings();
-        validacaoAtribuicaoStrings.verificaSeConstanteRecebidaFoiUmaString("teste");
-
-
-        atribuicao = "\"teste\"";
-        assertThat(atribuicao, is("CONSTANTE"));
+        IdentificadorDeToken token = new IdentificadorDeToken();
+        atribuicao = token.identifica("\"teste\"");
+        assertThat(atribuicao, is("CONSTANTE_TIPO_STRING"));
 
     }
 }
