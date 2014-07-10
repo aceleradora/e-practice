@@ -77,8 +77,22 @@ public class ValidadorDeAtribuicao {
     public boolean validaIdv(String frase) {
        boolean retorno = false;
        tokens = stringParaArray(frase);
-       retorno = tabelaDeSimbolos.simboloExiste(tokens.get(0));
+       retorno = tabelaDeSimbolos.simboloExiste(tokens.get(0))
+               && tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(0), "Inteiro");
        return retorno;
 
+    }
+
+
+    public boolean valida(String frase){
+        boolean retorno = false;
+        tokens = stringParaArray(frase);
+        retorno =
+        validaPrimeiroToken(tokens.get(0)) &&
+        validaSegundoToken(tokens.get(1)) &&
+        validaTerceiroToken(tokens.get(2)) &&
+        validaIdv(frase);
+
+        return retorno;
     }
 }

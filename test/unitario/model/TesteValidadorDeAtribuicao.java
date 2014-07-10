@@ -114,6 +114,16 @@ public class TesteValidadorDeAtribuicao {
         assertThat(resultado, is(true));
 
     }
+
+    @Test
+    public void retornaTrueQuandoValidaALinha() throws Exception {
+        validadorDeAtribuicao.setTabelaDeSimbolos(new TabelaDeSimbolos());
+        tabelaDeSimbolos = validadorDeAtribuicao.getTabelaDeSimbolos();
+        tabelaDeSimbolos.adicionaSimbolo("abacaqui", "Inteiro");
+        boolean retorno = validadorDeAtribuicao.valida("abacaqui = 42");
+        assertThat(retorno, is(true));
+
+    }
 }
 
 
