@@ -56,7 +56,7 @@ public class TesteTabelaDeSimbolos {
         tabelaDeSimbolos.adicionaSimbolo("x", "Inteiro");
 
         String tipoIDV = tabelaDeSimbolos.getTipoSimbolo("x");
-        
+
         assertThat(tipoIDV, is("Inteiro"));
     }
 }
