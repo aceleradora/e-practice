@@ -53,59 +53,6 @@ public class TesteValidadorDeAtribuicao {
     }
 
     @Test
-    public void retornaTrueQuandoTemUmaSomaDeDoisNumerosDepoisDoIgual() throws Exception {
-
-        boolean resultado = validadorDeAtribuicao.validaExpressao("abacaxi = 1 + 1");
-
-        assertThat(resultado, is(true));
-
-    }
-
-    @Test
-    public void retornaTrueQuandoTemUmaSomaDeTresNumerosDepoisDoIgual() throws Exception {
-
-        boolean resultado = validadorDeAtribuicao.validaExpressao("abacaxi = 1 + 1 + 1");
-
-        assertThat(resultado, is(true));
-
-    }
-
-    @Test
-    public void retornaTrueQuandoTemUmaSubtracaoDeDoisNumerosDepoisDoIgual() throws Exception {
-
-        boolean resultado = validadorDeAtribuicao.validaExpressao("acabaxi = 1 - 1");
-
-        assertThat(resultado, is(true));
-
-    }
-
-    @Test
-    public void retornaTrueQuandoTemUmaMultiplicacaoDeDoisNumerosDepoisDoIgual() throws Exception {
-
-        boolean resultado = validadorDeAtribuicao.validaExpressao("axacabi = 1 * 1");
-
-        assertThat(resultado, is(true));
-    }
-
-    @Test
-    public void retornaTrueQuandoTemUmaBarrinhaMagicaChamadaDivisaoDeDoisNumerosDepoisDoIgual() throws Exception {
-
-        boolean resultado = validadorDeAtribuicao.validaExpressao("xaacabi = 1 / 1");
-
-        assertThat(resultado, is(true));
-
-    }
-
-    @Test
-    public void retornaTrueQuandoTemUmaMultiplicacaoSomadoComUmaDivisaoDepoisDoIgual() throws Exception {
-
-        boolean resultado = validadorDeAtribuicao.validaExpressao("manga = 5 * 1 + 8 / 4");
-
-        assertThat(resultado, is(true));
-
-    }
-
-    @Test
     public void retornatrueQuandoAVariavelParaQualOValorEstaSendoAtribuidoExisteNaTabelaDeSímbolos() throws Exception {
         validadorDeAtribuicao.setTabelaDeSimbolos(new TabelaDeSimbolos());
         tabelaDeSimbolos = validadorDeAtribuicao.getTabelaDeSimbolos();
@@ -122,6 +69,19 @@ public class TesteValidadorDeAtribuicao {
         tabelaDeSimbolos.adicionaSimbolo("abacaqui", "Inteiro");
         boolean retorno = validadorDeAtribuicao.valida("abacaqui = 42");
         assertThat(retorno, is(true));
+
+    }
+
+    @Test
+    public void retornaMensagemdeErroQuandoEuErroAlgumaRegraSintatica() throws Exception {
+        String mensagem = validadorDeAtribuicao.mensagemDeErro("Abaxa = a");
+        assertThat(mensagem, is(not("")));
+    }
+
+    @Test
+    public void retornaMensagemDeErroQuandoEuErroOIgual() throws Exception {
+        String mensagem = validadorDeAtribuicao.mensagemDeErro("Abaxa : 5");
+        assertThat(mensagem, is("\nesperava \"=\" para atribuição de inteiros\n"));
 
     }
 }
