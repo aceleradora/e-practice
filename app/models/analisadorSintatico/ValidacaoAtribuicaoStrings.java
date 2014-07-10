@@ -18,9 +18,17 @@ public class ValidacaoAtribuicaoStrings {
 
     public String validaPrimeiroToken() {
         if (identificador.identifica(tokens.get(0)).equals("IDV")){
-            return "O primeiro token é um IDV";
+            return "O primeiro token é uma variável.";
         } else {
-            return "O primeiro token deveria ser uma variável";
+            return "O primeiro token deveria ser uma variável.";
+        }
+    }
+
+    public String validaSegundoToken() {
+        if (identificador.identifica(tokens.get(1)).equals("IGUAL")){
+            return "O segundo token é uma atribuição.";
+        } else {
+            return "O segundo token deveria ser uma atribuição.";
         }
     }
 }

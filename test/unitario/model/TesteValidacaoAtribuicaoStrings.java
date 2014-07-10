@@ -25,7 +25,7 @@ public class TesteValidacaoAtribuicaoStrings {
         entradaDoUsuario.add("\"banana\"");
         validador = new ValidacaoAtribuicaoStrings(entradaDoUsuario);
 
-        assertEquals(validador.validaPrimeiroToken(), "O primeiro token é um IDV");
+        assertEquals(validador.validaPrimeiroToken(), "O primeiro token é uma variável.");
     }
 
     @Test
@@ -35,7 +35,7 @@ public class TesteValidacaoAtribuicaoStrings {
         entradaDoUsuario.add("\"banana\"");
         validador = new ValidacaoAtribuicaoStrings(entradaDoUsuario);
 
-        assertEquals(validador.validaPrimeiroToken(), "O primeiro token deveria ser uma variável");
+        assertEquals(validador.validaPrimeiroToken(), "O primeiro token deveria ser uma variável.");
     }
 
     @Test
@@ -45,6 +45,17 @@ public class TesteValidacaoAtribuicaoStrings {
         entradaDoUsuario.add("\"banana\"");
         validador = new ValidacaoAtribuicaoStrings(entradaDoUsuario);
 
-        assertEquals(validador.validaPrimeiroToken(), "O primeiro token deveria ser uma variável");
+        assertEquals(validador.validaPrimeiroToken(), "O primeiro token deveria ser uma variável.");
+    }
+
+    @Test
+    public void seOSegundoTokenForUmaAtribuicaoEntaoRetornaUmaMensagemDeSucesso() throws Exception {
+        entradaDoUsuario.add("x");
+        entradaDoUsuario.add("=");
+        entradaDoUsuario.add("\"banana\"");
+        validador = new ValidacaoAtribuicaoStrings(entradaDoUsuario);
+
+        assertEquals(validador.validaSegundoToken(), "O segundo token é uma atribuição.");
+
     }
 }
