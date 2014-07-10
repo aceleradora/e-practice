@@ -1,5 +1,6 @@
 package models.analisadorSintatico;
 
+import models.TabelaDeSimbolos;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
 
@@ -9,10 +10,19 @@ public class ValidadorDeAtribuicao {
     private Lexer lexer;
     private IdentificadorDeToken identificadorDeTokens;
     private ArrayList<String> tokens;
+    private TabelaDeSimbolos tabelaDeSimbolos;
 
     public ValidadorDeAtribuicao(Lexer lexer, IdentificadorDeToken identificadorDeTokens) {
         this.lexer = lexer;
         this.identificadorDeTokens = identificadorDeTokens;
+    }
+
+    public void setTabelaDeSimbolos(TabelaDeSimbolos tabelaDeSimbolos) {
+        this.tabelaDeSimbolos = tabelaDeSimbolos;
+    }
+
+    public TabelaDeSimbolos getTabelaDeSimbolos() {
+        return tabelaDeSimbolos;
     }
 
     public boolean validaPrimeiroToken(String primeiroToken) {
@@ -65,9 +75,9 @@ public class ValidadorDeAtribuicao {
     }
 
     public boolean validaIdv(String frase) {
-       boolean retorno = true;
-       stringParaArray(frase);
-
+       boolean retorno = false;
+       tokens = stringParaArray(frase);
+       retorno = tabelaDeSimbolos.simboloExiste(tokens.get(0));
        return retorno;
 
     }

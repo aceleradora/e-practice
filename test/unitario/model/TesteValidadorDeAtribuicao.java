@@ -104,6 +104,16 @@ public class TesteValidadorDeAtribuicao {
         assertThat(resultado, is(true));
 
     }
+
+    @Test
+    public void retornatrueQuandoAVariavelParaQualOValorEstaSendoAtribuidoExisteNaTabelaDeSímbolos() throws Exception {
+        validadorDeAtribuicao.setTabelaDeSimbolos(new TabelaDeSimbolos());
+        tabelaDeSimbolos = validadorDeAtribuicao.getTabelaDeSimbolos();
+        tabelaDeSimbolos.adicionaSimbolo("manga", "Inteiro");
+        boolean resultado = validadorDeAtribuicao.validaIdv("manga = 1");
+        assertThat(resultado, is(true));
+
+    }
 }
 
 
