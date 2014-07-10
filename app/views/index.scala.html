@@ -1,4 +1,4 @@
-@(solucoes: List[SolucaoDoExercicio], solucaoForm: Form[SolucaoDoExercicio], statusBotao: String)
+@(solucoes: List[SolucaoDoExercicio], solucaoForm: Form[SolucaoDoExercicio], statusBotao: String, mensagemFeedback: String)
 @import helper._
 
 @main("e-Practice") {
@@ -84,6 +84,7 @@ function alttela() {
             <section id="feedback">
                 <h3>FeedBack | Dicas:</h3>
                 <p>
+                    @mensagemFeedback
                     <ul>
                         @for(solucao <- solucoes){
                         <li>

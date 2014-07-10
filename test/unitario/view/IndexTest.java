@@ -17,7 +17,7 @@ public class IndexTest {
 
     @Test
     public void quandoChamaOMetodoSolucaoVindoDeUmErroCarregaAViewIndexComMensagemDeErro() {
-        Content html = views.html.index.render(solucoes, formPreenchido, "Status: erro!");
+        Content html = views.html.index.render(solucoes, formPreenchido, "Status: erro!", "");
 
         assertThat(contentAsString(html)).contains("Status: erro!");
     }
