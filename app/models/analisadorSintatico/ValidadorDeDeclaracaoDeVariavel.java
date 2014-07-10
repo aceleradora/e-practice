@@ -1,5 +1,6 @@
 package models.analisadorSintatico;
 
+import models.TabelaDeSimbolos;
 import models.analisadorLexico.IdentificadorDeToken;
 
 import java.util.ArrayList;
@@ -12,11 +13,13 @@ public class ValidadorDeDeclaracaoDeVariavel {
     IdentificadorDeToken identificadorDeToken;
     ArrayList<String> tokens;
     String erros;
+    TabelaDeSimbolos tabelaDeSimbolos;
 
-    public ValidadorDeDeclaracaoDeVariavel(ArrayList<String> tokens) {
+    public ValidadorDeDeclaracaoDeVariavel(ArrayList<String> tokens, TabelaDeSimbolos tabelaDeSimbolos) {
         this.identificadorDeToken = new IdentificadorDeToken();
         this.tokens = tokens;
         this.erros = null;
+        this.tabelaDeSimbolos = tabelaDeSimbolos;
     }
 
     public String validaPrimeiroToken() {
@@ -44,7 +47,6 @@ public class ValidadorDeDeclaracaoDeVariavel {
         }else
             erros += retorno = "a terceira palavra deveria ser :";
         return retorno;
-
     }
 
     public String validaQuartoToken() {
@@ -62,5 +64,11 @@ public class ValidadorDeDeclaracaoDeVariavel {
         this.validaTerceiroToken();
         this.validaQuartoToken();
         return erros;
+    }
+
+    public void adicionaVariavelNaTabelaDeSimbolos() {
+        if(this.valida() == null){
+            tabelaDeSimbolos.adicionaSimbolo(tokens.get(1), tokens.get(3));
+        }
     }
 }
