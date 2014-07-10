@@ -59,10 +59,12 @@ public class ValidadorDeDeclaracaoDeVariavel {
     }
 
     public String valida() {
-        this.validaPrimeiroToken();
-        this.validaSegundoToken();
-        this.validaTerceiroToken();
-        this.validaQuartoToken();
+        if(verificaSeEhVariavel() == true) {
+            this.validaPrimeiroToken();
+            this.validaSegundoToken();
+            this.validaTerceiroToken();
+            this.validaQuartoToken();
+        }
         return erros;
     }
 
@@ -70,5 +72,12 @@ public class ValidadorDeDeclaracaoDeVariavel {
         if(this.valida() == ""){
             tabelaDeSimbolos.adicionaSimbolo(tokens.get(1), tokens.get(3));
         }
+    }
+
+    public boolean verificaSeEhVariavel() {
+        if(tokens.size() != 4){
+            return false;
+        }
+        return true;
     }
 }

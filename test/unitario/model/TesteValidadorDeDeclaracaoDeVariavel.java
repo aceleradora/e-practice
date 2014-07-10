@@ -33,6 +33,16 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     }
 
     @Test
+    public void testaSeEDeclaracaoDeVariavel() throws Exception {
+        tokens.remove(3);
+        validadorDeDeclaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tokens, tabelaDeSimbolos);
+
+        boolean ehDeclaracaoDeVariavel = validadorDeDeclaracaoDeVariavel.verificaSeEhVariavel();
+
+        assertThat(ehDeclaracaoDeVariavel, is(false));
+    }
+
+    @Test
     public void seOPrimeiroTokenEIgualAVar() throws Exception {
         assertEquals("var é o Primeiro token", validadorDeDeclaracaoDeVariavel.validaPrimeiroToken());
     }

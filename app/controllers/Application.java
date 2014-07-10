@@ -10,7 +10,7 @@ public class Application extends Controller {
 
     static Form<SolucaoDoExercicio> solucaoDoExercicioForm = Form.form(SolucaoDoExercicio.class);
     static String status;
-    static String mensagemFeedback;
+    static String mensagemFeedbackDeErro;
     private static SolucaoDoExercicio solucaoDoExercicio;
     static FeedBacker feedBacker = new FeedBacker();
 
@@ -20,14 +20,14 @@ public class Application extends Controller {
 
     public static Result index() {
         status = "";
-        mensagemFeedback = "";
+        mensagemFeedbackDeErro = "";
         return redirect(routes.Application.solucoes());
     }
 
     public static Result solucoes(){
         List<SolucaoDoExercicio> all = solucaoDoExercicio.all();
 
-        return ok(views.html.index.render(all, solucaoDoExercicioForm, status, mensagemFeedback));
+        return ok(views.html.index.render(all, solucaoDoExercicioForm, status, mensagemFeedbackDeErro));
     }
 
     public static Result novaSolucao(){
@@ -35,15 +35,15 @@ public class Application extends Controller {
 
         if(formPreenchido.hasErrors()){
             status = "Status: erro!";
-            return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido, status, mensagemFeedback));
+            return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido, status, mensagemFeedbackDeErro));
         } else{
             try{
-                String teste = formPreenchido.get().solucaoDoUsuario;
+                String stringSolucaoDoUsuario = formPreenchido.get().solucaoDoUsuario;
 
-                mensagemFeedback = feedBacker.feedBackDoCodigoDoUsuario(teste);
+                mensagemFeedbackDeErro = feedBacker.feedBackDoCodigoDoUsuario(stringSolucaoDoUsuario);
                 status = "Status: sua solução foi salva com sucesso!";
 
-                if (mensagemFeedback == ""){
+                if (mensagemFeedbackDeErro == ""){
                     SolucaoDoExercicio.create(formPreenchido.get());
                 }
             } catch (Exception e){
