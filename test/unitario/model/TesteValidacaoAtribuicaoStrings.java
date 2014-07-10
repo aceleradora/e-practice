@@ -1,33 +1,50 @@
 package unitario.model;
 
-import models.analisadorLexico.IdentificadorDeToken;
 import org.junit.Test;
-
-import static org.hamcrest.CoreMatchers.is;
-
-import models.TabelaDeSimbolos;
-import models.analisadorLexico.Lexer;
 import models.analisadorSintatico.ValidacaoAtribuicaoStrings;
 import org.junit.Before;
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class TesteValidacaoAtribuicaoStrings {
 
-    private TabelaDeSimbolos tabela;
-
-    private Lexer lexer;
-    private String atribuicao;
+    ValidacaoAtribuicaoStrings validador;
+    ArrayList<String> entradaDoUsuario;
 
     @Before
     public void setUp() throws Exception {
-        lexer = new Lexer();
+        entradaDoUsuario = new ArrayList<String>();
     }
 
     @Test
-    public void verificaSeAtribuicaoFeitaFoiUmaString() throws Exception {
-        IdentificadorDeToken token = new IdentificadorDeToken();
-        atribuicao = token.identifica("\"teste\"");
-        assertThat(atribuicao, is("CONSTANTE_TIPO_STRING"));
+    public void verificaSePrimeiroTokenEUmIdentificadorDeVariavel() throws Exception {
+        entradaDoUsuario.add("x");
+        entradaDoUsuario.add("=");
+        entradaDoUsuario.add("\"banana\"");
+        validador = new ValidacaoAtribuicaoStrings(entradaDoUsuario);
 
+        assertEquals(validador.validaPrimeiroToken(), "O primeiro token é um IDV");
+    }
+
+    @Test
+    public void seOPrimeiroTokenForUmaStringOValidaPrimeiroTokenRetornaUmaMensagemAvisando() throws Exception {
+        entradaDoUsuario.add("\"variavel\"");
+        entradaDoUsuario.add("=");
+        entradaDoUsuario.add("\"banana\"");
+        validador = new ValidacaoAtribuicaoStrings(entradaDoUsuario);
+
+        assertEquals(validador.validaPrimeiroToken(), "O primeiro token deveria ser uma variável");
+    }
+
+    @Test
+    public void seOPrimeiroTokenForUmNumeroOValidaPrimeiroTokenRetornaUmaMensagemAvisando() throws Exception {
+        entradaDoUsuario.add("1");
+        entradaDoUsuario.add("=");
+        entradaDoUsuario.add("\"banana\"");
+        validador = new ValidacaoAtribuicaoStrings(entradaDoUsuario);
+
+        assertEquals(validador.validaPrimeiroToken(), "O primeiro token deveria ser uma variável");
     }
 }
