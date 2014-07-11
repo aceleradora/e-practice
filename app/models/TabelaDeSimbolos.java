@@ -36,4 +36,8 @@ public class TabelaDeSimbolos {
         String tipoDoSimboloNaTabela = tabela.get(simbolo);
         return tipoDoSimboloNaTabela;
     }
+
+    public boolean temSimbolo(String simbolo) {
+        return tabela.containsKey(simbolo);
+    }
 }

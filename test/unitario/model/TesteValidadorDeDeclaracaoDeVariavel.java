@@ -33,69 +33,67 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     }
 
     @Test
-    public void testaSeEDeclaracaoDeVariavel() throws Exception {
-        tokens.remove(3);
-        validadorDeDeclaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tokens, tabelaDeSimbolos);
-
-        boolean ehDeclaracaoDeVariavel = validadorDeDeclaracaoDeVariavel.verificaSeEhVariavel();
-
-        assertThat(ehDeclaracaoDeVariavel, is(false));
-    }
-
-    @Test
     public void seOPrimeiroTokenEIgualAVar() throws Exception {
-        assertEquals("var é o Primeiro token", validadorDeDeclaracaoDeVariavel.validaPrimeiroToken());
+        assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSePrimeiroTokenEVar());
     }
 
     @Test
     public void seOSegundoTokenEhUmIdv() throws Exception {
-        assertEquals("IDV é o Segundo token", validadorDeDeclaracaoDeVariavel.validaSegundoToken());
+        assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSeSegundoTokenEIdv());
     }
 
     @Test
     public void seOTerceiroTokenEhUmDoisPontos() throws Exception {
-        assertEquals(": é o Terceiro token", validadorDeDeclaracaoDeVariavel.validaTerceiroToken());
+        assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSeTerceiroTokenEDoisPontos());
     }
 
     @Test
     public void seOQuartoTokenEhUmTipo() throws Exception {
-        assertEquals("Tipo é o Quarto token", validadorDeDeclaracaoDeVariavel.validaQuartoToken());
+        assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSeQuartoTokenETipoDeVariavel());
     }
 
     @Test
-    public void seEuErroOPrimeiroTokenEuconsigoCapturarEsteErro() throws Exception {
+    public void seEuErroOPrimeiroTokenEuconsigoCapturarAMensagemDesteErro() throws Exception {
         tokens.set(0, "Erro");
-        assertEquals("a primeira palavra deveria ser \"var\" - ", validadorDeDeclaracaoDeVariavel.validaPrimeiroToken());
+
+        assertEquals("a primeira palavra deveria ser \"var\" - ", validadorDeDeclaracaoDeVariavel.capturaMensagensDeErro());
     }
 
     @Test
     public void seEuErroOSegundoTokenEuconsigoCapturarEsteErro() throws Exception {
         tokens.set(1, "1Erro");
-        assertEquals("a segunda palavra deveria ser um identificador de variável válido - ", validadorDeDeclaracaoDeVariavel.validaSegundoToken());
+
+        assertEquals("a segunda palavra deveria ser um identificador de variável válido - ", validadorDeDeclaracaoDeVariavel.capturaMensagensDeErro());
     }
 
     @Test
     public void seEuErroOTerceiroTokenEuconsigoCapturarEsteErro() throws Exception {
         tokens.set(2, "Erro");
-        assertEquals("a terceira palavra deveria ser : - ", validadorDeDeclaracaoDeVariavel.validaTerceiroToken());
+
+        assertEquals("a terceira palavra deveria ser \":\" - ", validadorDeDeclaracaoDeVariavel.capturaMensagensDeErro());
     }
 
     @Test
     public void seEuErroOQuartoTokenEuconsigoCapturarEsteErro() throws Exception {
         tokens.set(3, "Erro");
-        assertEquals("a quarta palavra deveria ser um tipo válido de variável (string ou inteiro)", validadorDeDeclaracaoDeVariavel.validaQuartoToken());
+
+        assertEquals("a quarta palavra deveria ser um tipo válido de variável (string ou inteiro)", validadorDeDeclaracaoDeVariavel.capturaMensagensDeErro());
     }
 
     @Test
     public void euConsigoValidarTodoUmaLinhaDeDeclaracao() throws Exception {
         String validacao = validadorDeDeclaracaoDeVariavel.valida();
+
         assertEquals(validacao, "");
     }
 
     @Test
     public void seNaoHouverErrosAdicionaSimboloNaTabelaDeSimbolos() throws Exception {
         validadorDeDeclaracaoDeVariavel.adicionaVariavelNaTabelaDeSimbolos();
+
         assertThat(tabelaDeSimbolos.getTipoSimbolo("x"), is("String"));
+        assertThat(tokens.get(3), is("String"));
+        assertThat(tabelaDeSimbolos.temSimbolo(tokens.get(1)), is(true));
     }
 
     @Test
@@ -103,7 +101,26 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         tokens.set(0, "Erro");
 
         validadorDeDeclaracaoDeVariavel.adicionaVariavelNaTabelaDeSimbolos();
+
         assertThat(tabelaDeSimbolos.simboloExiste("x"), is(false));
+    }
+
+    @Test
+    public void verificaUmaDeclaracaoQueTenhaCincoTokens() throws Exception {
+        tokens.add("String");
+
+        String erro = validadorDeDeclaracaoDeVariavel.valida();
+
+        assertThat(erro, is(not("")));
+    }
+
+    @Test
+    public void verificaUmaDeclaracaoQueTenhaTresTokens() throws Exception {
+        tokens.remove(3);
+
+        String erro = validadorDeDeclaracaoDeVariavel.valida();
+
+        assertThat(erro, is(not("")));
     }
 }
 

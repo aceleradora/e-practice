@@ -12,72 +12,82 @@ public class ValidadorDeDeclaracaoDeVariavel {
 
     IdentificadorDeToken identificadorDeToken;
     ArrayList<String> tokens;
-    String erros;
     TabelaDeSimbolos tabelaDeSimbolos;
 
     public ValidadorDeDeclaracaoDeVariavel(ArrayList<String> tokens, TabelaDeSimbolos tabelaDeSimbolos) {
         this.identificadorDeToken = new IdentificadorDeToken();
         this.tokens = tokens;
-        this.erros = "";
         this.tabelaDeSimbolos = tabelaDeSimbolos;
     }
 
-    public String validaPrimeiroToken() {
-        String retorno = "";
-        if(identificadorDeToken.identifica(tokens.get(0)).equals("PALAVRA_RESERVADA")){
-            retorno = "var é o Primeiro token";
-        }else
-            erros += retorno = "a primeira palavra deveria ser \"var\" - ";
-        return retorno;
+    public boolean validaSePrimeiroTokenEVar() {
+        return identificadorDeToken.identifica(tokens.get(0)).equals("PALAVRA_RESERVADA");
     }
 
-    public String validaSegundoToken() {
-        String retorno = "";
-        if(identificadorDeToken.identifica(tokens.get(1)).equals("IDV")){
-            retorno = "IDV é o Segundo token";
-        }else
-            erros += retorno = "a segunda palavra deveria ser um identificador de variável válido - ";
-        return retorno;
+    public boolean validaSeSegundoTokenEIdv() {
+        return identificadorDeToken.identifica(tokens.get(1)).equals("IDV");
     }
 
-    public String validaTerceiroToken() {
-        String retorno = "";
-        if(identificadorDeToken.identifica(tokens.get(2)).equals("DECLARACAO")){
-            retorno = ": é o Terceiro token";
-        }else
-            erros += retorno = "a terceira palavra deveria ser : - ";
-        return retorno;
+    public boolean validaSeTerceiroTokenEDoisPontos() {
+        return identificadorDeToken.identifica(tokens.get(2)).equals("DECLARACAO");
     }
 
-    public String validaQuartoToken() {
-        String retorno = "";
-        if(identificadorDeToken.identifica(tokens.get(3)).equals("TIPO_DE_VARIAVEL")){
-            retorno = "Tipo é o Quarto token";
-        }else
-            erros += retorno = "a quarta palavra deveria ser um tipo válido de variável (string ou inteiro)";
-        return retorno;
+    public boolean validaSeQuartoTokenETipoDeVariavel() {
+        return identificadorDeToken.identifica(tokens.get(3)).equals("TIPO_DE_VARIAVEL");
+    }
+
+    public boolean verificaSeTokensTemQuantidadeAcimaDoEsperado() {
+        return tokens.size() > 4;
+    }
+
+    public boolean verificaSeTokensTemQuantidadeAbaixoDoEsperado() {
+        return tokens.size() < 4;
     }
 
     public String valida() {
-        if(verificaSeEhVariavel() == true) {
-            this.validaPrimeiroToken();
-            this.validaSegundoToken();
-            this.validaTerceiroToken();
-            this.validaQuartoToken();
+        String erros = "";
+        if(this.verificaSeTokensTemQuantidadeAcimaDoEsperado()) {
+            erros += capturaMensagensDeErro();
+            return erros;
         }
+
+        if(this.verificaSeTokensTemQuantidadeAbaixoDoEsperado()) {
+            erros += capturaMensagensDeErro();
+            return erros;
+        }
+        this.validaSePrimeiroTokenEVar();
+        this.validaSeSegundoTokenEIdv();
+        this.validaSeTerceiroTokenEDoisPontos();
+        this.validaSeQuartoTokenETipoDeVariavel();
+
+        erros += capturaMensagensDeErro();
         return erros;
     }
 
     public void adicionaVariavelNaTabelaDeSimbolos() {
-        if(this.valida() == ""){
+        if(this.valida().equals("")){
             tabelaDeSimbolos.adicionaSimbolo(tokens.get(1), tokens.get(3));
         }
     }
 
-    public boolean verificaSeEhVariavel() {
-        if(tokens.size() != 4){
-            return false;
+    public String capturaMensagensDeErro() {
+        String retorno = "";
+
+        if (verificaSeTokensTemQuantidadeAbaixoDoEsperado()) {
+            retorno = "a declaração espera VAR \"IDENTIFICADOR\" : TIPO, um parametro faltando";
+        } else if (verificaSeTokensTemQuantidadeAcimaDoEsperado()) {
+            retorno = "a declaração espera apenas VAR \"IDENTIFICADOR\" : TIPO";
+        } else if(!validaSePrimeiroTokenEVar()){
+            retorno = "a primeira palavra deveria ser \"var\" - ";
+        } else if (!validaSeSegundoTokenEIdv()) {
+            retorno = "a segunda palavra deveria ser um identificador de variável válido - ";
+        } else if (!validaSeTerceiroTokenEDoisPontos()) {
+            retorno = "a terceira palavra deveria ser \":\" - ";
+        } else if (!validaSeQuartoTokenETipoDeVariavel()) {
+            retorno = "a quarta palavra deveria ser um tipo válido de variável (string ou inteiro)";
         }
-        return true;
+
+
+        return retorno;
     }
 }
