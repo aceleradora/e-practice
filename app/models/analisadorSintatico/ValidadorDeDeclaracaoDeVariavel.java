@@ -5,9 +5,6 @@ import models.analisadorLexico.IdentificadorDeToken;
 
 import java.util.ArrayList;
 
-/**
- * Created by alunos3 on 07/07/14.
- */
 public class ValidadorDeDeclaracaoDeVariavel {
 
     IdentificadorDeToken identificadorDeToken;
@@ -44,28 +41,28 @@ public class ValidadorDeDeclaracaoDeVariavel {
         return tokens.size() < 4;
     }
 
-    public String valida() {
-        String erros = "";
+    public boolean valida() {
+        boolean valido = true;
         if(this.verificaSeTokensTemQuantidadeAcimaDoEsperado()) {
-            erros += capturaMensagensDeErro();
-            return erros;
+            valido = false;
+            return valido;
         }
 
         if(this.verificaSeTokensTemQuantidadeAbaixoDoEsperado()) {
-            erros += capturaMensagensDeErro();
-            return erros;
+            valido = false;
+            return valido;
         }
-        this.validaSePrimeiroTokenEVar();
-        this.validaSeSegundoTokenEIdv();
-        this.validaSeTerceiroTokenEDoisPontos();
-        this.validaSeQuartoTokenETipoDeVariavel();
 
-        erros += capturaMensagensDeErro();
-        return erros;
+        valido = valido && this.validaSePrimeiroTokenEVar();
+        valido = valido && this.validaSeSegundoTokenEIdv();
+        valido = valido && this.validaSeTerceiroTokenEDoisPontos();
+        valido = valido && this.validaSeQuartoTokenETipoDeVariavel();
+
+        return valido;
     }
 
     public void adicionaVariavelNaTabelaDeSimbolos() {
-        if(this.valida().equals("")){
+        if(this.valida()){
             tabelaDeSimbolos.adicionaSimbolo(tokens.get(1), tokens.get(3));
         }
     }
@@ -86,7 +83,6 @@ public class ValidadorDeDeclaracaoDeVariavel {
         } else if (!validaSeQuartoTokenETipoDeVariavel()) {
             retorno = "a quarta palavra deveria ser um tipo válido de variável (string ou inteiro)";
         }
-
 
         return retorno;
     }

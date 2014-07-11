@@ -26,7 +26,8 @@ public class FeedBacker {
     private void whatever(String solucaoDoUsuario){
         ArrayList<String> tokens = lexer.tokenizar(solucaoDoUsuario);
         declaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tokens, tabelaDeSimbolos);
-        erros = declaracaoDeVariavel.valida();
+        if(!declaracaoDeVariavel.valida())
+            erros = declaracaoDeVariavel.capturaMensagensDeErro();
     }
 
     public String feedBackDoCodigoDoUsuario(String solucaoDoUsuario) {
