@@ -18,7 +18,7 @@ public class ValidadorDeDeclaracaoDeVariavel {
     public ValidadorDeDeclaracaoDeVariavel(ArrayList<String> tokens, TabelaDeSimbolos tabelaDeSimbolos) {
         this.identificadorDeToken = new IdentificadorDeToken();
         this.tokens = tokens;
-        this.erros = null;
+        this.erros = "";
         this.tabelaDeSimbolos = tabelaDeSimbolos;
     }
 
@@ -27,7 +27,7 @@ public class ValidadorDeDeclaracaoDeVariavel {
         if(identificadorDeToken.identifica(tokens.get(0)).equals("PALAVRA_RESERVADA")){
             retorno = "var é o Primeiro token";
         }else
-            erros += retorno = "a primeira palavra deveria ser \"var\"";
+            erros += retorno = "a primeira palavra deveria ser \"var\" - ";
         return retorno;
     }
 
@@ -36,7 +36,7 @@ public class ValidadorDeDeclaracaoDeVariavel {
         if(identificadorDeToken.identifica(tokens.get(1)).equals("IDV")){
             retorno = "IDV é o Segundo token";
         }else
-            erros += retorno = "a segunda palavra deveria ser um identificador de variável válido";
+            erros += retorno = "a segunda palavra deveria ser um identificador de variável válido - ";
         return retorno;
     }
 
@@ -45,7 +45,7 @@ public class ValidadorDeDeclaracaoDeVariavel {
         if(identificadorDeToken.identifica(tokens.get(2)).equals("DECLARACAO")){
             retorno = ": é o Terceiro token";
         }else
-            erros += retorno = "a terceira palavra deveria ser :";
+            erros += retorno = "a terceira palavra deveria ser : - ";
         return retorno;
     }
 
@@ -59,16 +59,25 @@ public class ValidadorDeDeclaracaoDeVariavel {
     }
 
     public String valida() {
-        this.validaPrimeiroToken();
-        this.validaSegundoToken();
-        this.validaTerceiroToken();
-        this.validaQuartoToken();
+        if(verificaSeEhVariavel() == true) {
+            this.validaPrimeiroToken();
+            this.validaSegundoToken();
+            this.validaTerceiroToken();
+            this.validaQuartoToken();
+        }
         return erros;
     }
 
     public void adicionaVariavelNaTabelaDeSimbolos() {
-        if(this.valida() == null){
+        if(this.valida() == ""){
             tabelaDeSimbolos.adicionaSimbolo(tokens.get(1), tokens.get(3));
         }
+    }
+
+    public boolean verificaSeEhVariavel() {
+        if(tokens.size() != 4){
+            return false;
+        }
+        return true;
     }
 }

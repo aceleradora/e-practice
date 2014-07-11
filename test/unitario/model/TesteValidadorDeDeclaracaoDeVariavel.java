@@ -33,6 +33,16 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     }
 
     @Test
+    public void testaSeEDeclaracaoDeVariavel() throws Exception {
+        tokens.remove(3);
+        validadorDeDeclaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tokens, tabelaDeSimbolos);
+
+        boolean ehDeclaracaoDeVariavel = validadorDeDeclaracaoDeVariavel.verificaSeEhVariavel();
+
+        assertThat(ehDeclaracaoDeVariavel, is(false));
+    }
+
+    @Test
     public void seOPrimeiroTokenEIgualAVar() throws Exception {
         assertEquals("var é o Primeiro token", validadorDeDeclaracaoDeVariavel.validaPrimeiroToken());
     }
@@ -55,19 +65,19 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     @Test
     public void seEuErroOPrimeiroTokenEuconsigoCapturarEsteErro() throws Exception {
         tokens.set(0, "Erro");
-        assertEquals("a primeira palavra deveria ser \"var\"", validadorDeDeclaracaoDeVariavel.validaPrimeiroToken());
+        assertEquals("a primeira palavra deveria ser \"var\" - ", validadorDeDeclaracaoDeVariavel.validaPrimeiroToken());
     }
 
     @Test
     public void seEuErroOSegundoTokenEuconsigoCapturarEsteErro() throws Exception {
         tokens.set(1, "1Erro");
-        assertEquals("a segunda palavra deveria ser um identificador de variável válido", validadorDeDeclaracaoDeVariavel.validaSegundoToken());
+        assertEquals("a segunda palavra deveria ser um identificador de variável válido - ", validadorDeDeclaracaoDeVariavel.validaSegundoToken());
     }
 
     @Test
     public void seEuErroOTerceiroTokenEuconsigoCapturarEsteErro() throws Exception {
         tokens.set(2, "Erro");
-        assertEquals("a terceira palavra deveria ser :", validadorDeDeclaracaoDeVariavel.validaTerceiroToken());
+        assertEquals("a terceira palavra deveria ser : - ", validadorDeDeclaracaoDeVariavel.validaTerceiroToken());
     }
 
     @Test
@@ -79,7 +89,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     @Test
     public void euConsigoValidarTodoUmaLinhaDeDeclaracao() throws Exception {
         String validacao = validadorDeDeclaracaoDeVariavel.valida();
-        assertEquals(validacao, null);
+        assertEquals(validacao, "");
     }
 
     @Test
