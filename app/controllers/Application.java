@@ -60,4 +60,5 @@ public class Application extends Controller {
         status = "Status: deletado!";
         return redirect(routes.Application.solucoes());
     }
+
 }

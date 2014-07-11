@@ -37,4 +37,5 @@ public class SolucaoDoExercicio extends Model{
     public static void delete(int id){
         find.ref(id).delete();
     }
+
 }
