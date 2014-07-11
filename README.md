@@ -1,3 +1,5 @@
+[![Build Status](https://snap-ci.com/aceleradora/e-practice/branch/master/build_image)](https://snap-ci.com/aceleradora/e-practice/branch/master)
+
 e-pr@ctice
 ==========
 
