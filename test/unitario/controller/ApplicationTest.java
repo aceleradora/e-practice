@@ -87,20 +87,6 @@ public class ApplicationTest {
     }
 
     @Test
-    public void testeUsandoWebDriver() throws Exception {
-        running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {
-            @Override
-            public void invoke(TestBrowser testBrowser) throws Throwable {
-                testBrowser.goTo("http://localhost:9000");
-                testBrowser.fill("textarea").with("var teste : String");
-                testBrowser.click("input", withName("valor"));
-                String label = testBrowser.$("#status").getText();
-                assertThat(label).contains("sucesso!");
-            }
-        });
-    }
-
-    @Test
     public void quandoPostaNovaSolucaoRetornaMensagemDeSucesso() throws Exception {
         running(fakeApplication(), new Runnable() {
             @Override
@@ -135,6 +121,26 @@ public class ApplicationTest {
         });
 
     }
+//    @Test
+//    public void quandoDeletaSolucaoRetornaStatusDeletado() throws Exception {
+//        running(fakeApplication(), new Runnable() {
+//            @Override
+//            public void run() {
+//                FakeRequest fakeForm = fakeRequest().withFormUrlEncodedBody(ImmutableMap.of("solucaoDoUsuario", ""));
+//                HandlerRef handlerNovaSolucao = controllers.routes.ref.Application.novaSolucao();
+//                HandlerRef handlerDeletaSolucao = controllers.routes.ref.Application.solucoes(fakeForm.id);
+//                HandlerRef handlerSolucoes = controllers.routes.ref.Application.solucoes();
+//
+//                callAction(handlerNovaSolucao, fakeForm);
+//                Result result = callAction(handlerSolucoes);
+//
+//
+//                assertThat(contentAsString(result)).contains("Status: erro!");
+//            }
+//        });
+//
+//    }
+
 
 
 }
