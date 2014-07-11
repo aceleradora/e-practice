@@ -82,9 +82,9 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
 
     @Test
     public void euConsigoValidarTodoUmaLinhaDeDeclaracao() throws Exception {
-        String validacao = validadorDeDeclaracaoDeVariavel.valida();
+        boolean validacao = validadorDeDeclaracaoDeVariavel.valida();
 
-        assertEquals(validacao, "");
+        assertEquals(validacao, true);
     }
 
     @Test
@@ -109,18 +109,27 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     public void verificaUmaDeclaracaoQueTenhaCincoTokens() throws Exception {
         tokens.add("String");
 
-        String erro = validadorDeDeclaracaoDeVariavel.valida();
+        boolean valido = validadorDeDeclaracaoDeVariavel.valida();
 
-        assertThat(erro, is(not("")));
+        assertThat(valido, is(false));
     }
 
     @Test
     public void verificaUmaDeclaracaoQueTenhaTresTokens() throws Exception {
         tokens.remove(3);
 
-        String erro = validadorDeDeclaracaoDeVariavel.valida();
+        boolean valido = validadorDeDeclaracaoDeVariavel.valida();
 
-        assertThat(erro, is(not("")));
+        assertThat(valido, is(false));
+    }
+
+    @Test
+    public void verificaSeDeclaracaoDeVariavelComNomeVarGeraUmErro() throws Exception {
+        tokens.set(1, "var");
+
+        boolean valido = validadorDeDeclaracaoDeVariavel.valida();
+
+        assertThat(valido, is(false));
     }
 }
 
