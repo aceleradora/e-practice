@@ -11,7 +11,9 @@ public class IdentificadorDeToken {
             return "TIPO_DE_VARIAVEL";
         } else if (token.equals("=")) {
             return "IGUAL";
-     	} else if (token.equals("+")) {
+        } else if (token.equals(":")) {
+            return "DECLARACAO";
+        } else if (token.equals("+")) {
             return "ADICAO";
         } else if (token.equals("-")) {
             return "SUBTRACAO";
@@ -24,7 +26,7 @@ public class IdentificadorDeToken {
         } else if (token.equals(")")) {
             return "PARENTESES_FECHADO";
         } else if (token.charAt(0) == '\"' && token.charAt(token.length()-1) == '\"') {
-            return "CONSTANTE";
+            return "CONSTANTE_TIPO_STRING";
         } else if (Character.isLetter(token.charAt(0))) {
             return "IDV";
         } else if (Character.isDigit(token.charAt(0))) {

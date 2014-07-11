@@ -103,11 +103,15 @@ public class TesteIdentificadorDeToken {
     }
 
     @Test
-    public void constanteDeveRetornarTipoDeTOkenConstante() throws Exception {
+    public void constanteTipoStringDeveRetornarTipoDeTokenConstanteTipoString() throws Exception {
         tokenID = identificadorDeToken.identifica("\"teste\"");
-        assertThat(tokenID, is("CONSTANTE"));
+        assertThat(tokenID, is("CONSTANTE_TIPO_STRING"));
     }
 
-
+    @Test
+    public void testdoisPontosDeveRetornarDeclaracao() throws Exception {
+        tokenID = identificadorDeToken.identifica(":");
+        assertThat(tokenID, is("DECLARACAO"));
+    }
 
 }
