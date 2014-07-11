@@ -18,6 +18,12 @@ public class ValidadorDeDeclaracaoDeVariavel {
     }
 
     public boolean validaSePrimeiroTokenEVar() {
+        /*
+        * String token = tokens.get(0);
+        * String tokenIdentificado = identificadorDeTokens.identifica(token);
+        * boolean comparacao = tokenIdentificado.equals("PALAVRA_RESERVADA");
+        * return comparacao;
+        * */
         return identificadorDeToken.identifica(tokens.get(0)).equals("PALAVRA_RESERVADA");
     }
 
