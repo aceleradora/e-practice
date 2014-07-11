@@ -18,7 +18,6 @@ public class SolucaoDoExercicio extends Model{
     @Constraints.Required (message = "A solução do exercício está vazia. Preencha corretamente.")
     public String solucaoDoUsuario;
 
-
     public SolucaoDoExercicio(String solucaoDoUsuario){
         this.solucaoDoUsuario = solucaoDoUsuario;
     }

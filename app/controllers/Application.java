@@ -4,7 +4,9 @@ import play.data.Form;
 import play.mvc.*;
 import models.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Application extends Controller {
 
@@ -30,7 +32,7 @@ public class Application extends Controller {
         return ok(views.html.index.render(all, solucaoDoExercicioForm, status, mensagemFeedbackDeErro));
     }
 
-    public static Result novaSolucao(){
+    public static Result novaSolucao() {
         Form<SolucaoDoExercicio> formPreenchido = solucaoDoExercicioForm.bindFromRequest();
 
         if(formPreenchido.hasErrors()){

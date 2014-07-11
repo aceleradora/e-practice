@@ -15,5 +15,5 @@ public class SolucaoDoExercicioTest {
         SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio("solucaoDoUsuario");
         assertNotNull(solucaoDoExercicio.solucaoDoUsuario);
     }
-    
+
 }
