@@ -17,7 +17,7 @@ public class ValidacaoAtribuicaoStrings {
     }
 
     public String validaPrimeiroToken() {
-        if (getTokenIdentificado(0).equals("IDV")){
+        if (comparaToken(0,"IDV")){
             return "O primeiro token é uma variável.";
         } else {
             return "Você digitou "+ tokens.get(0) +" e deveria ser uma variável.";
@@ -25,7 +25,7 @@ public class ValidacaoAtribuicaoStrings {
     }
 
     public String validaSegundoToken() {
-        if (getTokenIdentificado(1).equals("IGUAL")){
+        if (comparaToken(1,"IGUAL")){
             return "O segundo token é uma atribuição.";
         } else {
             return "Você digitou \""+ tokens.get(1) +"\" e deveria ser uma atribuição.";
@@ -33,11 +33,15 @@ public class ValidacaoAtribuicaoStrings {
     }
 
     public String validaTerceiroToken() {
-        if (getTokenIdentificado(2).equals("IDV")|| getTokenIdentificado(2).equals("CONSTANTE_TIPO_STRING")){
+        if (comparaToken(2,"IDV") || comparaToken(2,"CONSTANTE_TIPO_STRING")){
             return "O terceiro token é válido.";
         } else {
             return "Você digitou \""+ tokens.get(2) +"\" e deveria ser uma variável ou uma constante do tipo String.";
         }
+    }
+
+    private boolean comparaToken(int indice, String valor) {
+        return getTokenIdentificado(indice).equals(valor);
     }
 
     private String getTokenIdentificado(int indice) {
@@ -53,9 +57,9 @@ public class ValidacaoAtribuicaoStrings {
         if(quantosTokensTemDepoisDoIgual()>1){
             for (int i = 2; i<tokens.size(); i++){
                 boolean indexPar = i%2==0;
-                boolean variavel = getTokenIdentificado(i).equals("IDV");
-                boolean constanteString = getTokenIdentificado(i).equals("CONSTANTE_TIPO_STRING");
-                boolean simboloConcatenacao = getTokenIdentificado(i).equals("CONCATENACAO");
+                boolean variavel = comparaToken(i,"IDV");
+                boolean constanteString = comparaToken(i,"CONSTANTE_TIPO_STRING");
+                boolean simboloConcatenacao = comparaToken(i,"CONCATENACAO");
 
                 if((indexPar) && (!((variavel)||(constanteString)))) {
                     return "Você digitou \""+ tokens.get(i) + "\" e deveria ser uma variável ou constante String.";
