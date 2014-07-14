@@ -40,14 +40,8 @@ public class Application extends Controller {
             return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido, status, mensagemFeedbackDeErro));
         } else{
             try{
-                String stringSolucaoDoUsuario = formPreenchido.get().solucaoDoUsuario;
-
-                mensagemFeedbackDeErro = feedBacker.feedBackDoCodigoDoUsuario(stringSolucaoDoUsuario);
+                SolucaoDoExercicio.create(formPreenchido.get());
                 status = "Status: sua solução foi salva com sucesso!";
-
-                if (mensagemFeedbackDeErro == ""){
-                    SolucaoDoExercicio.create(formPreenchido.get());
-                }
             } catch (Exception e){
                 status = "Status: sua solução não foi salva!";
             }

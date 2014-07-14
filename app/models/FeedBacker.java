@@ -23,7 +23,7 @@ public class FeedBacker {
         tabelaDeSimbolos = new TabelaDeSimbolos();
     }
 
-    private void whatever(String solucaoDoUsuario){
+    private void validaAtribuicaoDeVariavel(String solucaoDoUsuario){
         ArrayList<String> tokens = lexer.tokenizar(solucaoDoUsuario);
         declaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tokens, tabelaDeSimbolos);
         if(!declaracaoDeVariavel.valida())
@@ -31,7 +31,7 @@ public class FeedBacker {
     }
 
     public String feedBackDoCodigoDoUsuario(String solucaoDoUsuario) {
-        whatever(solucaoDoUsuario);
+        validaAtribuicaoDeVariavel(solucaoDoUsuario);
         return erros;
     }
 }
