@@ -67,7 +67,7 @@ public class TesteValidacaoAtribuicaoStrings {
         entradaDoUsuario = lexer.tokenizar("x = banana");
         validador = new ValidacaoAtribuicaoStrings(entradaDoUsuario);
 
-        assertThat(validador.validaTerceiroTokens(), is("O terceiro token é válido."));
+        assertThat(validador.validaTerceiroToken(), is("O terceiro token é válido."));
         assertThat(validador.validaTokensDepoisDoIgual(), is("O terceiro token é válido."));
     }
 
@@ -76,7 +76,7 @@ public class TesteValidacaoAtribuicaoStrings {
         entradaDoUsuario = lexer.tokenizar("x = \"banana\"");
         validador = new ValidacaoAtribuicaoStrings(entradaDoUsuario);
 
-        assertThat(validador.validaTerceiroTokens(), is("O terceiro token é válido."));
+        assertThat(validador.validaTerceiroToken(), is("O terceiro token é válido."));
         assertThat(validador.validaTokensDepoisDoIgual(), is("O terceiro token é válido."));
     }
 
@@ -85,7 +85,7 @@ public class TesteValidacaoAtribuicaoStrings {
         entradaDoUsuario = lexer.tokenizar("x = +");
         validador = new ValidacaoAtribuicaoStrings(entradaDoUsuario);
 
-        assertThat(validador.validaTerceiroTokens(), is("Você digitou \"+\" e deveria ser uma variável ou uma constante do tipo String."));
+        assertThat(validador.validaTerceiroToken(), is("Você digitou \"+\" e deveria ser uma variável ou uma constante do tipo String."));
         assertThat(validador.validaTokensDepoisDoIgual(), is("Você digitou \"+\" e deveria ser uma variável ou uma constante do tipo String."));
     }
 
@@ -130,6 +130,7 @@ public class TesteValidacaoAtribuicaoStrings {
 
         assertThat(validador.validaTokensDepoisDoIgual(), is("Você digitou \"1\" e deveria ser uma variável ou constante String."));
     }
+
     @Test
     public void seHouverUmaConcatenacaoComOSimboloErradoComUmaConstanteInteiraEUmaVariavelStringEntaoOValidadorNaoIraReconhecer() throws Exception {
         entradaDoUsuario = lexer.tokenizar("x = 1 : azul");
@@ -152,5 +153,34 @@ public class TesteValidacaoAtribuicaoStrings {
         validador = new ValidacaoAtribuicaoStrings(entradaDoUsuario);
 
         assertThat(validador.validaTokensDepoisDoIgual(), is("Você digitou \":\" e deveria ser \"<>\"."));
+    }
+
+    @Test
+    public void seHouverDoisErrosRetornaUmaListaComOsDoisErros() throws Exception {
+        entradaDoUsuario = lexer.tokenizar("x : 1 <> \"casa\"");
+        validador = new ValidacaoAtribuicaoStrings(entradaDoUsuario);
+        ArrayList<String> mensagens = validador.getMensagens();
+
+        assertThat(mensagens.size(), is(2));
+        assertThat(mensagens.get(0), is("Você digitou \":\" e deveria ser uma atribuição."));
+        assertThat(mensagens.get(1), is("Você digitou \"1\" e deveria ser uma variável ou constante String."));
+    }
+
+    @Test
+    public void seTemErrosValidadorTerminaComEntradaInvalida() throws Exception {
+        entradaDoUsuario = lexer.tokenizar("x : 1 <> \"casa\"");
+        validador = new ValidacaoAtribuicaoStrings(entradaDoUsuario);
+        boolean valida = validador.valida();
+
+        assertThat(valida,is(false));
+    }
+
+    @Test
+    public void seNaoTemErrosAValidacaoTerminaComSucesso() throws Exception {
+        entradaDoUsuario = lexer.tokenizar("x = \"1\" <> \"casa\"");
+        validador = new ValidacaoAtribuicaoStrings(entradaDoUsuario);
+        boolean valida = validador.valida();
+
+        assertThat(valida,is(true));
     }
 }
