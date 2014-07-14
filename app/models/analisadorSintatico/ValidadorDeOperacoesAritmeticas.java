@@ -31,7 +31,10 @@ public class ValidadorDeOperacoesAritmeticas {
                 if(tipoToken.equals("VARIAVEL")){
                     if(tokenID.identifica(tokens.get(cont)).equalsIgnoreCase("NUMERO")||
                         tokenID.identifica(tokens.get(cont)).equalsIgnoreCase("IDV")||
-                        tokenID.identifica(tokens.get(cont)).equalsIgnoreCase("PARENTESES_ABERTO")){
+                        tokenID.identifica(tokens.get(cont)).equalsIgnoreCase("PARENTESES_ABERTO")||
+                        tokenID.identifica(tokens.get(cont)).equalsIgnoreCase("PARENTESES_FECHADO"))
+                    {
+
 
                         condicao = true;
                         tipoToken = "OPERADOR";

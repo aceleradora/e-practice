@@ -31,10 +31,10 @@ public class TesteValidadorDeOperacoesAritmeticas {
         tokens.add("1");
         tokens.add("+");
         tokens.add("2");
+        tokens.add(")");
 
-
-        assertThat(validadorDeOperacoesAritmeticas.validarOperacoesAritmeticasSemInsercaoDeParenteses(), is("INVALIDO"));
-    }
+        assertThat(validadorDeOperacoesAritmeticas.validarOperacoesAritmeticasSemInsercaoDeParenteses(), is("VALIDO"));
+}
 
     @Test
     public void dadoQueAOperacaoContenhaUmParenteseAberto() throws Exception {
