@@ -13,9 +13,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-/**
- * Created by alunos3 on 07/07/14.
- */
 public class TesteValidadorDeDeclaracaoDeVariavel {
 
     public ArrayList<String> tokens = new ArrayList<String>();
@@ -33,62 +30,62 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     }
 
     @Test
-    public void seOPrimeiroTokenEIgualAVar() throws Exception {
+    public void retornaTrueSeOPrimeiroTokenForVar() throws Exception {
         assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSePrimeiroTokenEVar());
     }
 
     @Test
-    public void seOSegundoTokenEhUmIdv() throws Exception {
+    public void retornaTrueSeOSegundoTokenForIDV() throws Exception {
         assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSeSegundoTokenEIdv());
     }
 
     @Test
-    public void seOTerceiroTokenEhUmDoisPontos() throws Exception {
+    public void retornaTrueSeOTerceiroTokenForDoisPontos() throws Exception {
         assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSeTerceiroTokenEDoisPontos());
     }
 
     @Test
-    public void seOQuartoTokenEhUmTipo() throws Exception {
+    public void retornaTrueSeOQuartoTokenForTipoDeVariavel() throws Exception {
         assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSeQuartoTokenETipoDeVariavel());
     }
 
     @Test
-    public void seEuErroOPrimeiroTokenEuconsigoCapturarAMensagemDesteErro() throws Exception {
+    public void retornaMensagemDeErroQuandoPrimeiroTokenNaoForVar() throws Exception {
         tokens.set(0, "Erro");
 
         assertEquals("a primeira palavra deveria ser \"var\" - ", validadorDeDeclaracaoDeVariavel.capturaMensagensDeErro());
     }
 
     @Test
-    public void seEuErroOSegundoTokenEuconsigoCapturarEsteErro() throws Exception {
+    public void retornaMensagemDeErroQuandoSegundoTokenNaoForIdentificadorDeVariavel() throws Exception {
         tokens.set(1, "1Erro");
 
         assertEquals("a segunda palavra deveria ser um identificador de variável válido - ", validadorDeDeclaracaoDeVariavel.capturaMensagensDeErro());
     }
 
     @Test
-    public void seEuErroOTerceiroTokenEuconsigoCapturarEsteErro() throws Exception {
+    public void retornaMensagemDeErroQuandoTerceiroTokenNaoForDoisPontos() throws Exception {
         tokens.set(2, "Erro");
 
         assertEquals("a terceira palavra deveria ser \":\" - ", validadorDeDeclaracaoDeVariavel.capturaMensagensDeErro());
     }
 
     @Test
-    public void seEuErroOQuartoTokenEuconsigoCapturarEsteErro() throws Exception {
+    public void retornaMensagemDeErroQuandoQuartoTokenNaoForTipoValidoDeVariavel() throws Exception {
         tokens.set(3, "Erro");
 
         assertEquals("a quarta palavra deveria ser um tipo válido de variável (string ou inteiro)", validadorDeDeclaracaoDeVariavel.capturaMensagensDeErro());
     }
 
     @Test
-    public void euConsigoValidarTodoUmaLinhaDeDeclaracao() throws Exception {
+    public void validaUmaLinhaDeDeclaracaoDeVariavelCorreta() throws Exception {
         boolean validacao = validadorDeDeclaracaoDeVariavel.valida();
 
-        assertEquals(validacao, true);
+        assertEquals(true, validacao);
     }
 
     @Test
-    public void seNaoHouverErrosAdicionaSimboloNaTabelaDeSimbolos() throws Exception {
+    public void adicionaSimboloXComoStringNaTabelaDeSimbolosSeADeclaracaoEstiverCorreta() throws Exception {
         validadorDeDeclaracaoDeVariavel.adicionaVariavelNaTabelaDeSimbolos();
 
         assertThat(tabelaDeSimbolos.getTipoSimbolo("x"), is("String"));
@@ -97,7 +94,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     }
 
     @Test
-    public void seHouverErrosNaoAdicionaSimboloNaTabelaDeSimbolos() throws Exception {
+    public void naoAdicionaSimboloNaTabelaDeSimbolosSeADeclaracaoEstiverErrada() throws Exception {
         tokens.set(0, "Erro");
 
         validadorDeDeclaracaoDeVariavel.adicionaVariavelNaTabelaDeSimbolos();
@@ -106,7 +103,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     }
 
     @Test
-    public void verificaUmaDeclaracaoQueTenhaCincoTokens() throws Exception {
+    public void retornaFalseQuandoValidaUmaDeclaracaoQueContemMaisDeQuatroTokens() throws Exception {
         tokens.add("String");
 
         boolean valido = validadorDeDeclaracaoDeVariavel.valida();
@@ -115,7 +112,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     }
 
     @Test
-    public void verificaUmaDeclaracaoQueTenhaTresTokens() throws Exception {
+    public void retornaFalseQuandoValidaUmaDeclaracaoQueContemMenosDeQuatroTokens() throws Exception {
         tokens.remove(3);
 
         boolean valido = validadorDeDeclaracaoDeVariavel.valida();
@@ -124,7 +121,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     }
 
     @Test
-    public void verificaSeDeclaracaoDeVariavelComNomeVarGeraUmErro() throws Exception {
+    public void retornaFalseQuandoValidaDeclaracaoComNomeDoIdentificadorUsandoPalavraReservada() throws Exception {
         tokens.set(1, "var");
 
         boolean valido = validadorDeDeclaracaoDeVariavel.valida();
