@@ -1,8 +1,6 @@
 package models.analisadorSintatico;
 
 import models.analisadorLexico.IdentificadorDeToken;
-import scala.util.parsing.combinator.testing.Str;
-
 import java.util.ArrayList;
 
 public class ValidadorDeOperacoesAritmeticas {
@@ -15,158 +13,98 @@ public class ValidadorDeOperacoesAritmeticas {
         this.tokens = tokens;
     }
 
-    public String validarOperacoesAritmeticasSemInsercaoDeParenteses() {
-        boolean condicao = true;
-        String mensagem = "VALIDO";
-        int cont = 0;
-        String tipoToken = "VARIAVEL";
-
-        if(verificaSePrimeiroParenteseEncontradoEhUmParenteseAberto().equalsIgnoreCase("NAO_CONTEM")){
-            return "INVALIDO";
-        }
-
-        while(condicao == true && cont<=tokens.size()-1){
-            condicao = false;
-
-                if(tipoToken.equals("VARIAVEL")){
-                    if(tokenID.identifica(tokens.get(cont)).equalsIgnoreCase("NUMERO")||
-                        tokenID.identifica(tokens.get(cont)).equalsIgnoreCase("IDV")||
-                        tokenID.identifica(tokens.get(cont)).equalsIgnoreCase("PARENTESES_ABERTO")){
-
-                        condicao = true;
-                        tipoToken = "OPERADOR";
-                        cont ++;
-
-                    } else {
-                        mensagem = "INVALIDO";
-                    }
-                }
-
-                else {
-                    if (cont!=tokens.size()-1){
-                        if(tokenID.identifica(tokens.get(cont)).equalsIgnoreCase("ADICAO")
-                                ||
-                                tokenID.identifica(tokens.get(cont)).equalsIgnoreCase("SUBTRACAO")
-                                ||
-                                tokenID.identifica(tokens.get(cont)).equalsIgnoreCase("MULTIPLICACAO")
-                                ||
-                                tokenID.identifica(tokens.get(cont)).equalsIgnoreCase("DIVISAO")){
-
-                            condicao = true;
-                            tipoToken = "VARIAVEL";
-                            cont ++;
-
-                        }
-                        else mensagem = "INVALIDO";
-                    }
-
-                    else mensagem = "INVALIDO";
-                }
-            }
-
-        return mensagem;
-
-    }
-
-    public String verificaSeOperacaoContemUmParenteseAberto() {
-        String mensagem = "";
-        for(int i = 0; i < tokens.size(); i++){
-            if(tokens.contains("(")){
-                mensagem = "CONTEM";
-            } else {
-                mensagem = "NAO_CONTEM";
-            }
-        }
-        return mensagem;
-    }
-
-    public String verificaSeOperacaoContemUmParenteseFechado() {
-        String mensagem = "";
-        for(int i = 0; i < tokens.size(); i++){
-            if(tokens.contains(")")){
-                mensagem = "CONTEM";
-            } else {
-                mensagem = "NAO_CONTEM";
-            }
-        }
-        return mensagem;
-    }
-
-    public String verificaSeOperacaoContemUmParenteseAbertoEFechado() {
-        String mensagem = "";
-        if(verificaSeOperacaoContemUmParenteseAberto().equals("CONTEM") && verificaSeOperacaoContemUmParenteseFechado().equals("CONTEM")){
-            mensagem = "CONTEM";
+    public boolean validaSeEhVariavel(String token){
+        if(tokenID.identifica(token).equalsIgnoreCase("NUMERO")||
+                tokenID.identifica(token).equalsIgnoreCase("IDV")) {
+            return true;
         } else {
-            mensagem = "NAO_CONTEM";
+            return false;
         }
-        return mensagem;
 
     }
 
-    public String verificaSePrimeiroParenteseEncontradoEhUmParenteseAberto() {
-        String mensagem = "";
-        int parenteseAberto = 0;
-        int parenteseFechado = 0;
-        if(verificaSeOperacaoContemUmParenteseAbertoEFechado().equals("CONTEM")){
-            for(int i = 0; i <tokens.size(); i++){
-                if(tokens.get(i).equals("(")){
-                    parenteseAberto = i;
+    public boolean validaSeEhOperador(String token){
+        if(tokenID.identifica(token).equalsIgnoreCase("ADICAO")
+                    ||
+                    tokenID.identifica(token).equalsIgnoreCase("SUBTRACAO")
+                    ||
+                    tokenID.identifica(token).equalsIgnoreCase("MULTIPLICACAO")
+                    ||
+                    tokenID.identifica(token).equalsIgnoreCase("DIVISAO")){
+                return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public boolean validarOperacoesAritmeticas() {
+        boolean mensagem = true;
+        String tipoToken = "VARIAVEL";
+        int cont = 0;
+        boolean parenteses = true;
+
+        if(mensagem = verificaSeOsParentesesEstaoOk()){
+            while(cont<=tokens.size()-1){
+                parenteses = (tokenID.identifica(tokens.get(cont)).equals("PARENTESES_ABERTO") || tokenID.identifica(tokens.get(cont)).equals("PARENTESES_FECHADO"));
+                if(!parenteses && mensagem == true){
+                    if(tipoToken.equals("VARIAVEL")){
+                        mensagem = validaSeEhVariavel(tokens.get(cont));
+                        tipoToken = "OPERADOR";
+                    }
+                    else {
+                        mensagem = validaSeEhOperador(tokens.get(cont));
+                        if(mensagem == true && validaSeEhVariavel(tokens.get(cont+1))){
+                            tipoToken = "VARIAVEL";
+                        } else {
+                            mensagem = false;
+                        }
+                    }
                 }
-                if (tokens.get(i).equals(")")){
-                    parenteseFechado = i;
-                }
-            }
-            if(parenteseAberto < parenteseFechado){
-                mensagem = "VALIDO";
-            } else {
-                mensagem = "INVALIDO";
+            cont++;
             }
         }
         return mensagem;
     }
 
-    public String verificaSeHaConteudoDentroDoParenteses() {
-        String mensagem = "";
-        int parenteseAberto = 0;
-        int parenteseFechado = 0;
-        if(verificaSePrimeiroParenteseEncontradoEhUmParenteseAberto().equals("VALIDO")){
-            for(int i = 0; i <tokens.size(); i++){
-                if(tokens.get(i).equals("(")){
-                    parenteseAberto = i;
-                }
-                if (tokens.get(i).equals(")")){
-                    parenteseFechado = i;
-                }
-            }
-            if((parenteseFechado - parenteseAberto) > 1 && !tokens.get(parenteseAberto+1).equals(" ")){
-                mensagem = "CONTEM";
-            } else {
-                mensagem = "NAO_CONTEM";
-            }
-        }
-        return mensagem;
-    }
 
-    public String verificaSeOperacaoContemAMesmaQuandidadeDeParentesesAbertoEFechado() {
-        String mensagem = "";
+    public boolean verificaSeOsParentesesEstaoOk() {
         int contaParentese = 0;
+        int contaParenteseAberto = 0;
+        int contaParenteseFechado = 0;
 
         for(int i = 0; i <tokens.size(); i++){
             if(tokens.get(i).equals("(")){
                 contaParentese++;
+                contaParenteseAberto++;
             }
             if (tokens.get(i).equals(")")){
-                contaParentese--;
+                if (contaParenteseAberto > 0){
+                    contaParenteseFechado++;
+                    contaParentese--;
+                } else {
+                    return false;
+                }
             }
         }
 
         if(contaParentese == 0){
-            mensagem = "CONTEM_MESMA_QUANTIDADE";
+            return true;
         } else {
-            mensagem = "NAO_CONTEM_MESMA_QUANTIDADE";
+            return false;
         }
-
-        return mensagem;
     }
 
+    public int verificaQuantidadeExpressoesComParenteses() {
+        int quantidadeDeParenteses = 0;
+        if(verificaSeOsParentesesEstaoOk()){
+            for(int i = 0; i <tokens.size(); i++){
+                if(tokens.get(i).equals("(")){
+                    quantidadeDeParenteses++;
+                }
+            }
+        }
+        return quantidadeDeParenteses;
+    }
 }
