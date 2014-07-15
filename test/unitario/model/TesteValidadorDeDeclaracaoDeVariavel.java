@@ -8,9 +8,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 public class TesteValidadorDeDeclaracaoDeVariavel {
@@ -53,33 +51,33 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     public void retornaMensagemDeErroQuandoPrimeiroTokenNaoForVar() throws Exception {
         tokens.set(0, "Erro");
 
-        assertEquals("a primeira palavra deveria ser \"var\" - ", validadorDeDeclaracaoDeVariavel.capturaMensagensDeErro());
+        assertEquals("a primeira palavra deveria ser \"var\" - ", validadorDeDeclaracaoDeVariavel.geraMensagensDeErro());
     }
 
     @Test
     public void retornaMensagemDeErroQuandoSegundoTokenNaoForIdentificadorDeVariavel() throws Exception {
         tokens.set(1, "1Erro");
 
-        assertEquals("a segunda palavra deveria ser um identificador de variável válido - ", validadorDeDeclaracaoDeVariavel.capturaMensagensDeErro());
+        assertEquals("a segunda palavra deveria ser um identificador de variável válido - ", validadorDeDeclaracaoDeVariavel.geraMensagensDeErro());
     }
 
     @Test
     public void retornaMensagemDeErroQuandoTerceiroTokenNaoForDoisPontos() throws Exception {
         tokens.set(2, "Erro");
 
-        assertEquals("a terceira palavra deveria ser \":\" - ", validadorDeDeclaracaoDeVariavel.capturaMensagensDeErro());
+        assertEquals("a terceira palavra deveria ser \":\" - ", validadorDeDeclaracaoDeVariavel.geraMensagensDeErro());
     }
 
     @Test
     public void retornaMensagemDeErroQuandoQuartoTokenNaoForTipoValidoDeVariavel() throws Exception {
         tokens.set(3, "Erro");
 
-        assertEquals("a quarta palavra deveria ser um tipo válido de variável (string ou inteiro)", validadorDeDeclaracaoDeVariavel.capturaMensagensDeErro());
+        assertEquals("a quarta palavra deveria ser um tipo válido de variável (string ou inteiro)", validadorDeDeclaracaoDeVariavel.geraMensagensDeErro());
     }
 
     @Test
     public void validaUmaLinhaDeDeclaracaoDeVariavelCorreta() throws Exception {
-        boolean validacao = validadorDeDeclaracaoDeVariavel.valida();
+        boolean validacao = validadorDeDeclaracaoDeVariavel.validaDeclaracao();
 
         assertEquals(true, validacao);
     }
@@ -106,7 +104,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     public void retornaFalseQuandoValidaUmaDeclaracaoQueContemMaisDeQuatroTokens() throws Exception {
         tokens.add("String");
 
-        boolean valido = validadorDeDeclaracaoDeVariavel.valida();
+        boolean valido = validadorDeDeclaracaoDeVariavel.validaDeclaracao();
 
         assertThat(valido, is(false));
     }
@@ -115,7 +113,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     public void retornaFalseQuandoValidaUmaDeclaracaoQueContemMenosDeQuatroTokens() throws Exception {
         tokens.remove(3);
 
-        boolean valido = validadorDeDeclaracaoDeVariavel.valida();
+        boolean valido = validadorDeDeclaracaoDeVariavel.validaDeclaracao();
 
         assertThat(valido, is(false));
     }
@@ -124,7 +122,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     public void retornaFalseQuandoValidaDeclaracaoComNomeDoIdentificadorUsandoPalavraReservada() throws Exception {
         tokens.set(1, "var");
 
-        boolean valido = validadorDeDeclaracaoDeVariavel.valida();
+        boolean valido = validadorDeDeclaracaoDeVariavel.validaDeclaracao();
 
         assertThat(valido, is(false));
     }

@@ -18,12 +18,6 @@ public class ValidadorDeDeclaracaoDeVariavel {
     }
 
     public boolean validaSePrimeiroTokenEVar() {
-        /*
-        * String token = tokens.get(0);
-        * String tokenIdentificado = identificadorDeTokens.identifica(token);
-        * boolean comparacao = tokenIdentificado.equals("PALAVRA_RESERVADA");
-        * return comparacao;
-        * */
         return identificadorDeToken.identifica(tokens.get(0)).equals("PALAVRA_RESERVADA");
     }
 
@@ -47,33 +41,31 @@ public class ValidadorDeDeclaracaoDeVariavel {
         return tokens.size() < 4;
     }
 
-    public boolean valida() {
-        boolean valido = true;
-        if(this.verificaSeTokensTemQuantidadeAcimaDoEsperado()) {
-            valido = false;
-            return valido;
+    public boolean validaDeclaracao() {
+        if(quantidadeDeTokensForInvalida()){
+            return false;
         }
+        return tokensSaoValidos();
+    }
 
-        if(this.verificaSeTokensTemQuantidadeAbaixoDoEsperado()) {
-            valido = false;
-            return valido;
-        }
+    private boolean tokensSaoValidos() {
+        return validaSePrimeiroTokenEVar()
+                        && validaSeSegundoTokenEIdv()
+                        && validaSeTerceiroTokenEDoisPontos()
+                        && validaSeQuartoTokenETipoDeVariavel();
+    }
 
-        valido = valido && this.validaSePrimeiroTokenEVar();
-        valido = valido && this.validaSeSegundoTokenEIdv();
-        valido = valido && this.validaSeTerceiroTokenEDoisPontos();
-        valido = valido && this.validaSeQuartoTokenETipoDeVariavel();
-
-        return valido;
+    private boolean quantidadeDeTokensForInvalida() {
+        return verificaSeTokensTemQuantidadeAcimaDoEsperado() || verificaSeTokensTemQuantidadeAbaixoDoEsperado();
     }
 
     public void adicionaVariavelNaTabelaDeSimbolos() {
-        if(this.valida()){
+        if(this.validaDeclaracao()){
             tabelaDeSimbolos.adicionaSimbolo(tokens.get(1), tokens.get(3));
         }
     }
 
-    public String capturaMensagensDeErro() {
+    public String geraMensagensDeErro() {
         String retorno = "";
 
         if (verificaSeTokensTemQuantidadeAbaixoDoEsperado()) {
