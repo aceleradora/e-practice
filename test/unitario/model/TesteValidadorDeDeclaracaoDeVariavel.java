@@ -24,27 +24,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         tokens.add("x");
         tokens.add(":");
         tokens.add("String");
-        validadorDeDeclaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tokens, tabelaDeSimbolos);
-    }
-
-    @Test
-    public void retornaTrueSeOPrimeiroTokenForVar() throws Exception {
-        assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSePrimeiroTokenEVar());
-    }
-
-    @Test
-    public void retornaTrueSeOSegundoTokenForIDV() throws Exception {
-        assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSeSegundoTokenEIdv());
-    }
-
-    @Test
-    public void retornaTrueSeOTerceiroTokenForDoisPontos() throws Exception {
-        assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSeTerceiroTokenEDoisPontos());
-    }
-
-    @Test
-    public void retornaTrueSeOQuartoTokenForTipoDeVariavel() throws Exception {
-        assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSeQuartoTokenETipoDeVariavel());
+        validadorDeDeclaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tabelaDeSimbolos);
     }
 
     @Test
