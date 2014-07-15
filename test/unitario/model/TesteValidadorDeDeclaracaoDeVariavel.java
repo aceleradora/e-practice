@@ -53,7 +53,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     }
 
     @Test
-    public void seEuErroOPrimeiroTokenEuconsigoCapturarAMensagemDesteErro() throws Exception {
+    public void seEuErroOPrimeiroTokenEuConsigoCapturarAMensagemDesteErro() throws Exception {
         tokens.set(0, "Erro");
 
         assertEquals("a primeira palavra deveria ser \"var\" - ", validadorDeDeclaracaoDeVariavel.capturaMensagensDeErro());
