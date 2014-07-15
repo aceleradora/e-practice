@@ -33,46 +33,44 @@ public class ValidadorDeDeclaracaoDeVariavel {
         return identificadorDeToken.identifica(tokens.get(3)).equals("TIPO_DE_VARIAVEL");
     }
 
-    public boolean verificaSeTokensTemQuantidadeAcimaDoEsperado() {
-        return tokens.size() > 4;
+    public boolean verificaSeTokensTemQuantidadeAcimaDoEsperado(ArrayList<String> listaDeTokens) {
+        return listaDeTokens.size() > 4;
     }
 
-    public boolean verificaSeTokensTemQuantidadeAbaixoDoEsperado() {
-        return tokens.size() < 4;
+    public boolean verificaSeTokensTemQuantidadeAbaixoDoEsperado(ArrayList<String> listaDeTokens) {
+        return listaDeTokens.size() < 4;
     }
 
-    public boolean valida() {
-        boolean valido = true;
-        if(this.verificaSeTokensTemQuantidadeAcimaDoEsperado()) {
-            valido = false;
-            return valido;
+    public boolean validaDeclaracao(ArrayList<String> listaDeTokens) {
+        if(quantidadeDeTokensForInvalida(listaDeTokens)){
+            return false;
         }
-
-        if(this.verificaSeTokensTemQuantidadeAbaixoDoEsperado()) {
-            valido = false;
-            return valido;
-        }
-
-        valido = valido && this.validaSePrimeiroTokenEVar();
-        valido = valido && this.validaSeSegundoTokenEIdv();
-        valido = valido && this.validaSeTerceiroTokenEDoisPontos();
-        valido = valido && this.validaSeQuartoTokenETipoDeVariavel();
-
-        return valido;
+        return tokensSaoValidos();
     }
 
-    public void adicionaVariavelNaTabelaDeSimbolos() {
-        if(this.valida()){
+    private boolean tokensSaoValidos() {
+        return validaSePrimeiroTokenEVar()
+                        && validaSeSegundoTokenEIdv()
+                        && validaSeTerceiroTokenEDoisPontos()
+                        && validaSeQuartoTokenETipoDeVariavel();
+    }
+
+    private boolean quantidadeDeTokensForInvalida(ArrayList<String> listaDeTokens) {
+        return verificaSeTokensTemQuantidadeAcimaDoEsperado(listaDeTokens) || verificaSeTokensTemQuantidadeAbaixoDoEsperado(listaDeTokens);
+    }
+
+    public void adicionaVariavelNaTabelaDeSimbolos(ArrayList<String> listaDeTokens) {
+        if(this.validaDeclaracao(listaDeTokens)){
             tabelaDeSimbolos.adicionaSimbolo(tokens.get(1), tokens.get(3));
         }
     }
 
-    public String capturaMensagensDeErro() {
+    public String geraMensagensDeErro(ArrayList<String> listaDeTokens) {
         String retorno = "";
 
-        if (verificaSeTokensTemQuantidadeAbaixoDoEsperado()) {
+        if (verificaSeTokensTemQuantidadeAbaixoDoEsperado(listaDeTokens)) {
             retorno = "a declaração espera VAR \"IDENTIFICADOR\" : TIPO, um parametro faltando";
-        } else if (verificaSeTokensTemQuantidadeAcimaDoEsperado()) {
+        } else if (verificaSeTokensTemQuantidadeAcimaDoEsperado(listaDeTokens)) {
             retorno = "a declaração espera apenas VAR \"IDENTIFICADOR\" : TIPO";
         } else if(!validaSePrimeiroTokenEVar()){
             retorno = "a primeira palavra deveria ser \"var\" - ";

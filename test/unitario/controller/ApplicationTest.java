@@ -121,25 +121,29 @@ public class ApplicationTest {
         });
 
     }
-//    @Test
-//    public void quandoDeletaSolucaoRetornaStatusDeletado() throws Exception {
-//        running(fakeApplication(), new Runnable() {
-//            @Override
-//            public void run() {
-//                FakeRequest fakeForm = fakeRequest().withFormUrlEncodedBody(ImmutableMap.of("solucaoDoUsuario", ""));
-//                HandlerRef handlerNovaSolucao = controllers.routes.ref.Application.novaSolucao();
-//                HandlerRef handlerDeletaSolucao = controllers.routes.ref.Application.solucoes(fakeForm.id);
-//                HandlerRef handlerSolucoes = controllers.routes.ref.Application.solucoes();
-//
-//                callAction(handlerNovaSolucao, fakeForm);
-//                Result result = callAction(handlerSolucoes);
-//
-//
-//                assertThat(contentAsString(result)).contains("Status: erro!");
-//            }
-//        });
-//
-//    }
+
+    @Test
+    public void quandoDeletaSolucaoRetornaStatusDeletado() throws Exception {
+        running(fakeApplication(), new Runnable() {
+            @Override
+            public void run() {
+
+                SolucaoDoExercicio solucaoTeste = new SolucaoDoExercicio("teste deleta");
+                //solucaoTeste.id = 1061;
+                try{
+                    SolucaoDoExercicio.create(solucaoTeste);
+                } catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+
+                callAction(controllers.routes.ref.Application.deletaSolucao(solucaoTeste.id));
+                Result result = callAction(controllers.routes.ref.Application.solucoes());
+
+                assertThat(contentAsString(result)).contains("Status: deletado!");
+            }
+        });
+
+    }
 
 
 

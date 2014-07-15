@@ -17,7 +17,7 @@ public class ValidacaoAtribuicaoStrings {
     }
 
     public String validaPrimeiroToken() {
-        if (identificador.identifica(tokens.get(0)).equals("IDV")){
+        if (comparaToken(0,"IDV")){
             return "O primeiro token é uma variável.";
         } else {
             return "Você digitou "+ tokens.get(0) +" e deveria ser uma variável.";
@@ -25,19 +25,27 @@ public class ValidacaoAtribuicaoStrings {
     }
 
     public String validaSegundoToken() {
-        if (identificador.identifica(tokens.get(1)).equals("IGUAL")){
+        if (comparaToken(1,"IGUAL")){
             return "O segundo token é uma atribuição.";
         } else {
             return "Você digitou \""+ tokens.get(1) +"\" e deveria ser uma atribuição.";
         }
     }
 
-    public String validaTerceiroTokens() {
-        if (identificador.identifica(tokens.get(2)).equals("IDV")||identificador.identifica(tokens.get(2)).equals("CONSTANTE_TIPO_STRING")){
+    public String validaTerceiroToken() {
+        if (comparaToken(2,"IDV") || comparaToken(2,"CONSTANTE_TIPO_STRING")){
             return "O terceiro token é válido.";
         } else {
             return "Você digitou \""+ tokens.get(2) +"\" e deveria ser uma variável ou uma constante do tipo String.";
         }
+    }
+
+    private boolean comparaToken(int indice, String valor) {
+        return getTokenIdentificado(indice).equals(valor);
+    }
+
+    private String getTokenIdentificado(int indice) {
+        return identificador.identifica(tokens.get(indice));
     }
 
     public int quantosTokensTemDepoisDoIgual() {
@@ -49,9 +57,9 @@ public class ValidacaoAtribuicaoStrings {
         if(quantosTokensTemDepoisDoIgual()>1){
             for (int i = 2; i<tokens.size(); i++){
                 boolean indexPar = i%2==0;
-                boolean variavel = identificador.identifica(tokens.get(i)).equals("IDV");
-                boolean constanteString = identificador.identifica(tokens.get(i)).equals("CONSTANTE_TIPO_STRING");
-                boolean simboloConcatenacao = identificador.identifica(tokens.get(i)).equals("CONCATENACAO");
+                boolean variavel = comparaToken(i,"IDV");
+                boolean constanteString = comparaToken(i,"CONSTANTE_TIPO_STRING");
+                boolean simboloConcatenacao = comparaToken(i,"CONCATENACAO");
 
                 if((indexPar) && (!((variavel)||(constanteString)))) {
                     return "Você digitou \""+ tokens.get(i) + "\" e deveria ser uma variável ou constante String.";
@@ -62,8 +70,34 @@ public class ValidacaoAtribuicaoStrings {
             }
 
         } else {
-            return validaTerceiroTokens();
+            return validaTerceiroToken();
         }
         return "A concatenação foi feita corretamente.";
+    }
+
+    public ArrayList<String> getMensagens() {
+        ArrayList<String> mensagens = new ArrayList<String>();
+
+        if(!validaPrimeiroToken().equals("O primeiro token é uma variável.")){
+            mensagens.add(validaPrimeiroToken());
+        }
+        if(!validaSegundoToken().equals("O segundo token é uma atribuição.")){
+            mensagens.add(validaSegundoToken());
+        }
+        if((!validaTerceiroToken().equals("O terceiro token é válido.")) && quantosTokensTemDepoisDoIgual() == 1){
+           mensagens.add(validaTerceiroToken());
+        }
+        if(!validaTokensDepoisDoIgual().equals("A concatenação foi feita corretamente.")){
+            mensagens.add(validaTokensDepoisDoIgual());
+        }
+        return mensagens;
+    }
+
+    public boolean valida() {
+        boolean retorno = false;
+        if(getMensagens().isEmpty()){
+            retorno = true;
+        }
+        return retorno;
     }
 }
