@@ -6,9 +6,6 @@ import models.analisadorSintatico.ValidadorDeDeclaracaoDeVariavel;
 
 import java.util.ArrayList;
 
-/**
- * Created by alunos3 on 10/07/14.
- */
 public class FeedBacker {
 
     Lexer lexer;
@@ -26,8 +23,8 @@ public class FeedBacker {
     private void validaAtribuicaoDeVariavel(String solucaoDoUsuario){
         ArrayList<String> tokens = lexer.tokenizar(solucaoDoUsuario);
         declaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tokens, tabelaDeSimbolos);
-        if(!declaracaoDeVariavel.validaDeclaracao())
-            erros = declaracaoDeVariavel.geraMensagensDeErro();
+        if(!declaracaoDeVariavel.validaDeclaracao(tokens))
+            erros = declaracaoDeVariavel.geraMensagensDeErro(tokens);
     }
 
     public String feedBackDoCodigoDoUsuario(String solucaoDoUsuario) {
