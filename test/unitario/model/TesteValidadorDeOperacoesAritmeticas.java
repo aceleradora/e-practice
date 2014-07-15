@@ -79,16 +79,4 @@ public class TesteValidadorDeOperacoesAritmeticas {
         assertThat(validadorDeOperacoesAritmeticas.validarOperacoesAritmeticas(), is(false));
     }
 
-    @Test
-    public void dadoQueAdicioneiUmParentesesDepoisDeUmSimboloDeOperacaoEntaoRecebereiUmRetornoFalse() throws Exception {
-        tokens.add("(");
-        tokens.add("5");
-        tokens.add("+");
-        tokens.add("(");
-        tokens.add("2");
-        tokens.add(")");
-        tokens.add(")");
-
-        assertThat(validadorDeOperacoesAritmeticas.validarOperacoesAritmeticas(), is(false));
-    }
 }

@@ -40,34 +40,30 @@ public class ValidadorDeOperacoesAritmeticas {
     }
 
     public boolean validarOperacoesAritmeticas() {
-        boolean mensagem = true;
+        boolean mensagem;
         String tipoToken = "VARIAVEL";
-        int cont = 0;
-        boolean parenteses = true;
 
         if(mensagem = verificaSeOsParentesesEstaoOk()){
-            while(cont<=tokens.size()-1){
-                parenteses = (tokenID.identifica(tokens.get(cont)).equals("PARENTESES_ABERTO") || tokenID.identifica(tokens.get(cont)).equals("PARENTESES_FECHADO"));
-                if(!parenteses && mensagem == true){
+            for (int i = 0; i < tokens.size(); i++){
+                if(!parenteses(tokens.get(i)) && mensagem == true){
                     if(tipoToken.equals("VARIAVEL")){
-                        mensagem = validaSeEhVariavel(tokens.get(cont));
+                        mensagem = validaSeEhVariavel(tokens.get(i));
                         tipoToken = "OPERADOR";
                     }
                     else {
-                        mensagem = validaSeEhOperador(tokens.get(cont));
-                        if(mensagem == true && validaSeEhVariavel(tokens.get(cont+1))){
-                            tipoToken = "VARIAVEL";
-                        } else {
-                            mensagem = false;
-                        }
+                        mensagem = validaSeEhOperador(tokens.get(i));
+                        tipoToken = "VARIAVEL";
                     }
                 }
-            cont++;
             }
         }
         return mensagem;
     }
 
+    private boolean parenteses(String token) {
+        return tokenID.identifica(token).equals("PARENTESES_ABERTO")
+                || tokenID.identifica(token).equals("PARENTESES_FECHADO");
+    }
 
     public boolean verificaSeOsParentesesEstaoOk() {
         int contaParentese = 0;
