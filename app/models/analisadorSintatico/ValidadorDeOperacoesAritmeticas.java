@@ -13,7 +13,7 @@ public class ValidadorDeOperacoesAritmeticas {
         this.tokens = tokens;
     }
 
-    public boolean validaSeEhVariavel(String token){
+    private boolean validaSeEhVariavel(String token){
         if(tokenID.identifica(token).equalsIgnoreCase("NUMERO")||
                 tokenID.identifica(token).equalsIgnoreCase("IDV")) {
             return true;
@@ -23,7 +23,7 @@ public class ValidadorDeOperacoesAritmeticas {
 
     }
 
-    public boolean validaSeEhOperador(String token){
+    private boolean validaSeEhOperador(String token){
         if(tokenID.identifica(token).equalsIgnoreCase("ADICAO")
                     ||
                     tokenID.identifica(token).equalsIgnoreCase("SUBTRACAO")
@@ -70,14 +70,18 @@ public class ValidadorDeOperacoesAritmeticas {
         int contaParenteseAberto = 0;
         int contaParenteseFechado = 0;
 
-        for(int i = 0; i <tokens.size(); i++){
+        for(int i = 0; i < tokens.size(); i++){
             if(tokens.get(i).equals("(")){
+                if(i <= tokens.size()-2 && tokens.get(i+1).equals(")")){
+                    return false;
+                }
                 contaParentese++;
                 contaParenteseAberto++;
             }
             if (tokens.get(i).equals(")")){
                 if (contaParenteseAberto > 0){
                     contaParenteseFechado++;
+                    contaParenteseAberto--;
                     contaParentese--;
                 } else {
                     return false;
