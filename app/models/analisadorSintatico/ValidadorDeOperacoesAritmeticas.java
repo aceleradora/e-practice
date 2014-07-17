@@ -3,7 +3,7 @@ package models.analisadorSintatico;
 import models.analisadorLexico.IdentificadorDeToken;
 import java.util.ArrayList;
 
-public class ValidadorDeOperacoesAritmeticas {
+public class ValidadorDeOperacoesAritmeticas implements Validador{
 
     private IdentificadorDeToken tokenID;
     private ArrayList<String> tokens;
@@ -106,5 +106,15 @@ public class ValidadorDeOperacoesAritmeticas {
             }
         }
         return quantidadeDeParenteses;
+    }
+
+    @Override
+    public boolean valida(ArrayList<String> tokens) {
+        return false;
+    }
+
+    @Override
+    public String retornaMensagemErro() {
+        return null;
     }
 }

@@ -6,7 +6,7 @@ import models.analisadorLexico.Lexer;
 
 import java.util.ArrayList;
 
-public class ValidadorDeAtribuicao {
+public class ValidadorDeAtribuicao implements Validador{
     private Lexer lexer;
     private IdentificadorDeToken identificadorDeTokens;
     private ArrayList<String> tokens;
@@ -136,5 +136,15 @@ public class ValidadorDeAtribuicao {
         validaIdv(frase);
 
         return retorno;
+    }
+
+    @Override
+    public boolean valida(ArrayList<String> tokens) {
+        return false;
+    }
+
+    @Override
+    public String retornaMensagemErro() {
+        return null;
     }
 }

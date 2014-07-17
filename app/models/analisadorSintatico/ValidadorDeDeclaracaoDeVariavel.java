@@ -5,7 +5,7 @@ import models.analisadorLexico.IdentificadorDeToken;
 
 import java.util.ArrayList;
 
-public class ValidadorDeDeclaracaoDeVariavel {
+public class ValidadorDeDeclaracaoDeVariavel implements Validador{
 
     IdentificadorDeToken identificadorDeToken;
     ArrayList<String> tokens;
@@ -84,5 +84,15 @@ public class ValidadorDeDeclaracaoDeVariavel {
         }
 
         return retorno;
+    }
+
+    @Override
+    public boolean valida(ArrayList<String> tokens) {
+        return false;
+    }
+
+    @Override
+    public String retornaMensagemErro() {
+        return null;
     }
 }
