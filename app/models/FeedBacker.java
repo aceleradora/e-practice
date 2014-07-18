@@ -22,9 +22,9 @@ public class FeedBacker {
 
     private void validaAtribuicaoDeVariavel(String solucaoDoUsuario){
         ArrayList<String> tokens = lexer.tokenizar(solucaoDoUsuario);
-        declaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tokens, tabelaDeSimbolos);
-        if(!declaracaoDeVariavel.validaDeclaracao(tokens))
-            erros = declaracaoDeVariavel.geraMensagensDeErro(tokens);
+        declaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tabelaDeSimbolos);
+        if(!declaracaoDeVariavel.valida(tokens))
+            erros = declaracaoDeVariavel.retornaMensagemErro();
     }
 
     public String feedBackDoCodigoDoUsuario(String solucaoDoUsuario) {

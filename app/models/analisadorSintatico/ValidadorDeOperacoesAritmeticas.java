@@ -3,7 +3,7 @@ package models.analisadorSintatico;
 import models.analisadorLexico.IdentificadorDeToken;
 import java.util.ArrayList;
 
-public class ValidadorDeOperacoesAritmeticas {
+public class ValidadorDeOperacoesAritmeticas implements Validador{
 
     private IdentificadorDeToken tokenID;
     private ArrayList<String> tokens;
@@ -13,7 +13,7 @@ public class ValidadorDeOperacoesAritmeticas {
         this.tokens = tokens;
     }
 
-    public boolean validaSeEhVariavel(String token){
+    private boolean validaSeEhVariavel(String token){
         if(tokenID.identifica(token).equalsIgnoreCase("NUMERO")||
                 tokenID.identifica(token).equalsIgnoreCase("IDV")) {
             return true;
@@ -23,7 +23,7 @@ public class ValidadorDeOperacoesAritmeticas {
 
     }
 
-    public boolean validaSeEhOperador(String token){
+    private boolean validaSeEhOperador(String token){
         if(tokenID.identifica(token).equalsIgnoreCase("ADICAO")
                     ||
                     tokenID.identifica(token).equalsIgnoreCase("SUBTRACAO")
@@ -40,48 +40,48 @@ public class ValidadorDeOperacoesAritmeticas {
     }
 
     public boolean validarOperacoesAritmeticas() {
-        boolean mensagem = true;
+        boolean mensagem;
         String tipoToken = "VARIAVEL";
-        int cont = 0;
-        boolean parenteses = true;
 
         if(mensagem = verificaSeOsParentesesEstaoOk()){
-            while(cont<=tokens.size()-1){
-                parenteses = (tokenID.identifica(tokens.get(cont)).equals("PARENTESES_ABERTO") || tokenID.identifica(tokens.get(cont)).equals("PARENTESES_FECHADO"));
-                if(!parenteses && mensagem == true){
+            for (int i = 0; i < tokens.size(); i++){
+                if(!parenteses(tokens.get(i)) && mensagem == true){
                     if(tipoToken.equals("VARIAVEL")){
-                        mensagem = validaSeEhVariavel(tokens.get(cont));
+                        mensagem = validaSeEhVariavel(tokens.get(i));
                         tipoToken = "OPERADOR";
                     }
                     else {
-                        mensagem = validaSeEhOperador(tokens.get(cont));
-                        if(mensagem == true && validaSeEhVariavel(tokens.get(cont+1))){
-                            tipoToken = "VARIAVEL";
-                        } else {
-                            mensagem = false;
-                        }
+                        mensagem = validaSeEhOperador(tokens.get(i));
+                        tipoToken = "VARIAVEL";
                     }
                 }
-            cont++;
             }
         }
         return mensagem;
     }
 
+    private boolean parenteses(String token) {
+        return tokenID.identifica(token).equals("PARENTESES_ABERTO")
+                || tokenID.identifica(token).equals("PARENTESES_FECHADO");
+    }
 
     public boolean verificaSeOsParentesesEstaoOk() {
         int contaParentese = 0;
         int contaParenteseAberto = 0;
         int contaParenteseFechado = 0;
 
-        for(int i = 0; i <tokens.size(); i++){
+        for(int i = 0; i < tokens.size(); i++){
             if(tokens.get(i).equals("(")){
+                if(i <= tokens.size()-2 && tokens.get(i+1).equals(")")){
+                    return false;
+                }
                 contaParentese++;
                 contaParenteseAberto++;
             }
             if (tokens.get(i).equals(")")){
                 if (contaParenteseAberto > 0){
                     contaParenteseFechado++;
+                    contaParenteseAberto--;
                     contaParentese--;
                 } else {
                     return false;
@@ -106,5 +106,15 @@ public class ValidadorDeOperacoesAritmeticas {
             }
         }
         return quantidadeDeParenteses;
+    }
+
+    @Override
+    public boolean valida(ArrayList<String> tokens) {
+        return false;
+    }
+
+    @Override
+    public String retornaMensagemErro() {
+        return null;
     }
 }

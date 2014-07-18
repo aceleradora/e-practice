@@ -24,67 +24,52 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         tokens.add("x");
         tokens.add(":");
         tokens.add("String");
-        validadorDeDeclaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tokens, tabelaDeSimbolos);
-    }
-
-    @Test
-    public void retornaTrueSeOPrimeiroTokenForVar() throws Exception {
-        assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSePrimeiroTokenEVar());
-    }
-
-    @Test
-    public void retornaTrueSeOSegundoTokenForIDV() throws Exception {
-        assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSeSegundoTokenEIdv());
-    }
-
-    @Test
-    public void retornaTrueSeOTerceiroTokenForDoisPontos() throws Exception {
-        assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSeTerceiroTokenEDoisPontos());
-    }
-
-    @Test
-    public void retornaTrueSeOQuartoTokenForTipoDeVariavel() throws Exception {
-        assertEquals(true, validadorDeDeclaracaoDeVariavel.validaSeQuartoTokenETipoDeVariavel());
+        validadorDeDeclaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tabelaDeSimbolos);
     }
 
     @Test
     public void retornaMensagemDeErroQuandoPrimeiroTokenNaoForVar() throws Exception {
         tokens.set(0, "Erro");
+        validadorDeDeclaracaoDeVariavel.valida(tokens);
 
-        assertEquals("a primeira palavra deveria ser \"var\" - ", validadorDeDeclaracaoDeVariavel.geraMensagensDeErro(tokens));
+        assertEquals("a primeira palavra deveria ser \"var\" - ", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
     }
 
     @Test
     public void retornaMensagemDeErroQuandoSegundoTokenNaoForIdentificadorDeVariavel() throws Exception {
         tokens.set(1, "1Erro");
+        validadorDeDeclaracaoDeVariavel.valida(tokens);
 
-        assertEquals("a segunda palavra deveria ser um identificador de variável válido - ", validadorDeDeclaracaoDeVariavel.geraMensagensDeErro(tokens));
+        assertEquals("a segunda palavra deveria ser um identificador de variável válido - ", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
     }
 
     @Test
     public void retornaMensagemDeErroQuandoTerceiroTokenNaoForDoisPontos() throws Exception {
         tokens.set(2, "Erro");
+        validadorDeDeclaracaoDeVariavel.valida(tokens);
 
-        assertEquals("a terceira palavra deveria ser \":\" - ", validadorDeDeclaracaoDeVariavel.geraMensagensDeErro(tokens));
+        assertEquals("a terceira palavra deveria ser \":\" - ", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
     }
 
     @Test
     public void retornaMensagemDeErroQuandoQuartoTokenNaoForTipoValidoDeVariavel() throws Exception {
         tokens.set(3, "Erro");
+        validadorDeDeclaracaoDeVariavel.valida(tokens);
 
-        assertEquals("a quarta palavra deveria ser um tipo válido de variável (string ou inteiro)", validadorDeDeclaracaoDeVariavel.geraMensagensDeErro(tokens));
+        assertEquals("a quarta palavra deveria ser um tipo válido de variável (string ou inteiro)", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
     }
 
     @Test
     public void validaUmaLinhaDeDeclaracaoDeVariavelCorreta() throws Exception {
-        boolean validacao = validadorDeDeclaracaoDeVariavel.validaDeclaracao(tokens);
+        boolean validacao = validadorDeDeclaracaoDeVariavel.valida(tokens);
 
         assertEquals(true, validacao);
     }
 
     @Test
     public void adicionaSimboloXComoStringNaTabelaDeSimbolosSeADeclaracaoEstiverCorreta() throws Exception {
-        validadorDeDeclaracaoDeVariavel.adicionaVariavelNaTabelaDeSimbolos(tokens);
+        validadorDeDeclaracaoDeVariavel.valida(tokens);
+        validadorDeDeclaracaoDeVariavel.adicionaVariavelNaTabelaDeSimbolos();
 
         assertThat(tabelaDeSimbolos.getTipoSimbolo("x"), is("String"));
         assertThat(tokens.get(3), is("String"));
@@ -94,8 +79,8 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     @Test
     public void naoAdicionaSimboloNaTabelaDeSimbolosSeADeclaracaoEstiverErrada() throws Exception {
         tokens.set(0, "Erro");
-
-        validadorDeDeclaracaoDeVariavel.adicionaVariavelNaTabelaDeSimbolos(tokens);
+        validadorDeDeclaracaoDeVariavel.valida(tokens);
+        validadorDeDeclaracaoDeVariavel.adicionaVariavelNaTabelaDeSimbolos();
 
         assertThat(tabelaDeSimbolos.simboloExiste("x"), is(false));
     }
@@ -103,8 +88,8 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     @Test
     public void retornaFalseQuandoValidaUmaDeclaracaoQueContemMaisDeQuatroTokens() throws Exception {
         tokens.add("String");
-
-        boolean valido = validadorDeDeclaracaoDeVariavel.validaDeclaracao(tokens);
+        validadorDeDeclaracaoDeVariavel.valida(tokens);
+        boolean valido = validadorDeDeclaracaoDeVariavel.valida(tokens);
 
         assertThat(valido, is(false));
     }
@@ -113,7 +98,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     public void retornaFalseQuandoValidaUmaDeclaracaoQueContemMenosDeQuatroTokens() throws Exception {
         tokens.remove(3);
 
-        boolean valido = validadorDeDeclaracaoDeVariavel.validaDeclaracao(tokens);
+        boolean valido = validadorDeDeclaracaoDeVariavel.valida(tokens);
 
         assertThat(valido, is(false));
     }
@@ -122,7 +107,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     public void retornaFalseQuandoValidaDeclaracaoComNomeDoIdentificadorUsandoPalavraReservada() throws Exception {
         tokens.set(1, "var");
 
-        boolean valido = validadorDeDeclaracaoDeVariavel.validaDeclaracao(tokens);
+        boolean valido = validadorDeDeclaracaoDeVariavel.valida(tokens);
 
         assertThat(valido, is(false));
     }

@@ -39,6 +39,16 @@ public class TesteValidadorDeOperacoesAritmeticas {
     public void dadoQueAOperacaoContenhaUmParenteseFechadoEAbertoEntaoTereiUmRetornoFalse() throws Exception {
         tokens.add(")");
         tokens.add("(");
+
+        assertThat(validadorDeOperacoesAritmeticas.verificaSeOsParentesesEstaoOk(), is(false));
+    }
+
+    @Test
+    public void dadoQueAOperacaoContenhaSomenteParentesesEntaoTereiUmRetornoFalse() throws Exception {
+        tokens.add("(");
+        tokens.add("2");
+        tokens.add("(");
+
         assertThat(validadorDeOperacoesAritmeticas.verificaSeOsParentesesEstaoOk(), is(false));
     }
 
@@ -48,24 +58,57 @@ public class TesteValidadorDeOperacoesAritmeticas {
         tokens.add("(");
         tokens.add(")");
         tokens.add(")");
-        assertThat(validadorDeOperacoesAritmeticas.verificaSeOsParentesesEstaoOk(), is(true));    }
+
+        assertThat(validadorDeOperacoesAritmeticas.verificaSeOsParentesesEstaoOk(), is(false));    }
 
     @Test
     public void dadoQueTenhoAMesmaQuantidadeDeParentesesAbertosEFechadosRetornoAQuantidadeDeExprecoesComParenteses() throws Exception {
         tokens.add("(");
         tokens.add("(");
+        tokens.add("5");
         tokens.add(")");
         tokens.add(")");
+
         assertThat(validadorDeOperacoesAritmeticas.verificaQuantidadeExpressoesComParenteses(), is(2));
     }
 
     @Test
-    public void dadoUmaOperacaoAritmeticaSemInsercaoDeParentesetaoTereiUmRetornoTrue() throws Exception {
+    public void dadoQueOUltimoTokenEhUmParentesesAbertoEntaoTereiUmRetornoFalse() throws Exception {
+        tokens.add("(");
         tokens.add("(");
         tokens.add("5");
-        tokens.add("+");
+        tokens.add(")");
+        tokens.add(")");
+        tokens.add("(");
+
+        assertThat(validadorDeOperacoesAritmeticas.verificaSeOsParentesesEstaoOk(), is(false));
+    }
+
+    @Test
+    public void dadoQueOPenultimoTokenEhUmParentesesAbertoEntaoTereiUmRetornoFalse() throws Exception {
+        tokens.add("(");
+        tokens.add("(");
         tokens.add("5");
         tokens.add(")");
+        tokens.add(")");
+        tokens.add("(");
+        tokens.add(")");
+
+        assertThat(validadorDeOperacoesAritmeticas.verificaSeOsParentesesEstaoOk(), is(false));
+    }
+
+    @Test
+    public void dadoUmaOperacaoAritmeticaComInsercaoDeParentesetaoTereiUmRetornoTrue() throws Exception {
+        tokens.add("(");
+        tokens.add("(");
+        tokens.add("2");
+        tokens.add("+");
+        tokens.add("2");
+        tokens.add(")");
+        tokens.add("/");
+        tokens.add("2");
+        tokens.add(")");
+
         assertThat(validadorDeOperacoesAritmeticas.validarOperacoesAritmeticas(), is(true));
     }
 
@@ -75,20 +118,10 @@ public class TesteValidadorDeOperacoesAritmeticas {
         tokens.add("5");
         tokens.add(")");
         tokens.add(")");
+        tokens.add("(");
 
         assertThat(validadorDeOperacoesAritmeticas.validarOperacoesAritmeticas(), is(false));
     }
 
-    @Test
-    public void dadoQueAdicioneiUmParentesesDepoisDeUmSimboloDeOperacaoEntaoRecebereiUmRetornoFalse() throws Exception {
-        tokens.add("(");
-        tokens.add("5");
-        tokens.add("+");
-        tokens.add("(");
-        tokens.add("2");
-        tokens.add(")");
-        tokens.add(")");
 
-        assertThat(validadorDeOperacoesAritmeticas.validarOperacoesAritmeticas(), is(false));
-    }
 }
