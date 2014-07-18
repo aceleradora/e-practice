@@ -76,7 +76,7 @@ function desabilitaBotao() {
             <section id="terminal" in>
 
                 @form(routes.Application.novaSolucao()){
-                    @textarea(solucaoForm("solucaoDoUsuario"), 'rows -> 2, 'placeholder -> "Digite a solução do exercício", '_showConstraints -> false, '_label -> "")
+                    @textarea(solucaoForm("solucaoDoUsuario"), 'rows -> 2, 'placeholder -> "Digite a solução do exercício", '_showConstraints -> false, '_label -> "", 'onKeyDown -> "quandoPressionaTab(event)")
                     <input id="botaoDeEnvio" type="submit" name="valor" value="Enviar" onclick="desabilitaBotao"/><label id="status">@flash.get("status")</label>
                 }
             </section>
