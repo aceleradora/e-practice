@@ -1,10 +1,11 @@
 package unitario.model;
 
-import models.GerenciadorDeValidacao;
+import models.analisadorSintatico.GerenciadorDeValidacao;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
 import java.util.ArrayList;
 
+import models.analisadorSintatico.GerenciadorBuilder;
 import models.analisadorSintatico.ValidadorDeAtribuicao;
 import models.analisadorSintatico.ValidadorDeDeclaracaoDeVariavel;
 import models.analisadorSintatico.ValidadorDeOperacoesAritmeticas;
@@ -14,7 +15,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -37,7 +37,15 @@ public class TesteGerenciadorDeValidacao {
 
     @Before
     public void setUp() throws Exception {
-        gerenciadorDeValidacao = new GerenciadorDeValidacao(lexer, identificadorDeToken, validadorDeDeclaracaoDeVariavel, validadorDeAtribuicao, validadorDeOperacoesAritmeticas);
+        GerenciadorBuilder builder = new GerenciadorBuilder();
+
+        gerenciadorDeValidacao = builder.com(lexer)
+                .com(identificadorDeToken)
+                .com(validadorDeAtribuicao)
+                .com(validadorDeDeclaracaoDeVariavel)
+                .com(validadorDeOperacoesAritmeticas)
+                .geraGerenciador();
+
         sentencaDeclaracao = "var x : String";
         sentencaAtribuicao = "x = 1";
         sentencaOperacaoAritmetica = "x = 1 + 1";

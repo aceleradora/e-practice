@@ -1,4 +1,4 @@
-package models;
+package models.analisadorSintatico;
 
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
