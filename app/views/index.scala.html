@@ -17,6 +17,9 @@ function alttela() {
         };
 };
 
+function desabilitaBotao() {
+    $("#botaoDeEnviar").attr("disabled");
+};
 </script>
 
 <div class="row" id="head">
@@ -74,7 +77,7 @@ function alttela() {
 
                 @form(routes.Application.novaSolucao()){
                     @textarea(solucaoForm("solucaoDoUsuario"), 'rows -> 2, 'placeholder -> "Digite a solução do exercício", '_showConstraints -> false, '_label -> "")
-                    <input type="submit" name="valor" value="Enviar" /><label id="status"> @flash.get("status") </label>
+                    <input id="botaoDeEnvio" type="submit" name="valor" value="Enviar" onclick="desabilitaBotao"/><label id="status">@flash.get("status")</label>
                 }
             </section>
         </div>

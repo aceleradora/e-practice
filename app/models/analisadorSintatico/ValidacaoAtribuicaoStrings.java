@@ -10,9 +10,8 @@ public class ValidacaoAtribuicaoStrings implements Validador{
     ArrayList<String> tokens;
     IdentificadorDeToken identificador;
 
+    public ValidacaoAtribuicaoStrings() {
 
-    public ValidacaoAtribuicaoStrings(ArrayList<String> entradaDoUsuario) {
-        tokens = entradaDoUsuario;
         identificador = new IdentificadorDeToken();
     }
 
@@ -75,8 +74,23 @@ public class ValidacaoAtribuicaoStrings implements Validador{
         return "A concatenação foi feita corretamente.";
     }
 
-    public ArrayList<String> getMensagens() {
+
+    @Override
+    public boolean valida(ArrayList<String> tokens) {
+        boolean retorno = false;
+        this.tokens = tokens;
+
+        if(retornaMensagemErro() == null || retornaMensagemErro().equals("")){
+            retorno = true;
+        }
+        return retorno;
+    }
+
+    @Override
+    public String retornaMensagemErro() {
+
         ArrayList<String> mensagens = new ArrayList<String>();
+        String mensagensDeRetorno = "";
 
         if(!validaPrimeiroToken().equals("O primeiro token é uma variável.")){
             mensagens.add(validaPrimeiroToken());
@@ -85,29 +99,16 @@ public class ValidacaoAtribuicaoStrings implements Validador{
             mensagens.add(validaSegundoToken());
         }
         if((!validaTerceiroToken().equals("O terceiro token é válido.")) && quantosTokensTemDepoisDoIgual() == 1){
-           mensagens.add(validaTerceiroToken());
+            mensagens.add(validaTerceiroToken());
         }
         if(!validaTokensDepoisDoIgual().equals("A concatenação foi feita corretamente.")){
             mensagens.add(validaTokensDepoisDoIgual());
         }
-        return mensagens;
-    }
 
-    public boolean valida() {
-        boolean retorno = false;
-        if(getMensagens().isEmpty()){
-            retorno = true;
+        for(int i = 0; i < mensagens.size(); i++) {
+            mensagensDeRetorno = (i + 1) + ") " + mensagensDeRetorno + "\n";
         }
-        return retorno;
-    }
 
-    @Override
-    public boolean valida(ArrayList<String> tokens) {
-        return false;
-    }
-
-    @Override
-    public String retornaMensagemErro() {
-        return null;
+        return mensagensDeRetorno;
     }
 }
