@@ -4,6 +4,8 @@ import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
 import models.analisadorSintatico.ValidadorDeAtribuicao;
 import models.analisadorSintatico.ValidadorDeDeclaracaoDeVariavel;
+import models.analisadorSintatico.ValidadorDeOperacoesAritmeticas;
+
 import java.util.ArrayList;
 
 public class GerenciadorDeValidacao {
@@ -12,13 +14,15 @@ public class GerenciadorDeValidacao {
     private IdentificadorDeToken identificadorDeToken;
     private ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
     private ValidadorDeAtribuicao validadorDeAtribuicao;
+    private ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;
     private ArrayList<String> tokens;
 
-    public GerenciadorDeValidacao(Lexer lexer, IdentificadorDeToken identificadorDeToken, ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel, ValidadorDeAtribuicao validadorDeAtribuicao) {
+    public GerenciadorDeValidacao(Lexer lexer, IdentificadorDeToken identificadorDeToken, ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel, ValidadorDeAtribuicao validadorDeAtribuicao, ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas) {
         this.lexer = lexer;
         this.identificadorDeToken = identificadorDeToken;
         this.validadorDeDeclaracaoDeVariavel = validadorDeDeclaracaoDeVariavel;
         this.validadorDeAtribuicao = validadorDeAtribuicao;
+        this.validadorDeOperacoesAritmeticas = validadorDeOperacoesAritmeticas;
     }
 
     public void interpreta(String sentenca) {
@@ -32,35 +36,11 @@ public class GerenciadorDeValidacao {
 
         if (listaDeTokensIdentificados.get(0).equals("PALAVRA_RESERVADA")) {
             validadorDeDeclaracaoDeVariavel.valida(tokens);
-        }
-
-        if(listaDeTokensIdentificados.get(0).equals("IDV")) {
+        } else if (listaDeTokensIdentificados.contains("ADICAO")) {
+            validadorDeOperacoesAritmeticas.valida(tokens);
+        } else if(listaDeTokensIdentificados.get(0).equals("IDV")) {
             validadorDeAtribuicao.valida(tokens);
         }
-    }
-
-    public boolean verificaSeEhDeclaracao(ArrayList<String> tokens) {
-        if (validadorDeDeclaracaoDeVariavel.valida(tokens))
-            return true;
-        else
-            return false;
-    }
-
-
-    public boolean verificaSeEhAtribuicao(String codigo) {
-
-        return true;
-
-    }
-
-    public boolean verificaSeEhOperacaoAritmetica(ArrayList<String> tokens) {
-
-        return true;
-    }
-
-    public boolean verificaSeEhAtribuicaoDeString(String codigo) {
-
-        return true;
     }
 
 }

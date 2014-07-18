@@ -7,12 +7,14 @@ import java.util.ArrayList;
 
 import models.analisadorSintatico.ValidadorDeAtribuicao;
 import models.analisadorSintatico.ValidadorDeDeclaracaoDeVariavel;
+import models.analisadorSintatico.ValidadorDeOperacoesAritmeticas;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -23,46 +25,70 @@ public class TesteGerenciadorDeValidacao {
     @Mock IdentificadorDeToken identificadorDeToken;
     @Mock ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
     @Mock ValidadorDeAtribuicao validadorDeAtribuicao;
+    @Mock ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;
 
-    private String sentenca;
+    private String sentencaDeclaracao;
     private GerenciadorDeValidacao gerenciadorDeValidacao;
-    private ArrayList<String> listaDeTokens;
+    private ArrayList<String> listaDeTokensDeclaracao;
     private String sentencaAtribuicao;
     private ArrayList<String> listaDeTokensAtribuicao;
+    private String sentencaOperacaoAritmetica;
+    private ArrayList<String> listaDeTokensOperacaoAritmetica;
 
     @Before
     public void setUp() throws Exception {
-        gerenciadorDeValidacao = new GerenciadorDeValidacao(lexer, identificadorDeToken, validadorDeDeclaracaoDeVariavel, validadorDeAtribuicao);
-        sentenca = "var x : String";
+        gerenciadorDeValidacao = new GerenciadorDeValidacao(lexer, identificadorDeToken, validadorDeDeclaracaoDeVariavel, validadorDeAtribuicao, validadorDeOperacoesAritmeticas);
+        sentencaDeclaracao = "var x : String";
         sentencaAtribuicao = "x = 1";
+        sentencaOperacaoAritmetica = "x = 1 + 1";
 
+        criaListaDeTokensDeAtribuicao();
+        criaListaDeTokensDeDeclaracao();
+        criaListaDeTokensDeOperacaoAritmetica();
+
+        when(lexer.tokenizar(sentencaDeclaracao)).thenReturn(listaDeTokensDeclaracao);
+        when(lexer.tokenizar(sentencaAtribuicao)).thenReturn(listaDeTokensAtribuicao);
+        when(lexer.tokenizar(sentencaOperacaoAritmetica)).thenReturn(listaDeTokensOperacaoAritmetica);
+
+        when(identificadorDeToken.identifica("var")).thenReturn("PALAVRA_RESERVADA");
+        when(identificadorDeToken.identifica("x")).thenReturn("IDV");
+        when(identificadorDeToken.identifica("+")).thenReturn("ADICAO");
+    }
+
+    private void criaListaDeTokensDeOperacaoAritmetica() {
+        listaDeTokensOperacaoAritmetica = new ArrayList<String>();
+        listaDeTokensOperacaoAritmetica.add("x");
+        listaDeTokensOperacaoAritmetica.add("=");
+        listaDeTokensOperacaoAritmetica.add("1");
+        listaDeTokensOperacaoAritmetica.add("+");
+        listaDeTokensOperacaoAritmetica.add("1");
+    }
+
+    private void criaListaDeTokensDeDeclaracao() {
+        listaDeTokensDeclaracao = new ArrayList<String>();
+        listaDeTokensDeclaracao.add("var");
+        listaDeTokensDeclaracao.add("x");
+        listaDeTokensDeclaracao.add(":");
+        listaDeTokensDeclaracao.add("String");
+    }
+
+    private void criaListaDeTokensDeAtribuicao() {
         listaDeTokensAtribuicao = new ArrayList<String>();
         listaDeTokensAtribuicao.add("x");
         listaDeTokensAtribuicao.add("=");
         listaDeTokensAtribuicao.add("1");
-
-        listaDeTokens = new ArrayList<String>();
-        listaDeTokens.add("var");
-        listaDeTokens.add("x");
-        listaDeTokens.add(":");
-        listaDeTokens.add("String");
-
-        when(lexer.tokenizar(sentenca)).thenReturn(listaDeTokens);
-        when(lexer.tokenizar(sentencaAtribuicao)).thenReturn(listaDeTokensAtribuicao);
-        when(identificadorDeToken.identifica("var")).thenReturn("PALAVRA_RESERVADA");
-        when(identificadorDeToken.identifica("x")).thenReturn("IDV");
     }
 
     @Test
     public void gerenciadorDeValidacaoTokenizaUmaEntrada() throws Exception {
-        gerenciadorDeValidacao.interpreta(sentenca);
+        gerenciadorDeValidacao.interpreta(sentencaDeclaracao);
 
         verify(lexer).tokenizar("var x : String");
     }
 
     @Test
     public void identificaAEntradaTokenizada() throws Exception {
-        gerenciadorDeValidacao.interpreta(sentenca);
+        gerenciadorDeValidacao.interpreta(sentencaDeclaracao);
 
         verify(identificadorDeToken).identifica("var");
         verify(identificadorDeToken).identifica("x");
@@ -72,10 +98,10 @@ public class TesteGerenciadorDeValidacao {
 
     @Test
     public void chamaValidadorDeDeclaracaoDeVariavelSePrimeiroTokenForVar() throws Exception {
-        gerenciadorDeValidacao.interpreta(sentenca);
+        gerenciadorDeValidacao.interpreta(sentencaDeclaracao);
 
         verify(identificadorDeToken).identifica("var");
-        verify(validadorDeDeclaracaoDeVariavel).valida(listaDeTokens);
+        verify(validadorDeDeclaracaoDeVariavel).valida(listaDeTokensDeclaracao);
     }
 
     @Test
@@ -87,53 +113,12 @@ public class TesteGerenciadorDeValidacao {
 
     }
 
-    /*
     @Test
-    public void quandoRecebeUmaStringComecandoComVarChamaOValidadorDeDeclaracao() throws Exception {
-        String codigo = "var abacaxi : String";
-        ArrayList<String> tokens = lexer.tokenizar(codigo);
-        GerenciadorDeValidacao gerenciadorDeValidacao = new GerenciadorDeValidacao();
+    public void chamaValidadorDeOperacoesAritmeticasSeContiverTokenOperadorMatematico() throws Exception {
+        gerenciadorDeValidacao.interpreta(sentencaOperacaoAritmetica);
 
-        boolean resultado = gerenciadorDeValidacao.verificaSeEhDeclaracao(tokens);
-
-        assertThat(resultado, is(true));
-
+        verify(identificadorDeToken).identifica("+");
+        verify(validadorDeAtribuicao).valida(listaDeTokensOperacaoAritmetica);
+        verify(validadorDeOperacoesAritmeticas).valida(listaDeTokensOperacaoAritmetica);
     }
-
-    @Test
-    public void quandoRecebeUmaStringComecandoComIDVChamaOValidadorDeAtribuicao() throws Exception {
-        String codigo = "x = 1";
-        when(gerenciadorDeValidacao.verificaSeEhAtribuicao(codigo)).thenReturn(true);
-
-        boolean resultado = gerenciadorDeValidacao.verificaSeEhAtribuicao(codigo);
-
-        assertThat(resultado, is(true));
-
-    }
-
-    @Test
-    public void quandoRecebeOperacaoAritmeticaChamaOValidadorDeOperacoesAritmeticas() throws Exception {
-        String codigo = "1 + 1";
-        ArrayList<String> tokens = lexer.tokenizar(codigo);
-        when(gerenciadorDeValidacao.verificaSeEhOperacaoAritmetica(tokens)).thenReturn(true);
-
-        boolean resultado = gerenciadorDeValidacao.verificaSeEhOperacaoAritmetica(tokens);
-
-        assertThat(resultado, is(true));
-
-    }
-
-    @Test
-    public void quandoRecebeAtribuicaoDeStringChamaOValidacaoDeAtribuicaoDeStrings() throws Exception {
-        String codigo = "x = casa <> grande";
-
-        when(gerenciadorDeValidacao.verificaSeEhAtribuicaoDeString(codigo)).thenReturn(true);
-
-        boolean resultado = gerenciadorDeValidacao.verificaSeEhAtribuicaoDeString(codigo);
-
-        assertThat(resultado, is(true));
-
-    }
-
-*/
 }
