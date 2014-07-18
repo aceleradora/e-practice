@@ -118,7 +118,6 @@ public class TesteGerenciadorDeValidacao {
         gerenciadorDeValidacao.interpreta(sentencaOperacaoAritmetica);
 
         verify(identificadorDeToken).identifica("+");
-        verify(validadorDeAtribuicao).valida(listaDeTokensOperacaoAritmetica);
         verify(validadorDeOperacoesAritmeticas).valida(listaDeTokensOperacaoAritmetica);
     }
 }
