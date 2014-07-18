@@ -9,11 +9,13 @@ public class GerenciadorBuilder {
     private ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
     private ValidadorDeAtribuicao validadorDeAtribuicao;
     private ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;
+    private ValidacaoAtribuicaoStrings validacaoAtribuicaoStrings;
 
     public GerenciadorBuilder com(Lexer lexer) {
         this.lexer = lexer;
         return this;
     }
+
 
     public GerenciadorBuilder com(IdentificadorDeToken identificadorDeToken) {
         this.identificadorDeToken = identificadorDeToken;
@@ -35,8 +37,13 @@ public class GerenciadorBuilder {
         return this;
     }
 
+    public GerenciadorBuilder com(ValidacaoAtribuicaoStrings validador){
+        this.validacaoAtribuicaoStrings = validador;
+        return this;
+    }
+
     public GerenciadorDeValidacao geraGerenciador() {
         return new GerenciadorDeValidacao(lexer, identificadorDeToken, validadorDeDeclaracaoDeVariavel,
-                validadorDeAtribuicao, validadorDeOperacoesAritmeticas);
+                validadorDeAtribuicao, validadorDeOperacoesAritmeticas, validacaoAtribuicaoStrings);
     }
 }

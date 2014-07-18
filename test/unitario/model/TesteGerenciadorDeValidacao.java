@@ -1,20 +1,17 @@
 package unitario.model;
 
-import models.analisadorSintatico.GerenciadorDeValidacao;
+import models.analisadorSintatico.*;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
 import java.util.ArrayList;
 
-import models.analisadorSintatico.GerenciadorBuilder;
-import models.analisadorSintatico.ValidadorDeAtribuicao;
-import models.analisadorSintatico.ValidadorDeDeclaracaoDeVariavel;
-import models.analisadorSintatico.ValidadorDeOperacoesAritmeticas;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -26,6 +23,7 @@ public class TesteGerenciadorDeValidacao {
     @Mock ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
     @Mock ValidadorDeAtribuicao validadorDeAtribuicao;
     @Mock ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;
+    @Mock ValidacaoAtribuicaoStrings validadorDeAtribuicaoString;
 
     private String sentencaDeclaracao;
     private GerenciadorDeValidacao gerenciadorDeValidacao;
@@ -34,6 +32,8 @@ public class TesteGerenciadorDeValidacao {
     private ArrayList<String> listaDeTokensAtribuicao;
     private String sentencaOperacaoAritmetica;
     private ArrayList<String> listaDeTokensOperacaoAritmetica;
+    private String sentencaAtribuicaoString;
+    private ArrayList<String> listaDeTokensAtribuicaoString;
 
     @Before
     public void setUp() throws Exception {
@@ -44,12 +44,15 @@ public class TesteGerenciadorDeValidacao {
                 .com(validadorDeAtribuicao)
                 .com(validadorDeDeclaracaoDeVariavel)
                 .com(validadorDeOperacoesAritmeticas)
+                .com(validadorDeAtribuicaoString)
                 .geraGerenciador();
 
         sentencaDeclaracao = "var x : String";
         sentencaAtribuicao = "x = 1";
         sentencaOperacaoAritmetica = "x = 1 + 1";
+        sentencaAtribuicaoString = "x = \"abacaxi\" ";
 
+        criaListaDeTokensDeAtribuicaoString();
         criaListaDeTokensDeAtribuicao();
         criaListaDeTokensDeDeclaracao();
         criaListaDeTokensDeOperacaoAritmetica();
@@ -57,10 +60,20 @@ public class TesteGerenciadorDeValidacao {
         when(lexer.tokenizar(sentencaDeclaracao)).thenReturn(listaDeTokensDeclaracao);
         when(lexer.tokenizar(sentencaAtribuicao)).thenReturn(listaDeTokensAtribuicao);
         when(lexer.tokenizar(sentencaOperacaoAritmetica)).thenReturn(listaDeTokensOperacaoAritmetica);
+        when(lexer.tokenizar(sentencaAtribuicaoString)).thenReturn(listaDeTokensAtribuicaoString);
 
         when(identificadorDeToken.identifica("var")).thenReturn("PALAVRA_RESERVADA");
         when(identificadorDeToken.identifica("x")).thenReturn("IDV");
         when(identificadorDeToken.identifica("+")).thenReturn("ADICAO");
+        when(identificadorDeToken.identifica("\"abacaxi\"")).thenReturn("CONSTANTE_TIPO_STRING");
+    }
+
+    private void criaListaDeTokensDeAtribuicaoString() {
+        listaDeTokensAtribuicaoString = new ArrayList<String>();
+        listaDeTokensAtribuicaoString.add("x");
+        listaDeTokensAtribuicaoString.add("=");
+        listaDeTokensAtribuicaoString.add("\"abacaxi\"");
+
     }
 
     private void criaListaDeTokensDeOperacaoAritmetica() {
@@ -127,5 +140,15 @@ public class TesteGerenciadorDeValidacao {
 
         verify(identificadorDeToken).identifica("+");
         verify(validadorDeOperacoesAritmeticas).valida(listaDeTokensOperacaoAritmetica);
+    }
+
+    @Test
+    public void chamaValidadorDeAtribuicaoStringsSeContiverConstanteString() throws Exception {
+        gerenciadorDeValidacao.interpreta(sentencaAtribuicaoString);
+
+        verify(identificadorDeToken).identifica("\"abacaxi\"");
+        verify(validadorDeAtribuicaoString).valida(listaDeTokensAtribuicaoString);
+
+
     }
 }
