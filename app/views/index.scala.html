@@ -1,4 +1,4 @@
-@(solucoes: List[SolucaoDoExercicio], solucaoForm: Form[SolucaoDoExercicio], statusBotao: String, mensagemFeedback: String)
+@(solucoes: List[SolucaoDoExercicio], solucaoForm: Form[SolucaoDoExercicio])
 @import helper._
 
 @main("e-Practice") {
@@ -74,7 +74,7 @@ function alttela() {
 
                 @form(routes.Application.novaSolucao()){
                     @textarea(solucaoForm("solucaoDoUsuario"), 'rows -> 2, 'placeholder -> "Digite a solução do exercício", '_showConstraints -> false, '_label -> "")
-                    <input type="submit" name="valor" value="Enviar" /><label id="status">@statusBotao</label>
+                    <input type="submit" name="valor" value="Enviar" /><label id="status"> @flash.get("status") </label>
                 }
             </section>
         </div>
@@ -84,7 +84,6 @@ function alttela() {
             <section id="feedback">
                 <h3>FeedBack | Dicas:</h3>
                 <p>
-                    @mensagemFeedback
                     <ul>
                         @for(solucao <- solucoes){
                         <li>
