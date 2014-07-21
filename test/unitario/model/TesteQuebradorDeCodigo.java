@@ -2,6 +2,7 @@ package unitario.model;
 
 import models.SolucaoDoExercicio;
 import models.analisadorLexico.QuebradorDeCodigo;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -12,12 +13,18 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class TesteQuebradorDeCodigo {
 
+    QuebradorDeCodigo quebrador;
+
+
+    @Before
+    public void setUp() throws Exception {
+        quebrador = new QuebradorDeCodigo();
+    }
+
     @Test
     public void quandoEntraUmCodigoDeUmaLinhaRetornaEleMesmo() throws Exception {
-        QuebradorDeCodigo quebrador = new QuebradorDeCodigo();
         String codigo = "var x : Integer";
         SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio(codigo);
-
         String result = quebrador.quebra(solucaoDoExercicio.solucaoDoUsuario);
 
         assertEquals(codigo, result);
@@ -26,7 +33,6 @@ public class TesteQuebradorDeCodigo {
 
     @Test
     public void quandoEntraUmCodigoDeDuasLinhasRetornaUmArrayList() throws Exception {
-        QuebradorDeCodigo quebrador = new QuebradorDeCodigo();
         String codigo = "var x : Integer\n";
         codigo += "x = 1";
         SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio(codigo);
