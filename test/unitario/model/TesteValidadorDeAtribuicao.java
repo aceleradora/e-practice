@@ -31,13 +31,57 @@ public class TesteValidadorDeAtribuicao {
     }
 
     @Test
-    public void retornaTrueQuandoOSegundoTokenForUmOperadorIgual() throws Exception {
+    public void retornaFalseQuandoOPrimeirTokenComecarComLetraMaiusculaENaoForUmIDV() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("Morango = 1");
+        validadorDeAtribuicao.valida(tokens);
+        boolean resultado = validadorDeAtribuicao.validaPrimeiroToken();
 
+        assertThat(resultado, is(false));
+    }
+
+    @Test
+    public void retornaFalseQuandoOPrimeirTokenComecarComNumeroENaoForUmIDV() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("1morango = 1");
+        validadorDeAtribuicao.valida(tokens);
+        boolean resultado = validadorDeAtribuicao.validaPrimeiroToken();
+
+        assertThat(resultado, is(false));
+    }
+
+    @Test
+    public void retornaTrueQuandoOSegundoTokenForUmOperadorIgual() throws Exception {
         ArrayList<String> tokens = lexer.tokenizar("abacaxi = 1");
         validadorDeAtribuicao.valida(tokens);
         boolean resultado = validadorDeAtribuicao.validaSegundoToken();
 
         assertThat(resultado, is(true));
+    }
+
+    @Test
+    public void retornaFalseQuandoOSegundoTokenForDoisPontos() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi : 1");
+        validadorDeAtribuicao.valida(tokens);
+        boolean resultado = validadorDeAtribuicao.validaSegundoToken();
+
+        assertThat(resultado, is(false));
+    }
+
+    @Test
+    public void retornaFalseQuandoOSegundoTokenForSimboloDeConcatenacao() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi <> 1");
+        validadorDeAtribuicao.valida(tokens);
+        boolean resultado = validadorDeAtribuicao.validaSegundoToken();
+
+        assertThat(resultado, is(false));
+    }
+
+    @Test
+    public void retornaFalseQuandoOSegundoTokenForUmIDV() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi abacaxi 1");
+        validadorDeAtribuicao.valida(tokens);
+        boolean resultado = validadorDeAtribuicao.validaSegundoToken();
+
+        assertThat(resultado, is(false));
     }
 
     @Test
@@ -50,11 +94,37 @@ public class TesteValidadorDeAtribuicao {
     }
 
     @Test
-    public void retornaTrueQuandoValidaALinha() throws Exception {
+    public void retornaTrueQuandoTerceiroTokenForUmIDV() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi = casa");
+        validadorDeAtribuicao.valida(tokens);
+        boolean resultado = validadorDeAtribuicao.validaTerceiroToken();
+
+        assertThat(resultado, is(true));
+    }
+
+    @Test
+    public void retornaTrueQuandoTerceiroTokenForUmaString() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi = \"casa\"");
+        validadorDeAtribuicao.valida(tokens);
+        boolean resultado = validadorDeAtribuicao.validaTerceiroToken();
+
+        assertThat(resultado, is(true));
+    }
+
+    @Test
+    public void retornaTrueQuandoALinhaForValida() throws Exception {
         ArrayList<String> tokens = lexer.tokenizar("abacaqui = 42");
         boolean retorno = validadorDeAtribuicao.valida(tokens);
 
         assertThat(retorno, is(true));
+    }
+
+    @Test
+    public void retornaFalseQuandoALinhaNaoForValida() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("abacaqui = 1casa");
+        boolean retorno = validadorDeAtribuicao.valida(tokens);
+
+        assertThat(retorno, is(false));
     }
 
     @Test
@@ -63,17 +133,9 @@ public class TesteValidadorDeAtribuicao {
         validadorDeAtribuicao.valida(tokens);
         String mensagem = validadorDeAtribuicao.retornaMensagemErro();
 
-        assertThat(mensagem, is(not("")));
+        assertThat(mensagem, is("Nome de variável incorreto.\n\n"));
     }
-
-    @Test
-    public void retornaMensagemDeErroQuandoEuErroOIgual() throws Exception {
-        ArrayList<String> tokens = lexer.tokenizar("abaxa : 5");
-        validadorDeAtribuicao.valida(tokens);
-        String mensagem = validadorDeAtribuicao.retornaMensagemErro();
-
-        assertThat(mensagem, is("\nEsperava \"=\" para atribuição.\n"));
-    }
+    
 }
 
 
