@@ -49,11 +49,20 @@
 
             @Override
             public boolean valida(ArrayList<String> tokens) {
-                return false;
+                return validaVariavel() && validaExpressao();
             }
 
             @Override
             public String retornaMensagemErro() {
-                return null;
+                String erros = "";
+                if (!validaVariavel()){
+                    erros = "A variável "+tokens.get(0)+" não foi declarada.";
+                    return erros;
+                }
+                if(!validaExpressao()){
+                    erros = "A Variavel "+tokens.get(0)+" só aceita atribuição de valores do tipo "+tabelaDeSimbolos.getTipoSimbolo(tokens.get(0))+".";
+                    return erros;
+                }
+                return erros;
             }
         }
