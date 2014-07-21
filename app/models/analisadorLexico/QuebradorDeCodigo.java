@@ -3,6 +3,7 @@ package models.analisadorLexico;
 import models.SolucaoDoExercicio;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class QuebradorDeCodigo {
 
@@ -17,10 +18,11 @@ public class QuebradorDeCodigo {
         else {
 
             for (int i = 0; i < solucaoDoUsuarioDividida.length; i++) {
-                codigoQuebrado.add(solucaoDoUsuarioDividida[i]);
+                    codigoQuebrado.add(solucaoDoUsuarioDividida[i]);
             }
         }
 
+        codigoQuebrado.removeAll(Arrays.asList(null, ""));
         return codigoQuebrado;
     }
 }
