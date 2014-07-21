@@ -4,7 +4,6 @@ import models.TabelaDeSimbolos;
 import models.Validador;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by alunos4 on 21/07/14.
@@ -15,6 +14,10 @@ public class ValidadorDeDeclaracaoDeVariavel implements Validador {
 
     public ValidadorDeDeclaracaoDeVariavel(TabelaDeSimbolos tabelaDeSimbolos) {
         this.tabelaDeSimbolos = tabelaDeSimbolos;
+    }
+
+    public void adicionarParaTabelaDeSimbolos(ArrayList<String> tokens) {
+        tabelaDeSimbolos.adicionaSimbolo(tokens.get(1), tokens.get(3));
     }
 
     public boolean VerificaSeVariavelJaFoiDeclarada(String variavel){
@@ -32,4 +35,6 @@ public class ValidadorDeDeclaracaoDeVariavel implements Validador {
     public String retornaMensagemErro() {
         return null;
     }
+
+
 }
