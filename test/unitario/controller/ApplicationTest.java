@@ -69,82 +69,34 @@ public class ApplicationTest {
     }
 
     @Test
-    public void testeUsandoRunningFakeApplication() throws Exception {
-        final HashMap<String, String> fakeForm = new HashMap<String, String>();
-        fakeForm.put("solucaoDoUsuario", "var x: Integer");
-        // Queremos descobrir se fakeRequest cria páginas em branco ou não
-        // Queremos saber como alterar o comportamento da controller novaSolucao()
-        // Usando fakeApplication() ??
-        // Gist
-        running(fakeApplication(), new Runnable() {
-            @Override
-            public void run() {
-                Result result = callAction(controllers.routes.ref.Application.novaSolucao());
-                //Result result = route(fakeRequest(POST, "/solucoes").withFormUrlEncodedBody(fakeForm));
-                assertThat(contentAsString(result)).contains("Status: erro!");
-            }
-        });
-    }
-
-    @Test
     public void quandoPostaNovaSolucaoRetornaMensagemDeSucesso() throws Exception {
-        running(fakeApplication(), new Runnable() {
-            @Override
-            public void run() {
-                FakeRequest fakeForm = fakeRequest().withFormUrlEncodedBody(ImmutableMap.of("solucaoDoUsuario", "var x = 1"));
-                HandlerRef handlerSolucoes = controllers.routes.ref.Application.solucoes();
-                HandlerRef handlerNovaSolucao = controllers.routes.ref.Application.novaSolucao();
 
-                callAction(handlerNovaSolucao, fakeForm);
-                Result result = callAction(handlerSolucoes);
+        running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {
+            public void invoke(TestBrowser browser) {
 
-                assertThat(contentAsString(result)).contains("Status: sua solução foi salva com sucesso!");
+                browser.goTo(System.getenv("URL_ENVIRONMENT"));
+                browser.fill("#solucaoDoUsuario").with("var x  = 1");
+                browser.find("input", withName("valor")).submit();
+
+                assertThat(browser.url()).isEqualTo(System.getenv("URL_ENVIRONMENT")+"/solucoes");
+                assertThat(browser.$("#status", 0).getText()).isEqualTo("Status: sua solução foi salva com sucesso!");
             }
         });
-
     }
 
     @Test
     public void quandoPostaSolucaoEmBrancoRetornaMensagemDeErro() throws Exception {
-        running(fakeApplication(), new Runnable() {
-            @Override
-            public void run() {
-                FakeRequest fakeForm = fakeRequest().withFormUrlEncodedBody(ImmutableMap.of("solucaoDoUsuario", ""));
-                HandlerRef handlerSolucoes = controllers.routes.ref.Application.solucoes();
-                HandlerRef handlerNovaSolucao = controllers.routes.ref.Application.novaSolucao();
 
-                callAction(handlerNovaSolucao, fakeForm);
-                Result result = callAction(handlerSolucoes);
+        running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {
+            public void invoke(TestBrowser browser) {
 
-                assertThat(contentAsString(result)).contains("Status: erro!");
+                browser.goTo(System.getenv("URL_ENVIRONMENT"));
+                browser.fill("#solucaoDoUsuario").with("");
+                browser.find("input", withName("valor")).submit();
+
+                assertThat(browser.$("#status", 0).getText()).isEqualTo("Status: erro!");
             }
         });
-
     }
-
-    @Test
-    public void quandoDeletaSolucaoRetornaStatusDeletado() throws Exception {
-        running(fakeApplication(), new Runnable() {
-            @Override
-            public void run() {
-
-                SolucaoDoExercicio solucaoTeste = new SolucaoDoExercicio("teste deleta");
-                //solucaoTeste.id = 1061;
-                try{
-                    SolucaoDoExercicio.create(solucaoTeste);
-                } catch (Exception e){
-                    System.out.println(e.getMessage());
-                }
-
-                callAction(controllers.routes.ref.Application.deletaSolucao(solucaoTeste.id));
-                Result result = callAction(controllers.routes.ref.Application.solucoes());
-
-                assertThat(contentAsString(result)).contains("Status: deletado!");
-            }
-        });
-
-    }
-
-
 
 }

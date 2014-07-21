@@ -11,8 +11,6 @@ import java.util.Map;
 public class Application extends Controller {
 
     static Form<SolucaoDoExercicio> solucaoDoExercicioForm = Form.form(SolucaoDoExercicio.class);
-    static String status;
-    static String mensagemFeedbackDeErro;
     private static SolucaoDoExercicio solucaoDoExercicio;
     static FeedBacker feedBacker = new FeedBacker();
 
@@ -21,29 +19,27 @@ public class Application extends Controller {
     }
 
     public static Result index() {
-        status = "";
-        mensagemFeedbackDeErro = "";
         return redirect(routes.Application.solucoes());
     }
 
     public static Result solucoes(){
         List<SolucaoDoExercicio> all = solucaoDoExercicio.all();
 
-        return ok(views.html.index.render(all, solucaoDoExercicioForm, status, mensagemFeedbackDeErro));
+        return ok(views.html.index.render(all, solucaoDoExercicioForm));
     }
 
     public static Result novaSolucao() {
         Form<SolucaoDoExercicio> formPreenchido = solucaoDoExercicioForm.bindFromRequest();
 
         if(formPreenchido.hasErrors()){
-            status = "Status: erro!";
-            return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido, status, mensagemFeedbackDeErro));
+            flash("status", "Status: erro!");
+            return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido));
         } else{
             try{
                 SolucaoDoExercicio.create(formPreenchido.get());
-                status = "Status: sua solução foi salva com sucesso!";
+                flash("status", "Status: sua solução foi salva com sucesso!");
             } catch (Exception e){
-                status = "Status: sua solução não foi salva!";
+                flash("status", "Status: sua solução não foi salva");
             }
             return redirect(routes.Application.solucoes());
         }
@@ -51,7 +47,8 @@ public class Application extends Controller {
 
     public static Result deletaSolucao(int id){
         SolucaoDoExercicio.delete(id);
-        status = "Status: deletado!";
+        flash("status", "Status: deletado!");
+
         return redirect(routes.Application.solucoes());
     }
 

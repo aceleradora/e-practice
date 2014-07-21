@@ -1,7 +1,6 @@
 package models.analisadorLexico;
 public class IdentificadorDeToken {
 
-
     public String identifica(String token) {
         if (token.equals("var")) {
             return "PALAVRA_RESERVADA";
@@ -27,7 +26,7 @@ public class IdentificadorDeToken {
             return "PARENTESES_FECHADO";
         } else if (token.charAt(0) == '\"' && token.charAt(token.length()-1) == '\"') {
             return "CONSTANTE_TIPO_STRING";
-        } else if (Character.isLetter(token.charAt(0))) {
+        } else if (Character.isLowerCase(token.charAt(0))) {
             return "IDV";
         } else if (Character.isDigit(token.charAt(0))) {
             if(!verificaSeTodasOsCaracteresSaoNumeros(token)) return "ERRO";
