@@ -81,4 +81,17 @@ public class TesteValidadorDeAtribuicao {
         assertThat(validacao,is("A Variavel "+tokens.get(0)+" só aceita atribuição de valores do tipo "+tabelaDeSimbolos.getTipoSimbolo(tokens.get(0))+"."));
 
     }
+
+    @Test
+    public void quandoReceboUmArrayDeTokensDeAtribuicaoPossoValidarEsseArray() throws Exception {
+        ArrayList<String> tokens = new ArrayList<String>();
+        tokens.add("x");
+        tokens.add("=");
+        tokens.add("1");
+        TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
+        tabelaDeSimbolos.adicionaSimbolo("x","String");
+        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos,tokens);
+        boolean resultado = validadorDeAtribuicao.valida(tokens);
+        assertThat(resultado,is(false));
+    }
 }

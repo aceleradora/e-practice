@@ -49,7 +49,7 @@
 
             @Override
             public boolean valida(ArrayList<String> tokens) {
-                return false;
+                return validaVariavel() && validaExpressao();
             }
 
             @Override
