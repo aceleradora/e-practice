@@ -56,7 +56,6 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
 
     public boolean aberturaEFechamentoDeParentesesEstaCorreta() {
         int quantidadeDeParentesesAbertos = 0;
-        int quantidadeDeParentesesFechados = 0;
 
         if(contadorComparadorDeParenteses() == 0) {
             for (int i = 0; i < tokens.size(); i++) {
@@ -65,7 +64,6 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
                 }
                 if (tokens.get(i).equals(")")) {
                     if (quantidadeDeParentesesAbertos > 0) {
-                        quantidadeDeParentesesFechados++;
                         quantidadeDeParentesesAbertos--;
                     } else {
                         return false;
@@ -81,10 +79,10 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
         int contadorDeEquilibrioDeParenteses = 0;
 
         for(int i = 0; i < tokens.size(); i++){
-            if(tokens.get(i).equals("(")){
+            if(tokens.get(i).equals("(")) {
                 contadorDeEquilibrioDeParenteses++;
             }
-            if (tokens.get(i).equals(")")){
+            if (tokens.get(i).equals(")")) {
                 contadorDeEquilibrioDeParenteses--;
             }
         }

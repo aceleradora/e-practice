@@ -1,10 +1,6 @@
 package models.analisadorSintatico;
 
-<<<<<<< HEAD
-=======
-
 import models.Validador;
->>>>>>> a8933007923f7d5e5ba1eca502d59f484af1ca2d
 import models.analisadorLexico.IdentificadorDeToken;
 
 import java.util.ArrayList;
