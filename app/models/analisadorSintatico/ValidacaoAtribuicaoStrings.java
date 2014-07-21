@@ -1,6 +1,5 @@
 package models.analisadorSintatico;
 
-
 import models.analisadorLexico.IdentificadorDeToken;
 
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class ValidacaoAtribuicaoStrings implements Validador{
         return identificador.identifica(tokens.get(indice));
     }
 
-    public int quantosTokensTemDepoisDoIgual() {
+    private int quantosTokensTemDepoisDoIgual() {
         return (tokens.size() - 2);
     }
 
@@ -73,7 +72,6 @@ public class ValidacaoAtribuicaoStrings implements Validador{
         }
         return "A concatenação foi feita corretamente.";
     }
-
 
     @Override
     public boolean valida(ArrayList<String> tokens) {

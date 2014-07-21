@@ -84,14 +84,6 @@ public class TesteValidacaoAtribuicaoStrings {
     }
 
     @Test
-    public void verificaQuantosTokensTemDepoisDoIgual() throws Exception {
-        entradaDoUsuario = lexer.tokenizar("x = \"casa\" <> \"azul\"");
-        validador.valida(entradaDoUsuario);
-        int numeroDeTokens = validador.quantosTokensTemDepoisDoIgual();
-        assertThat(numeroDeTokens, is(3));
-    }
-
-    @Test
     public void seHouverUmaConcatenacaoDeDuasConstantesStringsEntaoOValidadorIraReconhecer() throws Exception {
         entradaDoUsuario = lexer.tokenizar("x = \"casa\" <> \"azul\"");
         validador.valida(entradaDoUsuario);

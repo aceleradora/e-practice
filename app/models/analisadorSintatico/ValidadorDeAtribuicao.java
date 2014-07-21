@@ -52,7 +52,6 @@ public class ValidadorDeAtribuicao implements Validador{
             return false;
     }
 
-
     public String mensagemDeErroNoSegundoToken(String frase){
         String retorno = "";
         tokens = converteStringParaArray(frase);
@@ -63,8 +62,6 @@ public class ValidadorDeAtribuicao implements Validador{
         return retorno;
     }
 
-
-
     public boolean validaTerceiroToken(String terceiroToken) {
 
         String token = identificadorDeTokens.identifica(terceiroToken);
@@ -73,7 +70,6 @@ public class ValidadorDeAtribuicao implements Validador{
         else
             return false;
     }
-
 
     public String mensagemDeErroNoTerceiroToken(String frase){
         String retorno = "";
@@ -84,24 +80,6 @@ public class ValidadorDeAtribuicao implements Validador{
 
         return retorno;
     }
-//    public boolean validaExpressao(String frase) {
-//        tokens = converteStringParaArray(frase);
-//        boolean retorno = true;
-//        for(int i = 2; i < tokens.size(); i++){
-//            if(i % 2 == 0 && !identificadorDeTokens.identifica(tokens.get(i)).equals("NUMERO")) retorno = false;
-//            if(i % 2 == 1 && !identificadorDeTokens.identifica(tokens.get(i)).equals("SUBTRACAO")) {
-//                if (i % 2 == 1 && !identificadorDeTokens.identifica(tokens.get(i)).equals("ADICAO")){
-//                    if (i % 2 == 1 && !identificadorDeTokens.identifica(tokens.get(i)).equals("MULTIPLICACAO")){
-//                        if (i % 2 == 1 && !identificadorDeTokens.identifica(tokens.get(i)).equals("DIVISAO")){
-//                            retorno = false;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        return retorno;
-//    }
-
 
     public String mensagemDeErro(String frase){
         String mensagem = "";
@@ -124,7 +102,6 @@ public class ValidadorDeAtribuicao implements Validador{
        return retorno;
 
     }
-
 
     public boolean valida(String frase){
         boolean retorno = false;

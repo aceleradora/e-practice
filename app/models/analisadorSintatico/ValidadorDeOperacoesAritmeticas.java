@@ -3,118 +3,134 @@ package models.analisadorSintatico;
 import models.analisadorLexico.IdentificadorDeToken;
 import java.util.ArrayList;
 
-public class ValidadorDeOperacoesAritmeticas implements Validador{
-
-    private IdentificadorDeToken tokenID;
+public class ValidadorDeOperacoesAritmeticas implements Validador {
+    private IdentificadorDeToken identificadorDeTokens;
     private ArrayList<String> tokens;
 
-    public ValidadorDeOperacoesAritmeticas(ArrayList<String> tokens) {
-        this.tokenID = new IdentificadorDeToken();
-        this.tokens = tokens;
+    public ValidadorDeOperacoesAritmeticas() {
+        identificadorDeTokens = new IdentificadorDeToken();
     }
 
-    private boolean validaSeEhVariavel(String token){
-        if(tokenID.identifica(token).equalsIgnoreCase("NUMERO")||
-                tokenID.identifica(token).equalsIgnoreCase("IDV")) {
+    private boolean validaSeEhVariavel(String token) {
+        return (tokenEhNumero(token) || tokenEhIdentificadorDeVariavel(token)) ? true : false;
+    }
+
+    private boolean tokenEhIdentificadorDeVariavel(String token) {
+        return identificadorDeTokens.identifica(token).equalsIgnoreCase("IDV");
+    }
+
+    private boolean tokenEhNumero(String token) {
+        return identificadorDeTokens.identifica(token).equalsIgnoreCase("NUMERO");
+    }
+
+    private boolean validaSeEhOperador(String token) {
+        return (tokenEhUmOperadorValido(token)) ? true : false;
+    }
+
+    private boolean tokenEhUmOperadorValido(String token) {
+        return identificadorDeTokens.identifica(token).equalsIgnoreCase("ADICAO") ||
+                identificadorDeTokens.identifica(token).equalsIgnoreCase("SUBTRACAO") ||
+                identificadorDeTokens.identifica(token).equalsIgnoreCase("MULTIPLICACAO") ||
+                identificadorDeTokens.identifica(token).equalsIgnoreCase("DIVISAO");
+    }
+
+    private boolean tokenEhParenteses(String token) {
+        return identificadorDeTokens.identifica(token).equals("PARENTESES_ABERTO") ||
+                identificadorDeTokens.identifica(token).equals("PARENTESES_FECHADO");
+    }
+
+    public  boolean temExpressaoDentroDoParenteses() {
+        if(contadorComparadorDeParenteses() == 0) {
+            for (int i = 0; i < tokens.size(); i++) {
+                if (tokens.get(i).equals("(")) {
+                    if (i <= tokens.size() - 2 && tokens.get(i + 1).equals(")")) {
+                        return false;
+                    }
+                }
+            }
             return true;
-        } else {
-            return false;
         }
-
+        return false;
     }
 
-    private boolean validaSeEhOperador(String token){
-        if(tokenID.identifica(token).equalsIgnoreCase("ADICAO")
-                    ||
-                    tokenID.identifica(token).equalsIgnoreCase("SUBTRACAO")
-                    ||
-                    tokenID.identifica(token).equalsIgnoreCase("MULTIPLICACAO")
-                    ||
-                    tokenID.identifica(token).equalsIgnoreCase("DIVISAO")){
-                return true;
-        }
-        else{
-            return false;
-        }
+    public boolean aberturaEFechamentoDeParentesesEstaCorreta() {
+        int quantidadeDeParentesesAbertos = 0;
+        int quantidadeDeParentesesFechados = 0;
 
+        if(contadorComparadorDeParenteses() == 0) {
+            for (int i = 0; i < tokens.size(); i++) {
+                if (tokens.get(i).equals("(")) {
+                    quantidadeDeParentesesAbertos++;
+                }
+                if (tokens.get(i).equals(")")) {
+                    if (quantidadeDeParentesesAbertos > 0) {
+                        quantidadeDeParentesesFechados++;
+                        quantidadeDeParentesesAbertos--;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            return quantidadeDeParentesesAbertos == 0;
+        }
+        return false;
     }
 
-    public boolean validarOperacoesAritmeticas() {
-        boolean mensagem;
+    private int contadorComparadorDeParenteses() {
+        int contadorDeEquilibrioDeParenteses = 0;
+
+        for(int i = 0; i < tokens.size(); i++){
+            if(tokens.get(i).equals("(")){
+                contadorDeEquilibrioDeParenteses++;
+            }
+            if (tokens.get(i).equals(")")){
+                contadorDeEquilibrioDeParenteses--;
+            }
+        }
+        return contadorDeEquilibrioDeParenteses;
+    }
+
+    @Override
+    public boolean valida(ArrayList<String> listaDeTokens) {
+        tokens = listaDeTokens;
+
         String tipoToken = "VARIAVEL";
+        boolean parentesesOk = aberturaEFechamentoDeParentesesEstaCorreta() && temExpressaoDentroDoParenteses();
+        boolean validador = parentesesOk;
 
-        if(mensagem = verificaSeOsParentesesEstaoOk()){
-            for (int i = 0; i < tokens.size(); i++){
-                if(!parenteses(tokens.get(i)) && mensagem == true){
-                    if(tipoToken.equals("VARIAVEL")){
-                        mensagem = validaSeEhVariavel(tokens.get(i));
+        if(parentesesOk) {
+            for (int i = 0; i < tokens.size(); i++) {
+                if(!tokenEhParenteses(tokens.get(i)) && validador == true) {
+                    if(tipoToken.equals("VARIAVEL")) {
+                        validador = validaSeEhVariavel(tokens.get(i));
                         tipoToken = "OPERADOR";
                     }
                     else {
-                        mensagem = validaSeEhOperador(tokens.get(i));
+                        validador = validaSeEhOperador(tokens.get(i));
                         tipoToken = "VARIAVEL";
                     }
                 }
             }
         }
-        return mensagem;
-    }
-
-    private boolean parenteses(String token) {
-        return tokenID.identifica(token).equals("PARENTESES_ABERTO")
-                || tokenID.identifica(token).equals("PARENTESES_FECHADO");
-    }
-
-    public boolean verificaSeOsParentesesEstaoOk() {
-        int contaParentese = 0;
-        int contaParenteseAberto = 0;
-        int contaParenteseFechado = 0;
-
-        for(int i = 0; i < tokens.size(); i++){
-            if(tokens.get(i).equals("(")){
-                if(i <= tokens.size()-2 && tokens.get(i+1).equals(")")){
-                    return false;
-                }
-                contaParentese++;
-                contaParenteseAberto++;
-            }
-            if (tokens.get(i).equals(")")){
-                if (contaParenteseAberto > 0){
-                    contaParenteseFechado++;
-                    contaParenteseAberto--;
-                    contaParentese--;
-                } else {
-                    return false;
-                }
-            }
-        }
-
-        if(contaParentese == 0){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public int verificaQuantidadeExpressoesComParenteses() {
-        int quantidadeDeParenteses = 0;
-        if(verificaSeOsParentesesEstaoOk()){
-            for(int i = 0; i <tokens.size(); i++){
-                if(tokens.get(i).equals("(")){
-                    quantidadeDeParenteses++;
-                }
-            }
-        }
-        return quantidadeDeParenteses;
-    }
-
-    @Override
-    public boolean valida(ArrayList<String> tokens) {
-        return false;
+        return validador;
     }
 
     @Override
     public String retornaMensagemErro() {
-        return null;
+        String mensagem = "";
+        if (contadorComparadorDeParenteses() != 0) {
+            mensagem = "O número de parenteses abertos não é o mesmo número de parenteses fechados.";
+        } else if (!temExpressaoDentroDoParenteses()) {
+            mensagem = "Existe(em) parentese(s) que não possui(em) expressão(ões) dentro.";
+        } else if(!aberturaEFechamentoDeParentesesEstaCorreta()) {
+            mensagem = "Algum(uns) parântese(s) está(ão) no lugar errado ou está(ão) faltando";
+        } else if (!getArrayDeErros()) {
+            mensagem = "a segunda palavra deveria ser um identificador de variável válido - ";
+        }
+        return mensagem;
+    }
+
+    private boolean getArrayDeErros() {
+        return false;
     }
 }
