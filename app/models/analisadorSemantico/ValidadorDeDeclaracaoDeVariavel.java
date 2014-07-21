@@ -36,5 +36,12 @@ public class ValidadorDeDeclaracaoDeVariavel implements Validador {
         return null;
     }
 
-
+    public boolean verificaSeSimboloJaExisteNaTabela(ArrayList<String> tokens) {
+        if(tabelaDeSimbolos.simboloExiste(tokens.get(1))){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

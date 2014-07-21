@@ -19,34 +19,35 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class TesteValidadorDeDeclaracaoDeVariavel {
 
-    @Mock private TabelaDeSimbolos tabela;
+    @Mock private TabelaDeSimbolos tabelaMock;
+    private ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao;
+    private TabelaDeSimbolos tabela;
+    private Lexer lexer;
 
     @Before
     public void setUp() throws Exception {
-
+        lexer = new Lexer();
+        tabela = new TabelaDeSimbolos();
+        validadorDeDeclaracao = new ValidadorDeDeclaracaoDeVariavel(tabela);
     }
 
     @Test
     public void adicionaVariavelATabelaDeSimbolos() throws Exception {
         String declaracao = "var x : Inteiro";
-        Lexer lexer = new Lexer();
         ArrayList<String> tokens = lexer.tokenizar(declaracao);
-        ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao = new ValidadorDeDeclaracaoDeVariavel(tabela);
+        ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao = new ValidadorDeDeclaracaoDeVariavel(tabelaMock);
 
         validadorDeDeclaracao.adicionarParaTabelaDeSimbolos(tokens);
 
-        verify(tabela).adicionaSimbolo("x", "Inteiro");
+        verify(tabelaMock).adicionaSimbolo("x", "Inteiro");
     }
 
     @Test
     public void adicionaDuasVariaveisDiferentesNaTabelaDeSimbolos() throws Exception {
-        TabelaDeSimbolos tabela = new TabelaDeSimbolos();
         String declaracaoXis = "var x : Inteiro";
         String declaracaoYpsilon = "var y : Inteiro";
-        Lexer lexer = new Lexer();
         ArrayList<String> tokensDaDeclaracaoXis = lexer.tokenizar(declaracaoXis);
         ArrayList<String> tokensDaDeclaracaoYpsilon = lexer.tokenizar(declaracaoYpsilon);
-        ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao = new ValidadorDeDeclaracaoDeVariavel(tabela);
 
         validadorDeDeclaracao.adicionarParaTabelaDeSimbolos(tokensDaDeclaracaoXis);
         validadorDeDeclaracao.adicionarParaTabelaDeSimbolos(tokensDaDeclaracaoYpsilon);
@@ -56,7 +57,25 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     }
 
     @Test
-    public void aoTentarAdicionarUmSimboloNaTabelaDeSimbolosQueJaExisteRetornaUmErro() throws Exception {
-        assertThat(true, is(true));
+    public void verificaSeSimboloAdicionadoNaTabelaExiste() throws Exception {
+        String declaracaoXis = "var x : Inteiro";
+        ArrayList<String> tokens = lexer.tokenizar(declaracaoXis);
+
+        validadorDeDeclaracao.adicionarParaTabelaDeSimbolos(tokens);
+        boolean simboloExiste = validadorDeDeclaracao.verificaSeSimboloJaExisteNaTabela(tokens);
+
+        assertThat(simboloExiste, is(true));
     }
+
+    @Test
+    public void retornaFalseAoVerificarUmSimboloInexistenteNaTabelaDeSimbolos() throws Exception {
+        String declaracaoXis = "var x : Inteiro";
+        ArrayList<String> tokens = lexer.tokenizar(declaracaoXis);
+
+        boolean simboloExiste = validadorDeDeclaracao.verificaSeSimboloJaExisteNaTabela(tokens);
+
+        assertThat(simboloExiste, is(false));
+    }
+
+
 }
