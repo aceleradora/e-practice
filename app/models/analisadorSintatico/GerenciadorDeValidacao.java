@@ -2,9 +2,6 @@ package models.analisadorSintatico;
 
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
-import models.analisadorSintatico.ValidadorDeAtribuicao;
-import models.analisadorSintatico.ValidadorDeDeclaracaoDeVariavel;
-import models.analisadorSintatico.ValidadorDeOperacoesAritmeticas;
 
 import java.util.ArrayList;
 
@@ -15,16 +12,16 @@ public class GerenciadorDeValidacao {
     private ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
     private ValidadorDeAtribuicao validadorDeAtribuicao;
     private ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;
-    private ValidacaoAtribuicaoStrings validacaoAtribuicaoStrings;
+    private ValidadorDeConcatenacaoDeStrings validadorDeConcatenacaoDeStrings;
     private ArrayList<String> tokens;
 
-    public GerenciadorDeValidacao(Lexer lexer, IdentificadorDeToken identificadorDeToken, ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel, ValidadorDeAtribuicao validadorDeAtribuicao, ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas, ValidacaoAtribuicaoStrings validacaoAtribuicaoStrings) {
+    public GerenciadorDeValidacao(Lexer lexer, IdentificadorDeToken identificadorDeToken, ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel, ValidadorDeAtribuicao validadorDeAtribuicao, ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas, ValidadorDeConcatenacaoDeStrings validadorDeConcatenacaoDeStrings) {
         this.lexer = lexer;
         this.identificadorDeToken = identificadorDeToken;
         this.validadorDeDeclaracaoDeVariavel = validadorDeDeclaracaoDeVariavel;
         this.validadorDeAtribuicao = validadorDeAtribuicao;
         this.validadorDeOperacoesAritmeticas = validadorDeOperacoesAritmeticas;
-        this.validacaoAtribuicaoStrings = validacaoAtribuicaoStrings;
+        this.validadorDeConcatenacaoDeStrings = validadorDeConcatenacaoDeStrings;
     }
 
     public void interpreta(String sentenca) {
@@ -41,7 +38,7 @@ public class GerenciadorDeValidacao {
         } else if (listaDeTokensIdentificados.contains("ADICAO")) {
             validadorDeOperacoesAritmeticas.valida(tokens);
         } else if(listaDeTokensIdentificados.contains("CONSTANTE_TIPO_STRING")){
-            validacaoAtribuicaoStrings.valida(tokens);
+            validadorDeConcatenacaoDeStrings.valida(tokens);
         } else if(listaDeTokensIdentificados.get(0).equals("IDV")) {
             validadorDeAtribuicao.valida(tokens);
         }

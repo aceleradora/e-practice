@@ -17,3 +17,7 @@ function pulaQuatroEspacos(event){
     document.querySelector("#"+element.id).selectionStart = cursorEm+4;
     document.querySelector("#"+element.id).selectionEnd = cursorEm+4;
 }
+
+function desabilitaBotao() {
+    $("#botaoDeEnviar").attr("disabled");
+};
