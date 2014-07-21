@@ -10,8 +10,6 @@ import java.util.ArrayList;
 public class validadorDeDeclaracaoDeVariavel implements Validador {
 
 
-    public
-
     @Override
     public boolean valida(ArrayList<String> tokens) {
         return false;
