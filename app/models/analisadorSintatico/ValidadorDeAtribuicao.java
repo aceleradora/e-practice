@@ -1,86 +1,82 @@
 package models.analisadorSintatico;
 
-import models.TabelaDeSimbolos;
+import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
-import models.analisadorLexico.Lexer;
-
 import java.util.ArrayList;
 
-public class ValidadorDeAtribuicao implements Validador{
-    private Lexer lexer;
+public class ValidadorDeAtribuicao implements Validador {
+
     private IdentificadorDeToken identificadorDeTokens;
     private ArrayList<String> tokens;
-    private TabelaDeSimbolos tabelaDeSimbolos;
 
-    public ValidadorDeAtribuicao(Lexer lexer, IdentificadorDeToken identificadorDeTokens) {
-        this.lexer = lexer;
+    public ValidadorDeAtribuicao(IdentificadorDeToken identificadorDeTokens) {
         this.identificadorDeTokens = identificadorDeTokens;
     }
 
-    public void setTabelaDeSimbolos(TabelaDeSimbolos tabelaDeSimbolos) {
-        this.tabelaDeSimbolos = tabelaDeSimbolos;
-    }
-
-    public TabelaDeSimbolos getTabelaDeSimbolos() {
-        return tabelaDeSimbolos;
-    }
-
-    public boolean validaPrimeiroToken(String primeiroToken) {
-
-        String token = identificadorDeTokens.identifica(primeiroToken);
+    public boolean validaPrimeiroToken() {
+        String token = identificadorDeTokens.identifica(tokens.get(0));
         if(token == "IDV")
             return true;
         else
             return false;
     }
 
-    public String mensagemDeErroNoPrimeiroToken(String frase){
+    public String mensagemDeErroNoPrimeiroToken(){
         String retorno = "";
-        tokens = converteStringParaArray(frase);
-        if (!(validaPrimeiroToken(tokens.get(0)))){
-            retorno =  "nome de variável não declarado";
+        if (!(validaPrimeiroToken())){
+            retorno =  "Nome de variável incorreto.";
         }
-
         return retorno;
     }
 
-    public boolean validaSegundoToken(String segundoToken){
-        String token = identificadorDeTokens.identifica(segundoToken);
-        if(token == "IGUAL")
+    public boolean validaSegundoToken(){
+        String token = identificadorDeTokens.identifica(tokens.get(1));
+        if(token.equals("IGUAL"))
             return true;
         else
             return false;
     }
 
+<<<<<<< HEAD
     public String mensagemDeErroNoSegundoToken(String frase){
+=======
+    public String mensagemDeErroNoSegundoToken(){
+>>>>>>> a8933007923f7d5e5ba1eca502d59f484af1ca2d
         String retorno = "";
-        tokens = converteStringParaArray(frase);
-        if (!(validaPrimeiroToken(tokens.get(1)))){
-            retorno =  "esperava \"=\" para atribuição de inteiros";
+        if (!(validaSegundoToken())){
+            retorno =  "Esperava \"=\" para atribuição.";
         }
-
         return retorno;
     }
 
+<<<<<<< HEAD
     public boolean validaTerceiroToken(String terceiroToken) {
 
         String token = identificadorDeTokens.identifica(terceiroToken);
         if(token == "NUMERO")
+=======
+    public boolean validaTerceiroToken() {
+        String token = identificadorDeTokens.identifica(tokens.get(2));
+        if(token == "NUMERO" || token == "IDV" || token == "CONSTANTE_STRING")
+>>>>>>> a8933007923f7d5e5ba1eca502d59f484af1ca2d
             return true;
         else
             return false;
     }
 
+<<<<<<< HEAD
     public String mensagemDeErroNoTerceiroToken(String frase){
+=======
+    public String mensagemDeErroNoTerceiroToken(){
+>>>>>>> a8933007923f7d5e5ba1eca502d59f484af1ca2d
         String retorno = "";
-        tokens = converteStringParaArray(frase);
-        if (!(validaTerceiroToken(tokens.get(2)))){
-            retorno =  "esperava valores numéricos";
+        if (!(validaTerceiroToken())){
+            retorno =  "Esperava uma variavel ou um valor numérico ou uma String.";
         }
-
         return retorno;
     }
 
+<<<<<<< HEAD
     public String mensagemDeErro(String frase){
         String mensagem = "";
         mensagem = mensagemDeErroNoPrimeiroToken(frase) +"\n"+ mensagemDeErroNoSegundoToken(frase)
@@ -104,24 +100,25 @@ public class ValidadorDeAtribuicao implements Validador{
     }
 
     public boolean valida(String frase){
+=======
+    @Override
+    public boolean valida(ArrayList<String> tokens){
+>>>>>>> a8933007923f7d5e5ba1eca502d59f484af1ca2d
         boolean retorno = false;
-        tokens = converteStringParaArray(frase);
+        this.tokens = tokens;
         retorno =
-        validaPrimeiroToken(tokens.get(0)) &&
-        validaSegundoToken(tokens.get(1)) &&
-        validaTerceiroToken(tokens.get(2)) &&
-        validaIdv(frase);
+                validaPrimeiroToken() &&
+                validaSegundoToken() &&
+                validaTerceiroToken();
 
         return retorno;
     }
 
     @Override
-    public boolean valida(ArrayList<String> tokens) {
-        return false;
-    }
-
-    @Override
-    public String retornaMensagemErro() {
-        return null;
+    public String retornaMensagemErro(){
+        String mensagem = "";
+        mensagem = mensagemDeErroNoPrimeiroToken() +"\n"+ mensagemDeErroNoSegundoToken()
+                +"\n"+ mensagemDeErroNoTerceiroToken();
+        return mensagem;
     }
 }
