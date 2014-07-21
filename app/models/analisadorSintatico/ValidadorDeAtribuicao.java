@@ -47,7 +47,7 @@ public class ValidadorDeAtribuicao implements Validador {
 
     public boolean validaTerceiroToken() {
         String token = identificadorDeTokens.identifica(tokens.get(2));
-        if(token == "NUMERO" || token == "IDV" || token == "CONSTANTE_STRING")
+        if(token == "NUMERO" || token == "IDV" || token == "CONSTANTE_TIPO_STRING")
             return true;
         else
             return false;
