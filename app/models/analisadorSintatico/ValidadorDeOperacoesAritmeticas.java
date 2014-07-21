@@ -78,7 +78,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
     private int contadorComparadorDeParenteses() {
         int contadorDeEquilibrioDeParenteses = 0;
 
-        for(int i = 0; i < tokens.size(); i++){
+        for(int i = 0; i < tokens.size(); i++) {
             if(tokens.get(i).equals("(")) {
                 contadorDeEquilibrioDeParenteses++;
             }
