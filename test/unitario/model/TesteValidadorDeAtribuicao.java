@@ -135,7 +135,7 @@ public class TesteValidadorDeAtribuicao {
 
         assertThat(mensagem, is("Nome de variável incorreto.\n\n"));
     }
-    
+
 }
 
 

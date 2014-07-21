@@ -2,33 +2,16 @@ package models.analisadorSintatico;
 
 import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
-
 import java.util.ArrayList;
 
-public class ValidacaoAtribuicaoStrings implements Validador {
+public class ValidadorDeConcatenacaoDeStrings implements Validador {
 
     ArrayList<String> tokens;
     IdentificadorDeToken identificador;
 
-    public ValidacaoAtribuicaoStrings() {
+    public ValidadorDeConcatenacaoDeStrings() {
 
         identificador = new IdentificadorDeToken();
-    }
-
-    public String validaPrimeiroToken() {
-        if (comparaToken(0,"IDV")){
-            return "O primeiro token é uma variável.";
-        } else {
-            return "Você digitou "+ tokens.get(0) +" e deveria ser uma variável.";
-        }
-    }
-
-    public String validaSegundoToken() {
-        if (comparaToken(1,"IGUAL")){
-            return "O segundo token é uma atribuição.";
-        } else {
-            return "Você digitou \""+ tokens.get(1) +"\" e deveria ser uma atribuição.";
-        }
     }
 
     public String validaTerceiroToken() {
@@ -91,12 +74,6 @@ public class ValidacaoAtribuicaoStrings implements Validador {
         ArrayList<String> mensagens = new ArrayList<String>();
         String mensagensDeRetorno = "";
 
-        if(!validaPrimeiroToken().equals("O primeiro token é uma variável.")){
-            mensagens.add(validaPrimeiroToken());
-        }
-        if(!validaSegundoToken().equals("O segundo token é uma atribuição.")){
-            mensagens.add(validaSegundoToken());
-        }
         if((!validaTerceiroToken().equals("O terceiro token é válido.")) && quantosTokensTemDepoisDoIgual() == 1){
             mensagens.add(validaTerceiroToken());
         }
