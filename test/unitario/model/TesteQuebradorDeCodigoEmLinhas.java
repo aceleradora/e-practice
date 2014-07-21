@@ -1,7 +1,7 @@
 package unitario.model;
 
 import models.SolucaoDoExercicio;
-import models.analisadorLexico.QuebradorDeCodigo;
+import models.analisadorLexico.QuebradorDeCodigoEmLinhas;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,21 +9,21 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class TesteQuebradorDeCodigo {
+public class TesteQuebradorDeCodigoEmLinhas {
 
-    QuebradorDeCodigo quebrador;
+    QuebradorDeCodigoEmLinhas quebrador;
 
 
     @Before
     public void setUp() throws Exception {
-        quebrador = new QuebradorDeCodigo();
+        quebrador = new QuebradorDeCodigoEmLinhas();
     }
 
     @Test
     public void quandoEntraUmCodigoDeUmaLinhaRetornaEleMesmo() throws Exception {
         String codigo = "var x : Integer";
         SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio(codigo);
-        ArrayList<String> result = quebrador.quebraLinhas(solucaoDoExercicio.solucaoDoUsuario);
+        ArrayList<String> result = quebrador.quebra(solucaoDoExercicio.solucaoDoUsuario);
 
         assertEquals(codigo, result.get(0));
 
@@ -35,7 +35,7 @@ public class TesteQuebradorDeCodigo {
         codigo += "x = 1";
         SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio(codigo);
 
-        ArrayList<String> result = quebrador.quebraLinhas(solucaoDoExercicio.solucaoDoUsuario);
+        ArrayList<String> result = quebrador.quebra(solucaoDoExercicio.solucaoDoUsuario);
 
         assertEquals("var x : Integer", result.get(0));
         assertEquals("x = 1", result.get(1));
@@ -48,9 +48,8 @@ public class TesteQuebradorDeCodigo {
         codigo += "x = 1";
         SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio(codigo);
 
-        ArrayList<String> result = quebrador.quebraLinhas(solucaoDoExercicio.solucaoDoUsuario);
+        ArrayList<String> result = quebrador.quebra(solucaoDoExercicio.solucaoDoUsuario);
 
         assertEquals("x = 1", result.get(1));
-
     }
 }

@@ -1,14 +1,11 @@
 package models.analisadorLexico;
-
-import models.SolucaoDoExercicio;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class QuebradorDeCodigo {
+public class QuebradorDeCodigoEmLinhas {
 
 
-    public ArrayList<String> quebraLinhas(String solucaoDoUsuario) {
+    public ArrayList<String> quebra(String solucaoDoUsuario) {
 
         String[] solucaoDoUsuarioDividida = solucaoDoUsuario.split("\n");
         ArrayList<String> codigoQuebrado = new ArrayList<String>();
@@ -23,6 +20,7 @@ public class QuebradorDeCodigo {
         }
 
         codigoQuebrado.removeAll(Arrays.asList(null, ""));
+
         return codigoQuebrado;
     }
 }
