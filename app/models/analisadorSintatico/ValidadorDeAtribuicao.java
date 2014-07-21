@@ -1,9 +1,11 @@
 package models.analisadorSintatico;
 
+import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
 import java.util.ArrayList;
 
-public class ValidadorDeAtribuicao implements Validador{
+public class ValidadorDeAtribuicao implements Validador {
+
     private IdentificadorDeToken identificadorDeTokens;
     private ArrayList<String> tokens;
 
@@ -24,7 +26,6 @@ public class ValidadorDeAtribuicao implements Validador{
         if (!(validaPrimeiroToken())){
             retorno =  "Nome de variável incorreto.";
         }
-
         return retorno;
     }
 
@@ -41,7 +42,6 @@ public class ValidadorDeAtribuicao implements Validador{
         if (!(validaSegundoToken())){
             retorno =  "Esperava \"=\" para atribuição.";
         }
-
         return retorno;
     }
 

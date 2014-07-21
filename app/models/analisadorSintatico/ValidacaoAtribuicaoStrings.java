@@ -1,11 +1,12 @@
 package models.analisadorSintatico;
 
 
+import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
 
 import java.util.ArrayList;
 
-public class ValidacaoAtribuicaoStrings implements Validador{
+public class ValidacaoAtribuicaoStrings implements Validador {
 
     ArrayList<String> tokens;
     IdentificadorDeToken identificador;
