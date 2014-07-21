@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -23,7 +22,8 @@ public class TesteGerenciadorDeValidacao {
     @Mock ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
     @Mock ValidadorDeAtribuicao validadorDeAtribuicao;
     @Mock ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;
-    @Mock ValidacaoAtribuicaoStrings validadorDeAtribuicaoString;
+    @Mock
+    ValidadorDeConcatenacaoDeStrings validadorDeAtribuicaoString;
 
     private String sentencaDeclaracao;
     private GerenciadorDeValidacao gerenciadorDeValidacao;
