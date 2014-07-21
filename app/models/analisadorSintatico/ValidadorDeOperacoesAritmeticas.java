@@ -1,9 +1,10 @@
 package models.analisadorSintatico;
 
+import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
 import java.util.ArrayList;
 
-public class ValidadorDeOperacoesAritmeticas implements Validador{
+public class ValidadorDeOperacoesAritmeticas implements Validador {
 
     private IdentificadorDeToken tokenID;
     private ArrayList<String> tokens;

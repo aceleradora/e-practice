@@ -1,4 +1,4 @@
-package models.analisadorSintatico;
+package models;
 
 import java.util.ArrayList;
 
