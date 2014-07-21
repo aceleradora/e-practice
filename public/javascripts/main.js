@@ -19,5 +19,5 @@ function pulaQuatroEspacos(event){
 }
 
 function desabilitaBotao() {
-    $("#botaoDeEnviar").attr("disabled");
+    $("#botaoDeEnviar").attr("disabled", true);
 };
