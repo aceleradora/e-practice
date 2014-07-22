@@ -32,50 +32,73 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     }
 
     @Test
-    public void adicionaVariavelATabelaDeSimbolos() throws Exception {
+    public void dadoQueDeclaroUmaVariavelQueNaoExisteAdicionaVariavelATabelaDeSimbolos() throws Exception {
         String declaracao = "var x : Inteiro";
         ArrayList<String> tokens = lexer.tokenizar(declaracao);
         ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao = new ValidadorDeDeclaracaoDeVariavel(tabelaMock);
 
-        validadorDeDeclaracao.adicionarParaTabelaDeSimbolos(tokens);
+        validadorDeDeclaracao.valida(tokens);
 
         verify(tabelaMock).adicionaSimbolo("x", "Inteiro");
     }
 
+
     @Test
-    public void adicionaDuasVariaveisDiferentesNaTabelaDeSimbolos() throws Exception {
+    public void dadoQueDeclareiDuasVariaveisDiferentesAdicionaAsDuasVariaveisDiferentesNaTabelaDeSimbolos() throws Exception {
         String declaracaoXis = "var x : Inteiro";
         String declaracaoYpsilon = "var y : Inteiro";
         ArrayList<String> tokensDaDeclaracaoXis = lexer.tokenizar(declaracaoXis);
         ArrayList<String> tokensDaDeclaracaoYpsilon = lexer.tokenizar(declaracaoYpsilon);
 
-        validadorDeDeclaracao.adicionarParaTabelaDeSimbolos(tokensDaDeclaracaoXis);
-        validadorDeDeclaracao.adicionarParaTabelaDeSimbolos(tokensDaDeclaracaoYpsilon);
+        validadorDeDeclaracao.valida(tokensDaDeclaracaoXis);
+        validadorDeDeclaracao.valida(tokensDaDeclaracaoYpsilon);
 
         assertThat(tabela.simboloExiste("x"), is(true));
         assertThat(tabela.simboloExiste("y"), is(true));
     }
 
+
     @Test
-    public void verificaSeSimboloAdicionadoNaTabelaExiste() throws Exception {
+    public void quandoVerificaQueVariavelJaExisteNaTabelaDeSimbolosRetornaFalse() throws Exception {
         String declaracaoXis = "var x : Inteiro";
         ArrayList<String> tokens = lexer.tokenizar(declaracaoXis);
 
-        validadorDeDeclaracao.adicionarParaTabelaDeSimbolos(tokens);
-        boolean simboloExiste = validadorDeDeclaracao.verificaSeSimboloJaExisteNaTabela(tokens);
+        tabela.adicionaSimbolo("x", "Inteiro");
+        ValidadorDeDeclaracaoDeVariavel validador = new ValidadorDeDeclaracaoDeVariavel(tabela);
 
-        assertThat(simboloExiste, is(true));
+        assertThat(validador.valida(tokens), is(false));
     }
 
     @Test
-    public void retornaFalseAoVerificarUmSimboloInexistenteNaTabelaDeSimbolos() throws Exception {
+    public void dadoQueTenhoUmaVariavelretornaTrueAoVerificarQueVariavelNaoExisteNaTabelaDeSimbolos() throws Exception {
         String declaracaoXis = "var x : Inteiro";
         ArrayList<String> tokens = lexer.tokenizar(declaracaoXis);
 
-        boolean simboloExiste = validadorDeDeclaracao.verificaSeSimboloJaExisteNaTabela(tokens);
-
-        assertThat(simboloExiste, is(false));
+        assertThat(validadorDeDeclaracao.valida(tokens),is(true));
     }
 
 
+    @Test
+    public void dadoQueDeclareiUmaVariavelQueJaFoiDeclaradaRetornarMensagemDeErro() throws Exception {
+        String declaracaoXis = "var x : Inteiro";
+        ArrayList<String> tokens = lexer.tokenizar(declaracaoXis);
+
+        tabela.adicionaSimbolo("x", "Inteiro");
+
+
+        ValidadorDeDeclaracaoDeVariavel validador = new ValidadorDeDeclaracaoDeVariavel(tabela);
+        validador.valida(tokens);
+
+        assertThat(validador.retornaMensagemErro(), is("A variável x ja foi declarada."));
+    }
+
+    @Test
+    public void dadoQueUmaVariavelFoiDeclaradaESalvaNaTabelaDeSimbolosRetornarTrue() throws Exception {
+        String declaracaoXis = "var x : Inteiro";
+        ArrayList<String> tokens = lexer.tokenizar(declaracaoXis);
+
+        validadorDeDeclaracao.valida(tokens);
+        assertThat(tabela.simboloExiste("x"),is(true));
+
+    }
 }
