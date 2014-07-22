@@ -1,5 +1,6 @@
 package models.analisadorSintatico;
 
+import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class GerenciadorDeValidacao {
     private ValidadorDeAtribuicao validadorDeAtribuicao;
     private ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;
     private ValidadorDeConcatenacaoDeStrings validadorDeConcatenacaoDeStrings;
+    private Validador validador;
     private ArrayList<String> tokens;
     private ArrayList<String> listaDeMensagensDeErro;
 
@@ -35,31 +37,36 @@ public class GerenciadorDeValidacao {
             listaDeTokensIdentificados.add(tokenIdentificado);
         }
 
+        validador = tipoValidador(listaDeTokensIdentificados);
+        validador.valida(tokens);
+    }
+
+    public String mostraMensagensDeErro(){
+        return validador.retornaMensagemErro();
+    }
+
+    private Validador tipoValidador(ArrayList<String> listaDeTokensIdentificados){
+        Validador validadorDaExpressao;
+
         if (listaDeTokensIdentificados.get(0).equals("PALAVRA_RESERVADA")) {
-            validadorDeDeclaracaoDeVariavel.valida(tokens);
+            validadorDaExpressao = this.validadorDeDeclaracaoDeVariavel;
         } else if (listaDeTokensIdentificados.contains("ADICAO")) {
-            validadorDeOperacoesAritmeticas.valida(tokens);
+            validadorDaExpressao = this.validadorDeOperacoesAritmeticas;
         } else if (listaDeTokensIdentificados.contains("SUBTRACAO")) {
-            validadorDeOperacoesAritmeticas.valida(tokens);
+            validadorDaExpressao = this.validadorDeOperacoesAritmeticas;
         } else if (listaDeTokensIdentificados.contains("MULTIPLICACAO")) {
-            validadorDeOperacoesAritmeticas.valida(tokens);
+            validadorDaExpressao = this.validadorDeOperacoesAritmeticas;
         } else if (listaDeTokensIdentificados.contains("DIVISAO")) {
-            validadorDeOperacoesAritmeticas.valida(tokens);
+            validadorDaExpressao = this.validadorDeOperacoesAritmeticas;
         } else if(listaDeTokensIdentificados.contains("CONCATENACAO")){
-            validadorDeConcatenacaoDeStrings.valida(tokens);
+            validadorDaExpressao = this.validadorDeConcatenacaoDeStrings;
         } else if(listaDeTokensIdentificados.get(0).equals("IDV")) {
-            validadorDeAtribuicao.valida(tokens);
+            validadorDaExpressao = this.validadorDeAtribuicao;
+        } else {
+            validadorDaExpressao = null;
         }
+
+        return validadorDaExpressao;
     }
 
-    public ArrayList<String> mostraMensagensDeErro(){
-        listaDeMensagensDeErro.add(validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
-        listaDeMensagensDeErro.add(validadorDeAtribuicao.retornaMensagemErro());
-        listaDeMensagensDeErro.add(validadorDeOperacoesAritmeticas.retornaMensagemErro());
-        listaDeMensagensDeErro.add(validadorDeConcatenacaoDeStrings.retornaMensagemErro());
-
-        listaDeMensagensDeErro.removeAll(Arrays.asList(null, ""));
-
-        return listaDeMensagensDeErro;
-    }
 }

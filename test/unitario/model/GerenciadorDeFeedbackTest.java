@@ -12,6 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -38,7 +39,6 @@ public class GerenciadorDeFeedbackTest {
 
         when(quebradorDeCodigo.quebra("var x : String")).thenReturn(linhaUnica);
         when(quebradorDeCodigo.quebra("var x : String \n x = 1 \n x = x + 1")).thenReturn(linhaTripla);
-
     }
 
     @Test
@@ -67,26 +67,6 @@ public class GerenciadorDeFeedbackTest {
         gerenciadorDeFeedback.pegaFeedback();
 
         verify(gerenciadorDeValidacao, times(3)).interpreta(anyString());
-    }
-
-    @Test
-    public void dadoQueFoiRecebidoUmaDeclaracaoDeVariavelInvalidaRetornaUmFeedback() throws Exception {
-        String codigo = "var x = String";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorDeValidacao, quebradorDeCodigo);
-
-        String mensagemDeFeedback = gerenciadorDeFeedback.pegaFeedback();
-
-        assertThat(mensagemDeFeedback, is(notNullValue()) );
-    }
-
-    @Test
-    public void dadoQueFoiRecebidoUmaDeclaracaoDeVariavelValidaRetornaUmFeedbackVazio() throws Exception {
-        String codigo = "var x : String";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorDeValidacao, quebradorDeCodigo);
-
-        String mensagemDeFeedback = gerenciadorDeFeedback.pegaFeedback();
-
-        assertThat(mensagemDeFeedback.toString(), is("[]"));
     }
 
 }
