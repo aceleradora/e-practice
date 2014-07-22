@@ -7,8 +7,6 @@ import java.util.ArrayList;
 public class ValidadorDeOperacoesAritmeticas implements Validador {
     private IdentificadorDeToken identificadorDeTokens;
     private ArrayList<String> tokens;
-    private ArrayList<String> erros;
-
 
     public ValidadorDeOperacoesAritmeticas() {
         identificadorDeTokens = new IdentificadorDeToken();
@@ -76,29 +74,23 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
         return contadorDeEquilibrioDeParenteses;
     }
 
-    @Override
-    public boolean valida(ArrayList<String> listaDeTokens) {
-        tokens = listaDeTokens;
-
+    public boolean testaExpressao(){
         String tokenEh = "VARIAVEL";
         boolean valida = utilizacaoDeParentesesEstaCorreta();
-
-        if (utilizacaoDeParentesesEstaCorreta()) {
-            for (int i = 0; i < tokens.size(); i++) {
-                if (!tokenEhParenteses(tokens.get(i))){
-                    if(tokenEh.equals("VARIAVEL")) {
-                        valida = validaSeEhNumeroOuVariavel(tokens.get(i));
-                        tokenEh = "OPERADOR";
-                    } else {
-                        if(i != tokens.size()-1) {
-                            valida = validaSeEhOperador(tokens.get(i)) && validaSeEhNumeroOuVariavel(tokens.get(i + 1));
-                            tokenEh = "VARIAVEL";
-                        } else{
-                            return false;
-                        }
+        for (int i = 0; i < tokens.size(); i++) {
+            if (!tokenEhParenteses(tokens.get(i))){
+                if(tokenEh.equals("VARIAVEL")) {
+                    valida = validaSeEhNumeroOuVariavel(tokens.get(i));
+                    tokenEh = "OPERADOR";
+                } else {
+                    if(i != tokens.size()-1) {
+                        valida = validaSeEhOperador(tokens.get(i)) && validaSeEhNumeroOuVariavel(tokens.get(i + 1));
+                        tokenEh = "VARIAVEL";
+                    } else{
+                        return false;
                     }
-
                 }
+
             }
         }
         return valida;
@@ -117,13 +109,20 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
             mensagem = "Existe(em) parentese(s) que não possui(em) expressão(ões) dentro.";
         } else if(!aberturaEFechamentoDeParentesesEstaCorreta()) {
             mensagem = "Algum(uns) parântese(s) está(ão) no lugar errado ou está(ão) faltando";
-        } else if (!getArrayDeErros()) {
-            mensagem = "a segunda palavra deveria ser um identificador de variável válido - ";
         }
         return mensagem;
     }
 
-    private boolean getArrayDeErros() {
-        return false;
+    @Override
+    public boolean valida(ArrayList<String> listaDeTokens) {
+        tokens = listaDeTokens;
+
+        String tokenEh = "VARIAVEL";
+        boolean valida = utilizacaoDeParentesesEstaCorreta();
+
+        if (utilizacaoDeParentesesEstaCorreta()) {
+            valida = testaExpressao();
+        }
+        return valida;
     }
 }
