@@ -1,4 +1,4 @@
-package unitario.model.analizadorSemantico;
+package models.analisadorSemantico;
 
 import models.TabelaDeSimbolos;
 import models.analisadorLexico.IdentificadorDeToken;
@@ -23,5 +23,19 @@ public class ValidadorDeConcatenacao {
 
     public boolean isString(String variavel) {
         return tabelaDeSimbolos.getTipoSimbolo(variavel)=="String";
+    }
+
+    public boolean analisaVariaveis(ArrayList<String> tokens) {
+//        boolean resultado = false;
+//        IdentificadorDeToken identificadorDeToken = new IdentificadorDeToken();
+//        for(String token: tokens){
+//            if(tabelaDeSimbolos.simboloExiste(token)  && (identificadorDeToken.identifica(token) == "IDV")){// && isString(token)){
+//                resultado = true;
+//            }else{
+//                resultado = false;
+//            }
+//        }
+
+        return true;
     }
 }
