@@ -13,7 +13,6 @@ public class TesteQuebradorDeCodigoEmLinhas {
 
     QuebradorDeCodigoEmLinhas quebrador;
 
-
     @Before
     public void setUp() throws Exception {
         quebrador = new QuebradorDeCodigoEmLinhas();
@@ -26,7 +25,6 @@ public class TesteQuebradorDeCodigoEmLinhas {
         ArrayList<String> result = quebrador.quebra(solucaoDoExercicio.solucaoDoUsuario);
 
         assertEquals(codigo, result.get(0));
-
     }
 
     @Test
