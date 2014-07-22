@@ -18,7 +18,7 @@ public class GerenciadorSemantico {
 
     public void identificaDeclaracao(String sentenca) {
         tokens = lexer.tokenizar(sentenca);
-        if (tokens.get(0).equals("var")) {
+        if (tokens.get(0).equals("var") && !tabelaDeSimbolos.temSimbolo(tokens.get(1))) {
             tabelaDeSimbolos.adicionaSimbolo(tokens.get(1), tokens.get(3));
         }
     }
