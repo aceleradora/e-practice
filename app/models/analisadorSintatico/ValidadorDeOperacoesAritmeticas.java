@@ -76,30 +76,6 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
         return contadorDeEquilibrioDeParenteses;
     }
 
-//    @Override
-//    public boolean valida(ArrayList<String> listaDeTokens) {
-//        tokens = listaDeTokens;
-//
-//        String tokenEhVariavel = "VARIAVEL";
-//        boolean expressaoEhValida = utilizacaoDeParentesesEstaCorreta();
-//
-//        if(utilizacaoDeParentesesEstaCorreta()) {
-//            for (int i = 0; i < tokens.size(); i++) {
-//                if(!tokenEhParenteses(tokens.get(i))) {
-//                    if(tokenEhVariavel.equals("VARIAVEL")) {
-//                        expressaoEhValida = validaSeEhNumeroOuVariavel(tokens.get(i));
-//                        tokenEhVariavel = "OPERADOR";
-//                    }
-//                    else {
-//                        expressaoEhValida = validaSeEhOperador(tokens.get(i));
-//                        tokenEhVariavel = "VARIAVEL";
-//                    }
-//                }
-//            }
-//        }
-//        return expressaoEhValida;
-//    }
-
     @Override
     public boolean valida(ArrayList<String> listaDeTokens) {
         tokens = listaDeTokens;
