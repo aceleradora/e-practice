@@ -10,9 +10,8 @@
             TabelaDeSimbolos tabelaDeSimbolos;
             ArrayList<String> tokens;
 
-            public ValidadorDeAtribuicao(TabelaDeSimbolos tabelaDeSimbolos, ArrayList<String> tokens) {
+            public ValidadorDeAtribuicao(TabelaDeSimbolos tabelaDeSimbolos) {
                 this.tabelaDeSimbolos = tabelaDeSimbolos;
-                this.tokens = tokens;
                 this.identificadorDeToken = new IdentificadorDeToken();
             }
 
@@ -39,6 +38,7 @@
 
             @Override
             public boolean valida(ArrayList<String> tokens) {
+                this.tokens = tokens;
                 return validaVariavel() && validaExpressao();
             }
 
