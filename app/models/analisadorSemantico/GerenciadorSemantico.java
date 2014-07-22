@@ -22,4 +22,13 @@ public class GerenciadorSemantico {
             tabelaDeSimbolos.adicionaSimbolo(tokens.get(1), tokens.get(3));
         }
     }
+
+    public boolean validaAtribuicao(String sentenca) {
+        tokens = lexer.tokenizar(sentenca);
+        if (tabelaDeSimbolos.temSimbolo(tokens.get(0))){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

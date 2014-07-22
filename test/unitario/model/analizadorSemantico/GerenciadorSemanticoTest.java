@@ -9,6 +9,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -21,6 +23,7 @@ public class GerenciadorSemanticoTest {
         gerenciadorSemantico = new GerenciadorSemantico(tabelaDeSimbolos);
 
         when(tabelaDeSimbolos.temSimbolo("y")).thenReturn(true);
+        when(tabelaDeSimbolos.temSimbolo("nome")).thenReturn(false).thenReturn(true);
     }
 
     @Test
@@ -45,5 +48,14 @@ public class GerenciadorSemanticoTest {
 
         verify(tabelaDeSimbolos).temSimbolo("y");
         verify(tabelaDeSimbolos, times(1)).adicionaSimbolo("y", "Inteiro");
+    }
+
+    @Test
+    public void validaAtribuicaoSeAVariavelExistirNaTabelaDeSimbolos() throws Exception {
+        gerenciadorSemantico.identificaDeclaracao("var nome : String");
+        boolean validacao = gerenciadorSemantico.validaAtribuicao("nome = \"Alejandro\"");
+
+        verify(tabelaDeSimbolos, times(2)).temSimbolo("nome");
+        assertThat(validacao, is(true));
     }
 }
