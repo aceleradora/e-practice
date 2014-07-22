@@ -155,39 +155,25 @@ public class TesteGerenciadorDeValidacao {
     public void chamaMensagemDeErroDeCadaValidadorERetornaOPrimeiroErro() throws Exception {
 
         when(validadorDeDeclaracaoDeVariavel.retornaMensagemErro()).thenReturn("1");
-        when(validadorDeAtribuicao.retornaMensagemErro()).thenReturn("2");
-        when(validadorDeOperacoesAritmeticas.retornaMensagemErro()).thenReturn("3");
-        when(validadorDeConcatenacaoDeString.retornaMensagemErro()).thenReturn("4");
 
+        gerenciadorDeValidacao.interpreta(sentencaDeclaracao);
         gerenciadorDeValidacao.mostraMensagensDeErro();
 
         verify(validadorDeDeclaracaoDeVariavel).retornaMensagemErro();
-        verify(validadorDeAtribuicao).retornaMensagemErro();
-        verify(validadorDeOperacoesAritmeticas).retornaMensagemErro();
-        verify(validadorDeConcatenacaoDeString).retornaMensagemErro();
 
-        assertThat(gerenciadorDeValidacao.mostraMensagensDeErro().get(0), is("1"));
-        assertThat(gerenciadorDeValidacao.mostraMensagensDeErro().get(1), is("2"));
-        assertThat(gerenciadorDeValidacao.mostraMensagensDeErro().get(2), is("3"));
-        assertThat(gerenciadorDeValidacao.mostraMensagensDeErro().get(3), is("4"));
+        assertThat(gerenciadorDeValidacao.mostraMensagensDeErro(), is("1"));
     }
 
     @Test
     public void chamaMensagemDeErroIgnoraLinhasEmBrancoERetornaErros() throws Exception {
 
-        when(validadorDeDeclaracaoDeVariavel.retornaMensagemErro()).thenReturn("");
         when(validadorDeAtribuicao.retornaMensagemErro()).thenReturn("2");
-        when(validadorDeOperacoesAritmeticas.retornaMensagemErro()).thenReturn("");
-        when(validadorDeConcatenacaoDeString.retornaMensagemErro()).thenReturn("4");
 
+        gerenciadorDeValidacao.interpreta(sentencaAtribuicao);
         gerenciadorDeValidacao.mostraMensagensDeErro();
 
-        verify(validadorDeDeclaracaoDeVariavel).retornaMensagemErro();
         verify(validadorDeAtribuicao).retornaMensagemErro();
-        verify(validadorDeOperacoesAritmeticas).retornaMensagemErro();
-        verify(validadorDeConcatenacaoDeString).retornaMensagemErro();
 
-        assertThat(gerenciadorDeValidacao.mostraMensagensDeErro().get(0), is("2"));
-        assertThat(gerenciadorDeValidacao.mostraMensagensDeErro().get(1), is("4"));
+        assertThat(gerenciadorDeValidacao.mostraMensagensDeErro(), is("2"));
     }
 }
