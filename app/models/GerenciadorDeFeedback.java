@@ -24,10 +24,6 @@ public class GerenciadorDeFeedback {
             mensagem += gerenciadorDeValidacao.mostraMensagensDeErro();
         }
 
-        if(codigo.equals("var x = String")){
-            return "Erro!!";
-        }
-
         return mensagem;
     }
 
