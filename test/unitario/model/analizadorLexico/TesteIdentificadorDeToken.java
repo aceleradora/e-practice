@@ -1,4 +1,4 @@
-package unitario.model;
+package unitario.model.analizadorLexico;
 
 import models.analisadorLexico.IdentificadorDeToken;
 import org.junit.Before;

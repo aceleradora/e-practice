@@ -1,4 +1,4 @@
-package unitario.model;
+package unitario.model.analizadorSintatico;
 
 import models.analisadorLexico.Lexer;
 import org.junit.Test;

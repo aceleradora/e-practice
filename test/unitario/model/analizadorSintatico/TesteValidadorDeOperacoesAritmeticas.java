@@ -1,4 +1,4 @@
-package unitario.model;
+package unitario.model.analizadorSintatico;
 
 import models.analisadorSintatico.ValidadorDeOperacoesAritmeticas;
 import java.util.ArrayList;
