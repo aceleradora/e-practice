@@ -9,8 +9,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GerenciadorSemanticoTest {
@@ -19,8 +18,9 @@ public class GerenciadorSemanticoTest {
 
     @Before
     public void setUp() throws Exception {
-        // ARRANGE ou DADO
         gerenciadorSemantico = new GerenciadorSemantico(tabelaDeSimbolos);
+
+        when(tabelaDeSimbolos.temSimbolo("y")).thenReturn(true);
     }
 
     @Test
@@ -32,10 +32,18 @@ public class GerenciadorSemanticoTest {
 
     @Test
     public void verificaSeOSimboloJaExisteNaTabelaDeSimbolosAntesDeAdicionar() throws Exception {
-        // ACT ou QUANDO
         gerenciadorSemantico.identificaDeclaracao("var umNumero : Inteiro");
 
-        // ASSERT ou ENTÃO
         verify(tabelaDeSimbolos).temSimbolo("umNumero");
+    }
+
+    @Test
+    public void naoAdicionaVariavelNaTabelaSeOSimboloJaExiste() throws Exception {
+        tabelaDeSimbolos.adicionaSimbolo("y", "Inteiro");
+
+        gerenciadorSemantico.identificaDeclaracao("var y : Inteiro");
+
+        verify(tabelaDeSimbolos).temSimbolo("y");
+        verify(tabelaDeSimbolos, times(1)).adicionaSimbolo("y", "Inteiro");
     }
 }
