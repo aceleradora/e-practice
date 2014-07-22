@@ -7,12 +7,14 @@ import java.util.ArrayList;
 public class ValidadorDeOperacoesAritmeticas implements Validador {
     private IdentificadorDeToken identificadorDeTokens;
     private ArrayList<String> tokens;
+    private ArrayList<String> erros;
+
 
     public ValidadorDeOperacoesAritmeticas() {
         identificadorDeTokens = new IdentificadorDeToken();
     }
 
-    private boolean validaSeEhVariavel(String token) {
+    private boolean validaSeEhNumeroOuVariavel(String token) {
         return (tokenEhNumero(token) || tokenEhIdentificadorDeVariavel(token)) ? true : false;
     }
 
@@ -55,63 +57,79 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
     }
 
     public boolean aberturaEFechamentoDeParentesesEstaCorreta() {
-        int quantidadeDeParentesesAbertos = 0;
-
-        if(contadorComparadorDeParenteses() == 0) {
-            for (int i = 0; i < tokens.size(); i++) {
-                if (tokens.get(i).equals("(")) {
-                    quantidadeDeParentesesAbertos++;
-                }
-                if (tokens.get(i).equals(")")) {
-                    if (quantidadeDeParentesesAbertos > 0) {
-                        quantidadeDeParentesesAbertos--;
-                    } else {
-                        return false;
-                    }
-                }
-            }
-            return quantidadeDeParentesesAbertos == 0;
-        }
-        return false;
+        return contadorComparadorDeParenteses() == 0 ? true : false;
     }
 
     private int contadorComparadorDeParenteses() {
         int contadorDeEquilibrioDeParenteses = 0;
 
         for(int i = 0; i < tokens.size(); i++) {
-            if(tokens.get(i).equals("(")) {
-                contadorDeEquilibrioDeParenteses++;
-            }
-            if (tokens.get(i).equals(")")) {
-                contadorDeEquilibrioDeParenteses--;
+            if (contadorDeEquilibrioDeParenteses >= 0) {
+                if (tokens.get(i).equals("(")) {
+                    contadorDeEquilibrioDeParenteses++;
+                }
+                if (tokens.get(i).equals(")")) {
+                    contadorDeEquilibrioDeParenteses--;
+                }
             }
         }
         return contadorDeEquilibrioDeParenteses;
     }
 
+//    @Override
+//    public boolean valida(ArrayList<String> listaDeTokens) {
+//        tokens = listaDeTokens;
+//
+//        String tokenEhVariavel = "VARIAVEL";
+//        boolean expressaoEhValida = utilizacaoDeParentesesEstaCorreta();
+//
+//        if(utilizacaoDeParentesesEstaCorreta()) {
+//            for (int i = 0; i < tokens.size(); i++) {
+//                if(!tokenEhParenteses(tokens.get(i))) {
+//                    if(tokenEhVariavel.equals("VARIAVEL")) {
+//                        expressaoEhValida = validaSeEhNumeroOuVariavel(tokens.get(i));
+//                        tokenEhVariavel = "OPERADOR";
+//                    }
+//                    else {
+//                        expressaoEhValida = validaSeEhOperador(tokens.get(i));
+//                        tokenEhVariavel = "VARIAVEL";
+//                    }
+//                }
+//            }
+//        }
+//        return expressaoEhValida;
+//    }
+
     @Override
     public boolean valida(ArrayList<String> listaDeTokens) {
         tokens = listaDeTokens;
 
-        String tipoToken = "VARIAVEL";
-        boolean parentesesOk = aberturaEFechamentoDeParentesesEstaCorreta() && temExpressaoDentroDoParenteses();
-        boolean validador = parentesesOk;
+        String tokenEh = "VARIAVEL";
+        boolean valida = utilizacaoDeParentesesEstaCorreta();
 
-        if(parentesesOk) {
+        if (utilizacaoDeParentesesEstaCorreta()) {
             for (int i = 0; i < tokens.size(); i++) {
-                if(!tokenEhParenteses(tokens.get(i)) && validador == true) {
-                    if(tipoToken.equals("VARIAVEL")) {
-                        validador = validaSeEhVariavel(tokens.get(i));
-                        tipoToken = "OPERADOR";
+                if (!tokenEhParenteses(tokens.get(i))){
+                    if(tokenEh.equals("VARIAVEL")) {
+                        valida = validaSeEhNumeroOuVariavel(tokens.get(i));
+                        tokenEh = "OPERADOR";
+                    } else {
+                        if(i != tokens.size()-1) {
+                            valida = validaSeEhOperador(tokens.get(i)) && validaSeEhNumeroOuVariavel(tokens.get(i + 1));
+                            tokenEh = "VARIAVEL";
+                        } else{
+                            return false;
+                        }
                     }
-                    else {
-                        validador = validaSeEhOperador(tokens.get(i));
-                        tipoToken = "VARIAVEL";
-                    }
+
                 }
             }
         }
-        return validador;
+        return valida;
+    }
+
+    private boolean utilizacaoDeParentesesEstaCorreta() {
+        return aberturaEFechamentoDeParentesesEstaCorreta() && temExpressaoDentroDoParenteses();
     }
 
     @Override

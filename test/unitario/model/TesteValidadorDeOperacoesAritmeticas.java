@@ -26,6 +26,16 @@ public class TesteValidadorDeOperacoesAritmeticas {
     }
 
     @Test
+    public void parentesesInvertidos() throws Exception {
+        tokens.add(")");
+        tokens.add("7");
+        tokens.add("(");
+        validadorDeOperacoesAritmeticas.valida(tokens);
+
+        assertThat(validadorDeOperacoesAritmeticas.aberturaEFechamentoDeParentesesEstaCorreta(), is(false));
+    }
+
+    @Test
     public void naoValidaUmaExpressaoSemOperandosEOperadores() throws Exception {
         criaTokensDeExpressaoVazia();
 
@@ -64,12 +74,16 @@ public class TesteValidadorDeOperacoesAritmeticas {
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
     }
 
-    @Ignore
     @Test
     public void naoValidaUmaExpressaoQueContenhaUmNumeroEUmOperadorAposEsseNumero() throws Exception {
         criaTokensDeExpressaoComUmNumeroEUmOperador();
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
+    }
+
+    private void criaTokensDeExpressaoComUmNumeroEUmOperador() {
+        tokens.add("5");
+        tokens.add("+");
     }
 
     @Test
@@ -96,12 +110,6 @@ public class TesteValidadorDeOperacoesAritmeticas {
         validadorDeOperacoesAritmeticas.valida(tokens);
     }
 
-    private void criaTokensDeExpressaoComUmNumeroEUmOperador() {
-        tokens.add("5");
-        tokens.add("+");
-    }
-
-    @Ignore
     @Test
     public void naoValidaUmaExpressaoQueContenhaUmNumeroEUmOperadorEntreParenteses() throws Exception {
         tokens.add("(");
