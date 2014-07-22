@@ -1,4 +1,4 @@
-package unitario.model;
+package unitario.model.analizadorSintatico;
 
 import models.analisadorSintatico.*;
 import models.analisadorLexico.IdentificadorDeToken;

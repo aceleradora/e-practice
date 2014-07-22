@@ -1,4 +1,4 @@
-package unitario.model;
+package unitario.model.analizadorLexico;
 
 import models.SolucaoDoExercicio;
 import models.analisadorLexico.QuebradorDeCodigoEmLinhas;
