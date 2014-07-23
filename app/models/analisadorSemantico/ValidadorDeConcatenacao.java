@@ -26,4 +26,7 @@ public class ValidadorDeConcatenacao {
     }
 
 
+    public String valida(ArrayList<String> tokensInvalidos) {
+        return "O IDV não foi declarado.";
+    }
 }

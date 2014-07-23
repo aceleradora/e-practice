@@ -5,6 +5,7 @@ import models.TabelaDeSimbolos;
 import models.Validador;
 import models.analisadorSemantico.ValidadorDeConcatenacao;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -21,6 +22,7 @@ public class TesteValidadorDeConcatenacao {
     @Mock TabelaDeSimbolos mockTabelaDeSimbolos;
     TabelaDeSimbolos tabelaDeSimbolos;
     ArrayList<String> tokens;
+    ValidadorDeConcatenacao validador;
 
     @Before
     public void setUp() throws Exception {
@@ -34,6 +36,7 @@ public class TesteValidadorDeConcatenacao {
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
         tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
         tabelaDeSimbolos.adicionaSimbolo("verde", "String");
+        validador = new ValidadorDeConcatenacao(tabelaDeSimbolos);
     }
 
     @Test
@@ -72,7 +75,6 @@ public class TesteValidadorDeConcatenacao {
 
     @Test
     public void retornaTrueSeIDVExiste() throws Exception {
-        ValidadorDeConcatenacao validador = new ValidadorDeConcatenacao(tabelaDeSimbolos);
 
         boolean resultado = validador.verificaSeVariavelExiste(tokens.get(0));
 
@@ -81,7 +83,6 @@ public class TesteValidadorDeConcatenacao {
 
     @Test
     public void retornaTrueSeTerceiroTokenExiste() throws Exception {
-        ValidadorDeConcatenacao validador = new ValidadorDeConcatenacao(tabelaDeSimbolos);
 
         boolean resultado =  validador.verificaSeVariavelExiste(tokens.get(2));
 
@@ -90,7 +91,6 @@ public class TesteValidadorDeConcatenacao {
 
     @Test
     public void retornaTrueSeQuintoTokenExiste() throws Exception {
-        ValidadorDeConcatenacao validador = new ValidadorDeConcatenacao(tabelaDeSimbolos);
 
         boolean resultado = validador.verificaSeVariavelExiste(tokens.get(4));
 
@@ -99,7 +99,6 @@ public class TesteValidadorDeConcatenacao {
 
     @Test
     public void retornaTrueSePrimeiroTokenEhString() throws Exception {
-        ValidadorDeConcatenacao validador = new ValidadorDeConcatenacao(tabelaDeSimbolos);
 
         boolean resultado = validador.isString(tokens.get(0));
 
@@ -109,7 +108,6 @@ public class TesteValidadorDeConcatenacao {
 
     @Test
     public void retornaTrueSeTerceiroTokenEhString() throws Exception {
-        ValidadorDeConcatenacao validador = new ValidadorDeConcatenacao(tabelaDeSimbolos);
 
         boolean resultado = validador.isString(tokens.get(2));
 
@@ -119,10 +117,33 @@ public class TesteValidadorDeConcatenacao {
 
     @Test
     public void retornaTrueSeQuintoTokenEhString() throws Exception {
-        ValidadorDeConcatenacao validador = new ValidadorDeConcatenacao(tabelaDeSimbolos);
 
         boolean resultado = validador.isString(tokens.get(4));
 
         assertThat(resultado, is(true));
     }
+
+    @Test
+    public void quandoPrimeiroTokenNaoExisteRetornaMensagemDeErro() throws Exception {
+        ArrayList<String> tokensInvalidos = new ArrayList<String>();
+        tokensInvalidos.add("variavelInvalida");
+
+        String resultado = validador.valida(tokensInvalidos);
+
+        assertThat(resultado, is("O IDV não foi declarado."));
+
+    }
+
+    @Ignore
+    @Test
+    public void quandoTerceiroTokenNaoExisteRetornaMensagemDeErro() throws Exception {
+        ArrayList<String> tokensInvalidos = new ArrayList<String>();
+        tokensInvalidos.add("nome");
+
+        String resultado = validador.valida(tokensInvalidos);
+
+        assertThat(resultado, is("A variável nome não foi declarada."));
+
+    }
 }
+
