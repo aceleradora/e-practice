@@ -199,5 +199,17 @@ public class TesteValidadorDeConcatenacao {
 
         assertThat(mensagem, is("Erro: a variável " + tokens.get(0) + " não foi declarada."));
     }
+
+    @Test
+    public void quandoAVariavelNaoEhDoTipoStringRetornaMensagemDeErro() throws Exception {
+        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "Inteiro");
+
+        validador.valida(tokens);
+
+        String mensagem = validador.retornaMensagemErro();
+
+        assertThat(mensagem, is("Erro: a variável não é do tipo String."));
+
+    }
 }
 
