@@ -127,6 +127,10 @@ public class TesteValidadorDeConcatenacao {
     public void quandoPrimeiroTokenNaoExisteRetornaMensagemDeErro() throws Exception {
         ArrayList<String> tokensInvalidos = new ArrayList<String>();
         tokensInvalidos.add("variavelInvalida");
+        tokensInvalidos.add("=");
+        tokensInvalidos.add("nome");
+        tokensInvalidos.add("<>");
+        tokensInvalidos.add("sobrenome");
 
         String resultado = validador.valida(tokensInvalidos);
 
@@ -134,12 +138,16 @@ public class TesteValidadorDeConcatenacao {
 
     }
 
-    @Ignore
     @Test
     public void quandoTerceiroTokenNaoExisteRetornaMensagemDeErro() throws Exception {
         ArrayList<String> tokensInvalidos = new ArrayList<String>();
+        tokensInvalidos.add("variavelInvalida");
+        tokensInvalidos.add("=");
         tokensInvalidos.add("nome");
+        tokensInvalidos.add("<>");
+        tokensInvalidos.add("sobrenome");
 
+        tabelaDeSimbolos.adicionaSimbolo("variavelInvalida", "String");
         String resultado = validador.valida(tokensInvalidos);
 
         assertThat(resultado, is("A variável nome não foi declarada."));

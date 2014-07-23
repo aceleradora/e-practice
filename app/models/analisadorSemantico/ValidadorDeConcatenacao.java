@@ -27,6 +27,12 @@ public class ValidadorDeConcatenacao {
 
 
     public String valida(ArrayList<String> tokensInvalidos) {
-        return "O IDV não foi declarado.";
+        String primeiraVariavel = tokensInvalidos.get(0);
+        String segundaVariavel = tokensInvalidos.get(2);
+
+        if (!verificaSeVariavelExiste(primeiraVariavel))
+            return "O IDV não foi declarado.";
+        else
+            return "A variável nome não foi declarada.";
     }
 }
