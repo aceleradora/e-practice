@@ -166,7 +166,7 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is(not("")));
+        assertThat(mensagemDeErro, is(""));
     }
 
     @Ignore
