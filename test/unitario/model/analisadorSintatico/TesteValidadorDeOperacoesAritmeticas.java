@@ -227,7 +227,7 @@ public class TesteValidadorDeOperacoesAritmeticas {
         tokens.add("*");
         tokens.add("2");
 
-        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
     }
 
     @Test
