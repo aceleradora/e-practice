@@ -133,7 +133,7 @@ public class TesteValidadorDeAtribuicao {
         validadorDeAtribuicao.valida(tokens);
         String mensagem = validadorDeAtribuicao.retornaMensagemErro();
 
-        assertThat(mensagem, is("Nome de variável incorreto.\n\n"));
+        assertThat(mensagem, is("Nome de variável incorreto. \n"));
     }
 
 }
