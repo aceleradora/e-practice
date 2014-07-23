@@ -25,17 +25,5 @@ public class ValidadorDeConcatenacao {
         return tabelaDeSimbolos.getTipoSimbolo(variavel)=="String";
     }
 
-    public boolean analisaVariaveis(ArrayList<String> tokens) {
-//        boolean resultado = false;
-//        IdentificadorDeToken identificadorDeToken = new IdentificadorDeToken();
-//        for(String token: tokens){
-//            if(tabelaDeSimbolos.simboloExiste(token)  && (identificadorDeToken.identifica(token) == "IDV")){// && isString(token)){
-//                resultado = true;
-//            }else{
-//                resultado = false;
-//            }
-//        }
 
-        return true;
-    }
 }
