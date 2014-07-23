@@ -9,6 +9,7 @@ public class Lexer {
         if (frase.equals("")) {
             return tokens;
         } else {
+            frase = frase.trim();
             String[] stringDividida = frase.split("[ ]+");
             for (int i = 0; i < stringDividida.length; i++) {
                 if (stringDividida[i].length() > 1 && stringDividida[i].contains(":")) {

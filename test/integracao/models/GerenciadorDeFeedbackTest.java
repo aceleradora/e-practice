@@ -139,6 +139,36 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro, is(not("")));
     }
 
+    @Test
+    public void dadoQueReceboUmaConcatenacaoDeStringsValidasComUmEspacoAntesDasStringsRetornoUmaMensagemDeErroVazia() throws Exception {
+        String codigo = " \"nome:\" <> \"José\"";
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorDeValidacao, quebradorDeCodigo);
+
+        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
+
+        assertThat(mensagemDeErro, is(""));
+    }
+
+    @Test
+    public void dadoQueReceboUmaConcatenacaoDeNumerosInvalidaEntaoRetornoUmaMensagemDeErro() throws Exception {
+        String codigo = "10 <> 20";
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorDeValidacao, quebradorDeCodigo);
+
+        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
+
+        assertThat(mensagemDeErro, is(not("")));
+    }
+
+    @Test
+    public void dadoQueReceboUmaConcatenacaoDeStringsUtilizandoSimboloMaiorEMenosValidasRetornoUmaMensagemDeErroVazia() throws Exception {
+        String codigo = "\"nome:\" <> \"José\"";
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorDeValidacao, quebradorDeCodigo);
+
+        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
+
+        assertThat(mensagemDeErro, is(""));
+    }
+
     @Ignore
     @Test
     public void dadoQueReceboUmaOperacaoAritmeticaInvalidaRetornoUmaMensagemDeErro() throws Exception {
@@ -161,25 +191,4 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro, is(not("")));
     }
 
-    @Ignore
-    @Test
-    public void dadoQueReceboUmaConcatenacaoDeStringsValidasComUmEspacoAntesDasStringsRetornoUmaMensagemDeErroVazia() throws Exception {
-        String codigo = " \"nome:\" <> \"José\"";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorDeValidacao, quebradorDeCodigo);
-
-        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
-
-        assertThat(mensagemDeErro, is(""));
-    }
-
-    @Ignore
-    @Test
-    public void dadoQueReceboUmaConcatenacaoDeStringsUtilizandoSimboloMaiorEMenosValidasRetornoUmaMensagemDeErroVazia() throws Exception {
-        String codigo = "\"nome:\" - \"José\"";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorDeValidacao, quebradorDeCodigo);
-
-        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
-
-        assertThat(mensagemDeErro, is(not("")));
-    }
 }
