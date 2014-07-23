@@ -1,4 +1,4 @@
-package unitario.model.analizadorSemantico;
+package unitario.model.analisadorSemantico;
 
 import models.TabelaDeSimbolos;
 import models.analisadorLexico.Lexer;
@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)

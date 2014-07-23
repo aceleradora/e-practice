@@ -1,4 +1,4 @@
-package unitario.model.analizadorSemantico;
+package unitario.model.analisadorSemantico;
 
 import models.TabelaDeSimbolos;
 import models.analisadorLexico.Lexer;
