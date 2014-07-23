@@ -33,9 +33,6 @@ public class TesteValidadorDeConcatenacao {
         tokens.add("amarelo");
         tokens.add("<>");
         tokens.add("verde");
-        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
-        tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
-        tabelaDeSimbolos.adicionaSimbolo("verde", "String");
         validador = new ValidadorDeConcatenacao(tabelaDeSimbolos);
     }
 
@@ -63,27 +60,8 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void retornaTrueSeOTipoDaVariavelEhString() throws Exception {
-        ValidadorDeConcatenacao validador = new ValidadorDeConcatenacao(mockTabelaDeSimbolos);
-        String variavel = "x";
-        when(mockTabelaDeSimbolos.getTipoSimbolo("x")).thenReturn("String");
-
-        boolean resultado = validador.isString(variavel);
-
-        assertThat(resultado, is(true));
-    }
-
-    @Test
-    public void retornaTrueSeIDVExiste() throws Exception {
-
-        boolean resultado = validador.verificaSeVariavelExiste(tokens.get(0));
-
-        assertThat(resultado, is(true));
-    }
-
-    @Test
     public void retornaTrueSeTerceiroTokenExiste() throws Exception {
-
+        tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
         boolean resultado =  validador.verificaSeVariavelExiste(tokens.get(2));
 
         assertThat(resultado, is(true));
@@ -91,7 +69,7 @@ public class TesteValidadorDeConcatenacao {
 
     @Test
     public void retornaTrueSeQuintoTokenExiste() throws Exception {
-
+        tabelaDeSimbolos.adicionaSimbolo("verde", "String");
         boolean resultado = validador.verificaSeVariavelExiste(tokens.get(4));
 
         assertThat(resultado, is(true));
@@ -99,7 +77,7 @@ public class TesteValidadorDeConcatenacao {
 
     @Test
     public void retornaTrueSePrimeiroTokenEhString() throws Exception {
-
+        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
         boolean resultado = validador.isString(tokens.get(0));
 
         assertThat(resultado, is(true));
@@ -108,7 +86,7 @@ public class TesteValidadorDeConcatenacao {
 
     @Test
     public void retornaTrueSeTerceiroTokenEhString() throws Exception {
-
+        tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
         boolean resultado = validador.isString(tokens.get(2));
 
         assertThat(resultado, is(true));
@@ -117,40 +95,39 @@ public class TesteValidadorDeConcatenacao {
 
     @Test
     public void retornaTrueSeQuintoTokenEhString() throws Exception {
-
+        tabelaDeSimbolos.adicionaSimbolo("verde", "String");
         boolean resultado = validador.isString(tokens.get(4));
 
         assertThat(resultado, is(true));
     }
 
+
     @Test
     public void quandoPrimeiroTokenNaoExisteRetornaMensagemDeErro() throws Exception {
-        ArrayList<String> tokensInvalidos = new ArrayList<String>();
-        tokensInvalidos.add("variavelInvalida");
-        tokensInvalidos.add("=");
-        tokensInvalidos.add("nome");
-        tokensInvalidos.add("<>");
-        tokensInvalidos.add("sobrenome");
 
-        String resultado = validador.valida(tokensInvalidos);
+        String resultado = validador.valida(tokens);
 
-        assertThat(resultado, is("O IDV não foi declarado."));
+        assertThat(resultado, is("A variável abacaxi não foi declarada."));
 
     }
 
     @Test
     public void quandoTerceiroTokenNaoExisteRetornaMensagemDeErro() throws Exception {
-        ArrayList<String> tokensInvalidos = new ArrayList<String>();
-        tokensInvalidos.add("variavelInvalida");
-        tokensInvalidos.add("=");
-        tokensInvalidos.add("nome");
-        tokensInvalidos.add("<>");
-        tokensInvalidos.add("sobrenome");
 
-        tabelaDeSimbolos.adicionaSimbolo("variavelInvalida", "String");
-        String resultado = validador.valida(tokensInvalidos);
+        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
+        String resultado = validador.valida(tokens);
 
-        assertThat(resultado, is("A variável nome não foi declarada."));
+        assertThat(resultado, is("A variável amarelo não foi declarada."));
+    }
+
+    @Test
+    public void quandoQuintoTokenNaoExisteRetornaMensagemDeErro() throws Exception {
+        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
+        tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
+
+        String resultado = validador.valida(tokens);
+
+        assertThat(resultado, is("A variável verde não foi declarada."));
 
     }
 }

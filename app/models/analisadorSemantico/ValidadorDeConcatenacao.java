@@ -29,10 +29,13 @@ public class ValidadorDeConcatenacao {
     public String valida(ArrayList<String> tokensInvalidos) {
         String primeiraVariavel = tokensInvalidos.get(0);
         String segundaVariavel = tokensInvalidos.get(2);
+        String terceiraVariavel = tokensInvalidos.get(4);
 
         if (!verificaSeVariavelExiste(primeiraVariavel))
-            return "O IDV não foi declarado.";
+            return "A variável " + primeiraVariavel + " não foi declarada.";
+        else if (!verificaSeVariavelExiste(segundaVariavel))
+            return "A variável " + segundaVariavel + " não foi declarada.";
         else
-            return "A variável nome não foi declarada.";
+            return "A variável " + terceiraVariavel + " não foi declarada.";
     }
 }
