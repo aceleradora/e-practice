@@ -103,32 +103,32 @@ public class TesteValidadorDeConcatenacao {
 
 
     @Test
-    public void quandoPrimeiroTokenNaoExisteRetornaMensagemDeErro() throws Exception {
+    public void quandoPrimeiroTokenNaoExisteRetornaFalse() throws Exception {
 
-        String resultado = validador.valida(tokens);
+        boolean resultado = validador.valida(tokens);
 
-        assertThat(resultado, is("A variável abacaxi não foi declarada."));
+        assertThat(resultado, is(false));
 
     }
 
     @Test
-    public void quandoTerceiroTokenNaoExisteRetornaMensagemDeErro() throws Exception {
+    public void quandoTerceiroTokenNaoExisteRetornaFalse() throws Exception {
 
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
-        String resultado = validador.valida(tokens);
+        boolean resultado = validador.valida(tokens);
 
-        assertThat(resultado, is("A variável amarelo não foi declarada."));
+        assertThat(resultado, is(false));
     }
 
     @Test
-    public void quandoQuintoTokenNaoExisteRetornaMensagemDeErro() throws Exception {
+    public void quandoQuintoTokenNaoExisteRetornaFalse() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
         tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
 
-        String resultado = validador.valida(tokens);
+        boolean resultado = validador.valida(tokens);
 
-        assertThat(resultado, is("A variável verde não foi declarada."));
-
+        assertThat(resultado, is(false));
     }
+
 }
 

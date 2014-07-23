@@ -1,6 +1,7 @@
 package models.analisadorSemantico;
 
 import models.TabelaDeSimbolos;
+import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
 
 import java.util.ArrayList;
@@ -26,16 +27,22 @@ public class ValidadorDeConcatenacao {
     }
 
 
-    public String valida(ArrayList<String> tokensInvalidos) {
+    public boolean valida(ArrayList<String> tokensInvalidos) {
         String primeiraVariavel = tokensInvalidos.get(0);
         String segundaVariavel = tokensInvalidos.get(2);
         String terceiraVariavel = tokensInvalidos.get(4);
 
         if (!verificaSeVariavelExiste(primeiraVariavel))
-            return "A variável " + primeiraVariavel + " não foi declarada.";
+            return false;
         else if (!verificaSeVariavelExiste(segundaVariavel))
-            return "A variável " + segundaVariavel + " não foi declarada.";
+            return false;
+        else if(!verificaSeVariavelExiste(terceiraVariavel))
+            return false;
         else
-            return "A variável " + terceiraVariavel + " não foi declarada.";
+            return true;
+    }
+
+    public String retornaMensagemErro() {
+        return null;
     }
 }
