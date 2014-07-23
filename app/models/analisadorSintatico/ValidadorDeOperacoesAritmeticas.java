@@ -117,7 +117,6 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
     public boolean valida(ArrayList<String> listaDeTokens) {
         tokens = listaDeTokens;
 
-        String tokenEh = "VARIAVEL";
         boolean valida = utilizacaoDeParentesesEstaCorreta();
 
         if (utilizacaoDeParentesesEstaCorreta()) {

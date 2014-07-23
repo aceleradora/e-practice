@@ -24,7 +24,7 @@ public class ValidadorDeAtribuicao implements Validador {
     public String mensagemDeErroNoPrimeiroToken(){
         String retorno = "";
         if (!(validaPrimeiroToken())){
-            retorno =  "Nome de variável incorreto.";
+            retorno =  "Nome de variável incorreto. \n";
         }
         return retorno;
     }
@@ -40,7 +40,7 @@ public class ValidadorDeAtribuicao implements Validador {
     public String mensagemDeErroNoSegundoToken(){
         String retorno = "";
         if (!(validaSegundoToken())){
-            retorno =  "Esperava \"=\" para atribuição.";
+            retorno =  "Esperava \"=\" para atribuição. \n";
         }
         return retorno;
     }
@@ -56,7 +56,7 @@ public class ValidadorDeAtribuicao implements Validador {
     public String mensagemDeErroNoTerceiroToken(){
         String retorno = "";
         if (!(validaTerceiroToken())){
-            retorno =  "Esperava uma variavel ou um valor numérico ou uma String.";
+            retorno =  "Esperava uma variavel ou um valor numérico ou uma String. \n";
         }
         return retorno;
     }
@@ -76,8 +76,8 @@ public class ValidadorDeAtribuicao implements Validador {
     @Override
     public String retornaMensagemErro(){
         String mensagem = "";
-        mensagem = mensagemDeErroNoPrimeiroToken() +"\n"+ mensagemDeErroNoSegundoToken()
-                +"\n"+ mensagemDeErroNoTerceiroToken();
+        mensagem = mensagemDeErroNoPrimeiroToken() + mensagemDeErroNoSegundoToken()
+                + mensagemDeErroNoTerceiroToken();
         return mensagem;
     }
 }
