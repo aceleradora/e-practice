@@ -130,5 +130,52 @@ public class TesteValidadorDeConcatenacao {
         assertThat(resultado, is(false));
     }
 
+    @Test
+    public void quandoTodasAsVariaveisExistemRetornaTrue() throws Exception {
+        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
+        tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
+        tabelaDeSimbolos.adicionaSimbolo("verde", "String");
+
+        boolean resultado = validador.valida(tokens);
+
+        assertThat(resultado, is(true));
+    }
+
+    @Test
+    public void quandoPrimeiroTokenNaoEhStringRetornaFalse() throws Exception {
+        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "Inteiro");
+        tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
+        tabelaDeSimbolos.adicionaSimbolo("verde", "String");
+
+
+        boolean resultado = validador.valida(tokens);
+
+        assertThat(resultado, is(false));
+
+    }
+
+    @Test
+    public void quandoTerceiroTokenNaoEhStringRetornaFalse() throws Exception {
+        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
+        tabelaDeSimbolos.adicionaSimbolo("amarelo", "Inteiro");
+        tabelaDeSimbolos.adicionaSimbolo("verde", "String");
+
+        boolean resultado = validador.valida(tokens);
+
+        assertThat(resultado, is(false));
+
+    }
+
+    @Test
+    public void quandoQuintoTokenNaoEhStringRetornaFalse() throws Exception {
+        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
+        tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
+        tabelaDeSimbolos.adicionaSimbolo("verde", "Inteiro");
+
+        boolean resultado = validador.valida(tokens);
+
+        assertThat(resultado, is(false));
+
+    }
 }
 

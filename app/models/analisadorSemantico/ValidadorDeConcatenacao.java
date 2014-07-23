@@ -27,19 +27,18 @@ public class ValidadorDeConcatenacao {
     }
 
 
-    public boolean valida(ArrayList<String> tokensInvalidos) {
-        String primeiraVariavel = tokensInvalidos.get(0);
-        String segundaVariavel = tokensInvalidos.get(2);
-        String terceiraVariavel = tokensInvalidos.get(4);
+    public boolean valida(ArrayList<String> tokens) {
 
-        if (!verificaSeVariavelExiste(primeiraVariavel))
-            return false;
-        else if (!verificaSeVariavelExiste(segundaVariavel))
-            return false;
-        else if(!verificaSeVariavelExiste(terceiraVariavel))
-            return false;
-        else
-            return true;
+        for(int i = 0; i < tokens.size(); i++){
+            if(tokens.get(i) != "=" && tokens.get(i) != "<>" ) {
+                if (!verificaSeVariavelExiste(tokens.get(i)) || !isString(tokens.get(i)))
+                    return false;
+            }
+        }
+
+
+
+        return true;
     }
 
     public String retornaMensagemErro() {
