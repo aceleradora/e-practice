@@ -60,7 +60,7 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void retornaTrueSeTerceiroTokenExiste() throws Exception {
+    public void retornaTrueSeSegundaVariavelExiste() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
         boolean resultado =  validador.verificaSeVariavelExiste(tokens.get(2));
 
@@ -68,7 +68,7 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void retornaTrueSeQuintoTokenExiste() throws Exception {
+    public void retornaTrueSeTerceiraVariavelExiste() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("verde", "String");
         boolean resultado = validador.verificaSeVariavelExiste(tokens.get(4));
 
@@ -76,7 +76,7 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void retornaTrueSePrimeiroTokenEhString() throws Exception {
+    public void retornaTrueSePrimeiraVariavelEhString() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
         boolean resultado = validador.isString(tokens.get(0));
 
@@ -85,7 +85,7 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void retornaTrueSeTerceiroTokenEhString() throws Exception {
+    public void retornaTrueSeSegundaVariavelEhString() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
         boolean resultado = validador.isString(tokens.get(2));
 
@@ -94,7 +94,7 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void retornaTrueSeQuintoTokenEhString() throws Exception {
+    public void retornaTrueSeTerceiraVariavelEhString() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("verde", "String");
         boolean resultado = validador.isString(tokens.get(4));
 
@@ -103,7 +103,7 @@ public class TesteValidadorDeConcatenacao {
 
 
     @Test
-    public void quandoPrimeiroTokenNaoExisteRetornaFalse() throws Exception {
+    public void quandoPrimeiraVariavelNaoExisteRetornaFalse() throws Exception {
 
         boolean resultado = validador.valida(tokens);
 
@@ -112,7 +112,7 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void quandoTerceiroTokenNaoExisteRetornaFalse() throws Exception {
+    public void quandoSegundaVariavelNaoExisteRetornaFalse() throws Exception {
 
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
         boolean resultado = validador.valida(tokens);
@@ -121,7 +121,7 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void quandoQuintoTokenNaoExisteRetornaFalse() throws Exception {
+    public void quandoTerceiraVariavelNaoExisteRetornaFalse() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
         tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
 
@@ -142,7 +142,7 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void quandoPrimeiroTokenNaoEhStringRetornaFalse() throws Exception {
+    public void quandoPrimeiraVariavelNaoEhStringRetornaFalse() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "Inteiro");
         tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
         tabelaDeSimbolos.adicionaSimbolo("verde", "String");
@@ -155,7 +155,7 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void quandoTerceiroTokenNaoEhStringRetornaFalse() throws Exception {
+    public void quandoSegundaVariavelNaoEhStringRetornaFalse() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
         tabelaDeSimbolos.adicionaSimbolo("amarelo", "Inteiro");
         tabelaDeSimbolos.adicionaSimbolo("verde", "String");
@@ -167,7 +167,7 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void quandoQuintoTokenNaoEhStringRetornaFalse() throws Exception {
+    public void quandoTerceiraVariavelNaoEhStringRetornaFalse() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
         tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
         tabelaDeSimbolos.adicionaSimbolo("verde", "Inteiro");
