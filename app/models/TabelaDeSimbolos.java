@@ -40,4 +40,7 @@ public class TabelaDeSimbolos {
     public boolean temSimbolo(String simbolo) {
         return tabela.containsKey(simbolo);
     }
+
+
+
 }

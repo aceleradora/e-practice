@@ -1,6 +1,7 @@
 package models.analisadorSemantico;
 
 import models.TabelaDeSimbolos;
+import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
 
 import java.util.ArrayList;
@@ -25,17 +26,22 @@ public class ValidadorDeConcatenacao {
         return tabelaDeSimbolos.getTipoSimbolo(variavel)=="String";
     }
 
-    public boolean analisaVariaveis(ArrayList<String> tokens) {
-//        boolean resultado = false;
-//        IdentificadorDeToken identificadorDeToken = new IdentificadorDeToken();
-//        for(String token: tokens){
-//            if(tabelaDeSimbolos.simboloExiste(token)  && (identificadorDeToken.identifica(token) == "IDV")){// && isString(token)){
-//                resultado = true;
-//            }else{
-//                resultado = false;
-//            }
-//        }
+
+    public boolean valida(ArrayList<String> tokens) {
+
+        for(int i = 0; i < tokens.size(); i++){
+            if(tokens.get(i) != "=" && tokens.get(i) != "<>" ) {
+                if (!verificaSeVariavelExiste(tokens.get(i)) || !isString(tokens.get(i)))
+                    return false;
+            }
+        }
+
+
 
         return true;
+    }
+
+    public String retornaMensagemErro() {
+        return null;
     }
 }
