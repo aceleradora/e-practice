@@ -189,15 +189,15 @@ public class TesteValidadorDeConcatenacao {
         assertThat(resultado, is(true));
     }
 
+
     @Test
-    public void quandoVariavelNaoEstaDeclaradaRetornaMensagemDeErro() throws Exception {
+    public void quandoAPrimeiraVariavelNaoExisteRetornaMensagemDeErro() throws Exception {
 
         validador.valida(tokens);
-        String resultado = validador.retornaMensagemErro();
 
-        assertThat(resultado, is("Erro: Variável não declarada."));
+        String mensagem = validador.retornaMensagemErro();
 
-
+        assertThat(mensagem, is("Erro: a variável " + tokens.get(0) + " não foi declarada."));
     }
 }
 
