@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class ValidadorDeConcatenacao {
     TabelaDeSimbolos tabelaDeSimbolos;
+    ArrayList<String> listaDetokens;
+
 
     public ValidadorDeConcatenacao(TabelaDeSimbolos tabelaDeSimbolos) {
         this.tabelaDeSimbolos = tabelaDeSimbolos;
@@ -28,20 +30,25 @@ public class ValidadorDeConcatenacao {
 
 
     public boolean valida(ArrayList<String> tokens) {
-
-        for(int i = 0; i < tokens.size(); i++){
+        this.listaDetokens = tokens;
+        for(int i = 0; i < listaDetokens.size(); i++){
             if(tokens.get(i) != "=" && tokens.get(i) != "<>" ) {
                 if (!verificaSeVariavelExiste(tokens.get(i)) || !isString(tokens.get(i)))
                     return false;
             }
         }
 
-
-
         return true;
     }
 
     public String retornaMensagemErro() {
-        return null;
+
+
+        if(!valida(listaDetokens))
+            return "Erro: Variável não declarada.";
+        else
+            return "Expressão correta!";
+
     }
+
 }

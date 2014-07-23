@@ -7,15 +7,12 @@ import models.analisadorLexico.Lexer;
 
 import java.util.ArrayList;
 
-/**
- * Created by aluno6 on 22/07/14.
- */
 public class ValidadorDeOperacoesAritmeticas implements Validador{
 
     private IdentificadorDeToken identificadorDeToken;
     private TabelaDeSimbolos tabela;
     private ArrayList<String>tokens;
-
+    private String mensagem;
 
     public ValidadorDeOperacoesAritmeticas(TabelaDeSimbolos tabela) {
 
@@ -31,13 +28,15 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
             if(identificadorDeToken.identifica(tokens.get(i)).equals("IDV")){
                  validacao = tabela.simboloExiste(tokens.get(i));
             }
-            if(validacao == false)return validacao;
+            if(validacao == false) {
+                mensagem = "Variável não declarada.";
+            }return validacao;
        }
        return validacao;
     }
 
     @Override
     public String retornaMensagemErro() {
-        return null;
+        return mensagem;
     }
 }
