@@ -221,6 +221,16 @@ public class TesteValidadorDeOperacoesAritmeticas {
     }
 
     @Test
+    public void validaOperacaoAritimeticaComDoisOperadoresAdjecentes() throws Exception {
+        tokens.add("2");
+        tokens.add("+");
+        tokens.add("*");
+        tokens.add("2");
+
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
+    }
+
+    @Test
     public void validaOperacaoAritmeticaComDuasExpressoesAmbasEntreParenteses() throws Exception {
         tokens.add("(");
         tokens.add("2");
