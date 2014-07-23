@@ -177,5 +177,27 @@ public class TesteValidadorDeConcatenacao {
         assertThat(resultado, is(false));
 
     }
+
+    @Test
+    public void quandoAExpressaoEstaCorretaRetornaTrue() throws Exception {
+        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
+        tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
+        tabelaDeSimbolos.adicionaSimbolo("verde", "String");
+
+        boolean resultado = validador.valida(tokens);
+
+        assertThat(resultado, is(true));
+    }
+
+    @Test
+    public void quandoVariavelNaoEstaDeclaradaRetornaMensagemDeErro() throws Exception {
+
+        validador.valida(tokens);
+        String resultado = validador.retornaMensagemErro();
+
+        assertThat(resultado, is("Erro: Variável não declarada."));
+
+
+    }
 }
 
