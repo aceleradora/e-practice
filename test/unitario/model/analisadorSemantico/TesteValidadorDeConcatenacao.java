@@ -37,7 +37,7 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void verificaTipoDaVariavel() throws Exception {
+    public void deveChamarMetodoTabelaDeSimbolos() throws Exception {
         ValidadorDeConcatenacao validador = new ValidadorDeConcatenacao(mockTabelaDeSimbolos);
         String variavel = "resultado";
         when(mockTabelaDeSimbolos.getTipoSimbolo("resultado")).thenReturn("String");
@@ -49,17 +49,6 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void quandoVariavelNaoExisteRetornaFalse() throws Exception {
-        ValidadorDeConcatenacao validador = new ValidadorDeConcatenacao(mockTabelaDeSimbolos);
-        String variavel = "resultado";
-
-        boolean resultado = validador.verificaSeVariavelExiste(variavel);
-
-        assertThat(resultado, is(false));
-
-    }
-
-    @Test
     public void retornaTrueSeSegundaVariavelExiste() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
         boolean resultado =  validador.verificaSeVariavelExiste(tokens.get(2));
@@ -67,31 +56,6 @@ public class TesteValidadorDeConcatenacao {
         assertThat(resultado, is(true));
     }
 
-    @Test
-    public void retornaTrueSeTerceiraVariavelExiste() throws Exception {
-        tabelaDeSimbolos.adicionaSimbolo("verde", "String");
-        boolean resultado = validador.verificaSeVariavelExiste(tokens.get(4));
-
-        assertThat(resultado, is(true));
-    }
-
-    @Test
-    public void retornaTrueSePrimeiraVariavelEhString() throws Exception {
-        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
-        boolean resultado = validador.isString(tokens.get(0));
-
-        assertThat(resultado, is(true));
-
-    }
-
-    @Test
-    public void retornaTrueSeSegundaVariavelEhString() throws Exception {
-        tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
-        boolean resultado = validador.isString(tokens.get(2));
-
-        assertThat(resultado, is(true));
-
-    }
 
     @Test
     public void retornaTrueSeTerceiraVariavelEhString() throws Exception {
@@ -121,16 +85,6 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void quandoTerceiraVariavelNaoExisteRetornaFalse() throws Exception {
-        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
-        tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
-
-        boolean resultado = validador.valida(tokens);
-
-        assertThat(resultado, is(false));
-    }
-
-    @Test
     public void quandoTodasAsVariaveisExistemRetornaTrue() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
         tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
@@ -145,19 +99,6 @@ public class TesteValidadorDeConcatenacao {
     public void quandoPrimeiraVariavelNaoEhStringRetornaFalse() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "Inteiro");
         tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
-        tabelaDeSimbolos.adicionaSimbolo("verde", "String");
-
-
-        boolean resultado = validador.valida(tokens);
-
-        assertThat(resultado, is(false));
-
-    }
-
-    @Test
-    public void quandoSegundaVariavelNaoEhStringRetornaFalse() throws Exception {
-        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
-        tabelaDeSimbolos.adicionaSimbolo("amarelo", "Inteiro");
         tabelaDeSimbolos.adicionaSimbolo("verde", "String");
 
         boolean resultado = validador.valida(tokens);
@@ -201,14 +142,46 @@ public class TesteValidadorDeConcatenacao {
     }
 
     @Test
-    public void quandoAVariavelNaoEhDoTipoStringRetornaMensagemDeErro() throws Exception {
+    public void quandoAPrimeiraVariavelNaoEhDoTipoStringRetornaMensagemDeErro() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "Inteiro");
 
         validador.valida(tokens);
 
         String mensagem = validador.retornaMensagemErro();
 
-        assertThat(mensagem, is("Erro: a variável não é do tipo String."));
+        assertThat(mensagem, is("Erro: a variável abacaxi não é do tipo String."));
+
+    }
+
+    @Test
+    public void quandoASegundaVariavelNaoEhDoTipoStringRetornaMensagemDeErro() throws Exception {
+        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
+        tabelaDeSimbolos.adicionaSimbolo("amarelo", "Inteiro");
+        tabelaDeSimbolos.adicionaSimbolo("verde", "String");
+
+        validador.valida(tokens);
+
+        String mensagem = validador.retornaMensagemErro();
+
+        assertThat(mensagem, is("Erro: a variável amarelo não é do tipo String."));
+    }
+
+    @Test
+    public void quandoTodasAsVariaveisExistemESaoStringsRetornaTrue() throws Exception {
+        tokens.add("<>");
+        tokens.add("azul");
+        tokens.add("<>");
+        tokens.add("vermelho");
+
+        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
+        tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
+        tabelaDeSimbolos.adicionaSimbolo("verde", "String");
+        tabelaDeSimbolos.adicionaSimbolo("azul", "String");
+        tabelaDeSimbolos.adicionaSimbolo("vermelho", "String");
+
+        boolean resultado = validador.valida(tokens);
+
+        assertThat(resultado, is(true));
 
     }
 }
