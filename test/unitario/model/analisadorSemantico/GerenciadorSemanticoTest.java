@@ -1,6 +1,5 @@
 package unitario.model.analisadorSemantico;
 
-import models.TabelaDeSimbolos;
 import models.analisadorLexico.Lexer;
 import models.analisadorSemantico.GerenciadorSemantico;
 import models.analisadorSemantico.ValidadorDeAtribuicao;
@@ -18,36 +17,38 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class GerenciadorSemanticoTest {
 
-    @Mock TabelaDeSimbolos tabelaDeSimbolos;
-    @Mock Lexer lexer;
-    @Mock ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao;
     @Mock ValidadorDeAtribuicao validadorDeAtribuicao;
+    @Mock ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao;
 
-    private GerenciadorSemantico gerenciadorSemantico;
     private String declaracaoString;
     private String atribuicaoDeString;
     private ArrayList<String> listaDeTokensDeDeclaracaoDeString;
     private ArrayList<String> listaDeTokensDeAtribuicaoDeString;
+    private GerenciadorSemantico gerenciadorSemantico;
 
     @Before
     public void setUp() throws Exception {
-        gerenciadorSemantico = new GerenciadorSemantico(tabelaDeSimbolos, lexer, validadorDeDeclaracao, validadorDeAtribuicao);
+        gerenciadorSemantico = new GerenciadorSemantico(validadorDeDeclaracao, validadorDeAtribuicao);
         declaracaoString = "var nome : String";
         atribuicaoDeString = "nome = \"alejandro\"";
         listaDeTokensDeDeclaracaoDeString = new ArrayList<String>();
         listaDeTokensDeAtribuicaoDeString = new ArrayList<String>();
+
         criaListaDeTokensDeDeclaracaoDeString();
         criaLIstaDeTokensDeAtribuicaoDeString();
-
-        when(lexer.tokenizar(declaracaoString)).thenReturn(listaDeTokensDeDeclaracaoDeString);
-        when(lexer.tokenizar(atribuicaoDeString)).thenReturn(listaDeTokensDeAtribuicaoDeString);
     }
 
-    @Test
-    public void tokenizaUmaLinhaDeEntrada() throws Exception {
-        gerenciadorSemantico.interpreta(declaracaoString);
+    private void criaListaDeTokensDeDeclaracaoDeString() {
+        listaDeTokensDeDeclaracaoDeString.add("var");
+        listaDeTokensDeDeclaracaoDeString.add("nome");
+        listaDeTokensDeDeclaracaoDeString.add(":");
+        listaDeTokensDeDeclaracaoDeString.add("String");
+    }
 
-        verify(lexer).tokenizar(declaracaoString);
+    private void criaLIstaDeTokensDeAtribuicaoDeString() {
+        listaDeTokensDeAtribuicaoDeString.add("nome");
+        listaDeTokensDeAtribuicaoDeString.add("=");
+        listaDeTokensDeAtribuicaoDeString.add("\"alejandro\"");
     }
 
     @Test
@@ -62,18 +63,5 @@ public class GerenciadorSemanticoTest {
         gerenciadorSemantico.interpreta(atribuicaoDeString);
 
         verify(validadorDeAtribuicao).valida(listaDeTokensDeAtribuicaoDeString);
-    }
-
-    private void criaListaDeTokensDeDeclaracaoDeString() {
-        listaDeTokensDeDeclaracaoDeString.add("var");
-        listaDeTokensDeDeclaracaoDeString.add("nome");
-        listaDeTokensDeDeclaracaoDeString.add(":");
-        listaDeTokensDeDeclaracaoDeString.add("String");
-    }
-
-    private void criaLIstaDeTokensDeAtribuicaoDeString() {
-        listaDeTokensDeAtribuicaoDeString.add("nome");
-        listaDeTokensDeAtribuicaoDeString.add("=");
-        listaDeTokensDeAtribuicaoDeString.add("\"alejandro\"");
     }
 }
