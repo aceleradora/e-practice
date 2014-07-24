@@ -1,6 +1,7 @@
 package unitario.model.analisadorSemantico;
 
 import models.analisadorLexico.Lexer;
+import models.analisadorSemantico.GerenciadorBuilder;
 import models.analisadorSemantico.GerenciadorSemantico;
 import models.analisadorSemantico.ValidadorDeAtribuicao;
 import models.analisadorSemantico.ValidadorDeDeclaracaoDeVariavel;
@@ -28,7 +29,12 @@ public class GerenciadorSemanticoTest {
 
     @Before
     public void setUp() throws Exception {
-        gerenciadorSemantico = new GerenciadorSemantico(validadorDeDeclaracao, validadorDeAtribuicao);
+        GerenciadorBuilder gerenciadorBuilder = new GerenciadorBuilder();
+
+        gerenciadorSemantico = gerenciadorBuilder.com(validadorDeAtribuicao)
+                .com(validadorDeDeclaracao)
+                .geraGerenciador();
+
         declaracaoString = "var nome : String";
         atribuicaoDeString = "nome = \"alejandro\"";
         listaDeTokensDeDeclaracaoDeString = new ArrayList<String>();
