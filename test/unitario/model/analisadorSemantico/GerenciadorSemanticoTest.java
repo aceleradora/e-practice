@@ -1,10 +1,7 @@
 package unitario.model.analisadorSemantico;
 
 import models.analisadorLexico.Lexer;
-import models.analisadorSemantico.GerenciadorBuilder;
-import models.analisadorSemantico.GerenciadorSemantico;
-import models.analisadorSemantico.ValidadorDeAtribuicao;
-import models.analisadorSemantico.ValidadorDeDeclaracaoDeVariavel;
+import models.analisadorSemantico.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,12 +17,15 @@ public class GerenciadorSemanticoTest {
 
     @Mock ValidadorDeAtribuicao validadorDeAtribuicao;
     @Mock ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao;
+    @Mock ValidadorDeConcatenacao validadorDeConcatenacao;
 
     private String declaracaoString;
     private String atribuicaoDeString;
     private ArrayList<String> listaDeTokensDeDeclaracaoDeString;
     private ArrayList<String> listaDeTokensDeAtribuicaoDeString;
+    private ArrayList<String> listaDeTokensDeConcatenacao;
     private GerenciadorSemantico gerenciadorSemantico;
+    private String sentencaDeConcatenacao;
 
     @Before
     public void setUp() throws Exception {
@@ -33,15 +33,27 @@ public class GerenciadorSemanticoTest {
 
         gerenciadorSemantico = gerenciadorBuilder.com(validadorDeAtribuicao)
                 .com(validadorDeDeclaracao)
+                .com(validadorDeConcatenacao)
                 .geraGerenciador();
 
         declaracaoString = "var nome : String";
         atribuicaoDeString = "nome = \"alejandro\"";
+        sentencaDeConcatenacao = "nome = \"João\" <> \"Henrique\"";
         listaDeTokensDeDeclaracaoDeString = new ArrayList<String>();
         listaDeTokensDeAtribuicaoDeString = new ArrayList<String>();
+        listaDeTokensDeConcatenacao = new ArrayList<String>();
 
         criaListaDeTokensDeDeclaracaoDeString();
         criaLIstaDeTokensDeAtribuicaoDeString();
+        criaListaDeTokensDeConcatenacao();
+    }
+
+    private void criaListaDeTokensDeConcatenacao() {
+        listaDeTokensDeConcatenacao.add("nome");
+        listaDeTokensDeConcatenacao.add("=");
+        listaDeTokensDeConcatenacao.add("\"João\"");
+        listaDeTokensDeConcatenacao.add("<>");
+        listaDeTokensDeConcatenacao.add("\"Henrique\"");
     }
 
     private void criaListaDeTokensDeDeclaracaoDeString() {
@@ -70,4 +82,12 @@ public class GerenciadorSemanticoTest {
 
         verify(validadorDeAtribuicao).valida(listaDeTokensDeAtribuicaoDeString);
     }
+
+    @Test
+    public void chamaValidadorDeConcatenacaoSeHouverOperadorDeConcatenacaoNaSentenca() throws Exception {
+        gerenciadorSemantico.interpreta(sentencaDeConcatenacao);
+
+        verify(validadorDeConcatenacao).valida(listaDeTokensDeConcatenacao);
+    }
+
 }

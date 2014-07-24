@@ -6,7 +6,7 @@ import models.analisadorLexico.IdentificadorDeToken;
 
 import java.util.ArrayList;
 
-public class ValidadorDeConcatenacao implements Validador {
+public class ValidadorDeConcatenacao implements Validador{
     TabelaDeSimbolos tabelaDeSimbolos;
     ArrayList<String> listaDetokens;
     String tokenInvalido;

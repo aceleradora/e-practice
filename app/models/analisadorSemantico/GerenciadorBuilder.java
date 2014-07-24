@@ -3,6 +3,7 @@ package models.analisadorSemantico;
 public class GerenciadorBuilder {
     private ValidadorDeAtribuicao validadorDeAtribuicao;
     private ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
+    private ValidadorDeConcatenacao validadorDeConcatenacao;
 
     public GerenciadorBuilder com(ValidadorDeAtribuicao validadorDeAtribuicao) {
         this.validadorDeAtribuicao = validadorDeAtribuicao;
@@ -14,7 +15,12 @@ public class GerenciadorBuilder {
         return this;
     }
 
+    public GerenciadorBuilder com(ValidadorDeConcatenacao validadorDeConcatenacao) {
+        this.validadorDeConcatenacao = validadorDeConcatenacao;
+        return this;
+    }
+
     public GerenciadorSemantico geraGerenciador() {
-        return new GerenciadorSemantico(validadorDeDeclaracaoDeVariavel, validadorDeAtribuicao);
+        return new GerenciadorSemantico(validadorDeDeclaracaoDeVariavel, validadorDeAtribuicao, validadorDeConcatenacao);
     }
 }
