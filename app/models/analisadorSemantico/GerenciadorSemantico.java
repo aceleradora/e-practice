@@ -16,13 +16,13 @@ public class GerenciadorSemantico {
     private Validador validador;
     private ArrayList<String> tokens;
 
-    public GerenciadorSemantico(TabelaDeSimbolos tabelaDeSimbolos, Lexer lexer, ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao, ValidadorDeAtribuicao validadorDeAtribuicao) {
-        this.tabelaDeSimbolos = tabelaDeSimbolos;
-        this.lexer = lexer;
+    public GerenciadorSemantico(ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao, ValidadorDeAtribuicao validadorDeAtribuicao) {
         this.validadorDeDeclaracao = validadorDeDeclaracao;
         this.validadorDeAtribuicao = validadorDeAtribuicao;
-        identificadorDeToken = new IdentificadorDeToken();
+        lexer = new Lexer();
         tokens = new ArrayList<String>();
+        tabelaDeSimbolos = new TabelaDeSimbolos();
+        identificadorDeToken = new IdentificadorDeToken();
     }
 
     public void interpreta(String sentenca) {
