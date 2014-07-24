@@ -57,7 +57,7 @@ public class ValidadorDeConcatenacao {
         if(tipoDeErro == 1)
             return "Erro: a variável " + tokenInvalido + " não foi declarada.";
         else
-            return "Erro: a variável não é do tipo String.";
+            return "Erro: a variável " + tokenInvalido + " não é do tipo String.";
 
     }
 
