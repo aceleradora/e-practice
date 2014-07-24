@@ -38,13 +38,21 @@ public class GerenciadorSemantico {
     private void selecionaValidadorAdequado() {
         if (primeiroTokenIdentificado().equals("PALAVRA_RESERVADA")){
             validador = validadorDeDeclaracao;
-        } else if (tokens.contains("+")||tokens.contains("-")) {
+        } else if (listaDeTokensContemAlgumOperadorAritmetico()) {
             validador = validadorDeOperacaoAritmetica;
-        } else if(tokens.contains("<>")) {
+        } else if(listaDeTokensContemOperadorDeConcatenacao()) {
             validador = validadorDeConcatenacao;
         } else if (primeiroTokenIdentificado().equals("IDV")) {
             validador = validadorDeAtribuicao;
         }
+    }
+
+    private boolean listaDeTokensContemOperadorDeConcatenacao() {
+        return tokens.contains("<>");
+    }
+
+    private boolean listaDeTokensContemAlgumOperadorAritmetico() {
+        return tokens.contains("+") || tokens.contains("-") || tokens.contains("*") || tokens.contains("/");
     }
 
     private String primeiroTokenIdentificado() {
