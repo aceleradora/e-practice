@@ -14,13 +14,15 @@ public class GerenciadorSemantico {
     private ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao;
     private ValidadorDeAtribuicao validadorDeAtribuicao;
     private ValidadorDeConcatenacao validadorDeConcatenacao;
+    private ValidadorDeOperacoesAritmeticas validadorDeOperacaoAritmetica;
     private Validador validador;
     private ArrayList<String> tokens;
 
-    public GerenciadorSemantico(ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao, ValidadorDeAtribuicao validadorDeAtribuicao, ValidadorDeConcatenacao validadorDeConcatenacao) {
+    public GerenciadorSemantico(ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao, ValidadorDeAtribuicao validadorDeAtribuicao, ValidadorDeConcatenacao validadorDeConcatenacao, ValidadorDeOperacoesAritmeticas validadorDeOperacaoAritmetica) {
         this.validadorDeDeclaracao = validadorDeDeclaracao;
         this.validadorDeAtribuicao = validadorDeAtribuicao;
         this.validadorDeConcatenacao = validadorDeConcatenacao;
+        this.validadorDeOperacaoAritmetica = validadorDeOperacaoAritmetica;
         lexer = new Lexer();
         tokens = new ArrayList<String>();
         tabelaDeSimbolos = new TabelaDeSimbolos();
@@ -36,6 +38,8 @@ public class GerenciadorSemantico {
     private void selecionaValidadorAdequado() {
         if (primeiroTokenIdentificado().equals("PALAVRA_RESERVADA")){
             validador = validadorDeDeclaracao;
+        } else if (tokens.contains("+")) {
+            validador = validadorDeOperacaoAritmetica;
         } else if(tokens.contains("<>")) {
             validador = validadorDeConcatenacao;
         } else if (primeiroTokenIdentificado().equals("IDV")) {

@@ -4,6 +4,7 @@ public class GerenciadorBuilder {
     private ValidadorDeAtribuicao validadorDeAtribuicao;
     private ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
     private ValidadorDeConcatenacao validadorDeConcatenacao;
+    private ValidadorDeOperacoesAritmeticas validadorDeOperacaoAritmetica;
 
     public GerenciadorBuilder com(ValidadorDeAtribuicao validadorDeAtribuicao) {
         this.validadorDeAtribuicao = validadorDeAtribuicao;
@@ -20,7 +21,12 @@ public class GerenciadorBuilder {
         return this;
     }
 
+    public GerenciadorBuilder com(ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas) {
+        this.validadorDeOperacaoAritmetica = validadorDeOperacoesAritmeticas;
+        return this;
+    }
+
     public GerenciadorSemantico geraGerenciador() {
-        return new GerenciadorSemantico(validadorDeDeclaracaoDeVariavel, validadorDeAtribuicao, validadorDeConcatenacao);
+        return new GerenciadorSemantico(validadorDeDeclaracaoDeVariavel, validadorDeAtribuicao, validadorDeConcatenacao, validadorDeOperacaoAritmetica);
     }
 }
