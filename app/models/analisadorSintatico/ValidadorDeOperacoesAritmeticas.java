@@ -116,12 +116,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
     @Override
     public boolean valida(ArrayList<String> listaDeTokens) {
         tokens = listaDeTokens;
-
-        boolean valida = utilizacaoDeParentesesEstaCorreta();
-
-        if (utilizacaoDeParentesesEstaCorreta()) {
-            valida = testaExpressao();
-        }
+        boolean valida = testaExpressao();
         return valida;
     }
 }

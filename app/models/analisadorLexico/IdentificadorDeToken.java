@@ -24,6 +24,8 @@ public class IdentificadorDeToken {
             return "PARENTESES_ABERTO";
         } else if (token.equals(")")) {
             return "PARENTESES_FECHADO";
+        } else if (token.equals("<>")) {
+            return "CONCATENACAO";
         } else if (token.charAt(0) == '\"' && token.charAt(token.length()-1) == '\"') {
             return "CONSTANTE_TIPO_STRING";
         } else if (Character.isLowerCase(token.charAt(0))) {
@@ -31,9 +33,6 @@ public class IdentificadorDeToken {
         } else if (Character.isDigit(token.charAt(0))) {
             if(!verificaSeTodasOsCaracteresSaoNumeros(token)) return "ERRO";
             else return "NUMERO";
-        } else if (token.equals("<>")) {
-            return "CONCATENACAO";
-
         } else return "INVALIDO";
     }
 

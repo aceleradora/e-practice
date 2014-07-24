@@ -247,6 +247,46 @@ public class TesteValidadorDeOperacoesAritmeticas {
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
     }
 
+    @Test
+    public void erroAoUsarConstantesStringsComoOperandos() throws Exception {
+        tokens.add("2");
+        tokens.add("+");
+        tokens.add("2");
+        tokens.add("+");
+        tokens.add("\"10\"");
+
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
+    }
+
+    @Test
+    public void validaExpressaoAritmeticaComDuasConstantesStrings() throws Exception {
+        tokens.add("\"10\"");
+        tokens.add("+");
+        tokens.add("\"20\"");
+
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
+    }
+
+    @Ignore
+    @Test
+    public void erroAoUsarSimboloDeConcatenacaoEmOperacoesAritimeticas() throws Exception {
+        tokens.add("10");
+        tokens.add("<>");
+        tokens.add("20");
+
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
+    }
+
+    @Ignore
+    @Test
+    public void erroAoUsarSimbolosTotalmenteErradosComOValidadorAritmetico() throws Exception {
+        tokens.add("asrasr");
+        tokens.add("zsfasrg");
+        tokens.add("sdrhsd");
+
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
+    }
+
     private void criaTokensDeExpressaoVazia() {
         tokens.add("(");
         tokens.add(")");
