@@ -38,7 +38,7 @@ public class GerenciadorSemantico {
     private void selecionaValidadorAdequado() {
         if (primeiroTokenIdentificado().equals("PALAVRA_RESERVADA")){
             validador = validadorDeDeclaracao;
-        } else if (tokens.contains("+")) {
+        } else if (tokens.contains("+")||tokens.contains("-")) {
             validador = validadorDeOperacaoAritmetica;
         } else if(tokens.contains("<>")) {
             validador = validadorDeConcatenacao;

@@ -22,11 +22,13 @@ public class GerenciadorSemanticoTest {
     private String declaracaoString;
     private String atribuicaoDeString;
     private String sentencaDeConcatenacao;
-    private String setencaDeOperacaoAritmetica;
+    private String sentencaDeOperacaoAritmeticaDeSoma;
+    private String sentencaDeOperacaoAritmeticaDeSubtracao;
     private ArrayList<String> listaDeTokensDeDeclaracaoDeString;
     private ArrayList<String> listaDeTokensDeAtribuicaoDeString;
     private ArrayList<String> listaDeTokensDeConcatenacao;
-    private ArrayList<String> listaDeTokensDeOperacaoAritmetica;
+    private ArrayList<String> listaDeTokensDeOperacaoAritmeticaDeSoma;
+    private ArrayList<String> listaDeTokensDeOperacaoAritmeticaDeSubtracao;
     private GerenciadorSemantico gerenciadorSemantico;
 
 
@@ -43,16 +45,27 @@ public class GerenciadorSemanticoTest {
         declaracaoString = "var nome : String";
         atribuicaoDeString = "nome = \"alejandro\"";
         sentencaDeConcatenacao = "nome = \"João\" <> \"Henrique\"";
-        setencaDeOperacaoAritmetica = "x = 3 + 3";
+        sentencaDeOperacaoAritmeticaDeSoma = "x = 3 + 3";
+        sentencaDeOperacaoAritmeticaDeSubtracao = "y = 5 - 3";
         listaDeTokensDeDeclaracaoDeString = new ArrayList<String>();
         listaDeTokensDeAtribuicaoDeString = new ArrayList<String>();
         listaDeTokensDeConcatenacao = new ArrayList<String>();
-        listaDeTokensDeOperacaoAritmetica = new ArrayList<String>();
+        listaDeTokensDeOperacaoAritmeticaDeSoma = new ArrayList<String>();
+        listaDeTokensDeOperacaoAritmeticaDeSubtracao = new ArrayList<String>();
 
         criaListaDeTokensDeDeclaracaoDeString();
         criaListaDeTokensDeAtribuicaoDeString();
         criaListaDeTokensDeConcatenacao();
         criaListaDeTokensDeOperacaoAritmetica();
+        criaListaDeTokensDeOperacaoAritmeticaDeSubtracao();
+    }
+
+    private void criaListaDeTokensDeOperacaoAritmeticaDeSubtracao() {
+        listaDeTokensDeOperacaoAritmeticaDeSubtracao.add("y");
+        listaDeTokensDeOperacaoAritmeticaDeSubtracao.add("=");
+        listaDeTokensDeOperacaoAritmeticaDeSubtracao.add("5");
+        listaDeTokensDeOperacaoAritmeticaDeSubtracao.add("-");
+        listaDeTokensDeOperacaoAritmeticaDeSubtracao.add("3");
     }
 
     private void criaListaDeTokensDeConcatenacao() {
@@ -77,11 +90,11 @@ public class GerenciadorSemanticoTest {
     }
 
     private void criaListaDeTokensDeOperacaoAritmetica() {
-        listaDeTokensDeOperacaoAritmetica.add("x");
-        listaDeTokensDeOperacaoAritmetica.add("=");
-        listaDeTokensDeOperacaoAritmetica.add("3");
-        listaDeTokensDeOperacaoAritmetica.add("+");
-        listaDeTokensDeOperacaoAritmetica.add("3");
+        listaDeTokensDeOperacaoAritmeticaDeSoma.add("x");
+        listaDeTokensDeOperacaoAritmeticaDeSoma.add("=");
+        listaDeTokensDeOperacaoAritmeticaDeSoma.add("3");
+        listaDeTokensDeOperacaoAritmeticaDeSoma.add("+");
+        listaDeTokensDeOperacaoAritmeticaDeSoma.add("3");
 
     }
 
@@ -107,9 +120,16 @@ public class GerenciadorSemanticoTest {
     }
 
     @Test
-    public void chamavaValidadorDeOperacaoAritmetica() throws Exception {
-        gerenciadorSemantico.interpreta(setencaDeOperacaoAritmetica);
+    public void chamaValidadorDeOperacaoAritmeticaSeHouverOperadorSoma() throws Exception {
+        gerenciadorSemantico.interpreta(sentencaDeOperacaoAritmeticaDeSoma);
 
-        verify(validadorDeOperacaoAritmetica).valida(listaDeTokensDeOperacaoAritmetica);
+        verify(validadorDeOperacaoAritmetica).valida(listaDeTokensDeOperacaoAritmeticaDeSoma);
+    }
+
+    @Test
+    public void chamaValidadorDeOperacaoAritmeticaSeHouverOperadorSubtracao() throws Exception {
+        gerenciadorSemantico.interpreta(sentencaDeOperacaoAritmeticaDeSubtracao);
+
+        verify(validadorDeOperacaoAritmetica).valida(listaDeTokensDeOperacaoAritmeticaDeSubtracao);
     }
 }
