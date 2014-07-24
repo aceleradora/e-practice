@@ -12,35 +12,22 @@ public class ValidadorDeConcatenacao implements Validador{
     String tokenInvalido;
     int tipoDeErro;
 
+
     public ValidadorDeConcatenacao(TabelaDeSimbolos tabelaDeSimbolos) {
         this.tabelaDeSimbolos = tabelaDeSimbolos;
     }
-
-    public void getTipoDeVariavel(String variavel) {
-        tabelaDeSimbolos.getTipoSimbolo(variavel);
-    }
-
-    public boolean verificaSeVariavelExiste(String variavel) {
-       return tabelaDeSimbolos.simboloExiste(variavel);
-
-    }
-
-    public boolean isString(String variavel) {
-        return tabelaDeSimbolos.getTipoSimbolo(variavel)=="String";
-    }
-
 
     public boolean valida(ArrayList<String> tokens) {
         this.listaDetokens = tokens;
         for(int i = 0; i < listaDetokens.size(); i++){
             if(listaDetokens.get(i) != "=" && listaDetokens.get(i) != "<>" ) {
-                if (!verificaSeVariavelExiste(listaDetokens.get(i))) {
+                if (!tabelaDeSimbolos.simboloExiste(listaDetokens.get(i))) {
 
                     tokenInvalido = listaDetokens.get(i);
                     tipoDeErro = 1;
                     return false;
                 }
-                if(!isString(listaDetokens.get(i))) {
+                if(tabelaDeSimbolos.getTipoSimbolo(listaDetokens.get(i)) != "String") {
                     tokenInvalido = listaDetokens.get(i);
                     tipoDeErro = 2;
                     return false;

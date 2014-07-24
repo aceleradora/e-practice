@@ -19,7 +19,6 @@ import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 public class TesteValidadorDeConcatenacao {
 
-    @Mock TabelaDeSimbolos mockTabelaDeSimbolos;
     TabelaDeSimbolos tabelaDeSimbolos;
     ArrayList<String> tokens;
     ValidadorDeConcatenacao validador;
@@ -35,36 +34,6 @@ public class TesteValidadorDeConcatenacao {
         tokens.add("verde");
         validador = new ValidadorDeConcatenacao(tabelaDeSimbolos);
     }
-
-    @Test
-    public void deveChamarMetodoTabelaDeSimbolos() throws Exception {
-        ValidadorDeConcatenacao validador = new ValidadorDeConcatenacao(mockTabelaDeSimbolos);
-        String variavel = "resultado";
-        when(mockTabelaDeSimbolos.getTipoSimbolo("resultado")).thenReturn("String");
-
-        validador.getTipoDeVariavel(variavel);
-
-        verify(mockTabelaDeSimbolos).getTipoSimbolo(variavel);
-
-    }
-
-    @Test
-    public void retornaTrueSeSegundaVariavelExiste() throws Exception {
-        tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
-        boolean resultado =  validador.verificaSeVariavelExiste(tokens.get(2));
-
-        assertThat(resultado, is(true));
-    }
-
-
-    @Test
-    public void retornaTrueSeTerceiraVariavelEhString() throws Exception {
-        tabelaDeSimbolos.adicionaSimbolo("verde", "String");
-        boolean resultado = validador.isString(tokens.get(4));
-
-        assertThat(resultado, is(true));
-    }
-
 
     @Test
     public void quandoPrimeiraVariavelNaoExisteRetornaFalse() throws Exception {
