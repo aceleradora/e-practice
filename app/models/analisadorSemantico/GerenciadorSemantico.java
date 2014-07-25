@@ -13,16 +13,20 @@ public class GerenciadorSemantico {
     private TabelaDeSimbolos tabelaDeSimbolos;
     private ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao;
     private ValidadorDeAtribuicao validadorDeAtribuicao;
+    private ValidadorDeConcatenacao validadorDeConcatenacao;
+    private ValidadorDeOperacoesAritmeticas validadorDeOperacaoAritmetica;
     private Validador validador;
     private ArrayList<String> tokens;
 
-    public GerenciadorSemantico(TabelaDeSimbolos tabelaDeSimbolos, Lexer lexer, ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao, ValidadorDeAtribuicao validadorDeAtribuicao) {
-        this.tabelaDeSimbolos = tabelaDeSimbolos;
-        this.lexer = lexer;
+    public GerenciadorSemantico(ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao, ValidadorDeAtribuicao validadorDeAtribuicao, ValidadorDeConcatenacao validadorDeConcatenacao, ValidadorDeOperacoesAritmeticas validadorDeOperacaoAritmetica) {
         this.validadorDeDeclaracao = validadorDeDeclaracao;
         this.validadorDeAtribuicao = validadorDeAtribuicao;
-        identificadorDeToken = new IdentificadorDeToken();
+        this.validadorDeConcatenacao = validadorDeConcatenacao;
+        this.validadorDeOperacaoAritmetica = validadorDeOperacaoAritmetica;
+        lexer = new Lexer();
         tokens = new ArrayList<String>();
+        tabelaDeSimbolos = new TabelaDeSimbolos();
+        identificadorDeToken = new IdentificadorDeToken();
     }
 
     public void interpreta(String sentenca) {
@@ -34,9 +38,21 @@ public class GerenciadorSemantico {
     private void selecionaValidadorAdequado() {
         if (primeiroTokenIdentificado().equals("PALAVRA_RESERVADA")){
             validador = validadorDeDeclaracao;
+        } else if (listaDeTokensContemAlgumOperadorAritmetico()) {
+            validador = validadorDeOperacaoAritmetica;
+        } else if(listaDeTokensContemOperadorDeConcatenacao()) {
+            validador = validadorDeConcatenacao;
         } else if (primeiroTokenIdentificado().equals("IDV")) {
             validador = validadorDeAtribuicao;
         }
+    }
+
+    private boolean listaDeTokensContemOperadorDeConcatenacao() {
+        return tokens.contains("<>");
+    }
+
+    private boolean listaDeTokensContemAlgumOperadorAritmetico() {
+        return tokens.contains("+") || tokens.contains("-") || tokens.contains("*") || tokens.contains("/");
     }
 
     private String primeiroTokenIdentificado() {

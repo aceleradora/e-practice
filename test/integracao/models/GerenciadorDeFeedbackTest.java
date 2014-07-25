@@ -9,7 +9,6 @@ import models.analisadorSintatico.*;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import scalaz.Alpha;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;

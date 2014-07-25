@@ -6,35 +6,32 @@ import models.analisadorLexico.IdentificadorDeToken;
 
 import java.util.ArrayList;
 
-public class ValidadorDeConcatenacao {
+public class ValidadorDeConcatenacao implements Validador{
     TabelaDeSimbolos tabelaDeSimbolos;
     ArrayList<String> listaDetokens;
+    String tokenInvalido;
+    int tipoDeErro;
 
 
     public ValidadorDeConcatenacao(TabelaDeSimbolos tabelaDeSimbolos) {
         this.tabelaDeSimbolos = tabelaDeSimbolos;
     }
 
-    public void getTipoDeVariavel(String variavel) {
-        tabelaDeSimbolos.getTipoSimbolo(variavel);
-    }
-
-    public boolean verificaSeVariavelExiste(String variavel) {
-       return tabelaDeSimbolos.simboloExiste(variavel);
-
-    }
-
-    public boolean isString(String variavel) {
-        return tabelaDeSimbolos.getTipoSimbolo(variavel)=="String";
-    }
-
-
     public boolean valida(ArrayList<String> tokens) {
         this.listaDetokens = tokens;
         for(int i = 0; i < listaDetokens.size(); i++){
-            if(tokens.get(i) != "=" && tokens.get(i) != "<>" ) {
-                if (!verificaSeVariavelExiste(tokens.get(i)) || !isString(tokens.get(i)))
+            if(listaDetokens.get(i) != "=" && listaDetokens.get(i) != "<>" ) {
+                if (!tabelaDeSimbolos.simboloExiste(listaDetokens.get(i))) {
+
+                    tokenInvalido = listaDetokens.get(i);
+                    tipoDeErro = 1;
                     return false;
+                }
+                if(tabelaDeSimbolos.getTipoSimbolo(listaDetokens.get(i)) != "String") {
+                    tokenInvalido = listaDetokens.get(i);
+                    tipoDeErro = 2;
+                    return false;
+                }
             }
         }
 
@@ -44,10 +41,10 @@ public class ValidadorDeConcatenacao {
     public String retornaMensagemErro() {
 
 
-        if(!valida(listaDetokens))
-            return "Erro: Variável não declarada.";
+        if(tipoDeErro == 1)
+            return "Erro: a variável " + tokenInvalido + " não foi declarada.";
         else
-            return "Expressão correta!";
+            return "Erro: a variável " + tokenInvalido + " não é do tipo String.";
 
     }
 
