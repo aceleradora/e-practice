@@ -12,20 +12,12 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
         identificadorDeTokens = new IdentificadorDeToken();
     }
 
-    private boolean validaSeEhNumeroOuVariavel(String token) {
-        return (tokenEhNumero(token) || tokenEhIdentificadorDeVariavel(token)) ? true : false;
-    }
-
     private boolean tokenEhIdentificadorDeVariavel(String token) {
         return identificadorDeTokens.identifica(token).equalsIgnoreCase("IDV");
     }
 
     private boolean tokenEhNumero(String token) {
         return identificadorDeTokens.identifica(token).equalsIgnoreCase("NUMERO");
-    }
-
-    private boolean validaSeEhOperador(String token) {
-        return (tokenEhUmOperadorValido(token)) ? true : false;
     }
 
     private boolean tokenEhUmOperadorValido(String token) {
@@ -75,32 +67,60 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
     }
 
     public boolean testaExpressao(){
-        String tokenEh = "VARIAVEL";
+        String tokenEh = "OPERANDO";
         boolean valida = utilizacaoDeParentesesEstaCorreta();
+        if (!valida)
+            return false;
         for (int i = 0; i < tokens.size(); i++) {
-            if (!tokenEhParenteses(tokens.get(i))){
-                if(tokenEh.equals("VARIAVEL")) {
-                    valida = validaSeEhNumeroOuVariavel(tokens.get(i));
-                    tokenEh = "OPERADOR";
+            if (!tokenEhParenteses(tokens.get(i))) {
+                String tokenAtual = identificaSeTokenEhOperandoOuOperador(tokens.get(i));
+                if (tokenAtual.equals(tokenEh)) {
+                    valida = true;
+                    tokenEh = comutaTokenEh(tokenEh);
                 } else {
-                    if(i != tokens.size()-1) {
-                        valida = validaSeEhOperador(tokens.get(i)) && validaSeEhNumeroOuVariavel(tokens.get(i + 1));
-                        tokenEh = "VARIAVEL";
-                    } else{
-                        return false;
-                    }
+                    return false;
                 }
-
             }
         }
+        if (tokenEh.equals("OPERANDO"))
+            valida = false;
         return valida;
+    }
+
+    private String comutaTokenEh(String tokenEh) {
+        if (tokenEh.equals("OPERANDO")) {
+            return "OPERADOR";
+        } else {
+            return "OPERANDO";
+        }
+    }
+
+    private String identificaSeTokenEhOperandoOuOperador(String token) {
+        if (isOperando(token)) {
+            return "OPERANDO";
+        } else if (isOperador(token)) {
+            return "OPERADOR";
+        } else {
+            return "ERRO";
+        }
+    }
+
+    private boolean isOperando(String token) {
+        return tokenEhIdentificadorDeVariavel(token) || tokenEhNumero(token);
+    }
+
+    private boolean isOperador(String token) {
+        return isSinalDeAtribuicao(token) || tokenEhUmOperadorValido(token);
+    }
+
+    private boolean isSinalDeAtribuicao(String token) {
+        return identificadorDeTokens.identifica(token).equals("IGUAL");
     }
 
     private boolean utilizacaoDeParentesesEstaCorreta() {
         return aberturaEFechamentoDeParentesesEstaCorreta() && temExpressaoDentroDoParenteses();
     }
 
-    @Override
     public String retornaMensagemErro() {
         String mensagem = "";
         if (contadorComparadorDeParenteses() != 0) {
@@ -109,19 +129,15 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
             mensagem = "Existe(em) parentese(s) que não possui(em) expressão(ões) dentro.";
         } else if(!aberturaEFechamentoDeParentesesEstaCorreta()) {
             mensagem = "Algum(uns) parântese(s) está(ão) no lugar errado ou está(ão) faltando";
+        } else if(!valida(tokens)) {
+            mensagem = "Existem erros na expressão aritmetica";
         }
         return mensagem;
     }
 
-    @Override
     public boolean valida(ArrayList<String> listaDeTokens) {
         tokens = listaDeTokens;
-
-        boolean valida = utilizacaoDeParentesesEstaCorreta();
-
-        if (utilizacaoDeParentesesEstaCorreta()) {
-            valida = testaExpressao();
-        }
+        boolean valida = testaExpressao();
         return valida;
     }
 }

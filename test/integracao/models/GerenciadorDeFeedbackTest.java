@@ -159,13 +159,13 @@ public class GerenciadorDeFeedbackTest {
     }
 
     @Test
-    public void dadoQueReceboUmaConcatenacaoDeStringsUtilizandoSimboloMaiorEMenosValidasRetornoUmaMensagemDeErroVazia() throws Exception {
-        String codigo = "\"nome:\" <> \"José\"";
+    public void dadoQueReceboUmaConcatenacaoDeStringsUtilizandoSimboloMaiorEMenorEMaisValidasRetornoUmaMensagemDeErroVazia() throws Exception {
+        String codigo = "\"nome:\" <> \"Bernardo\" + \"José\"";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorDeValidacao, quebradorDeCodigo);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is(""));
+        assertThat(mensagemDeErro, is(not("")));
     }
 
     @Ignore
