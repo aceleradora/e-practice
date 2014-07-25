@@ -138,4 +138,19 @@ public class TesteLexer {
         assertThat(tokens.get(3), is("<>"));
         assertThat(tokens.get(4), is("\"Henrique\""));
     }
+
+    @Test
+    public void tokenizaUmaOperacaoComParentesesSemEspaco() throws Exception {
+        tokens = lexer.tokenizar("numero = (2 + 2) * 3");
+        assertThat(tokens.size(), is(9));
+        assertThat(tokens.get(0), is("numero"));
+        assertThat(tokens.get(1), is("="));
+        assertThat(tokens.get(2), is("("));
+        assertThat(tokens.get(3), is("2"));
+        assertThat(tokens.get(4), is("+"));
+        assertThat(tokens.get(5), is("2"));
+        assertThat(tokens.get(6), is(")"));
+        assertThat(tokens.get(7), is("*"));
+        assertThat(tokens.get(8), is("3"));
+    }
 }

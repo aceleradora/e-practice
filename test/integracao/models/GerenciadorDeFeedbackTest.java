@@ -159,7 +159,6 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro, is(not("")));
     }
 
-    @Ignore
     @Test
     public void dadoQueReceboUmaConcatenacaoDeStringsUtilizandoSimboloMaiorEMenorEMaisValidasRetornoUmaMensagemDeErroVazia() throws Exception {
         String codigo = "\"nome:\" <> \"Bernardo\" + \"José\"";

@@ -37,6 +37,14 @@ public class Lexer {
                     tokens.add(tokenComConcatenacaoNoMeio[0]);
                     tokens.add("<>");
                     tokens.add(tokenComConcatenacaoNoMeio[1]);
+                } else if (stringDividida[i].length() > 1 && stringDividida[i].startsWith("(")) {
+                    String[] tokenComParenteses = stringDividida[i].split("[(]");
+                    tokens.add("(");
+                    tokens.add(tokenComParenteses[1]);
+                } else if (stringDividida[i].length() > 1 && stringDividida[i].endsWith(")")) {
+                    String[] tokenComParenteses = stringDividida[i].split("[)]");
+                    tokens.add(tokenComParenteses[0]);
+                    tokens.add(")");
                 } else {
                     tokens.add(stringDividida[i]);
                 }

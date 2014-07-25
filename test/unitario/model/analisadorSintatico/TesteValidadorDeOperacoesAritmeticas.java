@@ -267,7 +267,6 @@ public class TesteValidadorDeOperacoesAritmeticas {
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
     }
 
-    @Ignore
     @Test
     public void erroAoUsarSimboloDeConcatenacaoEmOperacoesAritimeticas() throws Exception {
         tokens.add("10");
@@ -277,7 +276,6 @@ public class TesteValidadorDeOperacoesAritmeticas {
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
     }
 
-    @Ignore
     @Test
     public void erroAoUsarSimbolosTotalmenteErradosComOValidadorAritmetico() throws Exception {
         tokens.add("asrasr");
@@ -285,6 +283,16 @@ public class TesteValidadorDeOperacoesAritmeticas {
         tokens.add("sdrhsd");
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
+    }
+
+    @Test
+    public void erroAoUsarDoisOperadoresAritmeticosJuntos() throws Exception {
+        tokens.add("5");
+        tokens.add("++");
+        tokens.add("5");
+
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
+
     }
 
     private void criaTokensDeExpressaoVazia() {
