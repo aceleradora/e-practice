@@ -1,5 +1,6 @@
 package unitario.model.analisadorSemantico;
 
+import models.TabelaDeSimbolos;
 import models.analisadorSemantico.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,10 +10,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GerenciadorSemanticoTest {
+public class TesteGerenciadorSemantico {
 
     @Mock ValidadorDeAtribuicao validadorDeAtribuicao;
     @Mock ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao;
@@ -172,4 +176,13 @@ public class GerenciadorSemanticoTest {
 
         verify(validadorDeOperacaoAritmetica).valida(listaDeTokensDeOperacaoAritmeticaDeDivisao);
     }
+
+/*    @Test
+    public void chamaValidadorDeDeclaracaoComSentencaErradaERetornaAMensagemDeErro() throws Exception {
+
+        gerenciadorSemantico.interpreta("var x : String");
+
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("A variável x ja foi declarada."));
+
+    }*/
 }

@@ -1,18 +1,18 @@
 package models;
 
 import models.analisadorLexico.QuebradorDeCodigoEmLinhas;
-import models.analisadorSintatico.GerenciadorDeValidacao;
+import models.analisadorSintatico.GerenciadorSintatico;
 
 import java.util.ArrayList;
 
 public class GerenciadorDeFeedback {
 
     private ArrayList<String> codigo;
-    private GerenciadorDeValidacao gerenciadorDeValidacao;
+    private GerenciadorSintatico gerenciadorDeValidacao;
     private QuebradorDeCodigoEmLinhas quebradorDeCodigo;
     private String mensagem = "";
 
-    public GerenciadorDeFeedback(String codigo, GerenciadorDeValidacao gerenciadorDeValidacao, QuebradorDeCodigoEmLinhas quebradorDeCodigo) {
+    public GerenciadorDeFeedback(String codigo, GerenciadorSintatico gerenciadorDeValidacao, QuebradorDeCodigoEmLinhas quebradorDeCodigo) {
         this.gerenciadorDeValidacao = gerenciadorDeValidacao;
         this.quebradorDeCodigo = quebradorDeCodigo;
         this.codigo = this.quebradorDeCodigo.quebra(codigo);

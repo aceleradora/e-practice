@@ -6,7 +6,7 @@ import models.analisadorLexico.Lexer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class GerenciadorDeValidacao {
+public class GerenciadorSintatico {
 
     private Lexer lexer;
     private IdentificadorDeToken identificadorDeToken;
@@ -18,7 +18,7 @@ public class GerenciadorDeValidacao {
     private ArrayList<String> tokens;
     private ArrayList<String> listaDeMensagensDeErro;
 
-    public GerenciadorDeValidacao(Lexer lexer, IdentificadorDeToken identificadorDeToken, ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel, ValidadorDeAtribuicao validadorDeAtribuicao, ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas, ValidadorDeConcatenacaoDeStrings validadorDeConcatenacaoDeStrings) {
+    public GerenciadorSintatico(Lexer lexer, IdentificadorDeToken identificadorDeToken, ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel, ValidadorDeAtribuicao validadorDeAtribuicao, ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas, ValidadorDeConcatenacaoDeStrings validadorDeConcatenacaoDeStrings) {
         this.lexer = lexer;
         this.identificadorDeToken = identificadorDeToken;
         this.validadorDeDeclaracaoDeVariavel = validadorDeDeclaracaoDeVariavel;

@@ -26,7 +26,7 @@ public class TesteGerenciadorDeValidacao {
     @Mock ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;
     @Mock ValidadorDeConcatenacaoDeStrings validadorDeConcatenacaoDeString;
 
-    private GerenciadorDeValidacao gerenciadorDeValidacao;
+    private GerenciadorSintatico gerenciadorDeValidacao;
     private String sentencaDeclaracao;
     private ArrayList<String> listaDeTokensDeclaracao;
     private String sentencaAtribuicao;

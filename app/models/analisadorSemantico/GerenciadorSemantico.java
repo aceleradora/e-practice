@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class GerenciadorSemantico {
     private Lexer lexer;
     private IdentificadorDeToken identificadorDeToken;
-    private TabelaDeSimbolos tabelaDeSimbolos;
     private ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao;
     private ValidadorDeAtribuicao validadorDeAtribuicao;
     private ValidadorDeConcatenacao validadorDeConcatenacao;
@@ -25,7 +24,6 @@ public class GerenciadorSemantico {
         this.validadorDeOperacaoAritmetica = validadorDeOperacaoAritmetica;
         lexer = new Lexer();
         tokens = new ArrayList<String>();
-        tabelaDeSimbolos = new TabelaDeSimbolos();
         identificadorDeToken = new IdentificadorDeToken();
     }
 
@@ -33,6 +31,10 @@ public class GerenciadorSemantico {
         tokens = lexer.tokenizar(sentenca);
         selecionaValidadorAdequado();
         validador.valida(tokens);
+    }
+
+    public String mostraMensagensDeErro(){
+        return validador.retornaMensagemErro();
     }
 
     private void selecionaValidadorAdequado() {

@@ -3,7 +3,7 @@ package unitario.model;
 
 import models.GerenciadorDeFeedback;
 import models.analisadorLexico.QuebradorDeCodigoEmLinhas;
-import models.analisadorSintatico.GerenciadorDeValidacao;
+import models.analisadorSintatico.GerenciadorSintatico;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class GerenciadorDeFeedbackTest {
 
-    @Mock private GerenciadorDeValidacao gerenciadorDeValidacao;
+    @Mock private GerenciadorSintatico gerenciadorDeValidacao;
     @Mock private QuebradorDeCodigoEmLinhas quebradorDeCodigo;
     private GerenciadorDeFeedback gerenciadorDeFeedback;
 

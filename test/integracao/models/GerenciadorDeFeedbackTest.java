@@ -18,7 +18,7 @@ import static org.hamcrest.core.IsNot.not;
 public class GerenciadorDeFeedbackTest {
 
 
-    private GerenciadorDeValidacao gerenciadorDeValidacao;
+    private GerenciadorSintatico gerenciadorDeValidacao;
     private QuebradorDeCodigoEmLinhas quebradorDeCodigo;
     private GerenciadorDeFeedback gerenciadorDeFeedback;
     private TabelaDeSimbolos tabelaDeSimbolos;
