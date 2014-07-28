@@ -136,6 +136,16 @@ public class TesteValidadorDeAtribuicao {
         assertThat(mensagem, is("Nome de variável incorreto. \n"));
     }
 
+    @Test
+    public void retornaMensagemDeErroQuandoNaoEncontraSinalDeAtribuicao() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi : \"frutas\"");
+
+        validadorDeAtribuicao.valida(tokens);
+        String mensagemDeErro = validadorDeAtribuicao.retornaMensagemErro();
+
+        assertThat(mensagemDeErro, is("Esperava \"=\" para atribuição. \n"));
+    }
+
 }
 
 
