@@ -2,6 +2,11 @@ package unitario.model.analisadorSemantico;
 
 import models.TabelaDeSimbolos;
 import models.analisadorSemantico.*;
+import models.analisadorSemantico.GerenciadorBuilder;
+import models.analisadorSemantico.ValidadorDeAtribuicao;
+import models.analisadorSemantico.ValidadorDeDeclaracaoDeVariavel;
+import models.analisadorSemantico.ValidadorDeOperacoesAritmeticas;
+import models.analisadorSintatico.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +27,7 @@ public class TesteGerenciadorSemantico {
     @Mock ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao;
     @Mock ValidadorDeConcatenacao validadorDeConcatenacao;
     @Mock ValidadorDeOperacoesAritmeticas validadorDeOperacaoAritmetica;
+
 
     private String declaracaoString;
     private String atribuicaoDeString;
@@ -177,12 +183,115 @@ public class TesteGerenciadorSemantico {
         verify(validadorDeOperacaoAritmetica).valida(listaDeTokensDeOperacaoAritmeticaDeDivisao);
     }
 
-/*    @Test
+    @Test
     public void chamaValidadorDeDeclaracaoComSentencaErradaERetornaAMensagemDeErro() throws Exception {
+        TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
+        tabelaDeSimbolos.adicionaSimbolo("x","String");
+        ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tabelaDeSimbolos);
+        validadorDeDeclaracao = validadorDeDeclaracaoDeVariavel;
+        GerenciadorBuilder gerenciadorBuilder = new GerenciadorBuilder();
+        gerenciadorSemantico = gerenciadorBuilder.com(validadorDeAtribuicao)
+                .com(validadorDeDeclaracao)
+                .com(validadorDeConcatenacao)
+                .com(validadorDeOperacaoAritmetica)
+                .geraGerenciador();
 
         gerenciadorSemantico.interpreta("var x : String");
 
-        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("A variável x ja foi declarada."));
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("A variável "+"x"+" ja foi declarada."));
+    }
 
-    }*/
+    @Test
+    public void chamaValidadorDeAtribuicaoComSentencaComVariavelNaoDeclaradaERetornaAMensagemDeErro() throws Exception {
+        TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
+        ValidadorDeAtribuicao validadorDeAtribuicao1 = new ValidadorDeAtribuicao(tabelaDeSimbolos);
+        validadorDeAtribuicao = validadorDeAtribuicao1;
+        GerenciadorBuilder gerenciadorBuilder = new GerenciadorBuilder();
+        gerenciadorSemantico = gerenciadorBuilder.com(validadorDeAtribuicao)
+                .com(validadorDeDeclaracao)
+                .com(validadorDeConcatenacao)
+                .com(validadorDeOperacaoAritmetica)
+                .geraGerenciador();
+
+        gerenciadorSemantico.interpreta("x1 = \"lala\"");
+
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("A variável " + "x1" + " não foi declarada."));
+    }
+
+    @Test
+    public void chamaValidadorDeAtribuicaoComSentencaComTiposIncompativeisERetornaAMensagemDeErro() throws Exception {
+        TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
+        tabelaDeSimbolos.adicionaSimbolo("x", "String");
+        ValidadorDeAtribuicao validadorDeAtribuicao1 = new ValidadorDeAtribuicao(tabelaDeSimbolos);
+        validadorDeAtribuicao = validadorDeAtribuicao1;
+        GerenciadorBuilder gerenciadorBuilder = new GerenciadorBuilder();
+        gerenciadorSemantico = gerenciadorBuilder.com(validadorDeAtribuicao)
+                .com(validadorDeDeclaracao)
+                .com(validadorDeConcatenacao)
+                .com(validadorDeOperacaoAritmetica)
+                .geraGerenciador();
+
+        gerenciadorSemantico.interpreta("x = 1");
+
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("A Variavel "+"x"+" só aceita atribuição de valores do tipo "+"String"+"."));
+
+    }
+
+    @Test
+    public void chamaValidadorDeConcatenacaoComSentencaComTiposIncompativeisERetornaAMensagemDeErro() throws Exception {
+        TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
+        tabelaDeSimbolos.adicionaSimbolo("x", "String");
+        tabelaDeSimbolos.adicionaSimbolo("y", "Inteiro");
+        ValidadorDeConcatenacao validadorDeConcatenacao1 = new ValidadorDeConcatenacao(tabelaDeSimbolos);
+        validadorDeConcatenacao = validadorDeConcatenacao1;
+        GerenciadorBuilder gerenciadorBuilder = new GerenciadorBuilder();
+        gerenciadorSemantico = gerenciadorBuilder.com(validadorDeAtribuicao)
+                .com(validadorDeDeclaracao)
+                .com(validadorDeConcatenacao)
+                .com(validadorDeOperacaoAritmetica)
+                .geraGerenciador();
+
+
+        gerenciadorSemantico.interpreta("x = x <> y");
+
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("Erro: a variável " + "y" + " não é do tipo String."));
+
+    }
+
+    @Test
+    public void chamaValidadorDeConcatenacaoDeSentencaComVariavelNaoDeclaradaERetornaAMensagemDeErro() throws Exception {
+        TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
+        tabelaDeSimbolos.adicionaSimbolo("x", "String");
+        tabelaDeSimbolos.adicionaSimbolo("y", "String");
+        ValidadorDeConcatenacao validadorDeConcatenacao1 = new ValidadorDeConcatenacao(tabelaDeSimbolos);
+        validadorDeConcatenacao = validadorDeConcatenacao1;
+        GerenciadorBuilder gerenciadorBuilder = new GerenciadorBuilder();
+        gerenciadorSemantico = gerenciadorBuilder.com(validadorDeAtribuicao)
+                .com(validadorDeDeclaracao)
+                .com(validadorDeConcatenacao)
+                .com(validadorDeOperacaoAritmetica)
+                .geraGerenciador();
+
+
+        gerenciadorSemantico.interpreta("x = z <> y");
+
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("Erro: a variável " + "z" + " não foi declarada."));
+    }
+
+    @Test
+    public void chamaValidadorDeOperacaoAritmetricasDeSentencaComVariavelNaoDeclaradaERetornaAMensagemDeErro() throws Exception {
+
+        TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
+        ValidadorDeOperacoesAritmeticas validador = new ValidadorDeOperacoesAritmeticas(tabelaDeSimbolos);
+        validadorDeOperacaoAritmetica = validador;
+        GerenciadorBuilder gerenciadorBuilder = new GerenciadorBuilder();
+        gerenciadorSemantico = gerenciadorBuilder.com(validadorDeAtribuicao)
+                .com(validadorDeDeclaracao)
+                .com(validadorDeConcatenacao)
+                .com(validadorDeOperacaoAritmetica)
+                .geraGerenciador();
+
+        gerenciadorSemantico.interpreta("x = z + y");
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("Variável não declarada."));
+    }
 }

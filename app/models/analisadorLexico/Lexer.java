@@ -3,62 +3,111 @@ package models.analisadorLexico;
 import java.util.ArrayList;
 
 public class Lexer {
-    public ArrayList<String> tokenizar (String frase) {
-        ArrayList<String> tokens = new ArrayList<String>();
+    private ArrayList<String> tokens;
+    private String frase;
 
-        if (frase.equals("")) {
+    public Lexer() {
+        tokens = new ArrayList<String>();
+    }
+
+    public ArrayList<String> tokenizar (String frase) {
+        tokens = new ArrayList<String>();
+        this.frase = removeEspacosDesnecessariosDoFimEDoComeco(frase);
+        if (fraseEstaVazia(frase)) {
             return tokens;
         } else {
-            frase = frase.trim();
-            String[] stringDividida = frase.split("[ ]+");
-            for (int i = 0; i < stringDividida.length; i++) {
-                if (stringDividida[i].length() > 1 && stringDividida[i].contains(":")) {
-                    String[] tokenComDoisPontosNoMeio = stringDividida[i].split(":");
-                    tokens.add(tokenComDoisPontosNoMeio[0]);
-                    tokens.add(":");
-                    tokens.add(tokenComDoisPontosNoMeio[1]);
-                } else if (stringDividida[i].length() > 1 && stringDividida[i].startsWith("\"")
-                        && !stringDividida[i].endsWith("\"")){
-                    String temporaria = stringDividida[i];
-                    i++;
-                    while (!stringDividida[i].endsWith("\"")) {
-                        temporaria += " " + stringDividida[i];
-                        i++;
-                    }
-                    temporaria += " " + stringDividida[i];
-                    tokens.add(temporaria);
-                } else if (stringDividida[i].length() > 1 && stringDividida[i].contains("=")) {
-                    String[] tokenComIgualdadeNoMeio = stringDividida[i].split("=");
-                    tokens.add(tokenComIgualdadeNoMeio[0]);
-                    tokens.add("=");
-                    tokens.add(tokenComIgualdadeNoMeio[1]);
-                } else if (stringDividida[i].length() > 2 && stringDividida[i].contains("<>")) {
-                    String[] tokenComConcatenacaoNoMeio = stringDividida[i].split("<>");
-                    tokens.add(tokenComConcatenacaoNoMeio[0]);
-                    tokens.add("<>");
-                    tokens.add(tokenComConcatenacaoNoMeio[1]);
-                } else if (stringDividida[i].length() > 1 && stringDividida[i].startsWith("(")) {
-                    String[] tokenComParenteses = stringDividida[i].split("[(]");
-                    tokens.add("(");
-                    tokens.add(tokenComParenteses[1]);
-                } else if (stringDividida[i].length() > 1 && stringDividida[i].endsWith(")")) {
-                    String[] tokenComParenteses = stringDividida[i].split("[)]");
-                    tokens.add(tokenComParenteses[0]);
-                    tokens.add(")");
-                } else {
-                    tokens.add(stringDividida[i]);
-                }
+            String[] stringDividida = divideAFraseNosEspacosEmBranco(frase);
+            for (String preToken : stringDividida) {
+                tokens.add(preToken);
             }
-            for (int i = 0; i < tokens.size(); i++) {
-                if (tokens.get(i).length() > 2 && tokens.get(i).contains("<>")) {
-                    String[] tokenComConcatenacaoNoMeio = tokens.get(i).split("<>");
-                    tokens.add(i, tokenComConcatenacaoNoMeio[0]);
-                    tokens.add(i + 1, "<>");
-                    tokens.add(i + 2, tokenComConcatenacaoNoMeio[1]);
-                    tokens.remove(i + 3);
-                }
-            }
+            verificaCasosEspeciais(tokens);
             return tokens;
+//            frase = removeEspacosDesnecessariosDoFimEDoComeco(frase);
+//            String[] stringDividida = divideAFraseNosEspacosEmBranco(frase);
+//            for (int i = 0; i < stringDividida.length; i++) {
+//                if (tokenTemMaisDeUmCaracterEContemDoisPontos(stringDividida[i])) {
+//                    divideOTokenNosDoisPontosEAdicionaOsNovosTokensNaLista(stringDividida[i]);
+//                } else if (tokenTemMaisDeUmCaracterEComecaETerminaComAspas(stringDividida[i])){
+//                    String temporaria = stringDividida[i];
+//                    i++;
+//                    while (!stringDividida[i].endsWith("\"")) {
+//                        temporaria += " " + stringDividida[i];
+//                        i++;
+//                    }
+//                    temporaria += " " + stringDividida[i];
+//                    adicionaOTokenNaLista(temporaria);
+//                } else if (tokenTemMaisDeUmCaracterEContemSinalDeIgualdade(stringDividida[i])) {
+//                    divideOTokenNoSinalDeIgualdadeEAdicionaOsNovosTokensNaLista(stringDividida[i]);
+//                } else if (tokenContemMaisDeDoisCaracteresEContemSinalDeConcatenacao(stringDividida[i])) {
+//                    divideOTokenNoSinalDeConcatenacaoEAdicionaOsNovosTokensNaLista(stringDividida[i]);
+//                } else if (tokenTemMaisDeUmCaracterEIniciaComParentesesAberto(stringDividida[i])) {
+//                    divideOTokenNoParentesesAbertoEAdicionaOsNovosTokensNaLista(stringDividida[i]);
+//                } else if (tokenTemMaisDeUmCaracterETerminaComParentesesFechado(stringDividida[i])) {
+//                    divideOTokenNoParentesesFechadoEAdicionaOsNovosTokensNaLista(stringDividida[i]);
+//                } else {
+//                    adicionaOTokenNaLista(stringDividida[i]);
+//                }
+//            }
+//            for (int i = 0; i < tokens.size(); i++) {
+//                if (tokenContemMaisDeDoisCaracteresEContemSinalDeConcatenacao(tokens.get(i))) {
+//                    String[] tokenComConcatenacaoNoMeio = tokens.get(i).split("<>");
+//                    tokens.add(i, tokenComConcatenacaoNoMeio[0]);
+//                    tokens.add(i + 1, "<>");
+//                    tokens.add(i + 2, tokenComConcatenacaoNoMeio[1]);
+//                    tokens.remove(i + 3);
+//                }
+//            }
+//            return tokens;
         }
+
+    }
+
+    private void verificaCasosEspeciais(ArrayList<String> tokens) {
+        for (int i = 0; i < tokens.size(); i++) {
+            String token = tokens.get(i);
+            if (tokenContemDoisPontosEMaisDeUmCaracter(token)) {
+                divideOTokenNosDoisPontosEAdicionaOsNovosTokensNaLista(token, i);
+                verificaCasosEspeciais(tokens);
+            } else if (tokenContemSinalDeIgualEMaisDeUmCaracter(token)) {
+                divideOTokenNoSinalDeIgualEAdicionaOsNovosTokensNaLista(token, i);
+            }
+        }
+    }
+
+    private void divideOTokenNoSinalDeIgualEAdicionaOsNovosTokensNaLista(String token, int indiceDaLista) {
+        String[] stringDividida = token.split("=");
+        tokens.add(indiceDaLista, stringDividida[0]);
+        tokens.add(indiceDaLista + 1, "=");
+        tokens.add(indiceDaLista + 2, stringDividida[1]);
+        tokens.remove(indiceDaLista + 3);
+    }
+
+    private boolean tokenContemSinalDeIgualEMaisDeUmCaracter(String token) {
+        return token.contains("=") && token.length() > 1;
+    }
+
+    private void divideOTokenNosDoisPontosEAdicionaOsNovosTokensNaLista(String token, int indiceDaLista) {
+        String[] stringDividida = token.split(":");
+        tokens.add(indiceDaLista, stringDividida[0]);
+        tokens.add(indiceDaLista + 1, ":");
+        tokens.add(indiceDaLista + 2, stringDividida[1]);
+        tokens.remove(indiceDaLista + 3);
+    }
+
+    private boolean tokenContemDoisPontosEMaisDeUmCaracter(String token) {
+        return token.contains(":") && token.length() > 1;
+    }
+
+    private String[] divideAFraseNosEspacosEmBranco(String frase) {
+        return frase.split("[ ]+");
+    }
+
+    private String removeEspacosDesnecessariosDoFimEDoComeco(String frase) {
+        frase = frase.trim();
+        return frase;
+    }
+
+    private boolean fraseEstaVazia(String frase) {
+        return frase.equals("");
     }
 }
