@@ -20,14 +20,14 @@ public class ValidadorDeConcatenacao implements Validador{
     public boolean valida(ArrayList<String> tokens) {
         this.listaDetokens = tokens;
         for(int i = 0; i < listaDetokens.size(); i++){
-            if(listaDetokens.get(i) != "=" && listaDetokens.get(i) != "<>" ) {
+            if(!(listaDetokens.get(i).equals("=") || listaDetokens.get(i).equals("<>"))) {
                 if (!tabelaDeSimbolos.simboloExiste(listaDetokens.get(i))) {
 
                     tokenInvalido = listaDetokens.get(i);
                     tipoDeErro = 1;
                     return false;
                 }
-                if(tabelaDeSimbolos.getTipoSimbolo(listaDetokens.get(i)) != "String") {
+                if(!(tabelaDeSimbolos.getTipoSimbolo(listaDetokens.get(i)).equals("String"))) {
                     tokenInvalido = listaDetokens.get(i);
                     tipoDeErro = 2;
                     return false;

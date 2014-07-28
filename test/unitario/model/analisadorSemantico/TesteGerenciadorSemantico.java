@@ -236,4 +236,25 @@ public class TesteGerenciadorSemantico {
         assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("A Variavel "+"x"+" só aceita atribuição de valores do tipo "+"String"+"."));
 
     }
+
+    @Test
+    public void chamaValidadorDeConcatenacaoComSentencaComTiposIncompativeisERetornaAMensagemDeErro() throws Exception {
+        TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
+        tabelaDeSimbolos.adicionaSimbolo("x", "String");
+        tabelaDeSimbolos.adicionaSimbolo("y", "Inteiro");
+        ValidadorDeConcatenacao validadorDeConcatenacao1 = new ValidadorDeConcatenacao(tabelaDeSimbolos);
+        validadorDeConcatenacao = validadorDeConcatenacao1;
+        GerenciadorBuilder gerenciadorBuilder = new GerenciadorBuilder();
+        gerenciadorSemantico = gerenciadorBuilder.com(validadorDeAtribuicao)
+                .com(validadorDeDeclaracao)
+                .com(validadorDeConcatenacao)
+                .com(validadorDeOperacaoAritmetica)
+                .geraGerenciador();
+
+
+        gerenciadorSemantico.interpreta("x = x <> y");
+
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("Erro: a variável " + "y" + " não é do tipo String."));
+
+    }
 }
