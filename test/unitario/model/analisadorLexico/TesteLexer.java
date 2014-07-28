@@ -79,7 +79,7 @@ public class TesteLexer {
         assertThat(tokens.get(2), is("\"Joao\""));
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void dadaUmaAtribuicaoDeStringComDuasPalavrasDeeveRetornarUmaListaComTresTokens() throws Exception {
         tokens = lexer.tokenizar("nome = \"Joao Henrique\"");
