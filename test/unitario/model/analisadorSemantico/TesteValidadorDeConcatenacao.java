@@ -141,17 +141,12 @@ public class TesteValidadorDeConcatenacao {
         tokens.add("azul");
         tokens.add("<>");
         tokens.add("vermelho");
-
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
         tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
         tabelaDeSimbolos.adicionaSimbolo("verde", "String");
         tabelaDeSimbolos.adicionaSimbolo("azul", "String");
         tabelaDeSimbolos.adicionaSimbolo("vermelho", "String");
-
         boolean resultado = validador.valida(tokens);
-
         assertThat(resultado, is(true));
-
     }
 }
-
