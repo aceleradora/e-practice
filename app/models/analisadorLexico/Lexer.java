@@ -32,9 +32,9 @@ public class Lexer {
                     divideOTokenNoSinalDeIgualdadeEAdicionaOsNovosTokensNaLista(stringDividida[i]);
                 } else if (tokenContemSinalDeConcatenacao(stringDividida[i])) {
                     divideOTokenNoSinalDeConcatenacaoEAdicionaOsNovosTokensNaLista(stringDividida[i]);
-                } else if (tokenIniciaComParentesesAberto(stringDividida[i])) {
+                } else if (tokenTemMaisDeUmCaracterEIniciaComParentesesAberto(stringDividida[i])) {
                     divideOTokenNoParentesesAbertoEAdicionaOsNovosTokensNaLista(stringDividida[i]);
-                } else if (tokenTerminaComParentesesFechado(stringDividida[i])) {
+                } else if (tokenTemMaisDeUmCaracterETerminaComParentesesFechado(stringDividida[i])) {
                     divideOTokenNoParentesesFechadoEAdicionaOsNovosTokensNaLista(stringDividida[i]);
                 } else {
                     adicionaOTokenNaLista(stringDividida[i]);
@@ -58,24 +58,24 @@ public class Lexer {
         tokens.add(token);
     }
 
-    private void divideOTokenNoParentesesFechadoEAdicionaOsNovosTokensNaLista(String s) {
-        String[] tokenComParenteses = s.split("[)]");
+    private void divideOTokenNoParentesesFechadoEAdicionaOsNovosTokensNaLista(String token) {
+        String[] tokenComParenteses = token.split("[)]");
         adicionaOTokenNaLista(tokenComParenteses[0]);
         adicionaOTokenNaLista(")");
     }
 
-    private void divideOTokenNoParentesesAbertoEAdicionaOsNovosTokensNaLista(String s) {
-        String[] tokenComParenteses = s.split("[(]");
+    private void divideOTokenNoParentesesAbertoEAdicionaOsNovosTokensNaLista(String token) {
+        String[] tokenComParenteses = token.split("[(]");
         adicionaOTokenNaLista("(");
         adicionaOTokenNaLista(tokenComParenteses[1]);
     }
 
-    private boolean tokenTerminaComParentesesFechado(String s) {
-        return s.length() > 1 && s.endsWith(")");
+    private boolean tokenTemMaisDeUmCaracterETerminaComParentesesFechado(String token) {
+        return token.length() > 1 && token.endsWith(")");
     }
 
-    private boolean tokenIniciaComParentesesAberto(String s) {
-        return s.length() > 1 && s.startsWith("(");
+    private boolean tokenTemMaisDeUmCaracterEIniciaComParentesesAberto(String token) {
+        return token.length() > 1 && token.startsWith("(");
     }
 
     private void divideOTokenNoSinalDeConcatenacaoEAdicionaOsNovosTokensNaLista(String s) {
