@@ -17,9 +17,9 @@ public class Lexer {
             frase = removeEspacosDesnecessariosDoFimEDoComeco(frase);
             String[] stringDividida = divideAFraseNosEspacosEmBranco(frase);
             for (int i = 0; i < stringDividida.length; i++) {
-                if (tokenContemDoisPontos(stringDividida[i])) {
+                if (tokenTemMaisDeUmCaracterEContemDoisPontos(stringDividida[i])) {
                     divideOTokenNosDoisPontosEAdicionaOsNovosTokensNaLista(stringDividida[i]);
-                } else if (tokenComecaETerminaComAspas(stringDividida[i])){
+                } else if (tokenTemMaisDeUmCaracterEComecaETerminaComAspas(stringDividida[i])){
                     String temporaria = stringDividida[i];
                     i++;
                     while (!stringDividida[i].endsWith("\"")) {
@@ -30,7 +30,7 @@ public class Lexer {
                     adicionaOTokenNaLista(temporaria);
                 } else if (tokenTemMaisDeUmCaracterEContemSinalDeIgualdade(stringDividida[i])) {
                     divideOTokenNoSinalDeIgualdadeEAdicionaOsNovosTokensNaLista(stringDividida[i]);
-                } else if (tokenContemSinalDeConcatenacao(stringDividida[i])) {
+                } else if (tokenContemMaisDeDoisCaracteresEContemSinalDeConcatenacao(stringDividida[i])) {
                     divideOTokenNoSinalDeConcatenacaoEAdicionaOsNovosTokensNaLista(stringDividida[i]);
                 } else if (tokenTemMaisDeUmCaracterEIniciaComParentesesAberto(stringDividida[i])) {
                     divideOTokenNoParentesesAbertoEAdicionaOsNovosTokensNaLista(stringDividida[i]);
@@ -41,7 +41,7 @@ public class Lexer {
                 }
             }
             for (int i = 0; i < tokens.size(); i++) {
-                if (tokenContemSinalDeConcatenacao(tokens.get(i))) {
+                if (tokenContemMaisDeDoisCaracteresEContemSinalDeConcatenacao(tokens.get(i))) {
                     String[] tokenComConcatenacaoNoMeio = tokens.get(i).split("<>");
                     tokens.add(i, tokenComConcatenacaoNoMeio[0]);
                     tokens.add(i + 1, "<>");
@@ -78,19 +78,19 @@ public class Lexer {
         return token.length() > 1 && token.startsWith("(");
     }
 
-    private void divideOTokenNoSinalDeConcatenacaoEAdicionaOsNovosTokensNaLista(String s) {
-        String[] tokenComConcatenacaoNoMeio = s.split("<>");
+    private void divideOTokenNoSinalDeConcatenacaoEAdicionaOsNovosTokensNaLista(String token) {
+        String[] tokenComConcatenacaoNoMeio = token.split("<>");
         adicionaOTokenNaLista(tokenComConcatenacaoNoMeio[0]);
         adicionaOTokenNaLista("<>");
         adicionaOTokenNaLista(tokenComConcatenacaoNoMeio[1]);
     }
 
-    private boolean tokenContemSinalDeConcatenacao(String s) {
-        return s.length() > 2 && s.contains("<>");
+    private boolean tokenContemMaisDeDoisCaracteresEContemSinalDeConcatenacao(String token) {
+        return token.length() > 2 && token.contains("<>");
     }
 
-    private void divideOTokenNoSinalDeIgualdadeEAdicionaOsNovosTokensNaLista(String s) {
-        String[] tokenComIgualdadeNoMeio = s.split("=");
+    private void divideOTokenNoSinalDeIgualdadeEAdicionaOsNovosTokensNaLista(String token) {
+        String[] tokenComIgualdadeNoMeio = token.split("=");
         adicionaOTokenNaLista(tokenComIgualdadeNoMeio[0]);
         adicionaOTokenNaLista("=");
         adicionaOTokenNaLista(tokenComIgualdadeNoMeio[1]);
@@ -100,20 +100,20 @@ public class Lexer {
         return token.length() > 1 && token.contains("=");
     }
 
-    private boolean tokenComecaETerminaComAspas(String s) {
-        return s.length() > 1 && s.startsWith("\"")
-                && !s.endsWith("\"");
+    private boolean tokenTemMaisDeUmCaracterEComecaETerminaComAspas(String token) {
+        return token.length() > 1 && token.startsWith("\"")
+                && !token.endsWith("\"");
     }
 
-    private void divideOTokenNosDoisPontosEAdicionaOsNovosTokensNaLista(String s) {
-        String[] tokenComDoisPontosNoMeio = s.split(":");
+    private void divideOTokenNosDoisPontosEAdicionaOsNovosTokensNaLista(String token) {
+        String[] tokenComDoisPontosNoMeio = token.split(":");
         adicionaOTokenNaLista(tokenComDoisPontosNoMeio[0]);
         adicionaOTokenNaLista(":");
         adicionaOTokenNaLista(tokenComDoisPontosNoMeio[1]);
     }
 
-    private boolean tokenContemDoisPontos(String s) {
-        return s.length() > 1 && s.contains(":");
+    private boolean tokenTemMaisDeUmCaracterEContemDoisPontos(String token) {
+        return token.length() > 1 && token.contains(":");
     }
 
     private String[] divideAFraseNosEspacosEmBranco(String frase) {
