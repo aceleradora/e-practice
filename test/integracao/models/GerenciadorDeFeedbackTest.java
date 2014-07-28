@@ -168,7 +168,7 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro, is(not("")));
     }
 
-    @Ignore
+
     @Test
     public void dadoQueReceboUmaOperacaoAritmeticaInvalidaRetornoUmaMensagemDeErro() throws Exception {
         String codigo = "numero = 2 + 2)";
@@ -179,7 +179,7 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro, is(not("")));
     }
 
-    @Ignore
+
     @Test
     public void dadoQueReceboUmaOperacaoAritmeticaInvalidaUtilizandoDoisOperadoresJuntosRetornoUmaMensagemDeErro() throws Exception {
         String codigo = "numero = 2 * + 2";
@@ -190,4 +190,14 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro, is(not("")));
     }
 
+    @Ignore
+    @Test
+    public void dadoQueReceboTokensSemEspacoNaoRetornaNenhumErro() throws Exception {
+        String codigo = "numero=2+2";
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorDeValidacao, quebradorDeCodigo);
+
+        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
+
+        assertThat(mensagemDeErro, is(""));
+    }
 }
