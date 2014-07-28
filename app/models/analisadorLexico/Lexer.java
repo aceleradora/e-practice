@@ -70,6 +70,19 @@ public class Lexer {
                 verificaCasosEspeciais(tokens);
             } else if (tokenContemSinalDeIgualEMaisDeUmCaracter(token)) {
                 divideOTokenNoSinalDeIgualEAdicionaOsNovosTokensNaLista(token, i);
+                verificaCasosEspeciais(tokens);
+            } else if ((token.startsWith("\"") && !token.endsWith("\"")) && token.length() > 1) {
+                String constante = token;
+                int posicaoInicial = i;
+                tokens.remove(i);
+                while (!tokens.get(i).endsWith("\"")) {
+                    constante += " " + tokens.get(i);
+                    tokens.remove(i);
+                }
+                constante += " " + tokens.get(i);
+                tokens.remove(i);
+                tokens.add(posicaoInicial, constante);
+                verificaCasosEspeciais(tokens);
             }
         }
     }

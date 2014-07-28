@@ -79,7 +79,6 @@ public class TesteLexer {
         assertThat(tokens.get(2), is("\"Joao\""));
     }
 
-    @Ignore
     @Test
     public void dadaUmaAtribuicaoDeStringComDuasPalavrasDeeveRetornarUmaListaComTresTokens() throws Exception {
         tokens = lexer.tokenizar("nome = \"Joao Henrique\"");
@@ -89,7 +88,6 @@ public class TesteLexer {
         assertThat(tokens.get(2), is("\"Joao Henrique\""));
     }
 
-    @Ignore
     @Test
     public void dadaUmaAtribuicaoDeStringComQuatroPalavrasDeveRetornarUmaListaComTresTokens() throws Exception {
         tokens = lexer.tokenizar("nome = \"Joao Henrique Stocker Pinto\"");
