@@ -153,4 +153,11 @@ public class TesteLexer {
         assertThat(tokens.get(7), is("*"));
         assertThat(tokens.get(8), is("3"));
     }
+
+//    @Test
+//    public void tokenizaUmaOperacaoComAbreParentesesColadoADireitaDeUmOperando() throws Exception {
+//        tokens = lexer.tokenizar("numero = 2+( 5 * 5 )");
+//
+//        assertThat(tokens.size(), is(9));
+//    }
 }
