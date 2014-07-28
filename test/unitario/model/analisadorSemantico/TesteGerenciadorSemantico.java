@@ -259,7 +259,7 @@ public class TesteGerenciadorSemantico {
     }
 
     @Test
-    public void chamaValidadorDeConcatenacaoComSentencaComVariavelNaoDeclaradaERetornaAMensagemDeErro() throws Exception {
+    public void chamaValidadorDeConcatenacaoDeSentencaComVariavelNaoDeclaradaERetornaAMensagemDeErro() throws Exception {
         TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
         tabelaDeSimbolos.adicionaSimbolo("x", "String");
         tabelaDeSimbolos.adicionaSimbolo("y", "String");
@@ -276,5 +276,22 @@ public class TesteGerenciadorSemantico {
         gerenciadorSemantico.interpreta("x = z <> y");
 
         assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("Erro: a variável " + "z" + " não foi declarada."));
+    }
+
+    @Test
+    public void chamaValidadorDeOperacaoAritmetricasDeSentencaComVariavelNaoDeclaradaERetornaAMensagemDeErro() throws Exception {
+
+        TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
+        ValidadorDeOperacoesAritmeticas validador = new ValidadorDeOperacoesAritmeticas(tabelaDeSimbolos);
+        validadorDeOperacaoAritmetica = validador;
+        GerenciadorBuilder gerenciadorBuilder = new GerenciadorBuilder();
+        gerenciadorSemantico = gerenciadorBuilder.com(validadorDeAtribuicao)
+                .com(validadorDeDeclaracao)
+                .com(validadorDeConcatenacao)
+                .com(validadorDeOperacaoAritmetica)
+                .geraGerenciador();
+
+        gerenciadorSemantico.interpreta("x = z + y");
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("Variável não declarada."));
     }
 }
