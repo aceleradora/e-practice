@@ -2,7 +2,6 @@ package models;
 
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
-import scala.languageFeature;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

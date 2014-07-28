@@ -12,7 +12,6 @@ public class SeletorAleatorioExercicio {
     }
 
     public String geraExercicioAleatorio (){
-
         return null;
     }
 
