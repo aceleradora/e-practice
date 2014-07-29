@@ -2,6 +2,7 @@ package controllers;
 
 import models.SolucaoDoExercicio;
 import models.exercicioProposto.Exercicio;
+import models.exercicioProposto.SeletorAleatorioExercicio;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -26,8 +27,9 @@ public class Application extends Controller {
 
     public static Result solucoes(){
         exercicio = new Exercicio();
-        exercicio.createExercicioPadrao();
-        session("textoExercicio", exercicio.pegaExercicioAleatorio());
+        SeletorAleatorioExercicio seletorAleatorioExercicio = new SeletorAleatorioExercicio();
+        seletorAleatorioExercicio.createExercicioPadrao();
+        session("textoExercicio", seletorAleatorioExercicio.buscaDeExercicioAleatorio());
 
         List<SolucaoDoExercicio> all = solucaoDoExercicio.all();
 
@@ -35,8 +37,10 @@ public class Application extends Controller {
     }
 
     public static Result novaSolucao() {
-        exercicio = new Exercicio();
-        session("textoExercicio", exercicio.pegaExercicioAleatorio());
+        //exercicio = new Exercicio();
+        SeletorAleatorioExercicio seletorAleatorioExercicio = new SeletorAleatorioExercicio();
+        seletorAleatorioExercicio.createExercicioPadrao();
+        session("textoExercicio", seletorAleatorioExercicio.buscaDeExercicioAleatorio());
 
         Form<SolucaoDoExercicio> formPreenchido = solucaoDoExercicioForm.bindFromRequest();
 
@@ -64,7 +68,9 @@ public class Application extends Controller {
 
     public static Result criaExercicio(){
         exercicio = new Exercicio();
-        exercicio.createExercicioPadrao();
+        SeletorAleatorioExercicio seletorAleatorioExercicio = new SeletorAleatorioExercicio();
+        seletorAleatorioExercicio.createExercicioPadrao();
+        session("textoExercicio", seletorAleatorioExercicio.buscaDeExercicioAleatorio());
 
         return redirect(routes.Application.solucoes());
     }

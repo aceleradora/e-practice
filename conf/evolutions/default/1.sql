@@ -6,7 +6,7 @@
 create table exercicio (
   id                        integer not null,
   enunciado                 TEXT,
-  is_resolvido              boolean DEFAULT false,
+  resolvido                 boolean DEFAULT false,
   constraint pk_exercicio primary key (id))
 ;
 
