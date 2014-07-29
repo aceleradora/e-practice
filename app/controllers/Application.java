@@ -13,12 +13,12 @@ public class Application extends Controller {
 
     static Form<SolucaoDoExercicio> solucaoDoExercicioForm = Form.form(SolucaoDoExercicio.class);
     private static SolucaoDoExercicio solucaoDoExercicio;
-    private static Exercicio exercicio;
+//    private static Exercicio exercicio;
     private static String mensagemDeFeedback = "Sua resposta está incorreta.";
 
     public Application(SolucaoDoExercicio solucaoDoExercicio, Exercicio exercicio) {
         this.solucaoDoExercicio = solucaoDoExercicio;
-        this.exercicio = exercicio;
+//        this.exercicio = exercicio;
     }
 
     public static Result index() {
@@ -26,10 +26,10 @@ public class Application extends Controller {
     }
 
     public static Result solucoes(){
-        exercicio = new Exercicio();
-        SeletorAleatorioExercicio seletorAleatorioExercicio = new SeletorAleatorioExercicio();
-        seletorAleatorioExercicio.createExercicioPadrao();
-        session("textoExercicio", seletorAleatorioExercicio.buscaDeExercicioAleatorio());
+//        exercicio = new Exercicio();
+//        SeletorAleatorioExercicio seletorAleatorioExercicio = new SeletorAleatorioExercicio();
+//        seletorAleatorioExercicio.createExercicioPadrao();
+//        session("textoExercicio", seletorAleatorioExercicio.buscaDeExercicioAleatorio());
 
         List<SolucaoDoExercicio> all = solucaoDoExercicio.all();
 
@@ -37,10 +37,10 @@ public class Application extends Controller {
     }
 
     public static Result novaSolucao() {
-        //exercicio = new Exercicio();
-        SeletorAleatorioExercicio seletorAleatorioExercicio = new SeletorAleatorioExercicio();
-        seletorAleatorioExercicio.createExercicioPadrao();
-        session("textoExercicio", seletorAleatorioExercicio.buscaDeExercicioAleatorio());
+//        exercicio = new Exercicio();
+//        SeletorAleatorioExercicio seletorAleatorioExercicio = new SeletorAleatorioExercicio();
+//        seletorAleatorioExercicio.createExercicioPadrao();
+//        session("textoExercicio", seletorAleatorioExercicio.buscaDeExercicioAleatorio());
 
         Form<SolucaoDoExercicio> formPreenchido = solucaoDoExercicioForm.bindFromRequest();
 
@@ -66,13 +66,13 @@ public class Application extends Controller {
         return redirect(routes.Application.solucoes());
     }
 
-    public static Result criaExercicio(){
-        exercicio = new Exercicio();
-        SeletorAleatorioExercicio seletorAleatorioExercicio = new SeletorAleatorioExercicio();
-        seletorAleatorioExercicio.createExercicioPadrao();
-        session("textoExercicio", seletorAleatorioExercicio.buscaDeExercicioAleatorio());
-
-        return redirect(routes.Application.solucoes());
-    }
+//    public static Result criaExercicio(){
+//        exercicio = new Exercicio();
+//        SeletorAleatorioExercicio seletorAleatorioExercicio = new SeletorAleatorioExercicio();
+//        seletorAleatorioExercicio.createExercicioPadrao();
+//        session("textoExercicio", seletorAleatorioExercicio.buscaDeExercicioAleatorio());
+//
+//        return redirect(routes.Application.solucoes());
+//    }
 
 }
