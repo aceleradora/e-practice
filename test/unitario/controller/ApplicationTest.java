@@ -35,7 +35,6 @@ public class ApplicationTest {
             }
         });
     }
-
     @Test
     public void rotaSolucoesComMetodoPostDeveRenderizarUmaView() throws Exception {
         running(fakeApplication(), new Runnable() {
