@@ -1,5 +1,6 @@
 package controllers;
 
+import models.MensagemDeFeedback;
 import models.SolucaoDoExercicio;
 import models.exercicioProposto.Exercicio;
 import models.exercicioProposto.SeletorAleatorioExercicio;
@@ -14,7 +15,7 @@ public class Application extends Controller {
     static Form<SolucaoDoExercicio> solucaoDoExercicioForm = Form.form(SolucaoDoExercicio.class);
     private static SolucaoDoExercicio solucaoDoExercicio;
 //    private static Exercicio exercicio;
-    private static String mensagemDeFeedback = "Sua resposta está incorreta.";
+    private static MensagemDeFeedback mensagemDeFeedback;
 
     public Application(SolucaoDoExercicio solucaoDoExercicio, Exercicio exercicio) {
         this.solucaoDoExercicio = solucaoDoExercicio;
@@ -33,7 +34,7 @@ public class Application extends Controller {
 
         List<SolucaoDoExercicio> all = solucaoDoExercicio.all();
 
-        return ok(views.html.index.render(all, solucaoDoExercicioForm, mensagemDeFeedback));
+        return ok(views.html.index.render(all, solucaoDoExercicioForm));
     }
 
     public static Result novaSolucao() {
@@ -43,14 +44,15 @@ public class Application extends Controller {
 //        session("textoExercicio", seletorAleatorioExercicio.buscaDeExercicioAleatorio());
 
         Form<SolucaoDoExercicio> formPreenchido = solucaoDoExercicioForm.bindFromRequest();
+        mensagemDeFeedback = new MensagemDeFeedback(formPreenchido.get().solucaoDoUsuario);
 
         if(formPreenchido.hasErrors()){
             flash("status", "Status: erro!");
-            return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido, mensagemDeFeedback));
+            return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido));
         } else{
             try{
                 SolucaoDoExercicio.create(formPreenchido.get());
-                flash("mensagemDeFeedback", mensagemDeFeedback);
+                flash("mensagemDeFeedback", mensagemDeFeedback.mostraMensagem());
                 flash("status", "Status: sua solução foi salva com sucesso!");
             } catch (Exception e){
                 flash("status", "Status: sua solução não foi salva");
