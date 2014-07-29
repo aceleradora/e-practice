@@ -117,7 +117,6 @@ public class TesteLexer {
         assertThat(tokens.get(4), is("\"Henrique\""));
     }
 
-    @Ignore
     @Test
     public void dadaUmaConcatenacaoDeDuasStringsMasSemEspacoNaConcatenacaoDeveRetornarUmaListaComCincoTokens() throws Exception {
         tokens = lexer.tokenizar("nome = \"Joao\"<>\"Henrique\"");
@@ -130,7 +129,6 @@ public class TesteLexer {
 
     }
 
-    @Ignore
     @Test
     public void dadaUmaConcatenacaoDeDuasStringsMasSemEspacoNaAtribuicaoENaConcatenacaoDeveRetornarUmaListaComCincoTokens() throws Exception {
         tokens = lexer.tokenizar("nome=\"Joao\"<>\"Henrique\"");

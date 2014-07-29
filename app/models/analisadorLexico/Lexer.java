@@ -66,25 +66,44 @@ public class Lexer {
         for (int i = 0; i < tokens.size(); i++) {
             String token = tokens.get(i);
             if (tokenContemDoisPontosEMaisDeUmCaracter(token)) {
-                divideOTokenNosDoisPontosEAdicionaOsNovosTokensNaLista(token, i);
+                divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, ":", i);
                 verificaCasosEspeciais(tokens);
             } else if (tokenContemSinalDeIgualEMaisDeUmCaracter(token)) {
                 divideOTokenNoSinalDeIgualEAdicionaOsNovosTokensNaLista(token, i);
                 verificaCasosEspeciais(tokens);
-            } else if ((token.startsWith("\"") && !token.endsWith("\"")) && token.length() > 1) {
-                String constante = token;
-                int posicaoInicial = i;
+            } else if (tokenComecaComAspasMasNaoTerminaComAspasETemMaisDeUmCaracter(token)) {
+                String constanteASerAdicionada = token;
+                int posicaoParaAdicionarAConstanteDepoisDePronta = i;
                 tokens.remove(i);
                 while (!tokens.get(i).endsWith("\"")) {
-                    constante += " " + tokens.get(i);
+                    constanteASerAdicionada += " " + tokens.get(i);
                     tokens.remove(i);
                 }
-                constante += " " + tokens.get(i);
+                constanteASerAdicionada += " " + tokens.get(i);
                 tokens.remove(i);
-                tokens.add(posicaoInicial, constante);
+                tokens.add(posicaoParaAdicionarAConstanteDepoisDePronta, constanteASerAdicionada);
+                verificaCasosEspeciais(tokens);
+            } else if (tokenContemSimboloDeConcatenacaoETemMaisDeDoisCaracteres(token)) {
+                divideOTokenNoSimboloDeConcatenacaoEAdicionaOsNovosTokensNaLista(token, i);
                 verificaCasosEspeciais(tokens);
             }
         }
+    }
+
+    private void divideOTokenNoSimboloDeConcatenacaoEAdicionaOsNovosTokensNaLista(String token, int indiceDaLista) {
+        String[] stringDividida = token.split("<>");
+        tokens.add(indiceDaLista, stringDividida[0]);
+        tokens.add(indiceDaLista + 1, "<>");
+        tokens.add(indiceDaLista + 2, stringDividida[1]);
+        tokens.remove(indiceDaLista + 3);
+    }
+
+    private boolean tokenContemSimboloDeConcatenacaoETemMaisDeDoisCaracteres(String token) {
+        return token.contains("<>") && token.length() > 2;
+    }
+
+    private boolean tokenComecaComAspasMasNaoTerminaComAspasETemMaisDeUmCaracter(String token) {
+        return (token.startsWith("\"") && !token.endsWith("\"")) && token.length() > 1;
     }
 
     private void divideOTokenNoSinalDeIgualEAdicionaOsNovosTokensNaLista(String token, int indiceDaLista) {
@@ -99,10 +118,10 @@ public class Lexer {
         return token.contains("=") && token.length() > 1;
     }
 
-    private void divideOTokenNosDoisPontosEAdicionaOsNovosTokensNaLista(String token, int indiceDaLista) {
-        String[] stringDividida = token.split(":");
+    private void divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(String token, String simbolo, int indiceDaLista) {
+        String[] stringDividida = token.split(simbolo);
         tokens.add(indiceDaLista, stringDividida[0]);
-        tokens.add(indiceDaLista + 1, ":");
+        tokens.add(indiceDaLista + 1, simbolo);
         tokens.add(indiceDaLista + 2, stringDividida[1]);
         tokens.remove(indiceDaLista + 3);
     }
