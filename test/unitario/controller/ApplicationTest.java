@@ -1,36 +1,19 @@
 package unitario.controller;
 
-import com.google.common.collect.ImmutableMap;
-import controllers.Application;
-import controllers.routes;
-import models.SolucaoDoExercicio;
-import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import play.api.data.Form;
 import play.libs.F;
-import play.mvc.*;
-import play.test.FakeApplication;
-import play.test.FakeRequest;
+import play.mvc.Result;
 import play.test.TestBrowser;
-import scalaz.std.java.util.concurrent.callable;
-import views.html.helper.form;
 
-import javax.xml.ws.spi.http.HttpContext;
-
-import static org.fluentlenium.core.filter.FilterConstructor.*;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.*;
+import static org.fest.assertions.Assertions.assertThat;
+import static org.fluentlenium.core.filter.FilterConstructor.withName;
 import static play.test.Helpers.*;
-import static org.fest.assertions.Assertions.*;
 
 public class ApplicationTest {
+
     @Test
     public void quandoChamaOMetodoIndexRedirecionaParaOutraRota() {
         Result result;
@@ -55,11 +38,15 @@ public class ApplicationTest {
 
     @Test
     public void rotaSolucoesComMetodoPostDeveRenderizarUmaView() throws Exception {
-        HashMap<String, String> fakeForm = new HashMap<String, String>();
-        fakeForm.put("solucaoDoUsuario", "var x: Integer");
+        running(fakeApplication(), new Runnable() {
+            public void run() {
+                final HashMap<String, String> fakeForm = new HashMap<String, String>();
+                fakeForm.put("solucaoDoUsuario", "var x: Integer");
 
-        Result result = routeAndCall(fakeRequest(POST, "/solucoes").withFormUrlEncodedBody(fakeForm));
-        assertThat(result).isNotNull();
+                Result result = routeAndCall(fakeRequest(POST, "/solucoes").withFormUrlEncodedBody(fakeForm));
+                assertThat(result).isNotNull();
+            }
+        });
     }
 
     @Test

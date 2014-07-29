@@ -3,6 +3,7 @@ package unitario.model.analisadorLexico;
 import models.analisadorLexico.Lexer;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -139,6 +140,7 @@ public class TesteLexer {
         assertThat(tokens.get(4), is("\"Henrique\""));
     }
 
+    @Ignore
     @Test
     public void tokenizaUmaOperacaoComParentesesSemEspaco() throws Exception {
         tokens = lexer.tokenizar("numero = (2 + 2) * 3");
@@ -154,10 +156,11 @@ public class TesteLexer {
         assertThat(tokens.get(8), is("3"));
     }
 
-//    @Test
-//    public void tokenizaUmaOperacaoComAbreParentesesColadoADireitaDeUmOperando() throws Exception {
-//        tokens = lexer.tokenizar("numero = 2+( 5 * 5 )");
-//
-//        assertThat(tokens.size(), is(9));
-//    }
+    @Ignore
+    @Test
+    public void tokenizaUmaOperacaoComAbreParentesesColadoADireitaDeUmOperando() throws Exception {
+        tokens = lexer.tokenizar("numero = 2+( 5 * 5 )");
+
+        assertThat(tokens.size(), is(9));
+    }
 }

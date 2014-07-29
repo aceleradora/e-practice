@@ -1,4 +1,4 @@
-@(solucoes: List[SolucaoDoExercicio], solucaoForm: Form[SolucaoDoExercicio])
+@(solucoes: List[SolucaoDoExercicio], solucaoForm: Form[SolucaoDoExercicio], mensagemDeFeedback: String)
 @import helper._
 
 @main("e-Practice") {
@@ -32,10 +32,8 @@ function alttela() {
                     Exercício
                 </p>
                 <ol>
-                <p>Casamentiss fais malandris se pirulitá
-                    Cevadis im ampola pa arma uma pindureta
-                    Paisis, filhis, espiritis santis
-                    Manduma pindereta quium dia nois paga
+                <p>
+                    @session.get("textoExercicio")
                 </p>
                 </ol>
             </section>
@@ -83,7 +81,8 @@ function alttela() {
             <section id="feedback">
                 <h3>FeedBack | Dicas:</h3>
                 <p>
-                    <ul>
+                    @flash.get("mensagemDeFeedback")
+                    <!--<ul>
                         @for(solucao <- solucoes){
                         <li>
                             @solucao.solucaoDoUsuario
@@ -93,7 +92,7 @@ function alttela() {
                             }
                         </li>
                         }
-                    </ul>
+                    </ul>-->
                 </p>
             </section>
         </div>
