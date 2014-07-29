@@ -25,6 +25,7 @@ public class Application extends Controller {
 
     public static Result solucoes(){
         exercicio = new Exercicio();
+        exercicio.createExercicioPadrao();
         session("textoExercicio", exercicio.pegaExercicioAleatorio());
 
         List<SolucaoDoExercicio> all = solucaoDoExercicio.all();
