@@ -22,42 +22,6 @@ public class Lexer {
             }
             verificaCasosEspeciais(tokens);
             return tokens;
-//            frase = removeEspacosDesnecessariosDoFimEDoComeco(frase);
-//            String[] stringDividida = divideAFraseNosEspacosEmBranco(frase);
-//            for (int i = 0; i < stringDividida.length; i++) {
-//                if (tokenTemMaisDeUmCaracterEContemDoisPontos(stringDividida[i])) {
-//                    divideOTokenNosDoisPontosEAdicionaOsNovosTokensNaLista(stringDividida[i]);
-//                } else if (tokenTemMaisDeUmCaracterEComecaETerminaComAspas(stringDividida[i])){
-//                    String temporaria = stringDividida[i];
-//                    i++;
-//                    while (!stringDividida[i].endsWith("\"")) {
-//                        temporaria += " " + stringDividida[i];
-//                        i++;
-//                    }
-//                    temporaria += " " + stringDividida[i];
-//                    adicionaOTokenNaLista(temporaria);
-//                } else if (tokenTemMaisDeUmCaracterEContemSinalDeIgualdade(stringDividida[i])) {
-//                    divideOTokenNoSinalDeIgualdadeEAdicionaOsNovosTokensNaLista(stringDividida[i]);
-//                } else if (tokenContemMaisDeDoisCaracteresEContemSinalDeConcatenacao(stringDividida[i])) {
-//                    divideOTokenNoSinalDeConcatenacaoEAdicionaOsNovosTokensNaLista(stringDividida[i]);
-//                } else if (tokenTemMaisDeUmCaracterEIniciaComParentesesAberto(stringDividida[i])) {
-//                    divideOTokenNoParentesesAbertoEAdicionaOsNovosTokensNaLista(stringDividida[i]);
-//                } else if (tokenTemMaisDeUmCaracterETerminaComParentesesFechado(stringDividida[i])) {
-//                    divideOTokenNoParentesesFechadoEAdicionaOsNovosTokensNaLista(stringDividida[i]);
-//                } else {
-//                    adicionaOTokenNaLista(stringDividida[i]);
-//                }
-//            }
-//            for (int i = 0; i < tokens.size(); i++) {
-//                if (tokenContemMaisDeDoisCaracteresEContemSinalDeConcatenacao(tokens.get(i))) {
-//                    String[] tokenComConcatenacaoNoMeio = tokens.get(i).split("<>");
-//                    tokens.add(i, tokenComConcatenacaoNoMeio[0]);
-//                    tokens.add(i + 1, "<>");
-//                    tokens.add(i + 2, tokenComConcatenacaoNoMeio[1]);
-//                    tokens.remove(i + 3);
-//                }
-//            }
-//            return tokens;
         }
 
     }
