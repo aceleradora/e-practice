@@ -1,20 +1,22 @@
 package controllers;
 
+import models.SolucaoDoExercicio;
+import models.exercicioProposto.Exercicio;
 import play.data.Form;
-import play.mvc.*;
-import models.*;
+import play.mvc.Controller;
+import play.mvc.Result;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Application extends Controller {
 
     static Form<SolucaoDoExercicio> solucaoDoExercicioForm = Form.form(SolucaoDoExercicio.class);
     private static SolucaoDoExercicio solucaoDoExercicio;
+    private static Exercicio exercicio;
 
-    public Application(SolucaoDoExercicio solucaoDoExercicio) {
+    public Application(SolucaoDoExercicio solucaoDoExercicio, Exercicio exercicio) {
         this.solucaoDoExercicio = solucaoDoExercicio;
+        this.exercicio = exercicio;
     }
 
     public static Result index() {
@@ -22,12 +24,18 @@ public class Application extends Controller {
     }
 
     public static Result solucoes(){
+        exercicio = new Exercicio();
+        session("textoExercicio", exercicio.pegaExercicioAleatorio());
+
         List<SolucaoDoExercicio> all = solucaoDoExercicio.all();
 
         return ok(views.html.index.render(all, solucaoDoExercicioForm));
     }
 
     public static Result novaSolucao() {
+        exercicio = new Exercicio();
+        session("textoExercicio", exercicio.pegaExercicioAleatorio());
+
         Form<SolucaoDoExercicio> formPreenchido = solucaoDoExercicioForm.bindFromRequest();
 
         if(formPreenchido.hasErrors()){
@@ -47,6 +55,13 @@ public class Application extends Controller {
     public static Result deletaSolucao(int id){
         SolucaoDoExercicio.delete(id);
         flash("status", "Status: deletado!");
+
+        return redirect(routes.Application.solucoes());
+    }
+
+    public static Result criaExercicio(){
+        exercicio = new Exercicio();
+        exercicio.createExercicioPadrao();
 
         return redirect(routes.Application.solucoes());
     }
