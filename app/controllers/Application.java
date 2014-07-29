@@ -14,6 +14,7 @@ public class Application extends Controller {
     static Form<SolucaoDoExercicio> solucaoDoExercicioForm = Form.form(SolucaoDoExercicio.class);
     private static SolucaoDoExercicio solucaoDoExercicio;
     private static Exercicio exercicio;
+    private static String mensagemDeFeedback = "Sua resposta está incorreta.";
 
     public Application(SolucaoDoExercicio solucaoDoExercicio, Exercicio exercicio) {
         this.solucaoDoExercicio = solucaoDoExercicio;
@@ -32,7 +33,7 @@ public class Application extends Controller {
 
         List<SolucaoDoExercicio> all = solucaoDoExercicio.all();
 
-        return ok(views.html.index.render(all, solucaoDoExercicioForm));
+        return ok(views.html.index.render(all, solucaoDoExercicioForm, mensagemDeFeedback));
     }
 
     public static Result novaSolucao() {
@@ -45,10 +46,11 @@ public class Application extends Controller {
 
         if(formPreenchido.hasErrors()){
             flash("status", "Status: erro!");
-            return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido));
+            return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido, mensagemDeFeedback));
         } else{
             try{
                 SolucaoDoExercicio.create(formPreenchido.get());
+                flash("mensagemDeFeedback", mensagemDeFeedback);
                 flash("status", "Status: sua solução foi salva com sucesso!");
             } catch (Exception e){
                 flash("status", "Status: sua solução não foi salva");
