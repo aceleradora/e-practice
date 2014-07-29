@@ -69,7 +69,7 @@ public class Lexer {
                 divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, ":", i);
                 verificaCasosEspeciais(tokens);
             } else if (tokenContemSinalDeIgualEMaisDeUmCaracter(token)) {
-                divideOTokenNoSinalDeIgualEAdicionaOsNovosTokensNaLista(token, i);
+                divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, "=", i);
                 verificaCasosEspeciais(tokens);
             } else if (tokenComecaComAspasMasNaoTerminaComAspasETemMaisDeUmCaracter(token)) {
                 String constanteASerAdicionada = token;
