@@ -41,8 +41,22 @@ public class Lexer {
             } else if (tokenContemSimboloDeConcatenacaoETemMaisDeDoisCaracteres(token)) {
                 divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, "<>", i);
                 verificaCasosEspeciais(tokens);
+            } else if (tokenContemParentesesAbertoETemMaisDeUmCaracter(token)) {
+                divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, "(", i);
+                verificaCasosEspeciais(tokens);
+            } else if (tokenContemParentesesFechadoETemMaisDeUmCaracter(token)) {
+                divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, ")", i);
+                verificaCasosEspeciais(tokens);
             }
         }
+    }
+
+    private boolean tokenContemParentesesFechadoETemMaisDeUmCaracter(String token) {
+        return token.contains(")") && token.length() > 1;
+    }
+
+    private boolean tokenContemParentesesAbertoETemMaisDeUmCaracter(String token) {
+        return token.contains("(") && token.length() > 1;
     }
 
     private void divideTokenNoFimDaString(int i, String token) {
@@ -91,13 +105,24 @@ public class Lexer {
     }
 
     private void divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(String token, String simbolo, int indiceDaLista) {
+        String regexSimbolo = simbolo;
+        if (simbolo.equals("(")) {
+            regexSimbolo = "[(]";
+        } else if (simbolo.equals(")")) {
+            regexSimbolo = "[)]";
+        }
         if (token.startsWith(simbolo)) {
-            String[] stringDividida = token.split(simbolo);
+            String[] stringDividida = token.split(regexSimbolo);
             tokens.add(indiceDaLista, simbolo);
-            tokens.add(indiceDaLista +1, stringDividida[1]);
+            tokens.add(indiceDaLista + 1, stringDividida[1]);
+            tokens.remove(indiceDaLista + 2);
+        } else if (token.endsWith(simbolo)) {
+            String[] stringDividida = token.split(regexSimbolo);
+            tokens.add(indiceDaLista, stringDividida[0]);
+            tokens.add(indiceDaLista + 1, simbolo);
             tokens.remove(indiceDaLista + 2);
         } else {
-            String[] stringDividida = token.split(simbolo);
+            String[] stringDividida = token.split(regexSimbolo);
             tokens.add(indiceDaLista, stringDividida[0]);
             tokens.add(indiceDaLista + 1, simbolo);
             tokens.add(indiceDaLista + 2, stringDividida[1]);
