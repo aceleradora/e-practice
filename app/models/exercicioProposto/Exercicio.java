@@ -59,7 +59,7 @@ public class Exercicio extends Model{
     }
 
     public void createExercicioPadrao(){
-        Ebean.delete(all());
+        //Ebean.delete(all());
 
         Exercicio exercicio1 = new Exercicio();
         exercicio1.enunciado = "1) - Exercicio 1";

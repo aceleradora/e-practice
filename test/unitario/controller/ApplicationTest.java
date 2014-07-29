@@ -1,5 +1,6 @@
 package unitario.controller;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import play.libs.F;
 import play.mvc.Result;
@@ -12,6 +13,7 @@ import static org.fluentlenium.core.filter.FilterConstructor.withName;
 import static play.test.Helpers.*;
 
 public class ApplicationTest {
+
     @Test
     public void quandoChamaOMetodoIndexRedirecionaParaOutraRota() {
         Result result;
