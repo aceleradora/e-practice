@@ -130,6 +130,7 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro, is(not("")));
     }
 
+    @Ignore
     @Test
     public void dadoQueReceboDuasOperacoesAritmeticasInvalidasRetornoUmaMensagemDeErro() throws Exception {
         String codigo = "numero = 2( +2";

@@ -140,7 +140,6 @@ public class TesteLexer {
         assertThat(tokens.get(4), is("\"Henrique\""));
     }
 
-//    @Ignore
     @Test
     public void tokenizaUmaOperacaoComParentesesSemEspaco() throws Exception {
         tokens = lexer.tokenizar("numero = (2 + 2) * 3");
