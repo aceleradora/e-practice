@@ -84,16 +84,16 @@ public class Lexer {
                 tokens.add(posicaoParaAdicionarAConstanteDepoisDePronta, constanteASerAdicionada);
                 verificaCasosEspeciais(tokens);
             } else if (tokenContemSimboloDeConcatenacaoETemMaisDeDoisCaracteres(token)) {
-                divideOTokenNoSimboloDeConcatenacaoEAdicionaOsNovosTokensNaLista(token, i);
+                divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, "<>", i);
                 verificaCasosEspeciais(tokens);
             }
         }
     }
 
-    private void divideOTokenNoSimboloDeConcatenacaoEAdicionaOsNovosTokensNaLista(String token, int indiceDaLista) {
-        String[] stringDividida = token.split("<>");
+    private void divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(String token, String simbolo, int indiceDaLista) {
+        String[] stringDividida = token.split(simbolo);
         tokens.add(indiceDaLista, stringDividida[0]);
-        tokens.add(indiceDaLista + 1, "<>");
+        tokens.add(indiceDaLista + 1, simbolo);
         tokens.add(indiceDaLista + 2, stringDividida[1]);
         tokens.remove(indiceDaLista + 3);
     }
@@ -106,24 +106,8 @@ public class Lexer {
         return (token.startsWith("\"") && !token.endsWith("\"")) && token.length() > 1;
     }
 
-    private void divideOTokenNoSinalDeIgualEAdicionaOsNovosTokensNaLista(String token, int indiceDaLista) {
-        String[] stringDividida = token.split("=");
-        tokens.add(indiceDaLista, stringDividida[0]);
-        tokens.add(indiceDaLista + 1, "=");
-        tokens.add(indiceDaLista + 2, stringDividida[1]);
-        tokens.remove(indiceDaLista + 3);
-    }
-
     private boolean tokenContemSinalDeIgualEMaisDeUmCaracter(String token) {
         return token.contains("=") && token.length() > 1;
-    }
-
-    private void divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(String token, String simbolo, int indiceDaLista) {
-        String[] stringDividida = token.split(simbolo);
-        tokens.add(indiceDaLista, stringDividida[0]);
-        tokens.add(indiceDaLista + 1, simbolo);
-        tokens.add(indiceDaLista + 2, stringDividida[1]);
-        tokens.remove(indiceDaLista + 3);
     }
 
     private boolean tokenContemDoisPontosEMaisDeUmCaracter(String token) {
