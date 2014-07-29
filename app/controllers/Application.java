@@ -44,7 +44,6 @@ public class Application extends Controller {
 //        session("textoExercicio", seletorAleatorioExercicio.buscaDeExercicioAleatorio());
 
         Form<SolucaoDoExercicio> formPreenchido = solucaoDoExercicioForm.bindFromRequest();
-        mensagemDeFeedback = new MensagemDeFeedback(formPreenchido.get().solucaoDoUsuario);
 
         if(formPreenchido.hasErrors()){
             flash("status", "Status: erro!");
@@ -52,6 +51,7 @@ public class Application extends Controller {
         } else{
             try{
                 SolucaoDoExercicio.create(formPreenchido.get());
+                mensagemDeFeedback = new MensagemDeFeedback(formPreenchido.get().solucaoDoUsuario);
                 flash("mensagemDeFeedback", mensagemDeFeedback.mostraMensagem());
                 flash("status", "Status: sua solução foi salva com sucesso!");
             } catch (Exception e){
