@@ -163,4 +163,21 @@ public class TesteLexer {
 
         assertThat(tokens.size(), is(9));
     }
+
+    @Test
+    public void verificaSeTodasAsStringsEstaoComDuasAspas() throws Exception {
+        tokens = lexer.tokenizar("string = \"teste\" <> \"teste\"");
+        assertThat(tokens.size(),is(5));
+    }
+
+    @Test
+    public void verificaSeQuebraStringQuandoNaoTemEspacoAntesDoTokenMasTemDepois() throws Exception {
+        tokens = lexer.tokenizar("string = \"teste\" <>\"testando\"");
+        assertThat(tokens.size(), is(5));
+        assertThat(tokens.get(0), is("string"));
+        assertThat(tokens.get(1), is("="));
+        assertThat(tokens.get(2), is("\"teste\""));
+        assertThat(tokens.get(3), is("<>"));
+        assertThat(tokens.get(4), is("\"testando\""));
+    }
 }

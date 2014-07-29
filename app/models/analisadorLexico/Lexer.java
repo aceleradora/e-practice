@@ -36,16 +36,7 @@ public class Lexer {
                 divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, "=", i);
                 verificaCasosEspeciais(tokens);
             } else if (tokenComecaComAspasMasNaoTerminaComAspasETemMaisDeUmCaracter(token)) {
-                String constanteASerAdicionada = token;
-                int posicaoParaAdicionarAConstanteDepoisDePronta = i;
-                tokens.remove(i);
-                while (!tokens.get(i).endsWith("\"")) {
-                    constanteASerAdicionada += " " + tokens.get(i);
-                    tokens.remove(i);
-                }
-                constanteASerAdicionada += " " + tokens.get(i);
-                tokens.remove(i);
-                tokens.add(posicaoParaAdicionarAConstanteDepoisDePronta, constanteASerAdicionada);
+                divideTokenNoFimDaString(i, token);
                 verificaCasosEspeciais(tokens);
             } else if (tokenContemSimboloDeConcatenacaoETemMaisDeDoisCaracteres(token)) {
                 divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, "<>", i);
@@ -54,12 +45,64 @@ public class Lexer {
         }
     }
 
+    private void divideTokenNoFimDaString(int i, String token) {
+        if(fraseTemNumeroParDeAspas()) {
+            String constanteASerAdicionada = token;
+            int posicaoParaAdicionarAConstanteDepoisDePronta = i;
+            removeToken(i);
+            while (tokenNaoTerminaComAspas(i)) {
+                constanteASerAdicionada += adicionaTokenComEspaco(i);
+                removeToken(i);
+            }
+            constanteASerAdicionada += adicionaTokenComEspaco(i);
+            removeToken(i);
+            adicionaConstanteNaPosicao(constanteASerAdicionada, posicaoParaAdicionarAConstanteDepoisDePronta);
+        }
+    }
+
+    private boolean fraseTemNumeroParDeAspas() {
+        boolean isPar = false;
+        int contaAspas = 0;
+        for(String token:tokens){
+            if(token.equals("\"")){
+                contaAspas++;
+            }
+            if(contaAspas%2 == 0){
+                isPar = true;
+            }
+        }
+        return isPar;
+    }
+
+    private void adicionaConstanteNaPosicao(String constanteASerAdicionada, int posicaoParaAdicionarAConstanteDepoisDePronta) {
+        tokens.add(posicaoParaAdicionarAConstanteDepoisDePronta, constanteASerAdicionada);
+    }
+
+    private String adicionaTokenComEspaco(int i) {
+        return " " + tokens.get(i);
+    }
+
+    private void removeToken(int i) {
+        tokens.remove(i);
+    }
+
+    private boolean tokenNaoTerminaComAspas(int i) {
+        return !tokens.get(i).endsWith("\"");
+    }
+
     private void divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(String token, String simbolo, int indiceDaLista) {
-        String[] stringDividida = token.split(simbolo);
-        tokens.add(indiceDaLista, stringDividida[0]);
-        tokens.add(indiceDaLista + 1, simbolo);
-        tokens.add(indiceDaLista + 2, stringDividida[1]);
-        tokens.remove(indiceDaLista + 3);
+        if (token.startsWith(simbolo)) {
+            String[] stringDividida = token.split(simbolo);
+            tokens.add(indiceDaLista, simbolo);
+            tokens.add(indiceDaLista +1, stringDividida[1]);
+            tokens.remove(indiceDaLista + 2);
+        } else {
+            String[] stringDividida = token.split(simbolo);
+            tokens.add(indiceDaLista, stringDividida[0]);
+            tokens.add(indiceDaLista + 1, simbolo);
+            tokens.add(indiceDaLista + 2, stringDividida[1]);
+            tokens.remove(indiceDaLista + 3);
+        }
     }
 
     private boolean tokenContemSimboloDeConcatenacaoETemMaisDeDoisCaracteres(String token) {
@@ -79,8 +122,22 @@ public class Lexer {
     }
 
     private String[] divideAFraseNosEspacosEmBranco(String frase) {
+//        String[] fraseDividida = frase.split("[ ]+");
+//        fraseDividida = removeStringsVazias(fraseDividida);
+//        return fraseDividida;
         return frase.split("[ ]+");
     }
+
+//    private String[] removeStringsVazias(String[] fraseDividida){
+//        for(int i = 0; i<fraseDividida.length;i++){
+//            if(fraseDividida[i].equals("")){
+//                for(int j = i;j<fraseDividida.length-1;j++){
+//                    fraseDividida[j] = fraseDividida[j+1];
+//                }
+//            }
+//        }
+//        return fraseDividida;
+//    }
 
     private String removeEspacosDesnecessariosDoFimEDoComeco(String frase) {
         frase = frase.trim();
