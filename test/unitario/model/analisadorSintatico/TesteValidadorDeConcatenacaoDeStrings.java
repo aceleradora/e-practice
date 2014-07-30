@@ -1,6 +1,7 @@
-package unitario.model;
+package unitario.model.analisadorSintatico;
 
 import models.analisadorLexico.Lexer;
+import org.junit.Ignore;
 import org.junit.Test;
 import models.analisadorSintatico.ValidadorDeConcatenacaoDeStrings;
 import org.junit.Before;
@@ -115,6 +116,14 @@ public class TesteValidadorDeConcatenacaoDeStrings {
     @Test
     public void seNaoTemErrosAValidacaoTerminaComSucesso() throws Exception {
         entradaDoUsuario = lexer.tokenizar("x = \"1\" <> \"casa\"");
+        boolean valida = validador.valida(entradaDoUsuario);
+        assertThat(valida,is(true));
+    }
+
+    @Ignore
+    @Test
+    public void tokenizaUmaLinhaQueTenhaUmEspacoAntesDaExpressaoEVerificaSeAConcatenacaoEstaCorreta() throws Exception {
+        entradaDoUsuario = lexer.tokenizar(" x = \"1\" <> \"casa\"");
         boolean valida = validador.valida(entradaDoUsuario);
         assertThat(valida,is(true));
     }

@@ -42,8 +42,8 @@ public class GerenciadorBuilder {
         return this;
     }
 
-    public GerenciadorDeValidacao geraGerenciador() {
-        return new GerenciadorDeValidacao(lexer, identificadorDeToken, validadorDeDeclaracaoDeVariavel,
+    public GerenciadorSintatico geraGerenciador() {
+        return new GerenciadorSintatico(lexer, identificadorDeToken, validadorDeDeclaracaoDeVariavel,
                 validadorDeAtribuicao, validadorDeOperacoesAritmeticas, validadorDeConcatenacaoDeStrings);
     }
 }

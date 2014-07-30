@@ -9,6 +9,8 @@ GET     /                           controllers.Application.index()
 GET     /solucoes                   controllers.Application.solucoes()
 POST    /solucoes                   controllers.Application.novaSolucao()
 GET     /solucoes/:id/deletar       controllers.Application.deletaSolucao(id: Integer)
+# Salva novo exercicio - soluçao temporaria
+#GET     /solucoes/salvaExercicio    controllers.Application.criaExercicio()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -1,8 +1,9 @@
-package unitario.model;
+package unitario.model.analisadorLexico;
 
 import models.analisadorLexico.Lexer;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -137,5 +138,45 @@ public class TesteLexer {
         assertThat(tokens.get(2), is("\"Joao\""));
         assertThat(tokens.get(3), is("<>"));
         assertThat(tokens.get(4), is("\"Henrique\""));
+    }
+
+    @Test
+    public void tokenizaUmaOperacaoComParentesesSemEspaco() throws Exception {
+        tokens = lexer.tokenizar("numero = (2 + 2) * 3");
+        assertThat(tokens.size(), is(9));
+        assertThat(tokens.get(0), is("numero"));
+        assertThat(tokens.get(1), is("="));
+        assertThat(tokens.get(2), is("("));
+        assertThat(tokens.get(3), is("2"));
+        assertThat(tokens.get(4), is("+"));
+        assertThat(tokens.get(5), is("2"));
+        assertThat(tokens.get(6), is(")"));
+        assertThat(tokens.get(7), is("*"));
+        assertThat(tokens.get(8), is("3"));
+    }
+
+    @Ignore
+    @Test
+    public void tokenizaUmaOperacaoComAbreParentesesColadoADireitaDeUmOperando() throws Exception {
+        tokens = lexer.tokenizar("numero = 2+( 5 * 5 )");
+
+        assertThat(tokens.size(), is(9));
+    }
+
+    @Test
+    public void verificaSeTodasAsStringsEstaoComDuasAspas() throws Exception {
+        tokens = lexer.tokenizar("string = \"teste\" <> \"teste\"");
+        assertThat(tokens.size(),is(5));
+    }
+
+    @Test
+    public void verificaSeQuebraStringQuandoNaoTemEspacoAntesDoTokenMasTemDepois() throws Exception {
+        tokens = lexer.tokenizar("string = \"teste\" <>\"testando\"");
+        assertThat(tokens.size(), is(5));
+        assertThat(tokens.get(0), is("string"));
+        assertThat(tokens.get(1), is("="));
+        assertThat(tokens.get(2), is("\"teste\""));
+        assertThat(tokens.get(3), is("<>"));
+        assertThat(tokens.get(4), is("\"testando\""));
     }
 }

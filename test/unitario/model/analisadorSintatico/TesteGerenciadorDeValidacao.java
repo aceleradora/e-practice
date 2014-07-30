@@ -1,4 +1,4 @@
-package unitario.model;
+package unitario.model.analisadorSintatico;
 
 import models.analisadorSintatico.*;
 import models.analisadorLexico.IdentificadorDeToken;
@@ -11,6 +11,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -22,18 +24,17 @@ public class TesteGerenciadorDeValidacao {
     @Mock ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
     @Mock ValidadorDeAtribuicao validadorDeAtribuicao;
     @Mock ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;
-    @Mock
-    ValidadorDeConcatenacaoDeStrings validadorDeAtribuicaoString;
+    @Mock ValidadorDeConcatenacaoDeStrings validadorDeConcatenacaoDeString;
 
+    private GerenciadorSintatico gerenciadorDeValidacao;
     private String sentencaDeclaracao;
-    private GerenciadorDeValidacao gerenciadorDeValidacao;
     private ArrayList<String> listaDeTokensDeclaracao;
     private String sentencaAtribuicao;
     private ArrayList<String> listaDeTokensAtribuicao;
     private String sentencaOperacaoAritmetica;
     private ArrayList<String> listaDeTokensOperacaoAritmetica;
-    private String sentencaAtribuicaoString;
-    private ArrayList<String> listaDeTokensAtribuicaoString;
+    private String sentencaConcatenacaoString;
+    private ArrayList<String> listaDeTokensConcatenacaoString;
 
     @Before
     public void setUp() throws Exception {
@@ -41,39 +42,40 @@ public class TesteGerenciadorDeValidacao {
 
         gerenciadorDeValidacao = builder.com(lexer)
                 .com(identificadorDeToken)
-                .com(validadorDeAtribuicao)
                 .com(validadorDeDeclaracaoDeVariavel)
+                .com(validadorDeAtribuicao)
                 .com(validadorDeOperacoesAritmeticas)
-                .com(validadorDeAtribuicaoString)
+                .com(validadorDeConcatenacaoDeString)
                 .geraGerenciador();
 
         sentencaDeclaracao = "var x : String";
         sentencaAtribuicao = "x = 1";
         sentencaOperacaoAritmetica = "x = 1 + 1";
-        sentencaAtribuicaoString = "x = \"abacaxi\" ";
+        sentencaConcatenacaoString = "x = \"abacaxi\" <> \"verde\"";
 
-        criaListaDeTokensDeAtribuicaoString();
-        criaListaDeTokensDeAtribuicao();
         criaListaDeTokensDeDeclaracao();
+        criaListaDeTokensDeAtribuicao();
         criaListaDeTokensDeOperacaoAritmetica();
+        criaListaDeTokensDeConcatenacaoString();
 
         when(lexer.tokenizar(sentencaDeclaracao)).thenReturn(listaDeTokensDeclaracao);
         when(lexer.tokenizar(sentencaAtribuicao)).thenReturn(listaDeTokensAtribuicao);
         when(lexer.tokenizar(sentencaOperacaoAritmetica)).thenReturn(listaDeTokensOperacaoAritmetica);
-        when(lexer.tokenizar(sentencaAtribuicaoString)).thenReturn(listaDeTokensAtribuicaoString);
+        when(lexer.tokenizar(sentencaConcatenacaoString)).thenReturn(listaDeTokensConcatenacaoString);
 
         when(identificadorDeToken.identifica("var")).thenReturn("PALAVRA_RESERVADA");
         when(identificadorDeToken.identifica("x")).thenReturn("IDV");
         when(identificadorDeToken.identifica("+")).thenReturn("ADICAO");
-        when(identificadorDeToken.identifica("\"abacaxi\"")).thenReturn("CONSTANTE_TIPO_STRING");
+        when(identificadorDeToken.identifica("<>")).thenReturn("CONCATENACAO");
     }
 
-    private void criaListaDeTokensDeAtribuicaoString() {
-        listaDeTokensAtribuicaoString = new ArrayList<String>();
-        listaDeTokensAtribuicaoString.add("x");
-        listaDeTokensAtribuicaoString.add("=");
-        listaDeTokensAtribuicaoString.add("\"abacaxi\"");
-
+    private void criaListaDeTokensDeConcatenacaoString() {
+        listaDeTokensConcatenacaoString = new ArrayList<String>();
+        listaDeTokensConcatenacaoString.add("x");
+        listaDeTokensConcatenacaoString.add("=");
+        listaDeTokensConcatenacaoString.add("\"abacaxi\"");
+        listaDeTokensConcatenacaoString.add("<>");
+        listaDeTokensConcatenacaoString.add("\"verde\"");
     }
 
     private void criaListaDeTokensDeOperacaoAritmetica() {
@@ -131,7 +133,6 @@ public class TesteGerenciadorDeValidacao {
 
         verify(identificadorDeToken).identifica("x");
         verify(validadorDeAtribuicao).valida(listaDeTokensAtribuicao);
-
     }
 
     @Test
@@ -143,12 +144,36 @@ public class TesteGerenciadorDeValidacao {
     }
 
     @Test
-    public void chamaValidadorDeAtribuicaoStringsSeContiverConstanteString() throws Exception {
-        gerenciadorDeValidacao.interpreta(sentencaAtribuicaoString);
+    public void chamaValidadorDeConcatenacaoDeStringsSeContiverSimboloDeConcatenacao() throws Exception {
+        gerenciadorDeValidacao.interpreta(sentencaConcatenacaoString);
 
-        verify(identificadorDeToken).identifica("\"abacaxi\"");
-        verify(validadorDeAtribuicaoString).valida(listaDeTokensAtribuicaoString);
+        verify(identificadorDeToken).identifica("<>");
+        verify(validadorDeConcatenacaoDeString).valida(listaDeTokensConcatenacaoString);
+    }
 
+    @Test
+    public void chamaMensagemDeErroDeCadaValidadorERetornaOPrimeiroErro() throws Exception {
 
+        when(validadorDeDeclaracaoDeVariavel.retornaMensagemErro()).thenReturn("1");
+
+        gerenciadorDeValidacao.interpreta(sentencaDeclaracao);
+        gerenciadorDeValidacao.mostraMensagensDeErro();
+
+        verify(validadorDeDeclaracaoDeVariavel).retornaMensagemErro();
+
+        assertThat(gerenciadorDeValidacao.mostraMensagensDeErro(), is("1"));
+    }
+
+    @Test
+    public void chamaMensagemDeErroIgnoraLinhasEmBrancoERetornaErros() throws Exception {
+
+        when(validadorDeAtribuicao.retornaMensagemErro()).thenReturn("2");
+
+        gerenciadorDeValidacao.interpreta(sentencaAtribuicao);
+        gerenciadorDeValidacao.mostraMensagensDeErro();
+
+        verify(validadorDeAtribuicao).retornaMensagemErro();
+
+        assertThat(gerenciadorDeValidacao.mostraMensagensDeErro(), is("2"));
     }
 }

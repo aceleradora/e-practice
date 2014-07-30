@@ -18,6 +18,10 @@ function pulaQuatroEspacos(event){
     document.querySelector("#"+element.id).selectionEnd = cursorEm+4;
 }
 
-function desabilitaBotao() {
-    $("#botaoDeEnviar").attr("disabled", true);
-};
+$(document).ready(function(){
+    $("#botaoDeEnviar").click(function(){
+        $(this).attr("disabled", "disabled");
+        $("#formCodigo").submit();
+    });
+});
+

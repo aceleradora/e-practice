@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 public class QuebradorDeCodigoEmLinhas {
 
-
     public ArrayList<String> quebra(String solucaoDoUsuario) {
 
         String[] solucaoDoUsuarioDividida = solucaoDoUsuario.split("\n");
@@ -23,4 +22,5 @@ public class QuebradorDeCodigoEmLinhas {
 
         return codigoQuebrado;
     }
+
 }

@@ -1,4 +1,4 @@
-package unitario.model;
+package unitario.model.analisadorSintatico;
 
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
@@ -133,7 +133,17 @@ public class TesteValidadorDeAtribuicao {
         validadorDeAtribuicao.valida(tokens);
         String mensagem = validadorDeAtribuicao.retornaMensagemErro();
 
-        assertThat(mensagem, is("Nome de variável incorreto.\n\n"));
+        assertThat(mensagem, is("Nome de variável incorreto. \n"));
+    }
+
+    @Test
+    public void retornaMensagemDeErroQuandoNaoEncontraSinalDeAtribuicao() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi : \"frutas\"");
+
+        validadorDeAtribuicao.valida(tokens);
+        String mensagemDeErro = validadorDeAtribuicao.retornaMensagemErro();
+
+        assertThat(mensagemDeErro, is("Esperava \"=\" para atribuição. \n"));
     }
 
 }

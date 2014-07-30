@@ -1,17 +1,16 @@
 package integracao;
 
-import controllers.Application;
 import models.SolucaoDoExercicio;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.running;
 
 
 public class SolucaoDoExercicioTest {
-
+    @Ignore
     @Test
     public void quandoChamaOMetodoCreateSalvaUmaSolucaoNoBanco() {
         running(fakeApplication(), new Runnable() {

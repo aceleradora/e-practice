@@ -1,4 +1,4 @@
-package unitario.model.analizadorSemantico;
+package unitario.model.analisadorSemantico;
 
 import models.TabelaDeSimbolos;
 import models.analisadorSemantico.ValidadorDeAtribuicao;
@@ -23,7 +23,8 @@ public class TesteValidadorDeAtribuicao {
         tokens.add("\"1\"");
         TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
         tabelaDeSimbolos.adicionaSimbolo("x","String");
-        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos,tokens);
+        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos);
+        validadorDeAtribuicao.valida(tokens);
         boolean validacao = validadorDeAtribuicao.validaVariavel();
         assertThat(validacao,is(false));
 
@@ -37,7 +38,8 @@ public class TesteValidadorDeAtribuicao {
         tokens.add("1");
         TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
         tabelaDeSimbolos.adicionaSimbolo("x","String");
-        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos,tokens);
+        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos);
+        validadorDeAtribuicao.valida(tokens);
         boolean validacao = validadorDeAtribuicao.validaExpressao();
         assertThat(validacao,is(false));
     }
@@ -50,7 +52,8 @@ public class TesteValidadorDeAtribuicao {
         tokens.add("\"1\"");
         TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
         tabelaDeSimbolos.adicionaSimbolo("x","Inteiro");
-        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos,tokens);
+        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos);
+        validadorDeAtribuicao.valida(tokens);
         boolean validacao = validadorDeAtribuicao.validaExpressao();
         assertThat(validacao,is(false));
     }
@@ -63,7 +66,8 @@ public class TesteValidadorDeAtribuicao {
         tokens.add("\"1\"");
         TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
         tabelaDeSimbolos.adicionaSimbolo("y","String");
-        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos,tokens);
+        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos);
+        validadorDeAtribuicao.valida(tokens);
         String validacao = validadorDeAtribuicao.retornaMensagemErro();
         assertThat(validacao,is("A variável "+tokens.get(0)+" não foi declarada."));
     }
@@ -76,7 +80,8 @@ public class TesteValidadorDeAtribuicao {
         tokens.add("1");
         TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
         tabelaDeSimbolos.adicionaSimbolo("x","String");
-        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos,tokens);
+        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos);
+        validadorDeAtribuicao.valida(tokens);
         String validacao = validadorDeAtribuicao.retornaMensagemErro();
         assertThat(validacao,is("A Variavel "+tokens.get(0)+" só aceita atribuição de valores do tipo "+tabelaDeSimbolos.getTipoSimbolo(tokens.get(0))+"."));
 
@@ -90,7 +95,8 @@ public class TesteValidadorDeAtribuicao {
         tokens.add("1");
         TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
         tabelaDeSimbolos.adicionaSimbolo("x","String");
-        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos,tokens);
+        ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos);
+        validadorDeAtribuicao.valida(tokens);
         boolean resultado = validadorDeAtribuicao.valida(tokens);
         assertThat(resultado,is(false));
     }

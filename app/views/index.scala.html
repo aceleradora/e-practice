@@ -32,10 +32,8 @@ function alttela() {
                     Exercício Proposto
                 </p>
                 <ol>
-                <p>Casamentiss fais malandris se pirulitá
-                    Cevadis im ampola pa arma uma pindureta
-                    Paisis, filhis, espiritis santis
-                    Manduma pindereta quium dia nois paga
+                <p>
+                    @session.get("textoExercicio")
                 </p>
                 </ol>
             </section>
@@ -71,9 +69,9 @@ function alttela() {
         <div class="col-sm-6">
             <section id="terminal" in>
 
-                @form(routes.Application.novaSolucao()){
+                @form(routes.Application.novaSolucao(), 'id -> "formCodigo"){
                     @textarea(solucaoForm("solucaoDoUsuario"), 'rows -> 2, 'placeholder -> "Digite a solução do exercício", '_showConstraints -> false, '_label -> "", 'onKeyDown -> "quandoPressionaTab(event)")
-                    <input id="botaoDeEnviar" type="submit" name="valor" value="Enviar" onclick="desabilitaBotao()"/><label id="status">@flash.get("status")</label>
+                    <input id="botaoDeEnviar" type="button" name="valor" value="Enviar" /><label id="status">@flash.get("status")</label>
                 }
             </section>
         </div>
@@ -83,7 +81,8 @@ function alttela() {
             <section id="feedback">
                 <h3>FeedBack | Dicas:</h3>
                 <p>
-                    <ul>
+                    @flash.get("mensagemDeFeedback")
+                    <!--<ul>
                         @for(solucao <- solucoes){
                         <li>
                             @solucao.solucaoDoUsuario
@@ -93,7 +92,7 @@ function alttela() {
                             }
                         </li>
                         }
-                    </ul>
+                    </ul>-->
                 </p>
             </section>
         </div>
