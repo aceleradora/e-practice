@@ -1,0 +1,122 @@
+
+Deve conter no manual:
+
+- blocos de variáveis
+- blocos de comandos
+- concatenação
+- aritmética
+- atribuição
+
+
+
+
+	Palavra reservada: 
+
+		var		Para declaração de variáveis.
+		resultado	Nome de variável reservado para o resultado final.
+	
+
+
+
+	Nome da variável:
+
+		nomeDaVariavel	O nome sempre deve começar com a primeira letra em minúsculo.
+
+
+
+
+	Símbolo reservado:
+
+		:     		Símbolo de declaração de variável.
+		=		Símbolo de atribuição de expressão(ões).
+		"" 		Símbolo para constante string.
+		<>		Símbolo de concatenação.
+		+		Operador aritmético da adição.
+		-		Operador aritmético da subtração.
+		*		Operador aritmético da multiplicação.
+		/		Operador aritmético da divisão.
+		()		Símbolo de priorização de expressão
+		
+
+
+
+
+	Tipos de variáveis:
+
+		Inteiro		Para números inteiros.
+		String		Para textos.
+
+	Observação: O tipo da variável é sempre declarado com a primeira letra maiúscula, como nos exemplos citados acima.
+
+
+
+
+
+	Declaração de Variável:
+
+		var nomeDaVariavel : TipoDaVariavel
+		var resultado : TipoDaVariavel
+		var variavel : TipoDaVariavel
+
+	Exemplos:
+		var contador : Inteiro
+		var nome : String
+		var resultado : String
+		var resultado : Inteiro
+
+
+
+
+	Atribuição:
+
+		nomeDaVariavel = "texto"
+		nomeDaVariavel = numero
+		nomeDaVariavel = variavel
+
+	Exemplos:
+		nome = "Ana"
+		nome = "ana"
+		nome = "ANA"
+		contador = 5
+		resultado = nome
+		resultado = contador
+
+
+
+	Concatenação:
+
+		nomeDaVariavel = "texto" <> "texto"
+		nomeDaVariavel = "texto" <> variavel
+		nomeDaVariavel = variavel <> variavel
+
+	Observação: Concatenações podem apenas ser realizadas entre tipos string.
+
+	Exemplos:
+		nome = "Ana" <> "Estela"
+		nome = "Ana" <> sobrenome
+		nome = nome <> sobrenome
+
+
+
+	Operações Aritméticas:
+	
+		nomeDaVariavel = variavel {operadorAritmético} variavel
+		nomeDaVariavel = numero {operadorAritmético} variavel
+		nomeDaVariavel = numero {operadorAritmético} numero
+		nomeDaVariavel = expressão {operadorAritmético} numero
+		nomeDaVariavel = variavel {operadorAritmético} expressão
+		nomeDaVariavel = expressão {operadorAritmético} expressão
+
+	Observação: Operações aritméticas podem apenas ser realizadas entre tipos inteiros.
+
+	Exemplos:
+		resultado = x + y
+		resultado = 1 + x
+		resultado = 2 / 1
+		resultado = (x + y) * 3
+		resultado = z + (x + y)
+		resultado = (x + y) - (4 * z)
+
+
+		
+
