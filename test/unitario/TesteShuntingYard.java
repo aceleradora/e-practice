@@ -4,6 +4,7 @@ import models.TabelaDeSimbolos;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorSemantico.ShuntingYard;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -53,6 +54,7 @@ public class TesteShuntingYard {
         assertThat(resultado,is(true));
     }
 
+    @Ignore
     @Test
     public void adicionaTokensDeNumeroOuVariavelAteAcharUmOperador() throws Exception {
         shuntingYard.adicionaAteAcharOperador(tokens);

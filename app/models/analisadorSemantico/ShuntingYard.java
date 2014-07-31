@@ -12,7 +12,7 @@ import java.util.Queue;
 public class ShuntingYard {
 
     public Fila<String> fila;
-    public Pilha
+    //public Pilha
     IdentificadorDeToken identificadorDeToken;
     TabelaDeSimbolos tabelaDeSimbolos;
 

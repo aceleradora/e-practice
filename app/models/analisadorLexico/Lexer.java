@@ -47,8 +47,15 @@ public class Lexer {
             } else if (tokenContemParentesesFechadoETemMaisDeUmCaracter(token)) {
                 divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, ")", i);
                 verificaCasosEspeciais(tokens);
+            } else if (tokenContemOperadorDeAdicaoETemMaisDeUmCaracter(token)) {
+                divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, "+", i);
+                verificaCasosEspeciais(tokens);
             }
         }
+    }
+
+    private boolean tokenContemOperadorDeAdicaoETemMaisDeUmCaracter(String token) {
+        return token.contains("+") && token.length() > 1;
     }
 
     private boolean tokenContemParentesesFechadoETemMaisDeUmCaracter(String token) {
@@ -110,6 +117,8 @@ public class Lexer {
             regexSimbolo = "[(]";
         } else if (simbolo.equals(")")) {
             regexSimbolo = "[)]";
+        } else if (simbolo.equals("+")) {
+            regexSimbolo = "[+]";
         }
         if (token.startsWith(simbolo)) {
             String[] stringDividida = token.split(regexSimbolo);
