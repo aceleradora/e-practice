@@ -155,7 +155,6 @@ public class TesteLexer {
         assertThat(tokens.get(8), is("3"));
     }
 
-//    @Ignore
     @Test
     public void tokenizaUmaOperacaoComAbreParentesesColadoADireitaDeUmOperando() throws Exception {
         tokens = lexer.tokenizar("numero = 2+( 5 * 5 )");
@@ -165,9 +164,9 @@ public class TesteLexer {
 
     @Test
     public void tokenizaUmaOperacaoAritmeticaQueTenhaOOperadorSemEspacamentoDosOperandos() throws Exception {
-        tokens = lexer.tokenizar("numero = 2+2");
+        tokens = lexer.tokenizar("numero=2+2-5/7*8");
 
-        assertThat(tokens.size(), is(5));
+        assertThat(tokens.size(), is(11));
     }
 
     @Test
@@ -185,5 +184,12 @@ public class TesteLexer {
         assertThat(tokens.get(2), is("\"teste\""));
         assertThat(tokens.get(3), is("<>"));
         assertThat(tokens.get(4), is("\"testando\""));
+    }
+
+    @Test
+    public void tokenizaUmaOperacaoComParentesesESemEspacamentos() throws Exception {
+        tokens = lexer.tokenizar("numero=2+(2-5)/(7*8)");
+
+        assertThat(tokens.size(), is(15));
     }
 }
