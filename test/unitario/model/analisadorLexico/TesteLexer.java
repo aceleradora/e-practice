@@ -192,4 +192,14 @@ public class TesteLexer {
 
         assertThat(tokens.size(), is(15));
     }
+
+    @Test
+    public void tokenizaUmaStringComDoisPontos() throws Exception {
+        tokens = lexer.tokenizar("nome = \"Nome: Leonardo\"");
+
+        assertThat(tokens.size(), is(3));
+        assertThat(tokens.get(0), is("nome"));
+        assertThat(tokens.get(1), is("="));
+        assertThat(tokens.get(2), is("\"Nome: Leonardo\""));
+    }
 }

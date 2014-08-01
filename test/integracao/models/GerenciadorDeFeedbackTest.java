@@ -114,10 +114,10 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro, is(""));
     }
 
-    @Ignore
     @Test
     public void dadoQueReceboUmaOPeracaoDeAritmeticaValidaRetornoUmaMensagemDeErroVazia() throws Exception {
-        String codigo = "numero = (2 + 2) * 5";
+        String codigo = "var numero : Inteiro\n" +
+                "numero = (2 + 2) * 5";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
@@ -145,7 +145,6 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro, is(not("")));
     }
 
-    @Ignore
     @Test
     public void dadoQueReceboDuasOperacoesAritmeticasInvalidasRetornoUmaMensagemDeErro() throws Exception {
         String codigo = "numero = 2( +2";
@@ -156,10 +155,10 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro, is(not("")));
     }
 
-    @Ignore
     @Test
     public void dadoQueReceboUmaConcatenacaoDeStringsValidasComUmEspacoAntesDasStringsRetornoUmaMensagemDeErroVazia() throws Exception {
-        String codigo = " \"nome:\" <> \"José\"";
+        String codigo = "var nome : String\n" +
+                "nome =   \"nome:\" <>     \"José\"";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
@@ -177,9 +176,8 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro, is(not("")));
     }
 
-    @Ignore
     @Test
-    public void dadoQueReceboUmaConcatenacaoDeStringsUtilizandoSimboloMaiorEMenorEMaisValidasRetornoUmaMensagemDeErroVazia() throws Exception {
+    public void dadoQueReceboUmaConcatenacaoDeStringsUtilizandoSimboloMaiorEMenorEMaisValidasRetornoUmaMensagemDeErroDiferenteDeVazio() throws Exception {
         String codigo = "\"nome:\" <> \"Bernardo\" + \"José\"";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
 
@@ -210,10 +208,10 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro, is(not("")));
     }
 
-    @Ignore
     @Test
-    public void dadoQueReceboTokensSemEspacoNaoRetornaNenhumErro() throws Exception {
-        String codigo = "numero=2+2";
+    public void dadoQueReceboUmaExpressaoSemEspacoNaoRetornaNenhumErro() throws Exception {
+        String codigo = "var numero : Inteiro\n" +
+                "numero=2+2";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();

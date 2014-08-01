@@ -31,7 +31,6 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         validadorDeDeclaracao = new ValidadorDeDeclaracaoDeVariavel(tabela);
     }
 
-    @Ignore
     @Test
     public void dadoQueDeclaroUmaVariavelQueNaoExisteAdicionaVariavelATabelaDeSimbolos() throws Exception {
         String declaracao = "var x : Inteiro";
