@@ -97,11 +97,11 @@ public class Lexer {
     private boolean fraseTemNumeroParDeAspas() {
         boolean isPar = false;
         int contaAspas = 0;
-        for(String token:tokens){
-            if(token.equals("\"")){
+        for(String token:tokens) {
+            if(token.equals("\"")) {
                 contaAspas++;
             }
-            if(contaAspas%2 == 0){
+            if(contaAspas%2 == 0) {
                 isPar = true;
             }
         }
