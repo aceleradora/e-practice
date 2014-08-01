@@ -23,7 +23,6 @@ public class Lexer {
             verificaCasosEspeciais(tokens);
             return tokens;
         }
-
     }
 
     private void verificaCasosEspeciais(ArrayList<String> tokens) {

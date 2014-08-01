@@ -3,6 +3,7 @@ package models;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
 import models.analisadorLexico.QuebradorDeCodigoEmLinhas;
+import models.analisadorSemantico.GerenciadorSemantico;
 import models.analisadorSintatico.*;
 
 public class MensagemDeFeedback {
@@ -10,6 +11,7 @@ public class MensagemDeFeedback {
     private SolucaoDoExercicio solucaoDoExercicio;
     private GerenciadorDeFeedback gerenciadorDeFeedback;
     private GerenciadorSintatico gerenciadorSintatico;
+    private GerenciadorSemantico gerenciadorSemantico;
     private QuebradorDeCodigoEmLinhas quebradorDeCodigoEmLinhas;
     private Lexer lexer;
     private IdentificadorDeToken identificadorDeToken;
@@ -29,7 +31,7 @@ public class MensagemDeFeedback {
         this.validadorDeConcatenacaoDeStrings = new ValidadorDeConcatenacaoDeStrings();
         this.quebradorDeCodigoEmLinhas = new QuebradorDeCodigoEmLinhas();
         this.gerenciadorSintatico = new GerenciadorSintatico(lexer, identificadorDeToken, validadorDeDeclaracao, validadorDeAtribuicao, validadorDeOperacoesAritmeticas, validadorDeConcatenacaoDeStrings);
-        this.gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, quebradorDeCodigoEmLinhas);
+        this.gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas);
         this.solucaoDoExercicio = new SolucaoDoExercicio(codigo);
 
     }

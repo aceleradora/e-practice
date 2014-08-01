@@ -51,11 +51,6 @@ public class ValidadorDeDeclaracaoDeVariavel implements Validador {
                 && validaSeQuartoTokenETipoDeVariavel();
     }
 
-    public void adicionaVariavelNaTabelaDeSimbolos() {
-        if(valida(tokens))
-            tabelaDeSimbolos.adicionaSimbolo(tokens.get(1), tokens.get(3));
-    }
-
     @Override
     public boolean valida(ArrayList<String> listaDeTokens) {
         tokens = listaDeTokens;

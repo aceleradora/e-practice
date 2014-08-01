@@ -1,14 +1,11 @@
 package unitario.model.analisadorSemantico;
 
-import static org.mockito.Mockito.*;
 import models.TabelaDeSimbolos;
-import models.Validador;
+import models.analisadorLexico.Lexer;
 import models.analisadorSemantico.ValidadorDeConcatenacao;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
@@ -22,14 +19,18 @@ public class TesteValidadorDeConcatenacao {
     TabelaDeSimbolos tabelaDeSimbolos;
     ArrayList<String> tokens;
     ValidadorDeConcatenacao validador;
+    Lexer lexer;
 
     @Before
     public void setUp() throws Exception {
+        lexer = new Lexer();
         tabelaDeSimbolos = new TabelaDeSimbolos();
         tokens = new ArrayList<String>();
         tokens.add("abacaxi");
         tokens.add("=");
         tokens.add("amarelo");
+        tokens.add("<>");
+        tokens.add("\"e\"");
         tokens.add("<>");
         tokens.add("verde");
         validador = new ValidadorDeConcatenacao(tabelaDeSimbolos);
@@ -37,16 +38,13 @@ public class TesteValidadorDeConcatenacao {
 
     @Test
     public void quandoPrimeiraVariavelNaoExisteRetornaFalse() throws Exception {
-
         boolean resultado = validador.valida(tokens);
 
         assertThat(resultado, is(false));
-
     }
 
     @Test
     public void quandoSegundaVariavelNaoExisteRetornaFalse() throws Exception {
-
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
         boolean resultado = validador.valida(tokens);
 
@@ -85,7 +83,6 @@ public class TesteValidadorDeConcatenacao {
         boolean resultado = validador.valida(tokens);
 
         assertThat(resultado, is(false));
-
     }
 
     @Test
@@ -99,10 +96,8 @@ public class TesteValidadorDeConcatenacao {
         assertThat(resultado, is(true));
     }
 
-
     @Test
     public void quandoAPrimeiraVariavelNaoExisteRetornaMensagemDeErro() throws Exception {
-
         validador.valida(tokens);
 
         String mensagem = validador.retornaMensagemErro();
@@ -113,13 +108,11 @@ public class TesteValidadorDeConcatenacao {
     @Test
     public void quandoAPrimeiraVariavelNaoEhDoTipoStringRetornaMensagemDeErro() throws Exception {
         tabelaDeSimbolos.adicionaSimbolo("abacaxi", "Inteiro");
-
         validador.valida(tokens);
 
         String mensagem = validador.retornaMensagemErro();
 
         assertThat(mensagem, is("Erro: a variável abacaxi não é do tipo String."));
-
     }
 
     @Test
@@ -146,7 +139,10 @@ public class TesteValidadorDeConcatenacao {
         tabelaDeSimbolos.adicionaSimbolo("verde", "String");
         tabelaDeSimbolos.adicionaSimbolo("azul", "String");
         tabelaDeSimbolos.adicionaSimbolo("vermelho", "String");
+
         boolean resultado = validador.valida(tokens);
+
         assertThat(resultado, is(true));
     }
+
 }

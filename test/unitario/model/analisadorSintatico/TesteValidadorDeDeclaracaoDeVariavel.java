@@ -67,25 +67,6 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
     }
 
     @Test
-    public void adicionaSimboloXComoStringNaTabelaDeSimbolosSeADeclaracaoEstiverCorreta() throws Exception {
-        validadorDeDeclaracaoDeVariavel.valida(tokens);
-        validadorDeDeclaracaoDeVariavel.adicionaVariavelNaTabelaDeSimbolos();
-
-        assertThat(tabelaDeSimbolos.getTipoSimbolo("x"), is("String"));
-        assertThat(tokens.get(3), is("String"));
-        assertThat(tabelaDeSimbolos.temSimbolo(tokens.get(1)), is(true));
-    }
-
-    @Test
-    public void naoAdicionaSimboloNaTabelaDeSimbolosSeADeclaracaoEstiverErrada() throws Exception {
-        tokens.set(0, "Erro");
-        validadorDeDeclaracaoDeVariavel.valida(tokens);
-        validadorDeDeclaracaoDeVariavel.adicionaVariavelNaTabelaDeSimbolos();
-
-        assertThat(tabelaDeSimbolos.simboloExiste("x"), is(false));
-    }
-
-    @Test
     public void retornaFalseQuandoValidaUmaDeclaracaoQueContemMaisDeQuatroTokens() throws Exception {
         tokens.add("String");
         validadorDeDeclaracaoDeVariavel.valida(tokens);
