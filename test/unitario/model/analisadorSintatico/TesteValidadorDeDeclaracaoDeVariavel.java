@@ -32,7 +32,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         tokens.set(0, "Erro");
         validadorDeDeclaracaoDeVariavel.valida(tokens);
 
-        assertEquals("a primeira palavra deveria ser \"var\" - ", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
+        assertEquals("A primeira palavra deveria ser \"var\". \n", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         tokens.set(1, "1Erro");
         validadorDeDeclaracaoDeVariavel.valida(tokens);
 
-        assertEquals("a segunda palavra deveria ser um identificador de variável válido - ", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
+        assertEquals("A segunda palavra deveria ser um identificador de variável válido. \n", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         tokens.set(2, "Erro");
         validadorDeDeclaracaoDeVariavel.valida(tokens);
 
-        assertEquals("a terceira palavra deveria ser \":\" - ", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
+        assertEquals("A terceira palavra deveria ser \":\". \n", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
     }
 
     @Test
@@ -56,7 +56,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         tokens.set(3, "Erro");
         validadorDeDeclaracaoDeVariavel.valida(tokens);
 
-        assertEquals("a quarta palavra deveria ser um tipo válido de variável (string ou inteiro)", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
+        assertEquals("A quarta palavra deveria ser um tipo válido de variável (string ou inteiro).", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
     }
 
     @Test
