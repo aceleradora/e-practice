@@ -8,7 +8,6 @@ import models.analisadorLexico.QuebradorDeCodigoEmLinhas;
 import models.analisadorSemantico.GerenciadorSemantico;
 import models.analisadorSintatico.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -186,7 +185,6 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro, is(not("")));
     }
 
-
     @Test
     public void dadoQueReceboUmaOperacaoAritmeticaInvalidaRetornoUmaMensagemDeErro() throws Exception {
         String codigo = "numero = 2 + 2)";
@@ -196,7 +194,6 @@ public class GerenciadorDeFeedbackTest {
 
         assertThat(mensagemDeErro, is(not("")));
     }
-
 
     @Test
     public void dadoQueReceboUmaOperacaoAritmeticaInvalidaUtilizandoDoisOperadoresJuntosRetornoUmaMensagemDeErro() throws Exception {
@@ -219,4 +216,13 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
     }
 
+    @Test
+    public void dadoQueNaoDeclareiAVariaveLEAtribuiOValorUmEntaoTereiUmaMensagemDeErro() throws Exception {
+        String codigo = "x = 1";
+
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
+
+        assertThat(mensagemDeErro, is("Seu código está sintaticamente correto.\nA variável x não foi declarada."));
+    }
 }

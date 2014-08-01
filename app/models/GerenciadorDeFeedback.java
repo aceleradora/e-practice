@@ -27,24 +27,24 @@ public class GerenciadorDeFeedback {
             gerenciadorSintatico.interpreta(linha);
             mensagemSintatica += gerenciadorSintatico.mostraMensagensDeErro();
         }
-        if (naoContemErrosSintaticos()){
+        if (NaoContemErrosSintaticos()) {
             mensagemSintatica = "Seu código está sintaticamente correto.\n";
             for (String linha: codigo){
                 gerenciadorSemantico.interpreta(linha);
                 mensagemSemantica += gerenciadorSemantico.mostraMensagensDeErro();
             }
-        }
-        if (naoContemErrosSemanticos()){
-            mensagemSemantica = "Seu código está semanticamente correto.\n";
+            if (NaoContemErrosSemanticos()) {
+                mensagemSemantica = "Seu código está semanticamente correto.\n";
+            }
         }
         return mensagemSintatica + mensagemSemantica;
     }
 
-    private boolean naoContemErrosSintaticos() {
+    private boolean NaoContemErrosSintaticos() {
         return mensagemSintatica.equals("");
     }
 
-    private boolean naoContemErrosSemanticos() {
+    private boolean NaoContemErrosSemanticos() {
         return mensagemSemantica.equals("");
     }
 
