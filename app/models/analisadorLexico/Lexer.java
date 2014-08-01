@@ -40,6 +40,9 @@ public class Lexer {
             } else if (tokenContemSimboloDeConcatenacaoETemMaisDeDoisCaracteres(token)) {
                 divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, "<>", i);
                 verificaCasosEspeciais(tokens);
+            } else if (tokenContemOperadorMatemáticoETemMaisDeUmCaracter(token)) {
+                divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, capturaOperador(token), i);
+                verificaCasosEspeciais(tokens);
             } else if (tokenContemParentesesAbertoETemMaisDeUmCaracter(token)) {
                 divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, "(", i);
                 verificaCasosEspeciais(tokens);
@@ -48,6 +51,23 @@ public class Lexer {
                 verificaCasosEspeciais(tokens);
             }
         }
+    }
+
+    private String capturaOperador(String token) {
+        if(token.contains("+")){
+            return "+";
+        }else if(token.contains("-")) {
+            return "-";
+        }else if (token.contains("*")){
+            return "*";
+        }else if (token.contains("/")){
+            return "/";
+        }
+        return "";
+    }
+
+    private boolean tokenContemOperadorMatemáticoETemMaisDeUmCaracter(String token) {
+        return (token.contains("+")||token.contains("-")||token.contains("*")||token.contains("/")) && token.length() > 1;
     }
 
     private boolean tokenContemParentesesFechadoETemMaisDeUmCaracter(String token) {
@@ -109,6 +129,14 @@ public class Lexer {
             regexSimbolo = "[(]";
         } else if (simbolo.equals(")")) {
             regexSimbolo = "[)]";
+        } else if (simbolo.equals("+")) {
+            regexSimbolo = "[+]";
+        } else if(simbolo.equals("-")) {
+            regexSimbolo = "[-]";
+        } else if(simbolo.equals("*")) {
+            regexSimbolo = "[*]";
+        } else if(simbolo.equals("/")){
+            regexSimbolo = "[/]";
         }
         if (token.startsWith(simbolo)) {
             String[] stringDividida = token.split(regexSimbolo);

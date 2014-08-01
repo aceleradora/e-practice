@@ -71,7 +71,6 @@ public class TesteValidadorDeConcatenacao {
         boolean resultado = validador.valida(tokens);
 
         assertThat(resultado, is(false));
-
     }
 
     @Test
@@ -102,7 +101,7 @@ public class TesteValidadorDeConcatenacao {
 
         String mensagem = validador.retornaMensagemErro();
 
-        assertThat(mensagem, is("Erro: a variável " + tokens.get(0) + " não foi declarada."));
+        assertThat(mensagem, is("A variável " + tokens.get(0) + " não foi declarada."));
     }
 
     @Test
@@ -112,7 +111,7 @@ public class TesteValidadorDeConcatenacao {
 
         String mensagem = validador.retornaMensagemErro();
 
-        assertThat(mensagem, is("Erro: a variável abacaxi não é do tipo String."));
+        assertThat(mensagem, is("A variável abacaxi não é do tipo String."));
     }
 
     @Test
@@ -125,7 +124,7 @@ public class TesteValidadorDeConcatenacao {
 
         String mensagem = validador.retornaMensagemErro();
 
-        assertThat(mensagem, is("Erro: a variável amarelo não é do tipo String."));
+        assertThat(mensagem, is("A variável amarelo não é do tipo String."));
     }
 
     @Test
