@@ -12,7 +12,8 @@ public class GerenciadorDeFeedback {
     private GerenciadorSintatico gerenciadorSintatico;
     private GerenciadorSemantico gerenciadorSemantico;
     private QuebradorDeCodigoEmLinhas quebradorDeCodigo;
-    private String mensagem = "";
+    private String mensagemSintatica = "";
+    private String mensagemSemantica = "";
 
     public GerenciadorDeFeedback(String codigo, GerenciadorSintatico gerenciadorSintatico, GerenciadorSemantico gerenciadorSemantico, QuebradorDeCodigoEmLinhas quebradorDeCodigo) {
         this.gerenciadorSintatico = gerenciadorSintatico;
@@ -24,19 +25,27 @@ public class GerenciadorDeFeedback {
     public String pegaFeedback() {
         for (String linha: codigo){
             gerenciadorSintatico.interpreta(linha);
-            mensagem += gerenciadorSintatico.mostraMensagensDeErro();
+            mensagemSintatica += gerenciadorSintatico.mostraMensagensDeErro();
         }
         if (naoContemErrosSintaticos()){
+            mensagemSintatica = "Seu código está sintaticamente correto.\n";
             for (String linha: codigo){
                 gerenciadorSemantico.interpreta(linha);
-                mensagem += gerenciadorSemantico.mostraMensagensDeErro();
+                mensagemSemantica += gerenciadorSemantico.mostraMensagensDeErro();
             }
         }
-        return mensagem;
+        if (naoContemErrosSemanticos()){
+            mensagemSemantica = "Seu código está semanticamente correto.\n";
+        }
+        return mensagemSintatica + mensagemSemantica;
     }
 
     private boolean naoContemErrosSintaticos() {
-        return mensagem.equals("");
+        return mensagemSintatica.equals("");
+    }
+
+    private boolean naoContemErrosSemanticos() {
+        return mensagemSemantica.equals("");
     }
 
 }
