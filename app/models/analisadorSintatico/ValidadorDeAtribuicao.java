@@ -40,7 +40,7 @@ public class ValidadorDeAtribuicao implements Validador {
     public String mensagemDeErroNoSegundoToken(){
         String retorno = "";
         if (!(validaSegundoToken())){
-            retorno =  "Esperava \"=\" para atribuição. \n";
+            retorno =  "Sinal de igual esperado para atribuição. \n";
         }
         return retorno;
     }
@@ -56,7 +56,7 @@ public class ValidadorDeAtribuicao implements Validador {
     public String mensagemDeErroNoTerceiroToken(){
         String retorno = "";
         if (!(validaTerceiroToken())){
-            retorno =  "Esperava uma variavel ou um valor numérico ou uma String. \n";
+            retorno =  "Variável, valor numérico ou uma string são esperados. \n";
         }
         return retorno;
     }

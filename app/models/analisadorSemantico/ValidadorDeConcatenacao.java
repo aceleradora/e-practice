@@ -42,9 +42,9 @@ public class ValidadorDeConcatenacao implements Validador{
 
 
         if(tipoDeErro == 1)
-            return "Erro: a variável " + tokenInvalido + " não foi declarada.";
+            return "A variável " + tokenInvalido + " não foi declarada.";
         else
-            return "Erro: a variável " + tokenInvalido + " não é do tipo String.";
+            return "A variável " + tokenInvalido + " não é do tipo String.";
 
     }
 
