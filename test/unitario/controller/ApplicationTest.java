@@ -71,6 +71,22 @@ public class ApplicationTest {
     }
 
     @Test
+    public void mantemASolucaoNaCaixaDeTextoAposEnviarASolucao() throws Exception {
+        running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {
+            @Override
+            public void invoke(TestBrowser browser) throws Throwable {
+                browser.goTo(System.getenv("URL_ENVIRONMENT"));
+                browser.fill("#solucaoDoUsuario").with("var esseTextoSeraMantido : String");
+
+                browser.find("input", withName("valor")).submit();
+
+                String textoDaTextArea = browser.$("#solucaoDoUsuario").getText();
+                assertThat(textoDaTextArea).contains("var esseTextoSeraMantido : String");
+            }
+        });
+    }
+
+    @Test
     public void quandoPostaSolucaoEmBrancoRetornaMensagemDeErro() throws Exception {
 
         running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {

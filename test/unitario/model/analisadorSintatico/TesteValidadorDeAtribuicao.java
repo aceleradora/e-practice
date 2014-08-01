@@ -143,7 +143,7 @@ public class TesteValidadorDeAtribuicao {
         validadorDeAtribuicao.valida(tokens);
         String mensagemDeErro = validadorDeAtribuicao.retornaMensagemErro();
 
-        assertThat(mensagemDeErro, is("Esperava \"=\" para atribuição. \n"));
+        assertThat(mensagemDeErro, is("Sinal de igual esperado para atribuição. \n"));
     }
 
 }

@@ -254,7 +254,7 @@ public class TesteGerenciadorSemantico {
 
         gerenciadorSemantico.interpreta("x = x <> y");
 
-        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("Erro: a variável " + "y" + " não é do tipo String."));
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("A variável " + "y" + " não é do tipo String."));
 
     }
 
@@ -275,7 +275,7 @@ public class TesteGerenciadorSemantico {
 
         gerenciadorSemantico.interpreta("x = z <> y");
 
-        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("Erro: a variável " + "z" + " não foi declarada."));
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("A variável " + "z" + " não foi declarada."));
     }
 
     @Test

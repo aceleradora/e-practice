@@ -70,7 +70,12 @@ function alttela() {
             <section id="terminal" in>
 
                 @form(routes.Application.novaSolucao(), 'id -> "formCodigo"){
-                    @textarea(solucaoForm("solucaoDoUsuario"), 'rows -> 2, 'placeholder -> "Digite a solução do exercício", '_showConstraints -> false, '_label -> "", 'onKeyDown -> "quandoPressionaTab(event)")
+                    @helper.input(field = solucaoForm("solucaoDoUsuario"), '_showConstraints -> false, '_label -> "") { (id, name, value, args) =>
+                    <div>
+                        <label>Digite o Código abaixo: </label>
+                        <textarea name="@name" id="@id" rows='2' onkeydown="quandoPressionaTab(event)">@flash.get("solucaoDoUsuario")</textarea>
+                    </div>
+                    }
                     <input id="botaoDeEnviar" type="button" name="valor" value="Enviar" /><label id="status">@flash.get("status")</label>
                 }
             </section>
@@ -82,17 +87,6 @@ function alttela() {
                 <h3>FeedBack | Dicas:</h3>
                 <p>
                     @flash.get("mensagemDeFeedback")
-                    <!--<ul>
-                        @for(solucao <- solucoes){
-                        <li>
-                            @solucao.solucaoDoUsuario
-
-                            @form(routes.Application.deletaSolucao(solucao.id)){
-                            <input class="enviar" type="submit" value="Deletar">
-                            }
-                        </li>
-                        }
-                    </ul>-->
                 </p>
             </section>
         </div>

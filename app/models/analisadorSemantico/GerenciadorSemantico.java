@@ -1,6 +1,5 @@
 package models.analisadorSemantico;
 
-import models.TabelaDeSimbolos;
 import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
