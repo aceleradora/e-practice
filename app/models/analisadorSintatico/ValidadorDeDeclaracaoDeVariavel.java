@@ -69,11 +69,11 @@ public class ValidadorDeDeclaracaoDeVariavel implements Validador {
     public String retornaMensagemErro() {
         String mensagem = "";
         if (verificaSeTokensTemQuantidadeAbaixoDoEsperado()) {
-            mensagem = "A declaração espera VAR \"IDENTIFICADOR\" : TIPO, um parametro faltando. \n";
+            mensagem = "A declaração espera VAR \"IDENTIFICADOR\" : TIPO ou VARRES \"IDENTIFICADOR\" : TIPO, um parametro faltando. \n";
         } else if (verificaSeTokensTemQuantidadeAcimaDoEsperado()) {
-            mensagem = "A declaração espera apenas VAR \"IDENTIFICADOR\" : TIPO. \n";
+            mensagem = "A declaração espera apenas VAR \"IDENTIFICADOR\" : TIPO ou VARRES \"IDENTIFICADOR\" : TIPO. \n";
         } else if(!validaSePrimeiroTokenEVar()){
-            mensagem = "A primeira palavra deveria ser \"var\". \n";
+            mensagem = "A primeira palavra deveria ser \"var\" ou \"varres\" para variável de resultado. \n";
         } else if (!validaSeSegundoTokenEIdv()) {
             mensagem = "A segunda palavra deveria ser um identificador de variável válido. \n";
         } else if (!validaSeTerceiroTokenEDoisPontos()) {

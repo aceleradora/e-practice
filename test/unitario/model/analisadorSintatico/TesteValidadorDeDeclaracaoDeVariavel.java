@@ -32,7 +32,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         tokens.set(0, "Erro");
         validadorDeDeclaracaoDeVariavel.valida(tokens);
 
-        assertEquals("A primeira palavra deveria ser \"var\". \n", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
+        assertEquals("A primeira palavra deveria ser \"var\" ou \"varres\" para variável de resultado. \n", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
     }
 
     @Test
@@ -111,5 +111,19 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
 
         assertThat(valido, is(false));
     }
-}
+
+    @Test
+    public void validaLinhaDeDeclaracaoDeVariavelCorretaComVarres() throws Exception {
+        ArrayList<String> tokensVarres = new ArrayList<String>();
+        tokensVarres.add("varres");
+        tokensVarres.add("x");
+        tokensVarres.add(":");
+        tokensVarres.add("String");
+        boolean validacao = validadorDeDeclaracaoDeVariavel.valida(tokensVarres);
+
+        assertEquals(true, validacao);
+    }
+
+    }
+
 
