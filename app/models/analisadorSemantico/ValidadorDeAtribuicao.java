@@ -50,7 +50,7 @@
                     return erros;
                 }
                 if(!validaExpressao()) {
-                    erros = "A Variavel "+tokens.get(0)+" só aceita atribuição de valores do tipo "+tabelaDeSimbolos.getTipoSimbolo(tokens.get(0))+".";
+                    erros = "A variável "+tokens.get(0)+" só aceita atribuição de valores do tipo "+tabelaDeSimbolos.getTipoSimbolo(tokens.get(0))+".";
                     return erros;
                 }
                 return erros;

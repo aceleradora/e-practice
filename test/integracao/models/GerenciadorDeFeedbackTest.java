@@ -10,6 +10,7 @@ import models.analisadorSintatico.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -78,7 +79,7 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\n"));
     }
 
     @Test
@@ -88,7 +89,38 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\n"));
+    }
+
+    @Test
+    public void dadoQueReceboDuasDeclaracoesDeStringsValidasComEspacoNoInicioDaDeclaracaoRetornoMensagemDeSucesso() throws Exception {
+        String codigo = " var x : String \n var y: String";
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+
+        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
+
+        assertThat(mensagemDeErro, is("Seu código está correto.\n"));
+    }
+
+    @Test
+    public void dadoQueReceboDuasDeclaracoesDeVariaveisInvalidasRetornoUmaMensagemDeErro() throws Exception {
+        String codigo = " var x: Sting \n vars y: intiro";
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+
+        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
+
+        assertThat(mensagemDeErro, is(not(containsString("Seu código está sintaticamente correto."))));
+        assertThat(mensagemDeErro, is(not(containsString("Seu código está semanticamente correto."))));
+    }
+
+    @Test
+    public void dadoQueReceboDuasDeclaracoesDeVariaveisInvalidasComOTipoMinusculoRetornoUmaMensagemDeErro() throws Exception {
+        String codigo = "var x : Inteiro\nvar y: inteiro";
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+
+        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
+
+        assertThat(mensagemDeErro, is(not(containsString("Seu código está sintaticamente correto."))));
     }
 
     @Test
@@ -98,7 +130,7 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\n"));
     }
 
     @Test
@@ -110,7 +142,7 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\n"));
     }
 
     @Test
@@ -121,7 +153,7 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\n"));
     }
 
     @Test
@@ -162,17 +194,17 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\n"));
     }
 
     @Test
     public void dadoQueReceboUmaConcatenacaoDeNumerosInvalidaEntaoRetornoUmaMensagemDeErro() throws Exception {
-        String codigo = "10 <> 20";
+        String codigo = "var x : String\nx = 10 <> 20";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is(not("")));
+        assertThat(mensagemDeErro, is(not("Seu código está sintaticamente correto.")));
     }
 
     @Test
@@ -213,7 +245,7 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\n"));
     }
 
     @Test
@@ -223,6 +255,17 @@ public class GerenciadorDeFeedbackTest {
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está sintaticamente correto.\nA variável x não foi declarada."));
+        assertThat(mensagemDeErro, is("A variável x não foi declarada."));
+    }
+
+    @Test
+    public void dadoQueAtribuiUmNumeroAUmaVariavelDoTipoStringEntaoTereiUmaMensagemDeErro() throws Exception {
+        String codigo = "var x : String\n" +
+                "x = 1";
+
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
+
+        assertThat(mensagemDeErro, is("A variável x só aceita atribuição de valores do tipo String."));
     }
 }

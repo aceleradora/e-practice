@@ -1,7 +1,15 @@
-
 .row {
-    padding: 5px;
-    overflow:auto;
+    padding: 0px;
+    overflow:hidden;
+}
+
+#headding {
+    font-size: 28px;
+    margin-left: 10px;
+    padding-left: 20px;
+    overflow: hidden;
+    background-color: #141414;
+    color: white;
 }
 
 #button {
@@ -12,77 +20,96 @@
     right: 2px;
 }
 
-#logo {
-    padding: 20px;
-    text-align: center;
-    vertical-align: middle;
-    margin-left: 1px;
-    border: 1px solid black;
-    height: 132px;
+/*#botaoDeEnviar {
+    margin-top: 14px;
+    margin-left: 931px;
+}*/
 
-    overflow:auto;
+#painel {
+	height: 699px;
+	margin-left: 9px;
+	padding-left: 9px;
+    background-color: #E5E5E5;
 }
 
-#enunciado-exercicio {
-    padding: 10px 0px 0px 10px;
-    border: 1px solid black;
-    height: 132px;
-
-    overflow:auto;
-}
-
-#lista-de-exercicio {
-    margin-left: 1px;
-    padding: 0px 10px 10px 10px;
-    border: 1px solid black;
-    height: 400px;
-
-    overflow:auto;
-}
-
-#manual-de-sintaxe{
-    margin-left: 1px;
-    padding: 0px 10px 10px 10px;
-    border: 1px solid black;
-    overflow:auto;
-    height: 132px;
-
-
-}
-
-#feedback {
-    padding: 10px 0px 0px 10px;
-    border: 1px solid black;
-    height: 400px;
-
-    overflow:auto;
+#solucaoDoUsuario {
+    height: 570px;
+    width: 988px;
+    color: #F5EAE1;
+    font-size: 14px;
 }
 
 #terminal {
-    position: relative;
-    height: 400px;
-
-    padding: 18px 10px 10px 10px;
-    border: 1px solid black;
-    overflow:auto;
-
+	position: relative;
+	padding: 18px 10px 10px;
+	overflow: auto;
+	height: 699px;
+    background-color: #020714;
 }
 
-#categorias {
-    border: 1px solid black;
-    text-align: center;
+#footer {
+    background-color: #141414;
+    height: 64px;
 }
 
 textarea {
-    font:10px verdana, arial, helvetica, sans-serif;
-    height: 250px;
-    width: 563px;
+    font:18px verdana, arial, helvetica, sans-serif;
+    height: 10px;
+    width: 10px;
+    background-color: #0C152B;
+    color: #F5EAE1;
 }
 
 label#status{
-    padding-left: 10px;
+    padding-left: 20px;
     padding-right: 10px;
-    font-size: 12px;
+    font-size: 20px;
     font-weight: 500!important;
     font-style: italic;
+    color: #F5EAE1;
+    top: 654px;
+    right: 851px;
+}
+.tabs li {
+    list-style:none;
+    display:inline;
+}
+
+.tabs a {
+    padding:5px 10px;
+    display:inline-block;
+    background:#666;
+    color:#fff;
+    text-decoration:none;
+    margin-left: -43px;
+    width: 135.75px;
+    font-size: 16px;
+    font-weight: 550;
+}
+
+.tabs a.active {
+    background:#fff;
+    color:#000;
+}
+
+.abas {
+    overflow: auto; 
+    height: 500px;
+    margin-left: 26px;
+}
+
+.titulo {
+margin-left: 20px;
+}
+
+.newLine {
+    display: block;
+    height: 10px;
+}
+
+#mensagemDeTexto {
+}
+
+#botoes {
+    text-align: right;
 }

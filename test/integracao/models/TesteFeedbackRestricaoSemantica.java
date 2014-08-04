@@ -5,17 +5,15 @@ import models.TabelaDeSimbolos;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
 import models.analisadorLexico.QuebradorDeCodigoEmLinhas;
-import models.analisadorSemantico.*;
-import models.analisadorSemantico.GerenciadorBuilder;
-import models.analisadorSemantico.ValidadorDeAtribuicao;
-import models.analisadorSemantico.ValidadorDeDeclaracaoDeVariavel;
-import models.analisadorSemantico.ValidadorDeOperacoesAritmeticas;
-import models.analisadorSintatico.*;
+import models.analisadorSemantico.GerenciadorSemantico;
+import models.analisadorSintatico.GerenciadorSintatico;
+import models.analisadorSintatico.ValidadorDeConcatenacaoDeStrings;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 public class TesteFeedbackRestricaoSemantica {
 
@@ -24,6 +22,7 @@ public class TesteFeedbackRestricaoSemantica {
     private QuebradorDeCodigoEmLinhas quebradorDeCodigo;
     private GerenciadorDeFeedback gerenciadorDeFeedback;
     private TabelaDeSimbolos tabelaDeSimbolos;
+    private String codigo;
 
     @Before
     public void setUp() throws Exception {
@@ -63,25 +62,92 @@ public class TesteFeedbackRestricaoSemantica {
 
     @Test
     public void dadoQueDeclaroAMesmaVariavelDuasVezesDeveRetornarMensagemDeErro() throws Exception {
-        String codigo = "var x : String \n";
+        codigo = "var x : String \n";
         codigo += "var x : String";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
-        assertThat(mensagem, is("Seu código está sintaticamente correto.\nA variável x ja foi declarada."));
+        assertThat(mensagem, is("A variável x ja foi declarada."));
     }
 
     @Test
     public void dadoQueDeclaroAsVariaveisCorretamenteDeveRetornarFeedbackPositivo() throws Exception {
-        String codigo = "var x : Inteiro\n";
+        codigo = "var x : Inteiro\n";
         codigo += "x = 1";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
-        assertThat(mensagem, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+        assertThat(mensagem, is("Seu código está correto.\n"));
+    }
 
+    @Test
+    public void dadoQueDeclareiVariáveisDoTipoStringEDesejoFazerOperaçõesAritméticasDeveRetornarMensagemDeErro() throws Exception {
+        codigo = "var x : String\n";
+        codigo += "var y : String\n";
+        codigo += "var resultado: String\n";
+        codigo += "resultado = x + y";
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+        String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
+        assertNotNull(mensagem);
+        assertThat(mensagem, is("Seu código está correto.\n"));
+    }
+
+    @Test
+    public void dadoQueDeclareiVariaveisDoTipoInteiroEDesejoFazerOperaçõesAritméticasDeveRetornarFeedbackPositivo() throws Exception {
+        codigo = "var x: Inteiro\n";
+        codigo += "var y: Inteiro\n";
+        codigo += "var resultado: Inteiro\n";
+        codigo += "resultado = x + y\n";
+
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+        String mensagem = gerenciadorDeFeedback.pegaFeedback();
+
+        assertNotNull(mensagem);
+        assertThat(mensagem, is("Seu código está correto.\n"));
+    }
+
+    @Test
+    public void dadoQueDeclareiVariaveisDoTipoInteiroEDesejoFazerOperaçõesDeConcatenacaoDeveRetornarMensagemDeErro() throws Exception {
+        codigo = "var x: Inteiro\n";
+        codigo += "var y: Inteiro\n";
+        codigo += "var resultado: Inteiro\n";
+        codigo += "resultado = x <> y\n";
+
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+        String mensagem = gerenciadorDeFeedback.pegaFeedback();
+
+        assertNotNull(mensagem);
+        assertThat(mensagem, is("A variável resultado não é do tipo String."));
+    }
+
+    @Test
+    public void dadoQueTentoConcatenarUmInteiroComUmaStringReceboMensagemDeErro() throws Exception {
+        codigo = "var x: Inteiro\n";
+        codigo += "var y: String\n";
+        codigo += "var resultado: String\n";
+        codigo += "resultado = x <> y\n";
+
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+        String mensagem = gerenciadorDeFeedback.pegaFeedback();
+
+        assertNotNull(mensagem);
+        assertThat(mensagem, is("A variável x não é do tipo String."));
+    }
+
+    @Test
+    public void dadoQueTentoConcatenarDuasVariaveisDoTipoStringReceboFeedbackPositivo() throws Exception {
+        codigo = "var x: String\n";
+        codigo += "var y: String\n";
+        codigo += "var resultado: String\n";
+        codigo += "resultado = x <> y\n";
+
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+        String mensagem = gerenciadorDeFeedback.pegaFeedback();
+
+        assertNotNull(mensagem);
+        assertThat(mensagem, is("Seu código está correto.\n"));
     }
 }

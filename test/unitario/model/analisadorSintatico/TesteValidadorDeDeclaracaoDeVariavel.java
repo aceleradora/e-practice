@@ -56,7 +56,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         tokens.set(3, "Erro");
         validadorDeDeclaracaoDeVariavel.valida(tokens);
 
-        assertEquals("A quarta palavra deveria ser um tipo válido de variável (string ou inteiro).", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
+        assertEquals("A quarta palavra deveria ser um tipo válido de variável (String ou Inteiro).", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
     }
 
     @Test

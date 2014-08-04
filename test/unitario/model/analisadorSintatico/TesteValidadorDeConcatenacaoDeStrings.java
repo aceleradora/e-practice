@@ -119,7 +119,6 @@ public class TesteValidadorDeConcatenacaoDeStrings {
         assertThat(valida,is(true));
     }
 
-    @Ignore
     @Test
     public void tokenizaUmaLinhaQueTenhaUmEspacoAntesDaExpressaoEVerificaSeAConcatenacaoEstaCorreta() throws Exception {
         entradaDoUsuario = lexer.tokenizar(" x = \"1\" <> \"casa\"");
