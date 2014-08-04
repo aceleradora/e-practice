@@ -13,10 +13,10 @@ public class Lexer {
     public ArrayList<String> tokenizar (String frase) {
         tokens = new ArrayList<String>();
         this.frase = removeEspacosDesnecessariosDoFimEDoComeco(frase);
-        if (fraseEstaVazia(frase)) {
+        if (fraseEstaVazia(this.frase)) {
             return tokens;
         } else {
-            String[] stringDividida = divideAFraseNosEspacosEmBranco(frase);
+            String[] stringDividida = divideAFraseNosEspacosEmBranco(this.frase);
             for (String preToken : stringDividida) {
                 tokens.add(preToken);
             }

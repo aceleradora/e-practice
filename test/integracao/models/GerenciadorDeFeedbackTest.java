@@ -92,6 +92,16 @@ public class GerenciadorDeFeedbackTest {
     }
 
     @Test
+    public void dadoQueReceboDuasDeclaracoesDeStringsValidasComEspacoNoInicioDaDeclaracaoRetornoMensagemDeSucesso() throws Exception {
+        String codigo = " var x : String \n var y: String";
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+
+        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
+
+        assertThat(mensagemDeErro, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+    }
+
+    @Test
     public void dadoQueReceboDuasAtribuicoesDeValoresNumericosValidosRetornoMensagemDeSucesso() throws Exception {
         String codigo = "var x : Inteiro\nvar y : Inteiro\nx = 4\ny = 5";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
