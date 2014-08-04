@@ -23,18 +23,17 @@ public class GerenciadorDeFeedback {
     }
 
     public String pegaFeedback() {
-        for (String linha: codigo){
+        for (String linha: codigo) {
             gerenciadorSintatico.interpreta(linha);
             mensagemSintatica += gerenciadorSintatico.mostraMensagensDeErro();
         }
         if (NaoContemErrosSintaticos()) {
-            mensagemSintatica = "Seu código está sintaticamente correto.\n";
-            for (String linha: codigo){
+            for (String linha: codigo) {
                 gerenciadorSemantico.interpreta(linha);
                 mensagemSemantica += gerenciadorSemantico.mostraMensagensDeErro();
             }
             if (NaoContemErrosSemanticos()) {
-                mensagemSemantica = "Seu código está semanticamente correto.\n";
+                mensagemSemantica = "Seu código está correto.\n";
             }
         }
         return mensagemSintatica + mensagemSemantica;

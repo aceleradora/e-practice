@@ -70,7 +70,7 @@ public class TesteFeedbackRestricaoSemantica {
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
-        assertThat(mensagem, is("Seu código está sintaticamente correto.\nA variável x ja foi declarada."));
+        assertThat(mensagem, is("A variável x ja foi declarada."));
     }
 
     @Test
@@ -81,7 +81,7 @@ public class TesteFeedbackRestricaoSemantica {
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
-        assertThat(mensagem, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+        assertThat(mensagem, is("Seu código está correto.\n"));
     }
 
     @Test
@@ -94,7 +94,7 @@ public class TesteFeedbackRestricaoSemantica {
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
-        assertThat(mensagem, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+        assertThat(mensagem, is("Seu código está correto.\n"));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class TesteFeedbackRestricaoSemantica {
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
-        assertThat(mensagem, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+        assertThat(mensagem, is("Seu código está correto.\n"));
     }
 
     @Test
@@ -122,7 +122,7 @@ public class TesteFeedbackRestricaoSemantica {
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
-        assertThat(mensagem, is("Seu código está sintaticamente correto.\nA variável resultado não é do tipo String."));
+        assertThat(mensagem, is("A variável resultado não é do tipo String."));
     }
 
     @Test
@@ -136,7 +136,7 @@ public class TesteFeedbackRestricaoSemantica {
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
-        assertThat(mensagem, is("Seu código está sintaticamente correto.\nA variável x não é do tipo String."));
+        assertThat(mensagem, is("A variável x não é do tipo String."));
     }
 
     @Test
@@ -150,6 +150,6 @@ public class TesteFeedbackRestricaoSemantica {
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
-        assertThat(mensagem, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+        assertThat(mensagem, is("Seu código está correto.\n"));
     }
 }
