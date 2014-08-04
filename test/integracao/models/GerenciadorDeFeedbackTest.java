@@ -10,6 +10,7 @@ import models.analisadorSintatico.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -99,6 +100,27 @@ public class GerenciadorDeFeedbackTest {
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
         assertThat(mensagemDeErro, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+    }
+
+    @Test
+    public void dadoQueReceboDuasDeclaracoesDeVariaveisInvalidasRetornoUmaMensagemDeErro() throws Exception {
+        String codigo = " var x: Sting \n vars y: intiro";
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+
+        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
+
+        assertThat(mensagemDeErro, is(not(containsString("Seu código está sintaticamente correto."))));
+        assertThat(mensagemDeErro, is(not(containsString("Seu código está semanticamente correto."))));
+    }
+
+    @Test
+    public void dadoQueReceboDuasDeclaracoesDeVariaveisInvalidasComOTipoMinusculoRetornoUmaMensagemDeErro() throws Exception {
+        String codigo = "var x : Inteiro\nvar y: inteiro";
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+
+        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
+
+        assertThat(mensagemDeErro, is(not(containsString("Seu código está sintaticamente correto."))));
     }
 
     @Test
