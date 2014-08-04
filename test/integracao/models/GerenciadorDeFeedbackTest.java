@@ -199,12 +199,12 @@ public class GerenciadorDeFeedbackTest {
 
     @Test
     public void dadoQueReceboUmaConcatenacaoDeNumerosInvalidaEntaoRetornoUmaMensagemDeErro() throws Exception {
-        String codigo = "10 <> 20";
+        String codigo = "var x : String\nx = 10 <> 20";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está sintaticamente correto."));
+        assertThat(mensagemDeErro, is(not("Seu código está sintaticamente correto.")));
     }
 
     @Test
