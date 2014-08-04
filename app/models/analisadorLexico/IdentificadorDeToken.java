@@ -6,6 +6,8 @@ public class IdentificadorDeToken {
             return "PALAVRA_RESERVADA";
         } else if (token.equals("String")) {
             return "TIPO_DE_VARIAVEL";
+        } else if (token.equals("varres")) {
+            return "PALAVRA_RESERVADA";
         } else if (token.equals("Inteiro")) {
             return "TIPO_DE_VARIAVEL";
         } else if (token.equals("=")) {

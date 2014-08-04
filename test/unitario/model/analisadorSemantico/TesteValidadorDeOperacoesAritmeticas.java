@@ -33,28 +33,23 @@ public class TesteValidadorDeOperacoesAritmeticas {
 
     @Test
     public void dadaUmaOperacaoAritmeticaValidaVerificaSeOsIdentificadoresForamDeclaradosNaTabelaDeSimbolos() throws Exception {
-
         tabela.adicionaSimbolo("x","Inteiro");
         String declaracao = "x = 1 + 3";
         tokens = lexer.tokenizar(declaracao);
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
-
     }
 
     @Test
     public void dadaUmaOperacaoAritmeticaValidaVerificaIdentificadoresNaoDeclaradosNaTabelaDeSimbolos() throws Exception {
-
         tabela.adicionaSimbolo("y","Inteiro");
         String declaracao = "x = 1 + 3";
         tokens = lexer.tokenizar(declaracao);
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
-
     }
     @Test
     public void dadaUmaOperacaoAritmeticaValidaComMaisDeUmIndentificadorDeclaradoNaTabelaDeSimbolos() throws Exception {
-
         tabela.adicionaSimbolo("x","Inteiro");
         tabela.adicionaSimbolo("y","Inteiro");
         tabela.adicionaSimbolo("w","Inteiro");
@@ -67,22 +62,22 @@ public class TesteValidadorDeOperacoesAritmeticas {
 
     @Test
     public void dadaUmaOperacaoAritmeticaValidaComUmIndentificadorNaoDeclaradoNaTabelaDeSimbolosRetornaUmaMensagemDeErro() throws Exception {
-
         tabela.adicionaSimbolo("y","Inteiro");
         String declaracao = "x = 1 + 3";
         tokens = lexer.tokenizar(declaracao);
         validadorDeOperacoesAritmeticas.valida(tokens);
+
         assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is("Variável não declarada."));
     }
 
     @Test
     public void dadaUmaOperacaoAritmeticaValidaComUmIndentificadorDeclaradoNaTabelaDeSimbolosNaoRetornaUmaMensagemDeErro() throws Exception {
-
         tabela.adicionaSimbolo("x","Inteiro");
         String declaracao = "x = 1 + 3";
         tokens = lexer.tokenizar(declaracao);
         validadorDeOperacoesAritmeticas.valida(tokens);
-        assertNull (validadorDeOperacoesAritmeticas.retornaMensagemErro());
+
+        assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is(""));
     }
     
 }

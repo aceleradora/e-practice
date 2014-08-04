@@ -128,9 +128,9 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
         } else if (!temExpressaoDentroDoParenteses()) {
             mensagem = "Existe(em) parentese(s) que não possui(em) expressão(ões) dentro.";
         } else if(!aberturaEFechamentoDeParentesesEstaCorreta()) {
-            mensagem = "Algum(uns) parântese(s) está(ão) no lugar errado ou está(ão) faltando";
+            mensagem = "Algum(uns) parântese(s) está(ão) no lugar errado ou está(ão) faltando.";
         } else if(!valida(tokens)) {
-            mensagem = "Existem erros na expressão aritmetica";
+            mensagem = "Existem erros na expressão aritmetica.";
         }
         return mensagem;
     }

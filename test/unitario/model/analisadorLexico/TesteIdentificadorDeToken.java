@@ -24,6 +24,12 @@ public class TesteIdentificadorDeToken {
     }
 
     @Test
+    public void palavraVarresDeveRetornarTipoDeTokenDeclaracaoDeVarres() throws Exception {
+        tokenID = identificadorDeToken.identifica("varres");
+        assertThat(tokenID, is("PALAVRA_RESERVADA"));
+    }
+
+    @Test
     public void palavraStringDeveRetornarTipoDeTokenTipoDeVariavel() throws Exception {
         tokenID = identificadorDeToken.identifica("String");
         assertThat(tokenID, is("TIPO_DE_VARIAVEL"));

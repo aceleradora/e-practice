@@ -15,17 +15,16 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
     private String mensagem;
 
     public ValidadorDeOperacoesAritmeticas(TabelaDeSimbolos tabela) {
-
         identificadorDeToken = new IdentificadorDeToken();
         this.tabela = tabela;
-
+        mensagem = "";
     }
 
-    public boolean valida(ArrayList<String> tokens){
+    public boolean valida(ArrayList<String> tokens) {
         this.tokens = tokens;
         boolean validacao = true;
         for(int i = 0;i<tokens.size();i++){
-            if(identificadorDeToken.identifica(tokens.get(i)).equals("IDV")){
+            if(identificadorDeToken.identifica(tokens.get(i)).equals("IDV")) {
                  validacao = tabela.simboloExiste(tokens.get(i));
             }
             if(validacao == false) {
