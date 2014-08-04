@@ -124,4 +124,32 @@ public class TesteFeedbackRestricaoSemantica {
         assertNotNull(mensagem);
         assertThat(mensagem, is("Seu código está sintaticamente correto.\nA variável resultado não é do tipo String."));
     }
+
+    @Test
+    public void dadoQueTentoConcatenarUmInteiroComUmaStringReceboMensagemDeErro() throws Exception {
+        codigo = "var x: Inteiro\n";
+        codigo += "var y: String\n";
+        codigo += "var resultado: String\n";
+        codigo += "resultado = x <> y\n";
+
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+        String mensagem = gerenciadorDeFeedback.pegaFeedback();
+
+        assertNotNull(mensagem);
+        assertThat(mensagem, is("Seu código está sintaticamente correto.\nA variável x não é do tipo String."));
+    }
+
+    @Test
+    public void dadoQueTentoConcatenarDuasVariaveisDoTipoStringReceboFeedbackPositivo() throws Exception {
+        codigo = "var x: String\n";
+        codigo += "var y: String\n";
+        codigo += "var resultado: String\n";
+        codigo += "resultado = x <> y\n";
+
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+        String mensagem = gerenciadorDeFeedback.pegaFeedback();
+
+        assertNotNull(mensagem);
+        assertThat(mensagem, is("Seu código está sintaticamente correto.\nSeu código está semanticamente correto.\n"));
+    }
 }
