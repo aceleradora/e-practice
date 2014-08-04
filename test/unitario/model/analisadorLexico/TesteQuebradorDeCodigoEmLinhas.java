@@ -3,6 +3,7 @@ package unitario.model.analisadorLexico;
 import models.SolucaoDoExercicio;
 import models.analisadorLexico.QuebradorDeCodigoEmLinhas;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -50,4 +51,18 @@ public class TesteQuebradorDeCodigoEmLinhas {
 
         assertEquals("x = 1", result.get(1));
     }
+
+    @Test
+    public void devePegarEnterDoWindows() throws Exception {
+        String codigo = "var x : Integer\r";
+        codigo += "x = 1";
+        SolucaoDoExercicio solucaoDoExercicio = new SolucaoDoExercicio(codigo);
+
+        ArrayList<String> result = quebrador.quebra(solucaoDoExercicio.solucaoDoUsuario);
+
+        assertEquals("var x : Integer", result.get(0));
+    }
+
+
+
 }
