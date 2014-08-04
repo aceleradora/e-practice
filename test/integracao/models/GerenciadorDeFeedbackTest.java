@@ -204,7 +204,7 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is(not("")));
+        assertThat(mensagemDeErro, is("Seu código está sintaticamente correto."));
     }
 
     @Test
