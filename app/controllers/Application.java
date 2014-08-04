@@ -52,6 +52,7 @@ public class Application extends Controller {
             try{
                 SolucaoDoExercicio.create(formPreenchido.get());
                 mensagemDeFeedback = new MensagemDeFeedback(formPreenchido.get().solucaoDoUsuario);
+                flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
                 flash("mensagemDeFeedback", mensagemDeFeedback.mostraMensagem());
                 flash("status", "Status: sua solução foi salva com sucesso!");
             } catch (Exception e){

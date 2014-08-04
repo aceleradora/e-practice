@@ -3,111 +3,179 @@
 
 @main("e-Practice") {
 
-<script type='text/javascript'>
-
-$(document).ready(alttela);
-$(window).resize(alttela);
-
-function alttela() {
-        if ($(window).width() > $('#terminal').width()){
-            $(document).css('position', 'fixed');
-        }
-        else{
-            $(document).css('position', 'relative');
-        };
-};
-</script>
-
 <div class="row" id="head">
-        <div class="col-sm-3">
-            <div id="logo" class="left">
-                <h1>e-practice</h1>
-            </div>
 
-        </div>
+    <div id="headding" class="col-sm-12">
+        e-practice
 
-        <div class="col-sm-6">
-            <section id="enunciado-exercicio">
-                <p>
-                    Exercício
-                </p>
-                <ol>
-                <p>
+    </div>
+    <div class="col-sm-3">
+
+    </div>
+    <div class="col-sm-6">
+
+    </div>
+
+    <div class="col-sm-3">
+
+    </div>
+</div>
+
+<div class="row" id="body">
+    <div class="col-sm-3">
+        <section id="painel">
+            <ul class='tabs'>
+                <li><a id='tabLink1' href='#tab1'>Exercício</a></li>
+                <li><a id='tabLink2' href='#tab2'>Sintaxe</a></li>
+                <li><a id='tabLink3' href='#tab3'>Feedback</a></li>
+            </ul>
+            <div id='tab1'>
+                <h3 class="titulo">Exercício</h3>
+                <div class="abas">
                     @session.get("textoExercicio")
-                </p>
-                </ol>
-            </section>
-        </div>
 
-        <div class="col-sm-3">
-            <section id="manual-de-sintaxe">
-                <p>Manual de Sintaxe</p>
-                <ol>
-                    <li>Casamentiss fais malandris se pirulitá</li>
-                    <li>Cevadis im ampola pa arma uma pindureta</li>
-                    <li>Paisis, filhis, espiritis santis</li>
-                    <li>Manduma pindereta quium dia nois paga</li>
-                </ol>
-            </section>
-        </div>
-    </div>
+                    dffsdfsdfsdfsdfsdfds
+                </div>
+            </div>
+            <div id='tab2'>
+                <h3 class="titulo">Sintaxe</h3>
 
-    <div class="row" id="body">
-        <div class="col-sm-3">
-            <section id="lista-de-exercicio">
-                <h3>Exercicio Proposto</h3>
-                <ol>
-                <li>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis.</li>
-                <li>Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis.</li>
-                <li>Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo.</li>
-                <li> Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis</li>
-                <li> i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</li>
-                </ol>
-                </section>
-        </div>
+                <div class="abas">
 
-        <div class="col-sm-6">
-            <section id="terminal" in>
+                    <h4> Palavra reservada: </h4>
 
-                @form(routes.Application.novaSolucao(), 'id -> "formCodigo"){
-                    @textarea(solucaoForm("solucaoDoUsuario"), 'rows -> 2, 'placeholder -> "Digite a solução do exercício", '_showConstraints -> false, '_label -> "", 'onKeyDown -> "quandoPressionaTab(event)")
-                    <input id="botaoDeEnviar" type="button" name="valor" value="Enviar" /><label id="status">@flash.get("status")</label>
-                }
-            </section>
-        </div>
+                    <h5> var </h5> <p> Para declaração de variáveis. </p>
+                    <h5>resultado</h5> <p>Nome de variável reservado para o resultado final.</p>
 
+                    <h4>Nome da variável:</h4>
 
-        <div class="col-sm-3">
-            <section id="feedback">
-                <h3>FeedBack | Dicas:</h3>
-                <p>
+                    <h5>nomeDaVariavel</h5> <p>O nome sempre deve começar com a primeira letra em minúsculo.</p>
+
+                    <h4>Símbolo reservado:</h4>
+
+                    <h5> :</h5> <p>Símbolo de declaração de variável.</p>
+                    <h5> = </h5> <p>Símbolo de atribuição de expressão(ões).</p>
+                    <h5> "" </h5> <p>Símbolo para constante string.</p>
+                    <h5> <> </h5> <p>Símbolo de concatenação.</p>
+                    <h5> + </h5> <p>Operador aritmético da adição.</p>
+                    <h5> - </h5> <p>Operador aritmético da subtração.</p>
+                    <h5> * </h5> <p>Operador aritmético da multiplicação.</p>
+                    <h5> / </h5> <p>Operador aritmético da divisão.</p>
+                    <h5> () </h5> <p>Símbolo de priorização de expressão.</p>
+
+                    <h4>Tipos de variáveis:</h4>
+
+                    <h5>Inteiro</h5> <p>Para números inteiros.</p>
+                    <h5>String</h5> <p>Para textos.</p>
+
+                    <p>Observação: O tipo da variável é sempre declarado com a primeira letra maiúscula, como nos exemplos citados acima.</p>
+
+                    <h4>Declaração de Variável:</h4>
+
+                    <h5>var nomeDaVariavel : TipoDaVariavel </h5>
+                    <h5>var resultado : TipoDaVariavel</h5>
+                    <h5>var variavel : TipoDaVariavel</h5>
+
+                    <h4>Exemplos:</h4>
+                    <h5>var contador : Inteiro</h5>
+                    <h5>var nome : String</h5>
+                    <h5>var resultado : String</h5>
+                    <h5>var resultado : Inteiro</h5>
+                    <span class="newLine"></span>
+                    <h4>Atribuição:</h4>
+
+                    <h5>nomeDaVariavel = "texto"</h5>
+                    <h5>nomeDaVariavel = numero</h5>
+                    <h5>nomeDaVariavel = variavel</h5>
+
+                    <h4>Exemplos:</h4>
+                    <h5>nome = "Ana"</h5>
+                    <h5>nome = "ana"</h5>
+                    <h5>nome = "ANA"</h5>
+                    <h5>contador = 5</h5>
+                    <h5>resultado = nome</h5>
+                    <h5>resultado = contador</h5>
+                    <span class="newLine"></span>
+
+                    <h4>Concatenação:</h4>
+
+                    <h5>nomeDaVariavel = "texto" <> "texto"</h5>
+                    <h5>nomeDaVariavel = "texto" <> variavel</h5>
+                    <h5>nomeDaVariavel = variavel <> variavel</h5>
+
+                    <p>Observação: Concatenações podem apenas ser realizadas entre tipos string.<p>
+
+                    <h4>Exemplos:</h4>
+                    <h5>nome = "Ana" <> "Estela"</h5>
+                    <h5>nome = "Ana" <> sobrenome</h5>
+                    <h5>nome = nome <> sobrenome</h5>
+                    <span class="newLine"></span>
+
+                    <h4>Operações Aritméticas:</h4>
+
+                    <h5>nomeDaVariavel = variavel {operadorAritmético} variavel</h5>
+                    <h5>nomeDaVariavel = numero {operadorAritmético} variavel</h5>
+                    <h5>nomeDaVariavel = numero {operadorAritmético} numero</h5>
+                    <h5>nomeDaVariavel = expressão {operadorAritmético} numero</h5>
+                    <h5>nomeDaVariavel = variavel {operadorAritmético} expressão</h5>
+                    <h5>nomeDaVariavel = expressão {operadorAritmético} expressão</h5>
+
+                    <p>Observação: Operações aritméticas podem apenas ser realizadas entre tipos inteiros.</p>
+
+                    <h4>Exemplos:</h4>
+                    <h5>resultado = x + y</h5>
+                    <h5>resultado = 1 + x</h5>
+                    <h5>resultado = 2 / 1</h5>
+                    <h5>resultado = (x + y) * 3</h5>
+                    <h5>resultado = z + (x + y)</h5>
+                    <h5>resultado = (x + y) - (4 * z)</h5>
+                    <span class="newLine"></span>
+                </div>
+            </div>
+            <div id='tab3'>
+                <h3 class="titulo">Feedback</h3>
+                <div class="abas">
                     @flash.get("mensagemDeFeedback")
-                    <!--<ul>
-                        @for(solucao <- solucoes){
-                        <li>
-                            @solucao.solucaoDoUsuario
 
-                            @form(routes.Application.deletaSolucao(solucao.id)){
-                            <input class="enviar" type="submit" value="Deletar">
-                            }
-                        </li>
-                        }
-                    </ul>-->
-                </p>
-            </section>
-        </div>
+
+                    fsdgdgdfdfsdfsdfsdfsdfsd
+                </div>
+            </div>
+        </section>
     </div>
 
-    <div class="row">
-        <div class="col-sm-12">
-            <section id="categorias">
-                <h3>
-                    <img src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/arrow-left-128.png" width="50px">
-                         | Categorias |
-                    <img src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/arrow-right-128.png" width="50px">
-
-                </h3>
+    <div class="col-sm-9">
+        <section id="terminal" in>
+            <dd>
+                @form(routes.Application.novaSolucao(), 'id -> "formCodigo"){
+                @helper.input(field = solucaoForm("solucaoDoUsuario"), '_showConstraints -> false, '_label -> "") { (id, name, value, args) =>
+                <div>
+                    <label>Digite o Código abaixo: </label>
+                    <textarea name="@name" id="@id" rows='2' onkeydown="quandoPressionaTab(event)">@flash.get("solucaoDoUsuario")</textarea>
+                </div>
+                }
+            </dd>
+            <section id="rodaPeDoTerminal" class="row">
+                <div id="mensagemDeTexto" class="col-sm-9">
+                    <label id="status">@flash.get("status")</label>
+                </div>
+                <div id="botoes" class="col-sm-3">
+                    <input type="reset" class="apagaCodigo" onclick="limpaASolucao()" value="Limpar">
+                    <input id="botaoDeEnviar" type="button" name="valor" value="Enviar" />
+                </div>
             </section>
-        </div>
+        </section>
+
     </div>
-}
+
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <section  id="footer">
+            <div >
+            </div>
+        </section>
+    </div>
+</div>
+        }
+        }
