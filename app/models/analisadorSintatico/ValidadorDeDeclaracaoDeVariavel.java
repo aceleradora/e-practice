@@ -74,7 +74,7 @@ public class ValidadorDeDeclaracaoDeVariavel implements Validador {
         } else if (!validaSeTerceiroTokenEDoisPontos()) {
             mensagem = "A terceira palavra deveria ser \":\". \n";
         } else if (!validaSeQuartoTokenETipoDeVariavel()) {
-            mensagem = "A quarta palavra deveria ser um tipo válido de variável (string ou inteiro).";
+            mensagem = "A quarta palavra deveria ser um tipo válido de variável (String ou Inteiro).";
         }
         return mensagem;
     }
