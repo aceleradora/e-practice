@@ -233,7 +233,7 @@ public class TesteGerenciadorSemantico {
 
         gerenciadorSemantico.interpreta("x = 1");
 
-        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("A Variavel "+"x"+" só aceita atribuição de valores do tipo "+"String"+"."));
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("A variável "+"x"+" só aceita atribuição de valores do tipo "+"String"+"."));
 
     }
 

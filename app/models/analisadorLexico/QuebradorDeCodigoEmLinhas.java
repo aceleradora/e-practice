@@ -4,12 +4,14 @@ import java.util.Arrays;
 
 public class QuebradorDeCodigoEmLinhas {
 
+    private ArrayList<String> codigoQuebrado;
+
     public ArrayList<String> quebra(String solucaoDoUsuario) {
 
-        String[] solucaoDoUsuarioDividida = solucaoDoUsuario.split("\n");
-        ArrayList<String> codigoQuebrado = new ArrayList<String>();
+        String[] solucaoDoUsuarioDividida = solucaoDoUsuario.split("[\n?\r]+");
+        codigoQuebrado = new ArrayList<String>();
 
-        if(!solucaoDoUsuario.contains("\n"))
+        if(!solucaoDoUsuario.contains("\n") && !solucaoDoUsuario.contains("\r"))
              codigoQuebrado.add(solucaoDoUsuario);
         else {
 
@@ -18,9 +20,14 @@ public class QuebradorDeCodigoEmLinhas {
             }
         }
 
-        codigoQuebrado.removeAll(Arrays.asList(null, ""));
+        removeEspacosEmBrancoDoArray();
 
         return codigoQuebrado;
     }
+
+    private void removeEspacosEmBrancoDoArray() {
+        codigoQuebrado.removeAll(Arrays.asList(null, ""));
+    }
+
 
 }
