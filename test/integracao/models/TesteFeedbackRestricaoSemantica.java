@@ -5,17 +5,15 @@ import models.TabelaDeSimbolos;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
 import models.analisadorLexico.QuebradorDeCodigoEmLinhas;
-import models.analisadorSemantico.*;
-import models.analisadorSemantico.GerenciadorBuilder;
-import models.analisadorSemantico.ValidadorDeAtribuicao;
-import models.analisadorSemantico.ValidadorDeDeclaracaoDeVariavel;
-import models.analisadorSemantico.ValidadorDeOperacoesAritmeticas;
-import models.analisadorSintatico.*;
+import models.analisadorSemantico.GerenciadorSemantico;
+import models.analisadorSintatico.GerenciadorSintatico;
+import models.analisadorSintatico.ValidadorDeConcatenacaoDeStrings;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 public class TesteFeedbackRestricaoSemantica {
 
