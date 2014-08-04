@@ -63,11 +63,11 @@ $("#botaoDeLimpar").click(function () {
 });
 
 function limpaASolucao() {
-    alert("Oi");
-    var caixaDeTexto = document.getElementByTag("textarea");
+    var caixaDeTexto = $("#solucaoDoUsuario")
     var confirmacao = confirm("Apagar a solucao?");
     if (confirmacao) {
         caixaDeTexto.value = "";
+        caixaDeTexto.empty();
     }
 }
 

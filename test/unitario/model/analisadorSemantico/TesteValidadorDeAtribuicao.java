@@ -83,7 +83,7 @@ public class TesteValidadorDeAtribuicao {
         ValidadorDeAtribuicao validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos);
         validadorDeAtribuicao.valida(tokens);
         String validacao = validadorDeAtribuicao.retornaMensagemErro();
-        assertThat(validacao,is("A Variavel "+tokens.get(0)+" só aceita atribuição de valores do tipo "+tabelaDeSimbolos.getTipoSimbolo(tokens.get(0))+"."));
+        assertThat(validacao,is("A variável "+tokens.get(0)+" só aceita atribuição de valores do tipo "+tabelaDeSimbolos.getTipoSimbolo(tokens.get(0))+"."));
 
     }
 
