@@ -23,13 +23,12 @@ public class Lexer {
             verificaCasosEspeciais(tokens);
             return tokens;
         }
-
     }
 
     private void verificaCasosEspeciais(ArrayList<String> tokens) {
         for (int i = 0; i < tokens.size(); i++) {
             String token = tokens.get(i);
-            if (tokenContemDoisPontosEMaisDeUmCaracter(token)) {
+            if (tokenContemDoisPontosEMaisDeUmCaracterENaoContemAspas(token)) {
                 divideOTokenNoSimboloEAdicionaOsNovosTokensNaLista(token, ":", i);
                 verificaCasosEspeciais(tokens);
             } else if (tokenContemSinalDeIgualEMaisDeUmCaracter(token)) {
@@ -170,8 +169,8 @@ public class Lexer {
         return token.contains("=") && token.length() > 1;
     }
 
-    private boolean tokenContemDoisPontosEMaisDeUmCaracter(String token) {
-        return token.contains(":") && token.length() > 1;
+    private boolean tokenContemDoisPontosEMaisDeUmCaracterENaoContemAspas(String token) {
+        return token.contains(":") && !token.contains("\"") && token.length() > 1;
     }
 
     private String[] divideAFraseNosEspacosEmBranco(String frase) {

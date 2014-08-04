@@ -4,6 +4,7 @@ import models.TabelaDeSimbolos;
 import models.analisadorLexico.Lexer;
 import models.analisadorSemantico.ValidadorDeDeclaracaoDeVariavel;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -41,7 +42,6 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         verify(tabelaMock).adicionaSimbolo("x", "Inteiro");
     }
 
-
     @Test
     public void dadoQueDeclareiDuasVariaveisDiferentesAdicionaAsDuasVariaveisDiferentesNaTabelaDeSimbolos() throws Exception {
         String declaracaoXis = "var x : Inteiro";
@@ -55,7 +55,6 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         assertThat(tabela.simboloExiste("x"), is(true));
         assertThat(tabela.simboloExiste("y"), is(true));
     }
-
 
     @Test
     public void quandoVerificaQueVariavelJaExisteNaTabelaDeSimbolosRetornaFalse() throws Exception {
@@ -76,14 +75,12 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         assertThat(validadorDeDeclaracao.valida(tokens),is(true));
     }
 
-
     @Test
     public void dadoQueDeclareiUmaVariavelQueJaFoiDeclaradaRetornarMensagemDeErro() throws Exception {
         String declaracaoXis = "var x : Inteiro";
         ArrayList<String> tokens = lexer.tokenizar(declaracaoXis);
 
         tabela.adicionaSimbolo("x", "Inteiro");
-
 
         ValidadorDeDeclaracaoDeVariavel validador = new ValidadorDeDeclaracaoDeVariavel(tabela);
         validador.valida(tokens);
@@ -97,7 +94,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         ArrayList<String> tokens = lexer.tokenizar(declaracaoXis);
 
         validadorDeDeclaracao.valida(tokens);
-        assertThat(tabela.simboloExiste("x"),is(true));
 
+        assertThat(tabela.simboloExiste("x"),is(true));
     }
 }

@@ -27,6 +27,7 @@ public class GerenciadorBuilder {
     }
 
     public GerenciadorSemantico geraGerenciador() {
-        return new GerenciadorSemantico(validadorDeDeclaracaoDeVariavel, validadorDeAtribuicao, validadorDeConcatenacao, validadorDeOperacaoAritmetica);
+        return new GerenciadorSemantico(validadorDeDeclaracaoDeVariavel, validadorDeAtribuicao,
+                validadorDeConcatenacao, validadorDeOperacaoAritmetica);
     }
 }
