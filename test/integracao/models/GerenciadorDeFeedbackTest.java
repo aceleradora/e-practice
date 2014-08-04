@@ -109,8 +109,8 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is(not(containsString("Seu código está sintaticamente correto."))));
-        assertThat(mensagemDeErro, is(not(containsString("Seu código está semanticamente correto."))));
+        assertThat(mensagemDeErro, is(not(containsString("Seu código está correto."))));
+        assertThat(mensagemDeErro, is(not(containsString("Seu código está correto."))));
     }
 
     @Test
@@ -120,7 +120,7 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is(not(containsString("Seu código está sintaticamente correto."))));
+        assertThat(mensagemDeErro, is(not(containsString("Seu código está correto."))));
     }
 
     @Test
@@ -204,7 +204,7 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is(not("Seu código está sintaticamente correto.")));
+        assertThat(mensagemDeErro, is(not("Seu código está correto.")));
     }
 
     @Test
