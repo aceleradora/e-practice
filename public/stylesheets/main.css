@@ -45,6 +45,8 @@
 }
 
 #painel {
+    margin-left: 6px;
+    padding-left: 9px;
     background-color: #E5E5E5;
     height: 100%;
     width: 100%;
@@ -94,9 +96,10 @@
 }
 
 #terminal {
-	padding: 18px 10px 10px;
-	overflow: hidden;
-	height: 640px;
+    position: relative;
+    padding: 18px 10px 10px;
+    overflow: auto;
+    height: 100%;
     background-color: #020714;
 }
 
@@ -130,4 +133,12 @@
 
 #botoes {
     text-align: right;
+}
+
+#botoes {
+    text-align: right;
+}
+
+#botaoProximo {
+    padding-left: 10px;
 }

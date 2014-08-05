@@ -39,13 +39,9 @@ public class Exercicio extends Model{
             Integer.class, Exercicio.class
     );
 
-    public List<Exercicio> todos() {
-        return find.all();
-    }
-
     public List<Exercicio> todosNaoResolvidos() {
 
-        return find.where().contains("resolvido", "false").findList();
+        return find.where().eq("resolvido", false).findList();
     }
 
 
