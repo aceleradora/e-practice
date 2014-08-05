@@ -19,7 +19,7 @@ public class ApplicationTest {
     public void setUp() throws Exception {
         running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {
             public void invoke(TestBrowser browser) {
-                browser.goTo(System.getenv("URL_ENVIRONMENT/proximo-exercicio"));
+                browser.goTo(System.getenv("URL_ENVIRONMENT/cria-exercicios"));
             }
         });
     }
