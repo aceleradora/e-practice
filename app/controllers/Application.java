@@ -24,18 +24,19 @@ public class Application extends Controller {
     }
 
     public static Result index() {
-        return redirect(routes.Application.solucoes());
+        return redirect(routes.Application.selecionaProximoExercicio());
     }
 
     public static Result selecionaProximoExercicio(){
-        exercicio = new Exercicio();
-        seletorAleatorioExercicio = new SeletorAleatorioExercicio(exercicio);
-        Exercicio exercicioAleatorio = seletorAleatorioExercicio.buscaExercicio();
-        session("exercicio", exercicioAleatorio.enunciado);
+        setaExercicioNaSecao();
         return redirect(routes.Application.solucoes());
     }
 
     public static Result solucoes() {
+        if(session("exercicio") == null){
+            setaExercicioNaSecao();
+        }
+
         List<SolucaoDoExercicio> all = solucaoDoExercicio.all();
         return ok(views.html.index.render(all, solucaoDoExercicioForm));
     }
@@ -96,6 +97,13 @@ public class Application extends Controller {
         flash("status", "Status: deletado!");
 
         return redirect(routes.Application.solucoes());
+    }
+
+    private static void setaExercicioNaSecao() {
+        exercicio = new Exercicio();
+        seletorAleatorioExercicio = new SeletorAleatorioExercicio(exercicio);
+        Exercicio exercicioAleatorio = seletorAleatorioExercicio.buscaExercicio();
+        session("exercicio", exercicioAleatorio.enunciado);
     }
 
 }
