@@ -20,8 +20,9 @@
             <div id='tab1'>
                 <h3 class="titulo">Exercício</h3>
                 <div class="abas">
-                    @session.get("textoExercicio")
-
+                    <div id="exercicio">
+                        @session.get("textoExercicio")
+                    </div>
                 </div>
             </div>
             <div id='tab2'>
@@ -144,6 +145,7 @@
             <div id="botoes" class="col-sm-3">
                 <input type="button" class="btn" onclick="limpaASolucao()" value="Limpar" />
                 <input type="button" id="botaoDeEnviar" class="btn" name="valor" value="Enviar" />
+                <input type="button" class="btn" onclick="trocaExercicio()" value="Próximo"/>
             </div>
         </section>
     </div>
