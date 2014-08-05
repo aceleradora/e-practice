@@ -22,14 +22,14 @@ public class ApplicationTest {
     }
 
     @Test
-    public void quandoChamaOMetodoSolucaoCarregaUmaViewComRespostaHttp200() {
+    public void quandoChamaOMetodoCriaExerciciosRedirecionaParaOutraRota() {
         running(fakeApplication(), new Runnable() {
             public void run() {
                 Result result;
 
-                result = callAction(controllers.routes.ref.Application.solucoes());
+                result = callAction(controllers.routes.ref.Application.criaExercicios());
 
-                assertThat(status(result)).isEqualTo(OK);
+                assertThat(status(result)).isEqualTo(SEE_OTHER);
             }
         });
     }
@@ -86,7 +86,6 @@ public class ApplicationTest {
 
     @Test
     public void quandoPostaSolucaoEmBrancoRetornaMensagemDeErro() throws Exception {
-
         running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {
             public void invoke(TestBrowser browser) {
 
