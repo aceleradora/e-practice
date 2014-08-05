@@ -16,12 +16,22 @@ public class Application extends Controller {
     static Form<SolucaoDoExercicio> solucaoDoExercicioForm = Form.form(SolucaoDoExercicio.class);
     private static SolucaoDoExercicio solucaoDoExercicio;
     private static MensagemDeFeedback mensagemDeFeedback;
+    private static Exercicio exercicio;
+    private static SeletorAleatorioExercicio seletorAleatorioExercicio;
 
     public Application(SolucaoDoExercicio solucaoDoExercicio) {
         this.solucaoDoExercicio = solucaoDoExercicio;
     }
 
     public static Result index() {
+        return redirect(routes.Application.solucoes());
+    }
+
+    public static Result selecionaProximoExercicio(){
+        exercicio = new Exercicio();
+        seletorAleatorioExercicio = new SeletorAleatorioExercicio(exercicio);
+        Exercicio exercicioAleatorio = seletorAleatorioExercicio.buscaExercicio();
+        session("exercicio", exercicioAleatorio.enunciado);
         return redirect(routes.Application.solucoes());
     }
 

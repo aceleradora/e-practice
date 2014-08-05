@@ -22,7 +22,7 @@
                     <h3 class="titulo">Exercício</h3>
                     <div class="abas">
                         <div id="exercicio">
-                            @session.get("textoExercicio")
+                            @session.get("exercicio")
                         </div>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                 <div id="botoes" class="col-sm-3">
                     <input type="button" class="btn" onclick="limpaASolucao()" value="Limpar" />
                     <input type="button" id="botaoDeEnviar" class="btn" name="valor" value="Enviar" onclick="limparMsgStatus()"/>
-                    <input type="button" class="btn" onclick="trocaExercicio()" value="Próximo"/>
+                    <input type="button" class="btn" onclick="proximoExercicio()" value="Próximo"/>
                 </div>
             </section>
         </div>

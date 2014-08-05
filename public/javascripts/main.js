@@ -69,12 +69,18 @@ function limpaASolucao() {
     }
 }
 
-function trocaExercicio(){
+function proximoExercicio(){
     var caixaDeTexto = $("#solucaoDoUsuario")
-    var confirmacao = confirm("Você tem certeza que quer trocar de exercício? Sua solução anterior será apagada.");
-    if (confirmacao) {
-        caixaDeTexto.value = "";
-        caixaDeTexto.empty();
+
+    if(caixaDeTexto[0].value != ""){
+        var confirmacao = confirm("Você tem certeza que quer trocar de exercício? Sua solução anterior será apagada.");
+        if (confirmacao) {
+            caixaDeTexto.value = "";
+            caixaDeTexto.empty();
+            location.href = "/solucoes/proximoExercicio";
+        }
+    } else {
+        location.href = "/solucoes/proximoExercicio";
     }
 }
 
