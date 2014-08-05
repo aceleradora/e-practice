@@ -31,7 +31,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 50px;
+    height: 35px;
     width: 100%;
     background-color: #141414;
 }
@@ -84,7 +84,7 @@
 
 .abas {
     overflow: auto;
-    height: 650px;
+    height: 645px;
 }
 
 .abas p {
@@ -125,7 +125,6 @@
 #rodapeDoTerminal {
     height: 70px;
     background-color: #020714;
-    padding-top: 10px;
     padding-left: 10px;
     padding-bottom: 20px;
     padding-right: 10px;
@@ -144,8 +143,13 @@
 
 #botoes {
     text-align: right;
+    padding-right: 5px;
 }
 
 #botaoProximo {
     padding-left: 10px;
+}
+
+.btn-spacing {
+    margin-right: 5px;
 }
