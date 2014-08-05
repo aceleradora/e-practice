@@ -45,7 +45,7 @@ public class ExercicioTest {
     }
 
     @Test
-    public void testName() throws Exception {
+    public void pegaExerciciosNaoResolvidosDoBanco() throws Exception {
         running(fakeApplication(), new Runnable() {
             public void run() {
                 Exercicio exercicioDoBanco = new Exercicio();
