@@ -124,7 +124,7 @@ $(document).ready(alttela);
     }
 
 
-$(document).ready(function(){
+$(document).ready(function() {
     if($('#status').html() != '') {
         $('#status').val("")
         $('#status').fadeOut(5000);
