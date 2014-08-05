@@ -109,8 +109,8 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is(not(containsString("Seu código está sintaticamente correto."))));
-        assertThat(mensagemDeErro, is(not(containsString("Seu código está semanticamente correto."))));
+        assertThat(mensagemDeErro, is(not(containsString("Seu código está correto."))));
+        assertThat(mensagemDeErro, is(not(containsString("Seu código está correto."))));
     }
 
     @Test
@@ -120,7 +120,7 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is(not(containsString("Seu código está sintaticamente correto."))));
+        assertThat(mensagemDeErro, is(not(containsString("Seu código está correto."))));
     }
 
     @Test
@@ -204,7 +204,7 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is(not("Seu código está sintaticamente correto.")));
+        assertThat(mensagemDeErro, is(not("Seu código está correto.")));
     }
 
     @Test
@@ -267,5 +267,25 @@ public class GerenciadorDeFeedbackTest {
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
         assertThat(mensagemDeErro, is("A variável x só aceita atribuição de valores do tipo String."));
+    }
+
+    @Test
+    public void dadoQueAtribuoUmaOperacaoAritmeticaDeUmIdvComUmNumeroAUmIdvEntãoReceboUmaMensagemDeSucesso() throws Exception {
+        String codigo = "var x : Inteiro\nvar y : Inteiro\nx = y + 1";
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico,gerenciadorSemantico,quebradorDeCodigo);
+
+        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
+
+        assertThat(mensagemDeErro,is("Seu código está correto.\n"));
+    }
+
+    @Test
+    public void dadoQueFizUmaAtribuicaoUtilizandoDoisPontosNoLugarDeIgualRetornoMensagemDeErro() throws Exception {
+        String codigo = "nome : \"Bernardo\" ";
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico,gerenciadorSemantico,quebradorDeCodigo);
+
+        String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
+
+        assertThat(mensagemDeErro,is("Sinal de igual esperado para atribuição. \n"));
     }
 }
