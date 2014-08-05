@@ -10,7 +10,6 @@ import static play.test.Helpers.running;
 
 
 public class SolucaoDoExercicioTest {
-
     @Ignore
     @Test
     public void quandoChamaOMetodoCreateSalvaUmaSolucaoNoBanco() {
