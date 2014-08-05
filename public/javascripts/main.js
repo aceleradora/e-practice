@@ -79,10 +79,10 @@ function proximoExercicio(){
         if (confirmacao) {
             caixaDeTexto.value = "";
             caixaDeTexto.empty();
-            location.href = "/solucoes/proximoExercicio";
+            location.href = "/solucoes/proximo-exercicio";
         }
     } else {
-        location.href = "/solucoes/proximoExercicio";
+        location.href = "/solucoes/proximo-exercicio";
     }
 }
 
