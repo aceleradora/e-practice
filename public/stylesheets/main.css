@@ -1,7 +1,32 @@
-
 .row {
-    padding: 5px;
-    overflow:auto;
+    padding: 0px;
+    overflow: hidden;
+}
+body {
+}
+
+#head {
+    position: relative;
+}
+
+#body {
+    position: relative;
+    height: 70%;
+}
+
+#footer {
+    position: relative;
+    background-color: #141414;
+    height: 114px;
+}
+
+#heading {
+    font-size: 28px;
+    margin-left: 10px;
+    padding-left: 10px;
+    overflow: hidden;
+    background-color: #141414;
+    color: white;
 }
 
 #button {
@@ -12,77 +37,84 @@
     right: 2px;
 }
 
-#logo {
-    padding: 20px;
-    text-align: center;
-    vertical-align: middle;
-    margin-left: 1px;
-    border: 1px solid black;
-    height: 132px;
-
-    overflow:auto;
+#painel {
+	margin-left: 6px;
+	padding-left: 9px;
+    background-color: #E5E5E5;
+    height: 100%;
+    width: 100%;
 }
 
-#enunciado-exercicio {
-    padding: 10px 0px 0px 10px;
-    border: 1px solid black;
-    height: 132px;
-
-    overflow:auto;
+.tabs li {
+    list-style: none;
+    display: inline;
 }
 
-#lista-de-exercicio {
-    margin-left: 1px;
-    padding: 0px 10px 10px 10px;
-    border: 1px solid black;
-    height: 400px;
-
-    overflow:auto;
+.tabs a {
+    padding: 5px 10px;
+    display: inline-block;
+    background: #666;
+    color: #fff;
+    text-decoration: none;
+    margin-left: -43px;
+    height: 100%;
+    width: 135.75px;
+    font-size: 16px;
+    font-weight: 550;
 }
 
-#manual-de-sintaxe{
-    margin-left: 1px;
-    padding: 0px 10px 10px 10px;
-    border: 1px solid black;
-    overflow:auto;
-    height: 132px;
-
-
+.tabs a.active {
+    background: #fff;
+    color: #000;
 }
 
-#feedback {
-    padding: 10px 0px 0px 10px;
-    border: 1px solid black;
-    height: 400px;
+.abas {
+    overflow: auto;
+    height: 532px;
+}
 
-    overflow:auto;
+.titulo {
+    margin-left: 20px;
+}
+
+.newLine {
+    display: block;
+    height: 10px;
 }
 
 #terminal {
-    position: relative;
-    height: 400px;
-
-    padding: 18px 10px 10px 10px;
-    border: 1px solid black;
-    overflow:auto;
-
+	position: relative;
+	padding: 18px 10px 10px;
+	overflow: auto;
+	height: 100%;
+    background-color: #020714;
 }
 
-#categorias {
-    border: 1px solid black;
-    text-align: center;
+#solucaoDoUsuario {
+    font:20px monospace;
+    background-color: #0C152B;
+    color: #F5EAE1;
+    height: 500px;
+    width: 100%;
+    color: #F5EAE1;
+    font-size: 14px;
+    resize: none;
 }
 
-textarea {
-    font:10px verdana, arial, helvetica, sans-serif;
-    height: 250px;
-    width: 563px;
-}
-
-label#status{
+#rodapeDoTerminal {
+    background-color: #020714;
     padding-left: 10px;
+    padding-bottom: 20px;
     padding-right: 10px;
-    font-size: 12px;
-    font-weight: 500!important;
+}
+
+#mensagemDeTexto {
+    font-size: 20px;
+    font-weight: 500 !important;
     font-style: italic;
+    color: #F5EAE1;
+}
+
+#botoes {
+    text-align: right;
 }
