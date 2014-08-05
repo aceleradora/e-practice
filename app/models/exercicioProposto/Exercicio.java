@@ -7,6 +7,7 @@ import play.db.ebean.Model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.List;
 
 @Entity
 public class Exercicio extends Model{
@@ -27,10 +28,43 @@ public class Exercicio extends Model{
 
     public Exercicio() {}
 
-    public Exercicio(int id, String enunciado, SolucaoDoExercicio possivelSolucao, boolean resolvido) {
-        this.id = id;
+    public Exercicio(String enunciado, SolucaoDoExercicio possivelSolucao, boolean resolvido) {
+
         this.enunciado = enunciado;
         this.possivelSolucao = possivelSolucao;
         this.resolvido = resolvido;
+    }
+
+    private static Model.Finder<Integer,Exercicio> find = new Model.Finder(
+            Integer.class, Exercicio.class
+    );
+
+    public List<Exercicio> todos() {
+        return find.all();
+    }
+
+    public List<Exercicio> todosNaoResolvidos() {
+
+        return find.where().contains("resolvido", "false").findList();
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Exercicio exercicio = (Exercicio) o;
+
+        if (!enunciado.equals(exercicio.enunciado)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 1;
+        result = 31 * result + enunciado.hashCode();
+        return result;
     }
 }

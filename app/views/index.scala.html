@@ -15,116 +15,117 @@
             <section id="painel">
                 <ul class='tabs'>
                     <li><a id='tabLink1' href='#tab1'>Exercício</a></li>
-                    <li><a id='tabLink2' href='#tab2'>Sintaxe</a></li>
+                    <li><a id='tabLink2' href='#tab2'>Manual </a></li>
                     <li><a id='tabLink3' href='#tab3'>Feedback</a></li>
                 </ul>
                 <div id='tab1'>
                     <h3 class="titulo">Exercício</h3>
                     <div class="abas">
-                        @session.get("textoExercicio")
-
+                        <div id="exercicio">
+                            @session.get("textoExercicio")
+                        </div>
                     </div>
-                </div>
-                <div id='tab2'>
-                    <h3 class="titulo">Sintaxe</h3>
+                    <div id='tab2'>
+                        <h3 class="titulo">Sintaxe</h3>
 
-                    <div class="abas">
+                        <div class="abas">
 
-                        <h4> Palavra reservada: </h4>
+                            <h4> Palavra reservada: </h4>
 
-                        <h5> var </h5> <p> Para declaração de variáveis. </p>
-                        <h5>resultado</h5> <p>Nome de variável reservado para o resultado final.</p>
+                            <h5> var </h5> <p> Para declaração de variáveis. </p>
+                            <h5>resultado</h5> <p>Nome de variável reservado para o resultado final.</p>
 
-                        <h4>Nome da variável:</h4>
+                            <h4>Nome da variável:</h4>
 
-                        <h5>nomeDaVariavel</h5> <p>O nome sempre deve começar com a primeira letra em minúsculo.</p>
+                            <h5>nomeDaVariavel</h5> <p>O nome sempre deve começar com uma letra.</p>
 
-                        <h4>Símbolo reservado:</h4>
+                            <h4>Símbolo reservado:</h4>
 
-                        <h5> :</h5> <p>Símbolo de declaração de variável.</p>
-                        <h5> = </h5> <p>Símbolo de atribuição de expressão(ões).</p>
-                        <h5> "" </h5> <p>Símbolo para constante string.</p>
-                        <h5> <> </h5> <p>Símbolo de concatenação.</p>
-                        <h5> + </h5> <p>Operador aritmético da adição.</p>
-                        <h5> - </h5> <p>Operador aritmético da subtração.</p>
-                        <h5> * </h5> <p>Operador aritmético da multiplicação.</p>
-                        <h5> / </h5> <p>Operador aritmético da divisão.</p>
-                        <h5> () </h5> <p>Símbolo de priorização de expressão.</p>
+                            <h5> :</h5> <p>Símbolo de declaração de variável.</p>
+                            <h5> = </h5> <p>Símbolo de atribuição de expressão(ões).</p>
+                            <h5> "" </h5> <p>Símbolo para constante string.</p>
+                            <h5> <> </h5> <p>Símbolo de concatenação.</p>
+                            <h5> + </h5> <p>Operador aritmético da adição.</p>
+                            <h5> - </h5> <p>Operador aritmético da subtração.</p>
+                            <h5> * </h5> <p>Operador aritmético da multiplicação.</p>
+                            <h5> / </h5> <p>Operador aritmético da divisão.</p>
+                            <h5> () </h5> <p>Símbolo de priorização de expressão.</p>
 
-                        <h4>Tipos de variáveis:</h4>
+                            <h4>Tipos de variáveis:</h4>
 
-                        <h5>Inteiro</h5> <p>Para números inteiros.</p>
-                        <h5>String</h5> <p>Para textos.</p>
+                            <h5>Inteiro</h5> <p>Para números inteiros.</p>
+                            <h5>String</h5> <p>Para textos.</p>
 
-                        <p>Observação: O tipo da variável é sempre declarado com a primeira letra maiúscula, como nos exemplos citados acima.</p>
+                            <p>Observação: O tipo da variável é sempre declarado com a primeira letra maiúscula, como nos exemplos citados acima.</p>
 
-                        <h4>Declaração de Variável:</h4>
+                            <h4>Declaração de Variável:</h4>
 
-                        <h5>var nomeDaVariavel : TipoDaVariavel </h5>
-                        <h5>var resultado : TipoDaVariavel</h5>
-                        <h5>var variavel : TipoDaVariavel</h5>
+                            <h5>var nomeDaVariavel : TipoDaVariavel </h5>
+                            <h5>var resultado : TipoDaVariavel</h5>
+                            <h5>var variavel : TipoDaVariavel</h5>
 
-                        <h4>Exemplos:</h4>
-                        <h5>var contador : Inteiro</h5>
-                        <h5>var nome : String</h5>
-                        <h5>var resultado : String</h5>
-                        <h5>var resultado : Inteiro</h5>
-                        <span class="newLine"></span>
-                        <h4>Atribuição:</h4>
+                            <h4>Exemplos:</h4>
+                            <h5>var contador : Inteiro</h5>
+                            <h5>var nome : String</h5>
+                            <h5>var resultado : String</h5>
+                            <h5>var resultado : Inteiro</h5>
+                            <span class="newLine"></span>
+                            <h4>Atribuição:</h4>
 
-                        <h5>nomeDaVariavel = "texto"</h5>
-                        <h5>nomeDaVariavel = numero</h5>
-                        <h5>nomeDaVariavel = variavel</h5>
+                            <h5>nomeDaVariavel = "texto"</h5>
+                            <h5>nomeDaVariavel = numero</h5>
+                            <h5>nomeDaVariavel = variavel</h5>
 
-                        <h4>Exemplos:</h4>
-                        <h5>nome = "Ana"</h5>
-                        <h5>nome = "ana"</h5>
-                        <h5>nome = "ANA"</h5>
-                        <h5>contador = 5</h5>
-                        <h5>resultado = nome</h5>
-                        <h5>resultado = contador</h5>
-                        <span class="newLine"></span>
+                            <h4>Exemplos:</h4>
+                            <h5>nome = "Ana"</h5>
+                            <h5>nome = "ana"</h5>
+                            <h5>nome = "ANA"</h5>
+                            <h5>contador = 5</h5>
+                            <h5>resultado = nome</h5>
+                            <h5>resultado = contador</h5>
+                            <span class="newLine"></span>
 
-                        <h4>Concatenação:</h4>
+                            <h4>Concatenação:</h4>
 
-                        <h5>nomeDaVariavel = "texto" <> "texto"</h5>
-                        <h5>nomeDaVariavel = "texto" <> variavel</h5>
-                        <h5>nomeDaVariavel = variavel <> variavel</h5>
+                            <h5>nomeDaVariavel = "texto" <> "texto"</h5>
+                            <h5>nomeDaVariavel = "texto" <> variavel</h5>
+                            <h5>nomeDaVariavel = variavel <> variavel</h5>
 
-                        <p>Observação: Concatenações podem apenas ser realizadas entre tipos string.<p>
+                            <p>Observação: Concatenações podem apenas ser realizadas entre tipos string.<p>
 
-                        <h4>Exemplos:</h4>
-                        <h5>nome = "Ana" <> "Estela"</h5>
-                        <h5>nome = "Ana" <> sobrenome</h5>
-                        <h5>nome = nome <> sobrenome</h5>
-                        <span class="newLine"></span>
+                            <h4>Exemplos:</h4>
+                            <h5>nome = "Ana" <> "Estela"</h5>
+                            <h5>nome = "Ana" <> sobrenome</h5>
+                            <h5>nome = nome <> sobrenome</h5>
+                            <span class="newLine"></span>
 
-                        <h4>Operações Aritméticas:</h4>
+                            <h4>Operações Aritméticas:</h4>
 
-                        <h5>nomeDaVariavel = variavel {operadorAritmético} variavel</h5>
-                        <h5>nomeDaVariavel = numero {operadorAritmético} variavel</h5>
-                        <h5>nomeDaVariavel = numero {operadorAritmético} numero</h5>
-                        <h5>nomeDaVariavel = expressão {operadorAritmético} numero</h5>
-                        <h5>nomeDaVariavel = variavel {operadorAritmético} expressão</h5>
-                        <h5>nomeDaVariavel = expressão {operadorAritmético} expressão</h5>
+                            <h5>nomeDaVariavel = variavel {operadorAritmético} variavel</h5>
+                            <h5>nomeDaVariavel = numero {operadorAritmético} variavel</h5>
+                            <h5>nomeDaVariavel = numero {operadorAritmético} numero</h5>
+                            <h5>nomeDaVariavel = expressão {operadorAritmético} numero</h5>
+                            <h5>nomeDaVariavel = variavel {operadorAritmético} expressão</h5>
+                            <h5>nomeDaVariavel = expressão {operadorAritmético} expressão</h5>
 
-                        <p>Observação: Operações aritméticas podem apenas ser realizadas entre tipos inteiros.</p>
+                            <p>Observação: Operações aritméticas podem apenas ser realizadas entre tipos inteiros.</p>
 
-                        <h4>Exemplos:</h4>
-                        <h5>resultado = x + y</h5>
-                        <h5>resultado = 1 + x</h5>
-                        <h5>resultado = 2 / 1</h5>
-                        <h5>resultado = (x + y) * 3</h5>
-                        <h5>resultado = z + (x + y)</h5>
-                        <h5>resultado = (x + y) - (4 * z)</h5>
-                        <span class="newLine"></span>
+                            <h4>Exemplos:</h4>
+                            <h5>resultado = x + y</h5>
+                            <h5>resultado = 1 + x</h5>
+                            <h5>resultado = 2 / 1</h5>
+                            <h5>resultado = (x + y) * 3</h5>
+                            <h5>resultado = z + (x + y)</h5>
+                            <h5>resultado = (x + y) - (4 * z)</h5>
+                            <span class="newLine"></span>
+                        </div>
                     </div>
+
                 </div>
                 <div id='tab3'>
                     <h3 class="titulo">Feedback</h3>
                     <div class="abas">
                         @flash.get("mensagemDeFeedback")
-
                     </div>
                 </div>
             </section>
@@ -145,6 +146,7 @@
                 <div id="botoes" class="col-sm-3">
                     <input type="button" class="btn" onclick="limpaASolucao()" value="Limpar" />
                     <input type="button" id="botaoDeEnviar" class="btn" name="valor" value="Enviar" />
+                    <input type="button" class="btn" onclick="trocaExercicio()" value="Próximo"/>
                 </div>
             </section>
         </div>
