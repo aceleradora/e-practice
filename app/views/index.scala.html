@@ -130,26 +130,26 @@
                 </div>
             </section>
         </div>
-    </div>
-    <div class="col-sm-9">
-        <section id="terminal" class="row">
-            @form(routes.Application.novaSolucao(), 'id -> "formCodigo") {
-            @helper.input(field = solucaoForm("solucaoDoUsuario"), '_showConstraints -> false, '_label -> "") { (id, name, value, args) =>
-            <div>
-                <textarea name="@name" id="@id" rows='2' onkeydown="quandoPressionaTab(event)">@flash.get("solucaoDoUsuario")</textarea>
-            </div>
-            }
-        </section>
-        <section id="rodapeDoTerminal" class="row">
-            <div id="mensagemDeTexto" class="col-sm-9">
-                <label id="status">@flash.get("status")</label>
-            </div>
-            <div id="botoes" class="col-sm-3">
-                <input type="button" class="btn" onclick="limpaASolucao()" value="Limpar" />
-                <input type="button" id="botaoDeEnviar" class="btn" name="valor" value="Enviar" onclick="limparMsgStatus()"/>
-                <input type="button" class="btn" onclick="trocaExercicio()" value="Próximo"/>
-            </div>
-        </section>
+        <div class="col-sm-9">
+            <section id="terminal" class="row">
+                @form(routes.Application.novaSolucao(), 'id -> "formCodigo") {
+                @helper.input(field = solucaoForm("solucaoDoUsuario"), '_showConstraints -> false, '_label -> "") { (id, name, value, args) =>
+                <div>
+                    <textarea name="@name" id="@id" rows='2' onkeydown="quandoPressionaTab(event)">@flash.get("solucaoDoUsuario")</textarea>
+                </div>
+                }
+            </section>
+            <section id="rodapeDoTerminal" class="row">
+                <div id="mensagemDeTexto" class="col-sm-9">
+                    <label id="status">@flash.get("status")</label>
+                </div>
+                <div id="botoes" class="col-sm-3">
+                    <input type="button" class="btn" onclick="limpaASolucao()" value="Limpar" />
+                    <input type="button" id="botaoDeEnviar" class="btn" name="valor" value="Enviar" onclick="limparMsgStatus()"/>
+                    <input type="button" class="btn" onclick="trocaExercicio()" value="Próximo"/>
+                </div>
+            </section>
+        </div>
     </div>
 
     <div id="footer" class="row">
