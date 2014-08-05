@@ -63,9 +63,11 @@ $("#botaoDeLimpar").click(function () {
 
 function limpaASolucao() {
     var caixaDeTexto = $("#solucaoDoUsuario");
-    var confirmacao = confirm("Você deseja apagar a solucao?");
-    if (confirmacao) {
-        $("#solucaoDoUsuario").val("");
+    if(caixaDeTexto[0].value != ""){
+        var confirmacao = confirm("Você deseja apagar a solucao?");
+        if (confirmacao) {
+            $("#solucaoDoUsuario").val("");
+            }
     }
 }
 
