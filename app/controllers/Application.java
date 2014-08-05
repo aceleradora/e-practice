@@ -14,35 +14,22 @@ public class Application extends Controller {
 
     static Form<SolucaoDoExercicio> solucaoDoExercicioForm = Form.form(SolucaoDoExercicio.class);
     private static SolucaoDoExercicio solucaoDoExercicio;
-//    private static Exercicio exercicio;
     private static MensagemDeFeedback mensagemDeFeedback;
 
-    public Application(SolucaoDoExercicio solucaoDoExercicio, Exercicio exercicio) {
+    public Application(SolucaoDoExercicio solucaoDoExercicio) {
         this.solucaoDoExercicio = solucaoDoExercicio;
-//        this.exercicio = exercicio;
     }
 
     public static Result index() {
         return redirect(routes.Application.solucoes());
     }
 
-    public static Result solucoes(){
-//        exercicio = new Exercicio();
-//        SeletorAleatorioExercicio seletorAleatorioExercicio = new SeletorAleatorioExercicio();
-//        seletorAleatorioExercicio.createExercicioPadrao();
-//        session("textoExercicio", seletorAleatorioExercicio.buscaDeExercicioAleatorio());
-
+    public static Result solucoes() {
         List<SolucaoDoExercicio> all = solucaoDoExercicio.all();
-
         return ok(views.html.index.render(all, solucaoDoExercicioForm));
     }
 
     public static Result novaSolucao() {
-//        exercicio = new Exercicio();
-//        SeletorAleatorioExercicio seletorAleatorioExercicio = new SeletorAleatorioExercicio();
-//        seletorAleatorioExercicio.createExercicioPadrao();
-//        session("textoExercicio", seletorAleatorioExercicio.buscaDeExercicioAleatorio());
-
         Form<SolucaoDoExercicio> formPreenchido = solucaoDoExercicioForm.bindFromRequest();
 
         if(formPreenchido.hasErrors()){
@@ -56,7 +43,7 @@ public class Application extends Controller {
                 flash("mensagemDeFeedback", mensagemDeFeedback.mostraMensagem());
                 flash("status", "Status: sua solução foi salva com sucesso!");
             } catch (Exception e){
-                flash("status", "Status: sua solução não foi salva");
+                flash("status", "Status: sua solução não foi salva!");
             }
             return redirect(routes.Application.solucoes());
         }
@@ -68,14 +55,5 @@ public class Application extends Controller {
 
         return redirect(routes.Application.solucoes());
     }
-
-//    public static Result criaExercicio(){
-//        exercicio = new Exercicio();
-//        SeletorAleatorioExercicio seletorAleatorioExercicio = new SeletorAleatorioExercicio();
-//        seletorAleatorioExercicio.createExercicioPadrao();
-//        session("textoExercicio", seletorAleatorioExercicio.buscaDeExercicioAleatorio());
-//
-//        return redirect(routes.Application.solucoes());
-//    }
 
 }

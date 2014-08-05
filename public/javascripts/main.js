@@ -48,12 +48,11 @@ $(document).ready(function(){
                 $active.addClass('active');
                 $content.show();
 
-                e.preventDefault();
+                e.defaultPrevented();
 
             });
         });
 });
-
 
 
 $("#botaoDeLimpar").click(function () {
@@ -63,14 +62,21 @@ $("#botaoDeLimpar").click(function () {
 });
 
 function limpaASolucao() {
+    var caixaDeTexto = $("#solucaoDoUsuario");
+    var confirmacao = confirm("Você deseja apagar a solucao?");
+    if (confirmacao) {
+        $("#solucaoDoUsuario").val("");
+    }
+}
+
+function trocaExercicio(){
     var caixaDeTexto = $("#solucaoDoUsuario")
-    var confirmacao = confirm("Apagar a solucao?");
+    var confirmacao = confirm("Você tem certeza que quer trocar de exercício? Sua solução anterior será apagada.");
     if (confirmacao) {
         caixaDeTexto.value = "";
         caixaDeTexto.empty();
     }
 }
-
 
 $(document).ready(alttela);
     $(window).resize(alttela);
@@ -83,6 +89,7 @@ $(document).ready(alttela);
         };
     };
 
+
     function desabilitaBotao() {
         $("#botaoDeEnviar").attr("disabled");
     };
@@ -94,13 +101,11 @@ $(document).ready(alttela);
         $("#tabLink1").removeClass('active');
         $("#tabLink2").removeClass('active');
         $("#tab1").hide();
-        $("#tab2").hide(); 
+        $("#tab2").hide();
         $("#tabLink3").click();
-
-
     };
 
-    
+
     function getCookie(cname) {
         var name = cname + "=";
         var ca = document.cookie.split(';');
@@ -111,3 +116,12 @@ $(document).ready(alttela);
         }
         return "";
     }
+
+
+$(document).ready(function(){
+    if($('#status').html() != '') {
+        $('#status').val("")
+        $('#status').fadeOut(5000);
+        $('#mensagemDeTexto').append("<label id='status'></label>");
+    }
+});
