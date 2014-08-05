@@ -12,10 +12,19 @@
 }
 
 #body {
-    height: 100%;
+    height: auto;
     max-height: 700px;
     margin-top: 50px;
     margin-bottom: 50px;
+}
+
+.container-fluid {
+    padding-left: 0!important;
+    padding-right: 0!important;
+}
+
+.row {
+    margin-left: 0!important;
 }
 
 #footer {
@@ -45,11 +54,9 @@
 }
 
 #painel {
-    margin-left: 6px;
-    padding-left: 9px;
     background-color: #E5E5E5;
     height: 100%;
-    width: 100%;
+    width: 104%;
 }
 
 .tabs li {
