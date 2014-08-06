@@ -64,7 +64,7 @@
 }
 
 .abas {
-    height: 700px;
+    height: 645px;
     overflow: auto;
 }
 
@@ -82,7 +82,7 @@
 }
 
 .abas p {
-    padding-right: 20px;
+    padding-right: 30px;
     padding-left: 20px;
     text-align: justify;
     text-justify: inter-word;
@@ -105,11 +105,13 @@
 }
 
 .error {
+    padding-top: 2px;
     color: white;
 }
 
 #solucaoDoUsuario {
     font: 16px monospace;
+    padding: 7px 7px;
     border-style: hidden;
     border-radius: 6px;
     background-color: #0C152B;
@@ -118,13 +120,14 @@
     height: 630px;
     width: 100%;
     color: #F5EAE1;
+    line-height: 22px;
     resize: none;
 }
 
 #rodapeDoTerminal {
     background-color: #020714;
     padding-left: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 25px;
     padding-right: 10px;
 }
 

@@ -134,7 +134,7 @@
                 @form(routes.Application.novaSolucao(), 'id -> "formCodigo") {
                 @helper.input(field = solucaoForm("solucaoDoUsuario"), '_showConstraints -> false, '_label -> "") { (id, name, value, args) =>
                 <div>
-                    <textarea name="@name" id="@id" rows='2' onkeydown="quandoPressionaTab(event)" placeholder="Digite sua solução aqui">@flash.get("solucaoDoUsuario")</textarea>
+                    <textarea name="@name" id="@id" rows='2' onkeydown="quandoPressionaTab(event)" placeholder="Digite sua solução aqui" spellcheck="false">@flash.get("solucaoDoUsuario")</textarea>
                 </div>
                 }
             </section>
