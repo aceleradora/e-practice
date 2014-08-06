@@ -31,12 +31,12 @@ public class TesteValidadorDeAtribuicao {
     }
 
     @Test
-    public void retornaFalseQuandoOPrimeirTokenComecarComLetraMaiusculaENaoForUmIDV() throws Exception {
+    public void retornaTrueQuandoOPrimeirTokenComecarComLetraMaiusculaEForUmIDV() throws Exception {
         ArrayList<String> tokens = lexer.tokenizar("Morango = 1");
         validadorDeAtribuicao.valida(tokens);
         boolean resultado = validadorDeAtribuicao.validaPrimeiroToken();
 
-        assertThat(resultado, is(false));
+        assertThat(resultado, is(true));
     }
 
     @Test
@@ -128,12 +128,23 @@ public class TesteValidadorDeAtribuicao {
     }
 
     @Test
-    public void retornaMensagemdeErroQuandoEuErroAlgumaRegraSintatica() throws Exception {
+    public void permiteUsarNomesComLetraMaiusculaNoInicio() throws Exception {
         ArrayList<String> tokens = lexer.tokenizar("Abaxa = a");
         validadorDeAtribuicao.valida(tokens);
         String mensagem = validadorDeAtribuicao.retornaMensagemErro();
 
-        assertThat(mensagem, is("Nome de variável incorreto. \n"));
+        assertThat(mensagem, is(""));
+    }
+
+
+    @Test
+    public void retornaMensagemDeErroQuandoEncontraNomeDeVariavelIncorreto() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("1abacaxi = \"frutas\"");
+
+        validadorDeAtribuicao.valida(tokens);
+        String mensagemDeErro = validadorDeAtribuicao.retornaMensagemErro();
+
+        assertThat(mensagemDeErro, is("Nome de variável incorreto. \n"));
     }
 
     @Test
@@ -146,6 +157,16 @@ public class TesteValidadorDeAtribuicao {
         assertThat(mensagemDeErro, is("Sinal de igual esperado para atribuição. \n"));
     }
 
+    @Test
+    public void retornaMensagemDeErroQuandoValorAtribuidoEInvalido() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi = @");
+
+        validadorDeAtribuicao.valida(tokens);
+        String mensagemDeErro = validadorDeAtribuicao.retornaMensagemErro();
+
+        assertThat(mensagemDeErro, is("Variável, valor numérico ou uma string são esperados. \n"));
+
+    }
 }
 
 
