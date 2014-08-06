@@ -82,19 +82,14 @@ public class TesteValidadorDeOperacoesAritmeticas {
     }
 
     @Test
-    public void dadaUmaOperacaoAritmeticaComVariaveisDeclaradasMasOperadorDeConcatenacaoRetornarMensagemDeErro() throws Exception {
+    public void dadaUmaOperacaoAritmeticaComUmIdvDeclaradoMasDoTipoStringRetornaMensagemErro() throws Exception {
         tabela.adicionaSimbolo("x","Inteiro");
-        tabela.adicionaSimbolo("y","Inteiro");
-        tabela.adicionaSimbolo("z","Inteiro");
-
-        String declaracao = "z = x <> z";
+        tabela.adicionaSimbolo("y","String");
+        String declaracao = "x = y + 3";
         tokens = lexer.tokenizar(declaracao);
         validadorDeOperacoesAritmeticas.valida(tokens);
 
-        assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is("Você digitou <> e deveria ser operador matemático."));
+        assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is("A variável y não é do tipo Inteiro."));
 
     }
-
-
-
 }

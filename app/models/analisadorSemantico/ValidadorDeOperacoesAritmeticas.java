@@ -23,12 +23,8 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
     public boolean valida(ArrayList<String> tokens) {
         this.listaDetokens = tokens;
         for (int i = 0; i < listaDetokens.size(); i++){
-            boolean indexPar = i%2==0;
-            if(indexPar) {
-                if (identificadorDeToken.identifica(listaDetokens.get(i)).equals("NUMERO")){
-                    i++;
-                }
-                else if ((identificadorDeToken.identifica(listaDetokens.get(i)).equals("IDV"))) {
+
+                if ((identificadorDeToken.identifica(listaDetokens.get(i)).equals("IDV"))) {
                     if(!tabelaDeSimbolos.simboloExiste(listaDetokens.get(i))) {
                         tokenInvalido = listaDetokens.get(i);
                         tipoDeErro = 1;
@@ -41,19 +37,6 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
                     }
                 }
             }
-
-            else {
-                if (!(listaDetokens.get(i).equals("=")
-                        || listaDetokens.get(i).equals("+")
-                        || listaDetokens.get(i).equals("-")
-                        || listaDetokens.get(i).equals("*")
-                        || listaDetokens.get(i).equals("/"))) {
-                    tokenInvalido = listaDetokens.get(i);
-                    tipoDeErro = 3;
-                    return false;
-                }
-            }
-        }
         return true;
     }
 
@@ -63,8 +46,6 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
             return "A variável " + tokenInvalido + " não foi declarada.";
         if (tipoDeErro == 2)
             return "A variável " + tokenInvalido + " não é do tipo Inteiro.";
-        if (tipoDeErro == 3)
-            return "Você digitou " + tokenInvalido + " e deveria ser operador matemático.";
         return "";
     }
 }

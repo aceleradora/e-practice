@@ -22,8 +22,7 @@ public class ValidadorDeConcatenacao implements Validador{
     public boolean valida(ArrayList<String> tokens) {
         this.listaDetokens = tokens;
         for (int i = 0; i < listaDetokens.size(); i++){
-            boolean indexPar = i%2==0;
-            if(indexPar) {
+
                 if (identificadorDeToken.identifica(listaDetokens.get(i)).equals("CONSTANTE_TIPO_STRING")){
                     i++;
                 }
@@ -40,15 +39,6 @@ public class ValidadorDeConcatenacao implements Validador{
                     }
                 }
             }
-                else {
-                    if (!(listaDetokens.get(i).equals("=") || listaDetokens.get(i).equals("<>"))) {
-                        tokenInvalido = listaDetokens.get(i);
-                        tipoDeErro = 3;
-                        return false;
-                    }
-                }
-            }
-
         return true;
     }
 
@@ -58,8 +48,6 @@ public class ValidadorDeConcatenacao implements Validador{
             return "A variável " + tokenInvalido + " não foi declarada.";
         if (tipoDeErro == 2)
             return "A variável " + tokenInvalido + " não é do tipo String.";
-        if (tipoDeErro == 3)
-            return "Você digitou " + tokenInvalido + " e deveria ser <>.";
         return "";
     }
 
