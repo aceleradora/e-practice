@@ -36,6 +36,7 @@ public class TesteValidadorDeConcatenacao {
         validador = new ValidadorDeConcatenacao(tabelaDeSimbolos);
     }
 
+
     @Test
     public void quandoPrimeiraVariavelNaoExisteRetornaFalse() throws Exception {
         boolean resultado = validador.valida(tokens);
@@ -144,4 +145,34 @@ public class TesteValidadorDeConcatenacao {
         assertThat(resultado, is(true));
     }
 
+    @Test
+    public void quandoTenhoUmaOperacaoAritmeticaDeIdvDoTipoStringRetornaFalse() throws Exception {
+        tokens.add("+");
+        tokens.add("vermelho");
+        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
+        tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
+        tabelaDeSimbolos.adicionaSimbolo("verde", "String");
+        tabelaDeSimbolos.adicionaSimbolo("vermelho", "String");
+
+        boolean resultado = validador.valida(tokens);
+
+        assertThat(resultado, is(false));
+
+    }
+
+    @Test
+    public void quandoTenhoUmaOperacaoAritmeticaDeIdvDoTipoStringRetornaMensagemDeErro() throws Exception {
+        tokens.add("+");
+        tokens.add("vermelho");
+        tabelaDeSimbolos.adicionaSimbolo("abacaxi", "String");
+        tabelaDeSimbolos.adicionaSimbolo("amarelo", "String");
+        tabelaDeSimbolos.adicionaSimbolo("verde", "String");
+        tabelaDeSimbolos.adicionaSimbolo("vermelho", "String");
+
+        validador.valida(tokens);
+
+        String mensagem = validador.retornaMensagemErro();
+
+        assertThat(mensagem, is("Você digitou + e deveria ser <>."));
+    }
 }

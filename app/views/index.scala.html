@@ -23,7 +23,7 @@
                     <h3 class="titulo">Enunciado</h3>
                     <div class="abas">
                         <div id="exercicio">
-                            <p>@session.get("textoExercicio")</p>
+                            <p>@session.get("exercicio")</p>
                         </div>
                     </div>
                 </div>
@@ -147,7 +147,7 @@
                 <div id="botoes" class="col-sm-3">
                     <input type="button" class="btn btn-sm btn-spacing" onclick="limpaASolucao()" value="Limpar" />
                     <input type="button" id="botaoDeEnviar" class="btn btn-sm btn-spacing" name="valor" value="Enviar" onclick="limparMsgStatus()"/>
-                    <input type="button" class="btn btn-sm" onclick="trocaExercicio()" value="Próximo"/>
+                    <input type="button" class="btn btn-sm" onclick="proximoExercicio()" value="Próximo"/>
                 </div>
             </section>
         </div>

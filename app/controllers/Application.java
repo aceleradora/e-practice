@@ -16,16 +16,27 @@ public class Application extends Controller {
     static Form<SolucaoDoExercicio> solucaoDoExercicioForm = Form.form(SolucaoDoExercicio.class);
     private static SolucaoDoExercicio solucaoDoExercicio;
     private static MensagemDeFeedback mensagemDeFeedback;
+    private static Exercicio exercicio;
+    private static SeletorAleatorioExercicio seletorAleatorioExercicio;
 
     public Application(SolucaoDoExercicio solucaoDoExercicio) {
         this.solucaoDoExercicio = solucaoDoExercicio;
     }
 
     public static Result index() {
+        return redirect(routes.Application.selecionaProximoExercicio());
+    }
+
+    public static Result selecionaProximoExercicio(){
+        setaExercicioNaSecao();
         return redirect(routes.Application.solucoes());
     }
 
     public static Result solucoes() {
+        if(session("exercicio") == null){
+            setaExercicioNaSecao();
+        }
+
         List<SolucaoDoExercicio> all = solucaoDoExercicio.all();
         return ok(views.html.index.render(all, solucaoDoExercicioForm));
     }
@@ -86,6 +97,13 @@ public class Application extends Controller {
         flash("status", "Status: deletado!");
 
         return redirect(routes.Application.solucoes());
+    }
+
+    private static void setaExercicioNaSecao() {
+        exercicio = new Exercicio();
+        seletorAleatorioExercicio = new SeletorAleatorioExercicio(exercicio);
+        Exercicio exercicioAleatorio = seletorAleatorioExercicio.buscaExercicio();
+        session("exercicio", exercicioAleatorio.enunciado);
     }
 
 }

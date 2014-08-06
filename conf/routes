@@ -8,6 +8,7 @@ GET     /                           controllers.Application.index()
 # solucaoDoExercicio
 GET     /solucoes                   controllers.Application.solucoes()
 POST    /solucoes                   controllers.Application.novaSolucao()
+GET     /solucoes/proximo-exercicio controllers.Application.selecionaProximoExercicio()
 GET     /solucoes/:id/deletar       controllers.Application.deletaSolucao(id: Integer)
 # Salva novo exercicio - soluçao temporaria
 GET     /solucoes/cria-exercicios    controllers.Application.criaExercicios()
