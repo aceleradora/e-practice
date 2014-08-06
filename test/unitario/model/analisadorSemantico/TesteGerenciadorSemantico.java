@@ -292,6 +292,6 @@ public class TesteGerenciadorSemantico {
                 .geraGerenciador();
 
         gerenciadorSemantico.interpreta("x = z + y");
-        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("Variável não declarada."));
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("A variável x não foi declarada."));
     }
 }

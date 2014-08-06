@@ -4,6 +4,7 @@
 @main("e-Practice") {
 
 <div class="container-fluid">
+
     <div id="head" class="row">
         <div id="heading" class="col-sm-12">
             <p>e-practice</p>
@@ -19,7 +20,7 @@
                     <li><a id='tabLink3' href='#tab3'>Feedback</a></li>
                 </ul>
                 <div id='tab1'>
-                    <h3 class="titulo">Exercício</h3>
+                    <h3 class="titulo">Enunciado</h3>
                     <div class="abas">
                         <div id="exercicio">
                             <p>@session.get("exercicio")</p>
@@ -135,7 +136,7 @@
                 @form(routes.Application.novaSolucao(), 'id -> "formCodigo") {
                 @helper.input(field = solucaoForm("solucaoDoUsuario"), '_showConstraints -> false, '_label -> "") { (id, name, value, args) =>
                 <div>
-                    <textarea name="@name" id="@id" rows='2' onkeydown="quandoPressionaTab(event)">@flash.get("solucaoDoUsuario")</textarea>
+                    <textarea name="@name" id="@id" rows='2' onkeydown="quandoPressionaTab(event)" placeholder="Digite sua solução aqui">@flash.get("solucaoDoUsuario")</textarea>
                 </div>
                 }
             </section>
@@ -155,6 +156,7 @@
     <div id="footer" class="row">
         <div class="col-sm-12"></div>
     </div>
+
 </div>
     }
 }
