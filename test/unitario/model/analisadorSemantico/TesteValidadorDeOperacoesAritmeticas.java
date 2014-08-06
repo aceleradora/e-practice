@@ -48,6 +48,7 @@ public class TesteValidadorDeOperacoesAritmeticas {
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
     }
+
     @Test
     public void dadaUmaOperacaoAritmeticaValidaComMaisDeUmIndentificadorDeclaradoNaTabelaDeSimbolos() throws Exception {
         tabela.adicionaSimbolo("x","Inteiro");
@@ -67,7 +68,7 @@ public class TesteValidadorDeOperacoesAritmeticas {
         tokens = lexer.tokenizar(declaracao);
         validadorDeOperacoesAritmeticas.valida(tokens);
 
-        assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is("Variável não declarada."));
+        assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is("A variável x não foi declarada."));
     }
 
     @Test
@@ -79,5 +80,21 @@ public class TesteValidadorDeOperacoesAritmeticas {
 
         assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is(""));
     }
-    
+
+    @Test
+    public void dadaUmaOperacaoAritmeticaComVariaveisDeclaradasMasOperadorDeConcatenacaoRetornarMensagemDeErro() throws Exception {
+        tabela.adicionaSimbolo("x","Inteiro");
+        tabela.adicionaSimbolo("y","Inteiro");
+        tabela.adicionaSimbolo("z","Inteiro");
+
+        String declaracao = "z = x <> z";
+        tokens = lexer.tokenizar(declaracao);
+        validadorDeOperacoesAritmeticas.valida(tokens);
+
+        assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is("Você digitou <> e deveria ser operador matemático."));
+
+    }
+
+
+
 }

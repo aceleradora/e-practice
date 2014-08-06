@@ -92,7 +92,7 @@ public class TesteFeedbackRestricaoSemantica {
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
-        assertThat(mensagem, is("Seu código está correto.\n"));
+        assertThat(mensagem, is("A variável resultado não é do tipo Inteiro."));
     }
 
     @Test
