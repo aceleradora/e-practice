@@ -125,7 +125,6 @@ $(document).ready(alttela);
         return "";
     }
 
-
 $(document).ready(function() {
     if($('#status').html() != '') {
         $('#status').val("")

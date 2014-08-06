@@ -60,7 +60,8 @@ public class ApplicationTest {
 
                 browser.goTo(System.getenv("URL_ENVIRONMENT"));
                 browser.fill("#solucaoDoUsuario").with("var x  = 1");
-                browser.find("input", withName("valor")).submit();
+                browser.$("#botaoDeEnviar").click();
+                browser.$("#solucaoDoUsuario").submit();
 
                 assertThat(browser.url()).isEqualTo(System.getenv("URL_ENVIRONMENT")+"/solucoes");
                 assertThat(browser.$("#status", 0).getText()).isEqualTo("Status: sua solução foi salva com sucesso!");
@@ -76,7 +77,7 @@ public class ApplicationTest {
                 browser.goTo(System.getenv("URL_ENVIRONMENT"));
                 browser.fill("#solucaoDoUsuario").with("var esseTextoSeraMantido : String");
 
-                browser.find("input", withName("valor")).submit();
+                browser.find("button", withName("valor")).click();
 
                 String textoDaTextArea = browser.$("#solucaoDoUsuario").getText();
                 assertThat(textoDaTextArea).contains("var esseTextoSeraMantido : String");
@@ -91,9 +92,11 @@ public class ApplicationTest {
 
                 browser.goTo(System.getenv("URL_ENVIRONMENT"));
                 browser.fill("#solucaoDoUsuario").with("");
-                browser.find("input", withName("valor")).submit();
+                browser.$("#botaoDeEnviar").click();
+                browser.$("#solucaoDoUsuario").submit();
+                String label = browser.$("#status").getText();
 
-                assertThat(browser.$("#status", 0).getText()).isEqualTo("Status: erro!");
+                assertThat(label).isEqualTo("Status: erro!");
             }
         });
     }
