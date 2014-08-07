@@ -35,6 +35,7 @@ public class TesteGerenciadorSintatico {
     private ArrayList<String> listaDeTokensOperacaoAritmetica;
     private String sentencaConcatenacaoString;
     private ArrayList<String> listaDeTokensConcatenacaoString;
+    private String sentenca;
 
     @Before
     public void setUp() throws Exception {
@@ -176,4 +177,6 @@ public class TesteGerenciadorSintatico {
 
         assertThat(gerenciadorDeValidacao.mostraMensagensDeErro(), is("2"));
     }
+
+
 }

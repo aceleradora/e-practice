@@ -58,6 +58,8 @@ public class GerenciadorSintatico {
             validadorDaExpressao = this.validadorDeOperacoesAritmeticas;
         } else if (listaDeTokensIdentificados.contains("DIVISAO")) {
             validadorDaExpressao = this.validadorDeOperacoesAritmeticas;
+        } else if(listaDeTokensIdentificados.contains("NUMERO")) {
+            validadorDaExpressao = this.validadorDeOperacoesAritmeticas;
         } else if(listaDeTokensIdentificados.contains("CONCATENACAO")){
             validadorDaExpressao = this.validadorDeConcatenacaoDeStrings;
         } else if(listaDeTokensIdentificados.get(0).equals("IDV")) {

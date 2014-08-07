@@ -295,6 +295,17 @@ public class TesteValidadorDeOperacoesAritmeticas {
 
     }
 
+    @Test
+    public void naoValidaUmaExpressaoAritmeticaComDuasAspas() throws Exception {
+        tokens.add("n");
+        tokens.add("=");
+        tokens.add("2");
+        tokens.add("\"\"");
+        tokens.add("2");
+
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
+    }
+
     private void criaTokensDeExpressaoVazia() {
         tokens.add("(");
         tokens.add(")");
