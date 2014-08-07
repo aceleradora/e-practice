@@ -15,3 +15,7 @@ GET     /solucoes/cria-exercicios    controllers.Application.criaExercicios()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+
+#spike ajax
+GET     /solucoes/aba-default/:aba       controllers.Application.setaAbaAtual(aba: String)

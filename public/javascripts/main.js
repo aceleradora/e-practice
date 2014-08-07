@@ -26,34 +26,40 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+    $('ul.tabs').each(function(){
+        var labelAbaAtiva, abaAQualDeveSerMostradoOConteudo;
+        var links = $(this).find('a');
+        labelAbaAtiva = $($("ul.tabs a.active")[0] || links[0]);
 
-        $('ul.tabs').each(function(){
-            var $active, $content, $links = $(this).find('a');
-            $active = $($links.filter('[href="'+location.hash+'"]')[0] || $links[0]);
-            $active.addClass('active');
+        abaAQualDeveSerMostradoOConteudo = $(labelAbaAtiva[0].hash);
 
-            $content = $($active[0].hash);
-
-            $links.not($active).each(function () {
-                $(this.hash).hide();
-            });
-
-            $(this).on('click', 'a', function(e){
-                $active.removeClass('active');
-                $content.hide();
-
-                $active = $(this);
-                $content = $(this.hash);
-
-                $active.addClass('active');
-                $content.show();
-
-                e.defaultPrevented();
-
-            });
+        links.not(labelAbaAtiva).each(function ( ) {
+            $(this.hash).hide();
         });
+
+        $(this).on('click', 'a', function(e){
+            disableActives(this);
+            reloadActiveTabs(this);
+        });
+    });
 });
 
+function reloadActiveTabs(aba){
+    active = $(aba);
+    content = $(active[0].hash);
+
+    active.addClass('active');
+    content.show();
+
+    e.defaultPrevented();
+}
+
+function disableActives(aba){
+    $("#painel .tabs a").each(function(){
+        $(this).removeClass('active');
+        $(this.hash).hide();
+    });
+}
 
 $("#botaoDeLimpar").click(function () {
     var btn = this;
@@ -97,11 +103,9 @@ $(document).ready(alttela);
         };
     };
 
-
     function desabilitaBotao() {
         $("#botaoDeEnviar").attr("disabled");
     };
-
 
     function testaBotao() {
 
@@ -112,7 +116,6 @@ $(document).ready(alttela);
         $("#tab2").hide();
         $("#tabLink3").click();
     };
-
 
     function getCookie(cname) {
         var name = cname + "=";
@@ -131,4 +134,13 @@ $(document).ready(function() {
         $('#status').fadeOut(5000);
         $('#mensagemDeTexto').append("<label id='status'></label>");
     }
+
+    $("#painel .tabs a").click(function(){
+        $.ajax({
+            url: "solucoes/aba-default/" + this.id,
+            xhrFields: {
+                withCredentials: true
+            }
+        });
+    });
 });

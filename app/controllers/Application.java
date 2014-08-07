@@ -106,4 +106,13 @@ public class Application extends Controller {
         session("exercicio", exercicioAleatorio.enunciado);
     }
 
+    public static Result setaAbaAtual(String aba) {
+        session("tabLink1", "");
+        session("tabLink2", "");
+        session("tabLink3", "");
+        session(aba, "active");
+
+        return ok("ok");
+    }
+
 }
