@@ -202,4 +202,12 @@ public class TesteLexer {
         assertThat(tokens.get(1), is("="));
         assertThat(tokens.get(2), is("\"Nome: Leonardo\""));
     }
+
+    @Test
+    public void tokenizaUmaAtribuicaoDeExpressaoAritmeticaContendoAspas() throws Exception {
+        tokens = lexer.tokenizar("n = 2 \"\" 2");
+
+        assertThat(tokens.size(), is(5));
+        assertThat(tokens.get(3), is("\"\""));
+    }
 }
