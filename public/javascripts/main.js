@@ -1,14 +1,28 @@
 $(document).ready(function(){
+    fadeOutStatusBotao();
+
     $("#botaoDeEnviar").click(function(){
         $(this).attr("disabled", "disabled");
         $("#formCodigo").submit();
     });
-});
 
-$("#botaoDeLimpar").click(function () {
-    var btn = this;
-    setTimeout(function () { $(btn).attr('disabled', 'disabled'); }, 1);
-    return true;
+    $("#botaoDeLimpar").click(function () {
+        var btn = this;
+        setTimeout(function () { $(btn).attr('disabled', 'disabled'); }, 1);
+        return true;
+    });
+
+    $("#botao-de-limpar").click(function(){
+        limpaASolucao();
+    });
+
+    $("#botao-proximo-exercicio").click(function(){
+        proximoExercicio();
+    });
+
+    $("#formCodigo").submit(function(){
+        desabilitaBotao();
+    });
 });
 
 function limpaASolucao() {
@@ -20,6 +34,10 @@ function limpaASolucao() {
         }
     }
 }
+
+function desabilitaBotao() {
+    $("#botaoDeEnviar").attr("disabled");
+};
 
 function proximoExercicio(){
     var caixaDeTexto = $("#solucaoDoUsuario")
@@ -36,29 +54,9 @@ function proximoExercicio(){
     }
 }
 
-$(document).ready(alttela);
-
-$(window).resize(alttela);
-function alttela() {
-    if ($(window).width() > $('#terminal').width()){
-        $(document).css('position', 'fixed');
+function fadeOutStatusBotao(){
+    if($('#status').html() != '') {
+        $('#status').val("").fadeOut(5000);
+        $('#mensagemDeTexto').append("<label id='status'></label>");
     }
-    else{
-        $(document).css('position', 'relative');
-    };
-};
-
-function desabilitaBotao() {
-    $("#botaoDeEnviar").attr("disabled");
-};
-
-function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
-    }
-    return "";
 }

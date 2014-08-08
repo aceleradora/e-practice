@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	fadeOutStatusBotao();
 	ajaxSetandoAbaAtual();
 	eventoDeClickNasAbas();
 });
@@ -36,13 +35,6 @@ function disableActives(aba){
         $(this).removeClass('active');
         $(this.hash).hide();
     });
-}
-
-function fadeOutStatusBotao(){
-    if($('#status').html() != '') {
-    	$('#status').val("").fadeOut(5000);
-    	$('#mensagemDeTexto').append("<label id='status'></label>");
-    }
 }
 
 function ajaxSetandoAbaAtual () {
