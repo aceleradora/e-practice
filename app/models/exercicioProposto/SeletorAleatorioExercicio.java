@@ -1,6 +1,5 @@
 package models.exercicioProposto;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -17,4 +16,5 @@ public class SeletorAleatorioExercicio {
 
         return list.get(new Random().nextInt(list.size()));
     }
+
 }

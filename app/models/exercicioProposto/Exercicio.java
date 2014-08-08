@@ -40,10 +40,8 @@ public class Exercicio extends Model{
     );
 
     public List<Exercicio> todosNaoResolvidos() {
-
         return find.where().eq("resolvido", false).findList();
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -63,4 +61,5 @@ public class Exercicio extends Model{
         result = 31 * result + enunciado.hashCode();
         return result;
     }
+
 }
