@@ -112,7 +112,7 @@ public class Application extends Controller {
         session("tabLink3", "");
         session(aba, "active");
 
-        return ok("ok");
+        return ok("{aba-ativa: " + aba + "}");
     }
 
 }
