@@ -3,7 +3,6 @@ package unitario.model.exercicioProposto;
 import models.exercicioProposto.Exercicio;
 import models.exercicioProposto.SeletorAleatorioExercicio;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -15,9 +14,9 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -29,10 +28,10 @@ public class SeletorAleatorioExercicioTest {
     @Before
     public void setUp() throws Exception {
         List <Exercicio> exerciciosQueEstariamNoBanco = new ArrayList<Exercicio>();
-        Exercicio exercicio1 = new Exercicio("exercicio 1",null, false);
-        Exercicio exercicio2 = new Exercicio("exercicio 2",null, false);
-        Exercicio exercicio3 = new Exercicio("exercicio 3",null, false);
-        Exercicio exercicio4 = new Exercicio("exercicio 4",null, false);
+        Exercicio exercicio1 = new Exercicio("exercicio 1", null, false);
+        Exercicio exercicio2 = new Exercicio("exercicio 2", null, false);
+        Exercicio exercicio3 = new Exercicio("exercicio 3", null, false);
+        Exercicio exercicio4 = new Exercicio("exercicio 4", null, false);
 
         exerciciosQueEstariamNoBanco.add(exercicio1);
         exerciciosQueEstariamNoBanco.add(exercicio2);
@@ -65,4 +64,12 @@ public class SeletorAleatorioExercicioTest {
         verify(exercicio).todosNaoResolvidos();
     }
 
+    @Test
+    public void dadoQueTenhoUmaListaDeExercicioVaziaQuandoBuscoExercicioEntaoTenhoUmRetornoNull() throws Exception {
+        List <Exercicio> exerciciosResolvidos = new ArrayList<Exercicio>();
+
+        when(exercicio.todosNaoResolvidos()).thenReturn(exerciciosResolvidos);
+
+        assertNull(seletorAleatorioExercicio.buscaExercicio());
+    }
 }
