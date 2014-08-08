@@ -58,7 +58,7 @@ public class SeletorAleatorioExercicioTest {
     }
 
     @Test
-    public void selecinaUmExercicioAleatorioNaoResolvidoNoBanco() throws Exception {
+    public void selecionaUmExercicioAleatorioNaoResolvidoNoBanco() throws Exception {
         seletorAleatorioExercicio.buscaExercicio();
 
         verify(exercicio).todosNaoResolvidos();
