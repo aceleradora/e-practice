@@ -109,7 +109,12 @@ public class Application extends Controller {
         exercicio = new Exercicio();
         seletorAleatorioExercicio = new SeletorAleatorioExercicio(exercicio);
         exercicio = seletorAleatorioExercicio.buscaExercicio();
-        session("exercicio", exercicio.enunciado);
+
+        if (exercicio == null) {
+            session("exercicio", "Você já resolveu todos os exercícios.");
+        } else {
+            session("exercicio", exercicio.enunciado);
+        }
     }
 
     public static Result setaAbaAtual(String aba) {
