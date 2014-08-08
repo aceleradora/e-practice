@@ -24,7 +24,7 @@ public class Application extends Controller {
     }
 
     public static Result index() {
-        return redirect(routes.Application.selecionaProximoExercicio());
+        return redirect(routes.Application.criaExercicios());
     }
 
     public static Result selecionaProximoExercicio(){
@@ -95,7 +95,7 @@ public class Application extends Controller {
         exercicio3.resolvido = false;
         exercicio3.save();
 
-        return redirect(routes.Application.solucoes());
+        return redirect(routes.Application.selecionaProximoExercicio());
     }
 
     public static Result deletaSolucao(int id) {
