@@ -54,6 +54,12 @@ public class Application extends Controller {
                 flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
                 flash("mensagemDeFeedback", mensagemDeFeedback.mostraMensagem());
                 flash("status", "Status: sua solução foi salva com sucesso!");
+
+                if (mensagemDeFeedback.mostraMensagem().contains("Seu código está correto.")) {
+                    exercicio.resolvido = true;
+                    exercicio.save();
+                }
+
             } catch (Exception e){
                 flash("status", "Status: sua solução não foi salva!");
             }
@@ -92,7 +98,7 @@ public class Application extends Controller {
         return redirect(routes.Application.solucoes());
     }
 
-    public static Result deletaSolucao(int id){
+    public static Result deletaSolucao(int id) {
         SolucaoDoExercicio.delete(id);
         flash("status", "Status: deletado!");
 
@@ -102,8 +108,8 @@ public class Application extends Controller {
     private static void setaExercicioNaSecao() {
         exercicio = new Exercicio();
         seletorAleatorioExercicio = new SeletorAleatorioExercicio(exercicio);
-        Exercicio exercicioAleatorio = seletorAleatorioExercicio.buscaExercicio();
-        session("exercicio", exercicioAleatorio.enunciado);
+        exercicio = seletorAleatorioExercicio.buscaExercicio();
+        session("exercicio", exercicio.enunciado);
     }
 
 }
