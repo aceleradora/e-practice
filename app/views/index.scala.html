@@ -131,7 +131,11 @@
                 <div id='tab3'>
                     <h3 class="titulo">Feedback</h3>
                     <div class="abas">
-                        <p>@flash.get("mensagemDeFeedback")</p>
+                        @if(flash.get("mensagemDeFeedback") != null){
+                            <p><pre>@flash.get("mensagemDeFeedback")</pre></p>
+                        } else {
+                            <p>@flash.get("mensagemDeFeedback")</p>
+                        }
                     </div>
                 </div>
             </section>
