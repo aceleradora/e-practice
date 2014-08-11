@@ -59,7 +59,7 @@ public class Application extends Controller {
                 flash("status", "Status: sua solução foi salva com sucesso!");
 
 
-                if (mensagemDeFeedback.mostraMensagem().contains("Seu código está correto.")) {
+                if (mensagemDeFeedback.mostraMensagem().contains("correto")) {
                     exercicio.resolvido = true;
                     exercicio.save();
                 }
