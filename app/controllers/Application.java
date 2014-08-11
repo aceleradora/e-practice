@@ -29,6 +29,7 @@ public class Application extends Controller {
 
     public static Result selecionaProximoExercicio(){
         setaExercicioNaSecao();
+        criaSessaoParaAbas("tabLink1");
         return redirect(routes.Application.solucoes());
     }
 
@@ -45,7 +46,7 @@ public class Application extends Controller {
         Form<SolucaoDoExercicio> formPreenchido = solucaoDoExercicioForm.bindFromRequest();
 
         criaSessaoParaAbas("tabLink3");
-        
+
         if(formPreenchido.hasErrors()){
             flash("status", "Status: erro!");
             return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido));
