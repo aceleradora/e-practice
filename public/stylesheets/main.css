@@ -155,4 +155,5 @@ pre {
     width: 94%;
     white-space: pre-wrap;
     word-break: inherit;
+    margin-left: 4px;
 }
