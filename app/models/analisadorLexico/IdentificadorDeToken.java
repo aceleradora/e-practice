@@ -1,41 +1,49 @@
 package models.analisadorLexico;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class IdentificadorDeToken {
 
+    private Map<String, String> dicionarioDeSimbolos;
+
+    public IdentificadorDeToken() {
+        dicionarioDeSimbolos = new HashMap<String, String>();
+        adicionaSimbolosNoDicionario();
+    }
+
     public String identifica(String token) {
-        if (token.equals("var")) {
-            return "PALAVRA_RESERVADA";
-        } else if (token.equals("String")) {
-            return "TIPO_DE_VARIAVEL";
-        } else if (token.equals("varres")) {
-            return "PALAVRA_RESERVADA";
-        } else if (token.equals("Inteiro")) {
-            return "TIPO_DE_VARIAVEL";
-        } else if (token.equals("=")) {
-            return "IGUAL";
-        } else if (token.equals(":")) {
-            return "DECLARACAO";
-        } else if (token.equals("+")) {
-            return "ADICAO";
-        } else if (token.equals("-")) {
-            return "SUBTRACAO";
-        } else if (token.equals("*")) {
-            return "MULTIPLICACAO";
-        } else if (token.equals("/")) {
-            return "DIVISAO";
-        } else if (token.equals("(")) {
-            return "PARENTESES_ABERTO";
-        } else if (token.equals(")")) {
-            return "PARENTESES_FECHADO";
-        } else if (token.equals("<>")) {
-            return "CONCATENACAO";
-        } else if (token.charAt(0) == '\"' && token.charAt(token.length()-1) == '\"') {
+        if (dicionarioDeSimbolos.containsKey(token)) {
+            return dicionarioDeSimbolos.get(token);
+        }
+        if (token.charAt(0) == '\"' && token.charAt(token.length()-1) == '\"') {
             return "CONSTANTE_TIPO_STRING";
-        } else if (Character.isLetter(token.charAt(0))) {
+        }
+        if (Character.isLetter(token.charAt(0))) {
             return "IDV";
-        } else if (Character.isDigit(token.charAt(0))) {
-            if(!verificaSeTodasOsCaracteresSaoNumeros(token)) return "ERRO";
-            else return "NUMERO";
-        } else return "INVALIDO";
+        }
+        if (Character.isDigit(token.charAt(0))) {
+            if(verificaSeTodasOsCaracteresSaoNumeros(token)) {
+                return "NUMERO";
+            }
+        }
+        return "ERRO";
+    }
+
+    private void adicionaSimbolosNoDicionario(){
+        dicionarioDeSimbolos.put("var", "PALAVRA_RESERVADA");
+        dicionarioDeSimbolos.put("String", "TIPO_DE_VARIAVEL");
+        dicionarioDeSimbolos.put("varres", "PALAVRA_RESERVADA");
+        dicionarioDeSimbolos.put("Inteiro", "TIPO_DE_VARIAVEL");
+        dicionarioDeSimbolos.put("=", "IGUAL");
+        dicionarioDeSimbolos.put(":", "DECLARACAO");
+        dicionarioDeSimbolos.put("+", "ADICAO");
+        dicionarioDeSimbolos.put("-", "SUBTRACAO");
+        dicionarioDeSimbolos.put("*", "MULTIPLICACAO");
+        dicionarioDeSimbolos.put("/", "DIVISAO");
+        dicionarioDeSimbolos.put("(", "PARENTESES_ABERTO");
+        dicionarioDeSimbolos.put(")", "PARENTESES_FECHADO");
+        dicionarioDeSimbolos.put("<>", "CONCATENACAO");
     }
 
     public boolean verificaSeTodasOsCaracteresSaoNumeros(String token){
