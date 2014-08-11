@@ -44,6 +44,8 @@ public class Application extends Controller {
     public static Result novaSolucao() {
         Form<SolucaoDoExercicio> formPreenchido = solucaoDoExercicioForm.bindFromRequest();
 
+        criaSessaoParaAbas("tabLink3");
+        
         if(formPreenchido.hasErrors()){
             flash("status", "Status: erro!");
             return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido));
@@ -54,6 +56,7 @@ public class Application extends Controller {
                 flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
                 flash("mensagemDeFeedback", mensagemDeFeedback.mostraMensagem());
                 flash("status", "Status: sua solução foi salva com sucesso!");
+
 
                 if (mensagemDeFeedback.mostraMensagem().contains("Seu código está correto.")) {
                     exercicio.resolvido = true;
@@ -118,12 +121,16 @@ public class Application extends Controller {
     }
 
     public static Result setaAbaAtual(String aba) {
+        criaSessaoParaAbas(aba);
+
+        return ok("{aba-ativa: " + aba + "}");
+    }
+
+    private static void criaSessaoParaAbas(String aba) {
         session("tabLink1", "");
         session("tabLink2", "");
         session("tabLink3", "");
         session(aba, "active");
-
-        return ok("{aba-ativa: " + aba + "}");
     }
 
 }

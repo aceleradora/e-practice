@@ -2,7 +2,7 @@ $(document).ready(function(){
     fadeOutStatusBotao();
 
     $("#botaoDeEnviar").click(function(){
-        $(this).attr("disabled", "disabled");
+        desabilitaBotao();
         $("#formCodigo").submit();
     });
 

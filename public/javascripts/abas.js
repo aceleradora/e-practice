@@ -37,13 +37,17 @@ function disableActives(aba){
     });
 }
 
-function ajaxSetandoAbaAtual () {
+function ajaxSetaRota(abaAtiva){
+    $.ajax({
+        url: "solucoes/aba-default/" + abaAtiva,
+        xhrFields: {
+            withCredentials: true
+        }
+    });
+}
+
+function ajaxSetandoAbaAtual() {
 	$("#painel .tabs a").click(function(){
-        $.ajax({
-            url: "solucoes/aba-default/" + this.id,
-            xhrFields: {
-                withCredentials: true
-            }
-        });
+        ajaxSetaRota(this.id);        
     });
 }
