@@ -24,7 +24,7 @@ $(document).ready(function(){
         desabilitaBotao();
     });
 
-    createTextAreaWithLines('solucaoDoUsuario');
+    criarLinhas('solucaoDoUsuario');
 });
 
 function limpaASolucao() {
