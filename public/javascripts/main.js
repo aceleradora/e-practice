@@ -23,6 +23,8 @@ $(document).ready(function(){
     $("#formCodigo").submit(function(){
         desabilitaBotao();
     });
+
+    createTextAreaWithLines('solucaoDoUsuario');
 });
 
 function limpaASolucao() {

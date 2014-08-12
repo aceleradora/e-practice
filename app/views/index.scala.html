@@ -142,11 +142,11 @@
             </section>
         </div>
         <div class="col-sm-9">
-            <section id="terminal" class="row">
+            <section id="terminal"  class="row">
                 @form(routes.Application.novaSolucao(), 'id -> "formCodigo") {
                 @helper.input(field = solucaoForm("solucaoDoUsuario"), '_showConstraints -> false, '_label -> "") { (id, name, value, args) =>
                 <div>
-                    <textarea name="@name" id="@id" rows='2' placeholder="Digite sua solução aqui" spellcheck="false">@flash.get("solucaoDoUsuario")</textarea>
+                    <textarea name="@name" id="@id" class="textAreaWithLines" rows='2' placeholder="Digite sua solução aqui" spellcheck="false">@flash.get("solucaoDoUsuario")</textarea>
                 </div>
                 }
             </section>
@@ -155,7 +155,7 @@
                     <label id="status">@flash.get("status")</label>
                 </div>
                 <div id="botoes" class="col-sm-4">
-                    <button id="botao-de-limpar" type="button" class="btn btn-default btn-sm btn-spacing">Limpar <span class="glyphicon glyphicon-trash"></span></button>
+                    <button id="botao-de-limpar" type="button" class="btn btn-default btn-sm active btn-spacing">Limpar <span class="glyphicon glyphicon-trash"></span></button>
                     <button type="submit" id="botao-de-enviar" class="btn btn-default btn-sm btn-spacing" name="valor">Enviar <span class="glyphicon glyphicon-ok"></span></button>
                     <button type="button" id="botao-proximo-exercicio" class="btn btn-default btn-sm">Próximo <span class="glyphicon glyphicon-chevron-right"></span></button>
                 </div>
