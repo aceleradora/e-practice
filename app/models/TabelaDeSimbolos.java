@@ -19,7 +19,6 @@ public class TabelaDeSimbolos {
         else return false;
     }
 
-
     public boolean simboloExiste(String simbolo) {
         String simboloDaTabela;
 
@@ -36,11 +35,5 @@ public class TabelaDeSimbolos {
         String tipoDoSimboloNaTabela = tabela.get(simbolo);
         return tipoDoSimboloNaTabela;
     }
-
-    public boolean temSimbolo(String simbolo) {
-        return tabela.containsKey(simbolo);
-    }
-
-
 
 }

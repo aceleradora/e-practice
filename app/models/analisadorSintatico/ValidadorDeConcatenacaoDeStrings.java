@@ -8,14 +8,15 @@ public class ValidadorDeConcatenacaoDeStrings implements Validador {
 
     ArrayList<String> tokens;
     IdentificadorDeToken identificador;
+    private boolean variavel;
+    private boolean constanteString;
 
     public ValidadorDeConcatenacaoDeStrings() {
-
         identificador = new IdentificadorDeToken();
     }
 
-    public String validaTerceiroToken() {
-        if (comparaToken(2,"IDV") || comparaToken(2,"CONSTANTE_TIPO_STRING")){
+    private String validaTerceiroToken() {
+        if (comparaToken(2,"IDV") || comparaToken(2,"CONSTANTE_TIPO_STRING")) {
             return "O terceiro token é válido.";
         } else {
             return "Você digitou \""+ tokens.get(2) +"\" e deveria ser uma variável ou uma constante do tipo String.";
@@ -30,60 +31,64 @@ public class ValidadorDeConcatenacaoDeStrings implements Validador {
         return identificador.identifica(tokens.get(indice));
     }
 
-    private int quantosTokensTemDepoisDoIgual() {
+    private int quantidadeDeTokensDepoisDoSinalDeIgual() {
         return (tokens.size() - 2);
     }
 
-    public String validaTokensDepoisDoIgual() {
+    private String validaTokensDepoisDoIgual() {
 
-        if(quantosTokensTemDepoisDoIgual()>1){
-            for (int i = 2; i<tokens.size(); i++){
-                boolean indexPar = i%2==0;
-                boolean variavel = comparaToken(i,"IDV");
-                boolean constanteString = comparaToken(i,"CONSTANTE_TIPO_STRING");
+        if(quantidadeDeTokensDepoisDoSinalDeIgual() > 1) {
+            for (int i = 2; i < tokens.size(); i++){
+                variavel = comparaToken(i,"IDV");
+                constanteString = comparaToken(i,"CONSTANTE_TIPO_STRING");
                 boolean simboloConcatenacao = comparaToken(i,"CONCATENACAO");
 
-                if((indexPar) && (!((variavel)||(constanteString)))) {
+                if((indiceEPar(i)) && naoEVariavelNemConstante()) {
                     return "Você digitou \""+ tokens.get(i) + "\" e deveria ser uma variável ou constante String.";
                 }
-                if((!indexPar) && (!simboloConcatenacao)) {
+                if((!indiceEPar(i)) && (!simboloConcatenacao)) {
                     return "Você digitou \"" + tokens.get(i) + "\" e deveria ser \"<>\".";
                 }
             }
-
         } else {
             return validaTerceiroToken();
         }
         return "A concatenação foi feita corretamente.";
     }
 
+    private boolean naoEVariavelNemConstante() {
+        return !((variavel) || (constanteString));
+    }
+
+    private boolean indiceEPar(int i) {
+        return (i % 2) == 0;
+    }
+
     @Override
     public boolean valida(ArrayList<String> tokens) {
-        boolean retorno = false;
         this.tokens = tokens;
 
         if(retornaMensagemErro() == null || retornaMensagemErro().equals("")){
-            retorno = true;
+            return true;
         }
-        return retorno;
+        return false;
     }
 
     @Override
     public String retornaMensagemErro() {
-
         ArrayList<String> mensagens = new ArrayList<String>();
         String mensagensDeRetorno = "";
 
-        if((!validaTerceiroToken().equals("O terceiro token é válido.")) && quantosTokensTemDepoisDoIgual() == 1){
+        if((!validaTerceiroToken().equals("O terceiro token é válido.")) && quantidadeDeTokensDepoisDoSinalDeIgual() == 1) {
             mensagens.add(validaTerceiroToken());
         }
-        if(!validaTokensDepoisDoIgual().equals("A concatenação foi feita corretamente.")){
+        if(!validaTokensDepoisDoIgual().equals("A concatenação foi feita corretamente.")) {
             mensagens.add(validaTokensDepoisDoIgual());
         }
 
         for(int i = 0; i < mensagens.size(); i++) {
             if(!(mensagens.isEmpty() && mensagens.equals("")))
-                mensagensDeRetorno = (i + 1) + ") " + mensagens + "\n";
+                mensagensDeRetorno = (i + 1) + ") " + mensagens.get(i) + "\n";
         }
 
         return mensagensDeRetorno;
