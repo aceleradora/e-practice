@@ -57,12 +57,8 @@ public class Application extends Controller {
                 flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
                 flash("mensagemDeFeedback", mensagemDeFeedback.mostraMensagem());
                 flash("status", "Status: sua solução foi salva com sucesso!");
-
-
-                if (mensagemDeFeedback.mostraMensagem().contains("correto")) {
-                    exercicio.resolvido = true;
-                    exercicio.save();
-                }
+                exercicio.resolvido = true;
+                exercicio.save();
 
             } catch (Exception e){
                 flash("status", "Status: sua solução não foi salva!");
