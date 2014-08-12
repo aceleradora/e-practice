@@ -139,8 +139,13 @@
 }
 
 #botoes {
+
     text-align: right;
     padding-right: 5px;
+
+
+ 
+
 }
 
 #botaoProximo {
@@ -166,5 +171,8 @@ pre {
     position: absolute;
 }
 
+.btn:hover {
+        box-shadow: 0px 3px 5px rgba(0, 0, 0, 1) inset;
 
+}
 
