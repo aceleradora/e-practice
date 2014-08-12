@@ -1,4 +1,4 @@
-package models.analisadorSemantico;
+package models.Arvore;
 
 import java.util.ArrayList;
 
