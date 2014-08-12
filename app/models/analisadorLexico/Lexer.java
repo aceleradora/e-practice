@@ -174,22 +174,8 @@ public class Lexer {
     }
 
     private String[] divideAFraseNosEspacosEmBranco(String frase) {
-//        String[] fraseDividida = frase.split("[ ]+");
-//        fraseDividida = removeStringsVazias(fraseDividida);
-//        return fraseDividida;
         return frase.split("[ ]+");
     }
-
-//    private String[] removeStringsVazias(String[] fraseDividida){
-//        for(int i = 0; i<fraseDividida.length;i++){
-//            if(fraseDividida[i].equals("")){
-//                for(int j = i;j<fraseDividida.length-1;j++){
-//                    fraseDividida[j] = fraseDividida[j+1];
-//                }
-//            }
-//        }
-//        return fraseDividida;
-//    }
 
     private String removeEspacosDesnecessariosDoFimEDoComeco(String frase) {
         frase = frase.trim();
