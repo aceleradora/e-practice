@@ -166,5 +166,8 @@ pre {
     position: absolute;
 }
 
+.hover {
+    background-color: #999 !important;
+}
 
 

@@ -1,6 +1,16 @@
 $(document).ready(function() {
 	ajaxSetandoAbaAtual();
 	eventoDeClickNasAbas();
+
+	$(".tabs a").hover(function(){
+	    if (!$(this).hasClass("active")) {
+            $(this).addClass("hover");
+        }
+	});
+
+	$(".tabs a").mouseout(function() {
+        $(this).removeClass("hover");
+	});
 });
 
 function eventoDeClickNasAbas () {
@@ -25,6 +35,7 @@ function reloadActiveTabs(aba, event){
     var content = $(active[0].hash);
 
     active.addClass('active');
+    active.removeClass('hover');
     content.show();
 
     event.preventDefault();
