@@ -169,13 +169,13 @@ pre {
     position: absolute;
 }
 
-.textAreaWithLines textarea, .textAreaWithLines div {
+.textAreaComLinhas textarea, .textAreaComLinhas div {
     border:1px;
     line-height:150%;
     font:16px;
 }
 
-.lineObj {
+.linhaObj {
     color:#666;
     font: 16px/22px monospace;
     padding: 7px;
