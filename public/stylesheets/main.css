@@ -99,7 +99,6 @@
 
 #terminal {
     position: relative;
-    padding: 18px 10px 10px;
     height: 675px;
     background-color: #020714;
 }
@@ -116,12 +115,12 @@
     border-radius: 6px;
     background-color: #0C152B;
     color: #F5EAE1;
-    margin-top: -25px;
     height: 630px;
-    width: 100%;
+    width: 96%;
     color: #F5EAE1;
     line-height: 22px;
     resize: none;
+    line-height:150%;
 }
 
 #rodapeDoTerminal {
@@ -158,9 +157,21 @@ pre {
     margin-left: 4px;
 }
 
-.logo{
+.logo {
     margin-left: 0px; 
     width: 330px; 
     margin-top: 4px;
+}
+
+.textAreaWithLines textarea, .textAreaWithLines div {
+    border:1px;
+    line-height:150%;
+    font:16px;
+}
+
+.lineObj {
+    color:#666;
+    font: 16px/22px monospace;
+    padding: 7px;
 }
 
