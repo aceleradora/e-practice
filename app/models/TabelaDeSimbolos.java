@@ -1,12 +1,15 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TabelaDeSimbolos {
     private HashMap<String, String> tabela;
+    private ArrayList<String> ponteirosParaVariaveisDeResultado;
 
     public TabelaDeSimbolos() {
         tabela = new HashMap<String, String>();
+        ponteirosParaVariaveisDeResultado = new ArrayList<String>();
     }
 
     public boolean adicionaSimbolo(String identificador, String tipo){
