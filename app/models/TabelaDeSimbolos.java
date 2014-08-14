@@ -39,4 +39,11 @@ public class TabelaDeSimbolos {
         return tipoDoSimboloNaTabela;
     }
 
+    public void adicionaVariavelDeResultado(String identificador) {
+        ponteirosParaVariaveisDeResultado.add(identificador);
+    }
+
+    public boolean verificaSeExisteVariavelDeResultado(String identificador) {
+        return ponteirosParaVariaveisDeResultado.contains(identificador);
+    }
 }
