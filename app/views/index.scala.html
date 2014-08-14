@@ -21,13 +21,11 @@
                     <li><a id='tabLink3' href='#tab3' class='@session.get("tabLink3")'>Feedback</a></li>
                 </ul>
                 <div id='tab1'>
-                    <h3 class="titulo">Enunciado</h3>
                     <div class="abas">
                         <p>@session.get("exercicio")</p>
                     </div>
                 </div>
                 <div id='tab2'>
-                    <h3 class="titulo">Sintaxe</h3>
 
                     <div class="abas">
 
@@ -130,7 +128,6 @@
                 </div>
 
                 <div id='tab3'>
-                    <h3 class="titulo">Feedback</h3>
                     <div class="abas">
                         @if(flash.get("mensagemDeFeedback") != null){
                             <p><pre>@flash.get("mensagemDeFeedback")</pre></p>
