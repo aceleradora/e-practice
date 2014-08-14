@@ -180,7 +180,7 @@ public class TesteValidadorDeOperacoesAritmeticas {
     }
 
     @Test
-    public void validaOperacaoAritmeticaComOperadorMaisExpressaoEntreParentesesETudoEntreParenteses() throws Exception {
+    public void validaOperacaoAritmeticaComOperadorMaisExpressaoEntreParentesesNaoEquilibradosEReceboMensagemDeErro() throws Exception {
         tokens.add("(");
         tokens.add("5");
         tokens.add("+");
