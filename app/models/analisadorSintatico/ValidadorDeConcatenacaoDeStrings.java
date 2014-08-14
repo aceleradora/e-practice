@@ -49,6 +49,10 @@ public class ValidadorDeConcatenacaoDeStrings implements Validador {
                 if((!indiceEPar(i)) && (!simboloConcatenacao)) {
                     return "Você digitou \"" + tokens.get(i) + "\" e deveria ser \"<>\".";
                 }
+                if(simboloConcatenacao && i == tokens.size()-1){
+                    return "A ultima palavra da instrucão deveria ser uma variavel do tipo String ou uma constante do tipo String";
+
+                }
             }
         } else {
             return validaTerceiroToken();
