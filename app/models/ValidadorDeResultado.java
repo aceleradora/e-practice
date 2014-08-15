@@ -7,19 +7,16 @@ import java.util.ArrayList;
 
 public class ValidadorDeResultado {
     private IdentificadorDeToken identificadorDeToken;
-    private Lexer lexer;
     private TabelaDeSimbolos tabelaDeSimbolos;
 
     public ValidadorDeResultado(TabelaDeSimbolos tabelaDeSimbolos) {
         identificadorDeToken = new IdentificadorDeToken();
-        lexer = new Lexer();
         this.tabelaDeSimbolos = tabelaDeSimbolos;
     }
 
-    public boolean valida(String solucao) {
-        ArrayList<String> tokens = lexer.tokenizar(solucao);
+    public boolean valida(ArrayList<String> solucao) {
 
-        if (tokenIdentificadoENumero(tokens.get(2))) {
+        if (tabelaDeSimbolos.simboloExiste(solucao.get(1)) && tabelaDeSimbolos.verificaSeExisteVariavelDeResultado(solucao.get(1))) {
             return true;
         } else {
             return false;
