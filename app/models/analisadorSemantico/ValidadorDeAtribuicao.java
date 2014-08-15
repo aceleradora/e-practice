@@ -24,15 +24,27 @@
             }
 
             public boolean ehAtribuicaoDeInteirosValida() {
-                return ((identificadorDeToken.verificaSeTodasOsCaracteresSaoNumeros(tokens.get(2))
-                        || (identificadorDeToken.identifica(tokens.get(2)).equals("IDV"))
-                        && tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(2), "Inteiro"))
-                        && tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(0),"Inteiro"));
+                if (identificadorDeToken.verificaSeTodasOsCaracteresSaoNumeros(tokens.get(2))
+                        || tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(2), "Inteiro")) {
+                    if (tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(0), "Inteiro")){
+                        return true;
+                    }
+                    else return false;
+                }
+                else return false;
             }
+
             public boolean ehAtribuicaoDeStringsSimplesValida() {
-                return ((identificadorDeToken.identifica(tokens.get(2)).equals("CONSTANTE_TIPO_STRING"))
-                        && tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(0),"String"));
+                if (identificadorDeToken.identifica(tokens.get(2)).equals("CONSTANTE_TIPO_STRING")
+                        || tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(2), "String")) {
+                    if (tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(0), "String")){
+                        return true;
+                    }
+                    else return false;
+                }
+                else return false;
             }
+
 
             public boolean validaExpressao() {
                 return(ehAtribuicaoDeInteirosValida() || ehAtribuicaoDeStringsSimplesValida());
