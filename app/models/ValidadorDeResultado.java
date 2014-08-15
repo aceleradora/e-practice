@@ -16,7 +16,8 @@ public class ValidadorDeResultado {
 
     public boolean valida(ArrayList<String> solucao) {
 
-        if (tabelaDeSimbolos.simboloExiste(solucao.get(1)) && tabelaDeSimbolos.verificaSeExisteVariavelDeResultado(solucao.get(1))) {
+        if (tabelaDeSimbolos.simboloExiste(solucao.get(1)) &&
+                tabelaDeSimbolos.verificaSeExisteVariavelDeResultado(solucao.get(1))) {
             return true;
         } else {
             return false;
