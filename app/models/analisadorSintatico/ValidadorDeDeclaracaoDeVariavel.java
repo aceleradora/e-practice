@@ -17,7 +17,10 @@ public class ValidadorDeDeclaracaoDeVariavel implements Validador {
     }
 
     private boolean validaSePrimeiroTokenEVar() {
-        return identificadorDeToken.identifica(tokens.get(0)).equals("PALAVRA_RESERVADA");
+        if(identificadorDeToken.identifica(tokens.get(0)).equals("PALAVRA_RESERVADA") || identificadorDeToken.identifica(tokens.get(2)).equals(":")){
+            return true;
+        }
+        else return false;
     }
 
     private boolean validaSeSegundoTokenEIdv() {

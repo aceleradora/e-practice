@@ -48,7 +48,7 @@ public class GerenciadorSintatico {
     private Validador tipoValidador(ArrayList<String> listaDeTokensIdentificados){
         Validador validadorDaExpressao;
 
-        if (listaDeTokensIdentificados.get(0).equals("PALAVRA_RESERVADA")) {
+        if (listaDeTokensIdentificados.get(0).equals("PALAVRA_RESERVADA") || listaDeTokensIdentificados.get(2).equals(":")) {
             validadorDaExpressao = this.validadorDeDeclaracaoDeVariavel;
         } else if (listaDeTokensIdentificados.contains("ADICAO")) {
             validadorDaExpressao = this.validadorDeOperacoesAritmeticas;
