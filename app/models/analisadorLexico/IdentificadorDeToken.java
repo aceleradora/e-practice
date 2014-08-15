@@ -47,7 +47,7 @@ public class IdentificadorDeToken {
     }
 
     public boolean verificaSeTodasOsCaracteresSaoNumeros(String token){
-        for (int i = 1; i < token.length(); i++) {
+        for (int i = 0; i < token.length(); i++) {
             if(!Character.isDigit(token.charAt(i))){
                 return false;
             }

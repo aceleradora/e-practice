@@ -112,7 +112,7 @@ public class TesteValidadorDeAtribuicao {
         tokens.add("x");
         tokens.add("=");
         tokens.add("1");
-        tabelaDeSimbolos.adicionaSimbolo("x","String");
+        tabelaDeSimbolos.adicionaSimbolo("x", "String");
         validadorDeAtribuicao.valida(tokens);
         String validacao = validadorDeAtribuicao.retornaMensagemErro();
 
@@ -124,9 +124,23 @@ public class TesteValidadorDeAtribuicao {
         tokens.add("x");
         tokens.add("=");
         tokens.add("1");
-        tabelaDeSimbolos.adicionaSimbolo("x","String");
+        tabelaDeSimbolos.adicionaSimbolo("x", "String");
         boolean resultado = validadorDeAtribuicao.valida(tokens);
 
         assertThat(resultado,is(false));
+    }
+
+    @Test
+    public void quandoEuAtribuoUmIdvStringAUmaIdvInteiroReceboUmaMensagemDeErroEspecifica() throws Exception {
+        tokens.add("x");
+        tokens.add("=");
+        tokens.add("y");
+        tabelaDeSimbolos.adicionaSimbolo("x", "Inteiro");
+        tabelaDeSimbolos.adicionaSimbolo("y", "String");
+        validadorDeAtribuicao.valida(tokens);
+        String validacao = validadorDeAtribuicao.retornaMensagemErro();
+
+        assertThat(validacao, is ("A variável "+tokens.get(0)+" só aceita atribuição de valores do tipo "+tabelaDeSimbolos.getTipoSimbolo(tokens.get(0))+"."));
+
     }
 }

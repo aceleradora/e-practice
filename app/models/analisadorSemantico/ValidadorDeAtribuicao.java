@@ -24,11 +24,13 @@
             }
 
             public boolean ehAtribuicaoDeInteirosValida() {
-                return (identificadorDeToken.verificaSeTodasOsCaracteresSaoNumeros(tokens.get(2))
+                return ((identificadorDeToken.verificaSeTodasOsCaracteresSaoNumeros(tokens.get(2))
+                        || (identificadorDeToken.identifica(tokens.get(2)).equals("IDV"))
+                        && tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(2), "Inteiro"))
                         && tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(0),"Inteiro"));
             }
             public boolean ehAtribuicaoDeStringsSimplesValida() {
-                return ((identificadorDeToken.identifica(tokens.get(2)) == "CONSTANTE_TIPO_STRING")
+                return ((identificadorDeToken.identifica(tokens.get(2)).equals("CONSTANTE_TIPO_STRING"))
                         && tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(0),"String"));
             }
 
