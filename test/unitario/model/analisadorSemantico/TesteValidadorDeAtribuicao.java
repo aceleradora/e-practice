@@ -28,7 +28,6 @@ public class TesteValidadorDeAtribuicao {
         tokens.add("y");
         tokens.add("=");
         tokens.add("\"1\"");
-        tabelaDeSimbolos.adicionaSimbolo("x","String");
         validadorDeAtribuicao.valida(tokens);
         boolean validacao = validadorDeAtribuicao.validaVariavel();
 
@@ -100,7 +99,6 @@ public class TesteValidadorDeAtribuicao {
         tokens.add("x");
         tokens.add("=");
         tokens.add("\"1\"");
-        tabelaDeSimbolos.adicionaSimbolo("y","String");
         validadorDeAtribuicao.valida(tokens);
         String validacao = validadorDeAtribuicao.retornaMensagemErro();
 
@@ -141,6 +139,19 @@ public class TesteValidadorDeAtribuicao {
         String validacao = validadorDeAtribuicao.retornaMensagemErro();
 
         assertThat(validacao, is ("A variável "+tokens.get(0)+" só aceita atribuição de valores do tipo "+tabelaDeSimbolos.getTipoSimbolo(tokens.get(0))+"."));
+
+    }
+
+    @Test
+    public void quandoEuAtribuoUmIdvdStringAUmIdvStringRetornaTrue() throws Exception {
+        tokens.add("x");
+        tokens.add("=");
+        tokens.add("c");
+        tabelaDeSimbolos.adicionaSimbolo("x", "String");
+        tabelaDeSimbolos.adicionaSimbolo("c", "String");
+        boolean resultado = validadorDeAtribuicao.valida(tokens);
+
+        assertThat(resultado,is(true));
 
     }
 }
