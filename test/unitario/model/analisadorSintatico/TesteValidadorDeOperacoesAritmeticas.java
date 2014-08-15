@@ -19,24 +19,23 @@ public class TesteValidadorDeOperacoesAritmeticas {
     }
 
     @Test
-    public void validaUmaOperacaoComTodosOsOperadoresSemParenteses() throws Exception {
+    public void retornaVerdadeiroQuandoValidaUmaOperacaoAritmeticaSemParenteses() throws Exception {
         criaTokensDeOperacaoSemParenteses();
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
     }
 
     @Test
-    public void parentesesInvertidos() throws Exception {
+    public void retornaFalsoQuandoValidaUmaOperacaoComParentesesNaOrdemInvertida() throws Exception {
         tokens.add(")");
         tokens.add("7");
         tokens.add("(");
-        validadorDeOperacoesAritmeticas.valida(tokens);
 
-        assertThat(validadorDeOperacoesAritmeticas.aberturaEFechamentoDeParentesesEstaCorreta(), is(false));
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
     }
 
     @Test
-    public void naoValidaUmaExpressaoSemOperandosEOperadores() throws Exception {
+    public void retornaFalsoQuandoValidaUmaExpressaoVazia() throws Exception {
         criaTokensDeExpressaoVazia();
 
         assertThat(validadorDeOperacoesAritmeticas.temExpressaoDentroDoParenteses(), is(false));
@@ -44,7 +43,7 @@ public class TesteValidadorDeOperacoesAritmeticas {
 
 
     @Test
-    public void validaUmaExpressaoQueContenhaApenasUmNumeroDentroDeParenteses() throws Exception {
+    public void retornaVerdadeiroQuandoValidaUmaExpressaoQueContenhaApenasUmNumeroDentroDeParenteses() throws Exception {
         criaTokensDeExpressaoComUmOperandoDentroDeParenteses();
 
         assertThat(validadorDeOperacoesAritmeticas.temExpressaoDentroDoParenteses(), is(true));
@@ -52,14 +51,14 @@ public class TesteValidadorDeOperacoesAritmeticas {
 
 
     @Test
-    public void validaUmaExpressaoQueContenhaApenasUmNumero() throws Exception {
+    public void retornaVerdadeiroQuandoValidaUmaExpressaoQueContenhaApenasUmNumero() throws Exception {
         tokens.add("5");
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
     }
 
     @Test
-    public void naoValidaUmaExpressaoQueContenhaUmNumeroEUmOperadorAposEsseNumero() throws Exception {
+    public void retornaFalsoQuandoValidaUmaExpressaoQueContenhaUmNumeroEUmOperadorAposEsseNumero() throws Exception {
         criaTokensDeExpressaoComUmNumeroEUmOperador();
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
@@ -67,15 +66,15 @@ public class TesteValidadorDeOperacoesAritmeticas {
 
 
     @Test
-    public void naoValidaUmaExpressaoQueContenhaUmOperadorEUmNumeroAposEsseOperador() throws Exception {
-        tokens.add("+");
+    public void retornaFalsoQuandoValidaUmaExpressaoQueContenhaUmOperadorQueNaoSejaSomaOuSubtracaoEUmNumeroAposEsseOperador() throws Exception {
+        tokens.add("*");
         tokens.add("5");
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
     }
 
     @Test
-    public void naoValidaUmaExpressaoQueContenhaUmNumeroUmOperadorEUmParenteseAberto() throws Exception {
+    public void retornaFalsoQuandoValidaUmaExpressaoQueContenhaUmNumeroUmOperadorEUmParentesesAberto() throws Exception {
         tokens.add("5");
         tokens.add("+");
         tokens.add("(");
@@ -85,7 +84,7 @@ public class TesteValidadorDeOperacoesAritmeticas {
 
 
     @Test
-    public void naoValidaUmaExpressaoQueContenhaUmNumeroEUmOperadorEntreParenteses() throws Exception {
+    public void retornaFalsoQuandoValidaUmaExpressaoQueContenhaUmNumeroEUmOperadorEntreParenteses() throws Exception {
         tokens.add("(");
         tokens.add("5");
         tokens.add("+");
@@ -95,7 +94,7 @@ public class TesteValidadorDeOperacoesAritmeticas {
     }
 
     @Test
-    public void dadoQueTenhaUmaExpressaoDentroDosParenteseEntaoTereiUmRetornoTrue() throws Exception {
+    public void retornaVerdadeiroQuandoTemUmaExpressaoEntreParenteses() throws Exception {
         tokens.add("(");
         tokens.add("5");
         tokens.add("+");
@@ -107,7 +106,7 @@ public class TesteValidadorDeOperacoesAritmeticas {
     }
 
     @Test
-    public void dadoQueTenhaUmParenteseFechadoEAbertoEntaoTereiUmRetornoFalse() throws Exception {
+    public void retornaFalsoQuandoValidaUmaExpressaoQueSoContenhaUmParenteseFechadoEUmAberto() throws Exception {
         tokens.add(")");
         tokens.add("(");
         validadorDeOperacoesAritmeticas.valida(tokens);

@@ -32,7 +32,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
                 identificadorDeTokens.identifica(token).equals("PARENTESES_FECHADO");
     }
 
-    public  boolean temExpressaoDentroDoParenteses() {
+    public boolean temExpressaoDentroDoParenteses() {
         if(contadorComparadorDeParenteses() == 0) {
             for (int i = 0; i < tokens.size(); i++) {
                 if (tokens.get(i).equals("(")) {
