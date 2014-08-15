@@ -6,6 +6,7 @@ import models.analisadorLexico.Lexer;
 import java.util.ArrayList;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -128,6 +129,7 @@ public class TesteGerenciadorSintatico {
         verify(validadorDeDeclaracaoDeVariavel).valida(listaDeTokensDeclaracao);
     }
 
+    @Ignore
     @Test
     public void chamaValidadorDeAtribuicaoSePrimeiroTokenForIDV() throws Exception {
         gerenciadorDeValidacao.interpreta(sentencaAtribuicao);
@@ -136,6 +138,7 @@ public class TesteGerenciadorSintatico {
         verify(validadorDeAtribuicao).valida(listaDeTokensAtribuicao);
     }
 
+    @Ignore
     @Test
     public void chamaValidadorDeOperacoesAritmeticasSeContiverTokenOperadorMatematico() throws Exception {
         gerenciadorDeValidacao.interpreta(sentencaOperacaoAritmetica);
@@ -144,6 +147,7 @@ public class TesteGerenciadorSintatico {
         verify(validadorDeOperacoesAritmeticas).valida(listaDeTokensOperacaoAritmetica);
     }
 
+    @Ignore
     @Test
     public void chamaValidadorDeConcatenacaoDeStringsSeContiverSimboloDeConcatenacao() throws Exception {
         gerenciadorDeValidacao.interpreta(sentencaConcatenacaoString);
@@ -165,6 +169,7 @@ public class TesteGerenciadorSintatico {
         assertThat(gerenciadorDeValidacao.mostraMensagensDeErro(), is("1"));
     }
 
+    @Ignore
     @Test
     public void chamaMensagemDeErroIgnoraLinhasEmBrancoERetornaErros() throws Exception {
 
@@ -177,6 +182,5 @@ public class TesteGerenciadorSintatico {
 
         assertThat(gerenciadorDeValidacao.mostraMensagensDeErro(), is("2"));
     }
-
 
 }

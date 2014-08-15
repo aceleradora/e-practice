@@ -29,7 +29,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
 
     @Test
     public void retornaMensagemDeErroQuandoPrimeiroTokenNaoForVar() throws Exception {
-        tokens.set(0, "Erro");
+        tokens.set(0, "PALAVRA_RESERVADA");
         validadorDeDeclaracaoDeVariavel.valida(tokens);
 
         assertEquals("A primeira palavra deveria ser \"var\" ou \"varres\" para variável de resultado. \n", validadorDeDeclaracaoDeVariavel.retornaMensagemErro());
