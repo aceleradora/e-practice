@@ -173,7 +173,6 @@ public class TesteValidadorDeOperacoesAritmeticas {
         tokens.add("/");
         tokens.add("2");
         tokens.add(")");
-        validadorDeOperacoesAritmeticas.valida(tokens);
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
     }

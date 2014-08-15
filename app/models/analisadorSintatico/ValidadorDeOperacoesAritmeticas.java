@@ -70,17 +70,23 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
     }
 
     public boolean temExpressaoDentroDoParenteses() {
-        if(contadorComparadorDeParenteses() == 0) {
+        if(aberturaEFechamentoDeParentesesEstaCorreta()) {
             for (int i = 0; i < tokens.size(); i++) {
-                if (tokens.get(i).equals("(")) {
-                    if (i <= tokens.size() - 2 && tokens.get(i + 1).equals(")")) {
-                        return false;
-                    }
+                if (tokenAtualForParentesesAbrindoEProximoTokenForParentesesFechando(i)) {
+                    return false;
                 }
             }
             return true;
         }
         return false;
+    }
+
+    private boolean tokenAtualForParentesesAbrindoEProximoTokenForParentesesFechando(int i) {
+        return tokens.get(i).equals("(") && estaDentroDaListaEProximoTokenForParentesesFechado(i);
+    }
+
+    private boolean estaDentroDaListaEProximoTokenForParentesesFechado(int i) {
+        return i <= tokens.size() - 2 && tokens.get(i + 1).equals(")");
     }
 
     private boolean isOperando(String token) {
