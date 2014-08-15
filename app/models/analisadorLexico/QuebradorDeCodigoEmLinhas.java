@@ -30,4 +30,7 @@ public class QuebradorDeCodigoEmLinhas {
     }
 
 
+    public ArrayList<String> getCodigoQuebrado() {
+        return codigoQuebrado;
+    }
 }

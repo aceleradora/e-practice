@@ -1,8 +1,8 @@
-package unitario;
+package unitario.model.Arvore;
 
+import models.Arvore.ShuntingYard;
 import models.TabelaDeSimbolos;
 import models.analisadorLexico.IdentificadorDeToken;
-import models.analisadorSemantico.ShuntingYard;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -47,7 +47,7 @@ public class TesteShuntingYard {
         shuntingYard = new ShuntingYard(identificadorDeToken,tabelaDeSimbolos);
 
     }
-    
+
     @Test
     public void seTokenEhNumeroOuVariavelInteiroEntaoAdicionaNaFila() throws Exception {
         boolean resultado = shuntingYard.adicionaTokenSeForInteiro(tokens.get(0));

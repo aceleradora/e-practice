@@ -1,16 +1,16 @@
-package models.analisadorSemantico;
+package models.Arvore;
 
 import models.TabelaDeSimbolos;
 import models.analisadorLexico.IdentificadorDeToken;
 
 import java.util.ArrayList;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * Created by aluno2 on 24/07/14.
  */
 public class ShuntingYard {
-
     public Fila<String> fila;
     //public Pilha
     IdentificadorDeToken identificadorDeToken;

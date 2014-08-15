@@ -28,6 +28,8 @@ public class ValidadorDeDeclaracaoDeVariavel implements Validador {
         }
         else {
             adicionarParaTabelaDeSimbolos();
+            if (tokens.get(0).equals("varres"))
+                tabelaDeSimbolos.adicionaVariavelDeResultado(tokens.get(1));
             adicionado = true;
             return true;
         }

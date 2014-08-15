@@ -37,4 +37,7 @@ public class SolucaoDoExercicio extends Model{
         find.ref(id).delete();
     }
 
+    public String getSolucaoDoUsuario() {
+        return solucaoDoUsuario;
+    }
 }

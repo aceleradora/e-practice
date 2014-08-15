@@ -1,6 +1,7 @@
 package unitario.model.analisadorSintatico;
 
 import models.analisadorLexico.Lexer;
+import org.eclipse.jetty.util.security.Constraint;
 import org.junit.Ignore;
 import org.junit.Test;
 import models.analisadorSintatico.ValidadorDeConcatenacaoDeStrings;
@@ -99,6 +100,7 @@ public class TesteValidadorDeConcatenacaoDeStrings {
         entradaDoUsuario = lexer.tokenizar("x : 1 <> \"casa\"");
         validador.valida(entradaDoUsuario);
         String mensagens = validador.retornaMensagemErro();
+
         assertThat(mensagens.length(), not(0));
     }
 
@@ -106,20 +108,32 @@ public class TesteValidadorDeConcatenacaoDeStrings {
     public void seTemErrosValidadorTerminaComEntradaInvalida() throws Exception {
         entradaDoUsuario = lexer.tokenizar("x : 1 <> \"casa\"");
         boolean valida = validador.valida(entradaDoUsuario);
-        assertThat(valida,is(false));
+
+        assertThat(valida, is(false));
     }
 
     @Test
     public void seNaoTemErrosAValidacaoTerminaComSucesso() throws Exception {
         entradaDoUsuario = lexer.tokenizar("x = \"1\" <> \"casa\"");
         boolean valida = validador.valida(entradaDoUsuario);
-        assertThat(valida,is(true));
+
+        assertThat(valida, is(true));
     }
 
     @Test
     public void tokenizaUmaLinhaQueTenhaUmEspacoAntesDaExpressaoEVerificaSeAConcatenacaoEstaCorreta() throws Exception {
         entradaDoUsuario = lexer.tokenizar(" x = \"1\" <> \"casa\"");
+
         boolean valida = validador.valida(entradaDoUsuario);
-        assertThat(valida,is(true));
+
+        assertThat(valida, is(true));
+    }
+
+    @Test
+    public void concatenarUmaExpressaoTendoUmIdvEOSimboloDeConcatenacaoSemOSegundoIdv() throws Exception {
+        entradaDoUsuario = lexer.tokenizar("x = \"b\" <>");
+        boolean valida = validador.valida(entradaDoUsuario);
+
+        assertThat(valida, is(false));
     }
 }
