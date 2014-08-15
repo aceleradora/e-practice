@@ -145,7 +145,7 @@ public class GerenciadorDeFeedbackTest {
 
         assertThat(mensagemDeErro, is("Seu código está correto.\n"));
     }
-    @Ignore
+
     @Test
     public void dadoQueReceboUmaOPeracaoDeAritmeticaValidaRetornoUmaMensagemDeSucesso() throws Exception {
         String codigo = "var numero : Inteiro\n" +
