@@ -115,14 +115,14 @@ public class TesteValidadorDeOperacoesAritmeticas {
     }
 
     @Test
-    public void dadoQueTenhaUmParenteseAbertoEumfechadoEntaoTereiUmRetornoTrue() throws Exception {
+    public void retornaVerdadeiroQuandoValidaUmaExpressaoQueTenhaUmParenteseAbertoEumFechado() throws Exception {
         criaTokensDeExpressaoVazia();
 
         assertThat(validadorDeOperacoesAritmeticas.aberturaEFechamentoDeParentesesEstaCorreta(), is(true));
     }
 
     @Test
-    public void dadoQueAOperacaoContenhaSomenteParentesesAbertoEntaoTereiUmRetornoFalse() throws Exception {
+    public void retornaFalsoQuandoValidaUmaExpressaoQueContenhaApenasDoisParentesesAbertos() throws Exception {
         tokens.add("(");
         tokens.add("(");
         validadorDeOperacoesAritmeticas.valida(tokens);
