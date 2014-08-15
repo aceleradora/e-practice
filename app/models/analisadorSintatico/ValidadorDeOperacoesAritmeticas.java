@@ -12,61 +12,12 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
         identificadorDeTokens = new IdentificadorDeToken();
     }
 
-    private boolean tokenEhIdentificadorDeVariavel(String token) {
-        return identificadorDeTokens.identifica(token).equalsIgnoreCase("IDV");
+    public boolean valida(ArrayList<String> listaDeTokens) {
+        tokens = listaDeTokens;
+        return testaExpressao();
     }
 
-    private boolean tokenEhNumero(String token) {
-        return identificadorDeTokens.identifica(token).equalsIgnoreCase("NUMERO");
-    }
-
-    private boolean tokenEhUmOperadorValido(String token) {
-        return identificadorDeTokens.identifica(token).equalsIgnoreCase("ADICAO") ||
-                identificadorDeTokens.identifica(token).equalsIgnoreCase("SUBTRACAO") ||
-                identificadorDeTokens.identifica(token).equalsIgnoreCase("MULTIPLICACAO") ||
-                identificadorDeTokens.identifica(token).equalsIgnoreCase("DIVISAO");
-    }
-
-    private boolean tokenEhParenteses(String token) {
-        return identificadorDeTokens.identifica(token).equals("PARENTESES_ABERTO") ||
-                identificadorDeTokens.identifica(token).equals("PARENTESES_FECHADO");
-    }
-
-    public boolean temExpressaoDentroDoParenteses() {
-        if(contadorComparadorDeParenteses() == 0) {
-            for (int i = 0; i < tokens.size(); i++) {
-                if (tokens.get(i).equals("(")) {
-                    if (i <= tokens.size() - 2 && tokens.get(i + 1).equals(")")) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    public boolean aberturaEFechamentoDeParentesesEstaCorreta() {
-        return contadorComparadorDeParenteses() == 0 ? true : false;
-    }
-
-    private int contadorComparadorDeParenteses() {
-        int contadorDeEquilibrioDeParenteses = 0;
-
-        for(int i = 0; i < tokens.size(); i++) {
-            if (contadorDeEquilibrioDeParenteses >= 0) {
-                if (tokens.get(i).equals("(")) {
-                    contadorDeEquilibrioDeParenteses++;
-                }
-                if (tokens.get(i).equals(")")) {
-                    contadorDeEquilibrioDeParenteses--;
-                }
-            }
-        }
-        return contadorDeEquilibrioDeParenteses;
-    }
-
-    public boolean testaExpressao(){
+    private boolean testaExpressao(){
         String tokenEh = "OPERANDO";
         boolean valida = utilizacaoDeParentesesEstaCorreta();
         if (!valida)
@@ -87,12 +38,13 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
         return valida;
     }
 
-    private String comutaTokenEh(String tokenEh) {
-        if (tokenEh.equals("OPERANDO")) {
-            return "OPERADOR";
-        } else {
-            return "OPERANDO";
-        }
+    private boolean utilizacaoDeParentesesEstaCorreta() {
+        return aberturaEFechamentoDeParentesesEstaCorreta() && temExpressaoDentroDoParenteses();
+    }
+
+    private boolean tokenEhParenteses(String token) {
+        return identificadorDeTokens.identifica(token).equals("PARENTESES_ABERTO") ||
+                identificadorDeTokens.identifica(token).equals("PARENTESES_FECHADO");
     }
 
     private String identificaSeTokenEhOperandoOuOperador(String token) {
@@ -105,6 +57,32 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
         }
     }
 
+    private String comutaTokenEh(String tokenEh) {
+        if (tokenEh.equals("OPERANDO")) {
+            return "OPERADOR";
+        } else {
+            return "OPERANDO";
+        }
+    }
+
+    public boolean aberturaEFechamentoDeParentesesEstaCorreta() {
+        return contadorComparadorDeParenteses() == 0;
+    }
+
+    public boolean temExpressaoDentroDoParenteses() {
+        if(contadorComparadorDeParenteses() == 0) {
+            for (int i = 0; i < tokens.size(); i++) {
+                if (tokens.get(i).equals("(")) {
+                    if (i <= tokens.size() - 2 && tokens.get(i + 1).equals(")")) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
     private boolean isOperando(String token) {
         return tokenEhIdentificadorDeVariavel(token) || tokenEhNumero(token);
     }
@@ -113,12 +91,39 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
         return isSinalDeAtribuicao(token) || tokenEhUmOperadorValido(token);
     }
 
-    private boolean isSinalDeAtribuicao(String token) {
-        return identificadorDeTokens.identifica(token).equals("IGUAL");
+    private int contadorComparadorDeParenteses() {
+        int contadorDeEquilibrioDeParenteses = 0;
+
+        for(int i = 0; i < tokens.size(); i++) {
+            if (contadorDeEquilibrioDeParenteses >= 0) {
+                if (tokens.get(i).equals("(")) {
+                    contadorDeEquilibrioDeParenteses++;
+                }
+                if (tokens.get(i).equals(")")) {
+                    contadorDeEquilibrioDeParenteses--;
+                }
+            }
+        }
+        return contadorDeEquilibrioDeParenteses;
     }
 
-    private boolean utilizacaoDeParentesesEstaCorreta() {
-        return aberturaEFechamentoDeParentesesEstaCorreta() && temExpressaoDentroDoParenteses();
+    private boolean tokenEhIdentificadorDeVariavel(String token) {
+        return identificadorDeTokens.identifica(token).equalsIgnoreCase("IDV");
+    }
+
+    private boolean tokenEhNumero(String token) {
+        return identificadorDeTokens.identifica(token).equalsIgnoreCase("NUMERO");
+    }
+
+    private boolean tokenEhUmOperadorValido(String token) {
+        return identificadorDeTokens.identifica(token).equalsIgnoreCase("ADICAO") ||
+                identificadorDeTokens.identifica(token).equalsIgnoreCase("SUBTRACAO") ||
+                identificadorDeTokens.identifica(token).equalsIgnoreCase("MULTIPLICACAO") ||
+                identificadorDeTokens.identifica(token).equalsIgnoreCase("DIVISAO");
+    }
+
+    private boolean isSinalDeAtribuicao(String token) {
+        return identificadorDeTokens.identifica(token).equals("IGUAL");
     }
 
     public String retornaMensagemErro() {
@@ -133,11 +138,5 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
             mensagem = "Existem erros na expressão aritmetica.";
         }
         return mensagem;
-    }
-
-    public boolean valida(ArrayList<String> listaDeTokens) {
-        tokens = listaDeTokens;
-        boolean valida = testaExpressao();
-        return valida;
     }
 }
