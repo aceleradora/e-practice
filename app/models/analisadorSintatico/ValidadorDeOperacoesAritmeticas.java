@@ -33,9 +33,13 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
                 }
             }
         }
-        if (tokenEh.equals("OPERANDO"))
+        if (ultimoTokenForUmOperador(tokenEh))
             valida = false;
         return valida;
+    }
+
+    private boolean ultimoTokenForUmOperador(String tokenEh) {
+        return tokenEh.equals("OPERANDO");
     }
 
     private boolean utilizacaoDeParentesesEstaCorreta() {
