@@ -14,14 +14,10 @@ public class ValidadorDeResultado {
         this.tabelaDeSimbolos = tabelaDeSimbolos;
     }
 
-    public boolean validaResultadoDoUsuario(Exercicio solucaoReal, SolucaoDoExercicio solucaoDoExercicio) {
+    public boolean validaResultadoDoUsuario(Exercicio solucaoReal, ArrayList<String> solucaoDoExercicio) {
 
 
-        Lexer lexer = new Lexer();
-        ArrayList<String> resultado = lexer.tokenizar(solucaoDoExercicio.getSolucaoDoUsuario());
-
-        if(resultado.get(2).equals(solucaoReal.possivelSolucao.getSolucaoDoUsuario())){
-
+        if(solucaoDoExercicio.get(2).equals(solucaoReal.possivelSolucao.getSolucaoDoUsuario())){
             return true;
         }
         return false;

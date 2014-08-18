@@ -3,12 +3,15 @@ package unitario.model;
 import models.SolucaoDoExercicio;
 import models.TabelaDeSimbolos;
 import models.ValidadorDeResultado;
+import models.analisadorLexico.Lexer;
 import models.exercicioProposto.Exercicio;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.ArrayList;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -21,6 +24,7 @@ public class TesteValidadorDeResultado {
         SolucaoDoExercicio possivelSolucao;
         Exercicio exercicio;
         ValidadorDeResultado validadorDeResultado;
+        Lexer lexer;
         @Mock TabelaDeSimbolos tabelaDeSimbolos;
 
 
@@ -31,14 +35,16 @@ public class TesteValidadorDeResultado {
         possivelSolucao = new SolucaoDoExercicio("2");
         exercicio = new Exercicio("1 + 1", possivelSolucao, false);
         validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos);
-
+        lexer = new Lexer();
 
     }
 
     @Test
     public void quandoVarresIgualAoResultadoDoExercicioRetornaTrue() throws Exception {
 
-        boolean resultado = validadorDeResultado.validaResultadoDoUsuario(exercicio, solucaoDoUsuario);
+        ArrayList<String> tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
+
+        boolean resultado = validadorDeResultado.validaResultadoDoUsuario(exercicio, tokens);
 
         assertThat(resultado, is(true));
 
