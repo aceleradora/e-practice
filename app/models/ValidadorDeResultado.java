@@ -16,11 +16,9 @@ public class ValidadorDeResultado {
 
     public boolean validaResultadoDoUsuario(Exercicio solucaoReal, ArrayList<String> solucaoDoExercicio) {
 
+        boolean comparaResultados = solucaoDoExercicio.get(2).equals(solucaoReal.possivelSolucao.getSolucaoDoUsuario());
 
-        if(solucaoDoExercicio.get(2).equals(solucaoReal.possivelSolucao.getSolucaoDoUsuario())){
-            return true;
-        }
-        return false;
+        return comparaResultados;
     }
 
     public boolean comparaTiposDoResultado(SolucaoDoExercicio solucaoDoUsuario, SolucaoDoExercicio possivelSolucao) {
@@ -28,10 +26,7 @@ public class ValidadorDeResultado {
         String tipoSolucaoDoUsuario = tabelaDeSimbolos.getTipoSimbolo(solucaoDoUsuario.getSolucaoDoUsuario());
         String tipoPossivelSolucao = tabelaDeSimbolos.getTipoSimbolo(possivelSolucao.getSolucaoDoUsuario());
 
-        if(tipoSolucaoDoUsuario.equals(tipoPossivelSolucao)) {
-            return true;
-        }
-        return false;
+        return tipoSolucaoDoUsuario.equals(tipoPossivelSolucao);
     }
 }
 
