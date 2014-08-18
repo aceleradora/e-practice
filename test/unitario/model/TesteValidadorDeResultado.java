@@ -1,22 +1,21 @@
  package unitario.model;
 
-import models.SolucaoDoExercicio;
-import models.TabelaDeSimbolos;
-import models.ValidadorDeResultado;
-import models.analisadorLexico.Lexer;
-import models.exercicioProposto.Exercicio;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+ import models.SolucaoDoExercicio;
+ import models.TabelaDeSimbolos;
+ import models.ValidadorDeResultado;
+ import models.analisadorLexico.Lexer;
+ import models.exercicioProposto.Exercicio;
+ import org.junit.Before;
+ import org.junit.Test;
+ import org.junit.runner.RunWith;
+ import org.mockito.Mock;
+ import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.ArrayList;
+ import java.util.ArrayList;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.when;
+ import static org.hamcrest.CoreMatchers.is;
+ import static org.junit.Assert.assertThat;
+ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TesteValidadorDeResultado {
@@ -24,7 +23,6 @@ public class TesteValidadorDeResultado {
         SolucaoDoExercicio solucaoDoUsuario;
         SolucaoDoExercicio possivelSolucao;
         Exercicio exercicio;
-        ValidadorDeResultado validadorDeResultado;
         Lexer lexer;
         @Mock TabelaDeSimbolos tabelaDeSimbolos;
         ArrayList<String> tokens;
@@ -93,5 +91,33 @@ public class TesteValidadorDeResultado {
         assertThat(resultado, is(false));
     }
 
+    @Test
+    public void quandoRespostasNaoCombinamRetornaMensagemDeErro() throws Exception {
 
+        String solucaoDoUsuario = "varres x : String\n";
+        solucaoDoUsuario += "x = \"abacaxi\"";
+        tokens = lexer.tokenizar(solucaoDoUsuario);
+
+        ValidadorDeResultado validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos, tokens, exercicio);
+
+        boolean comparacaoDeResultados = validadorDeResultado.valida(tokens);
+        String mensagem = validadorDeResultado.retornaMensagemErro();
+
+        assertThat(comparacaoDeResultados, is(false));
+        assertThat(mensagem, is("O resultado do exercício não é o esperado!"));
+    }
+
+    @Test
+    public void quandoTiposDasSolucoesNaoCombinaRetornaMensagemDeErro() throws Exception {
+
+        //TODO
+
+    }
+
+    @Test
+    public void retornaErroQuandoNaoEncontraVarresNaSolucao() throws Exception {
+
+        //TODO
+
+    }
 }

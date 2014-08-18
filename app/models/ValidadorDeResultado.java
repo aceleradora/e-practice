@@ -37,13 +37,18 @@ public class ValidadorDeResultado implements Validador {
         if(validaResultadoDoUsuario() && comparaTiposDosResultados()) {
             return true;
         }
-
         return false;
     }
 
     @Override
     public String retornaMensagemErro() {
-        return null;
+        String mensagemDeErro = "";
+
+        if(!validaResultadoDoUsuario())
+            mensagemDeErro = "O resultado do exercício não é o esperado!";
+        else
+            mensagemDeErro = "";
+        return mensagemDeErro;
     }
 }
 
