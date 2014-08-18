@@ -18,7 +18,7 @@ public class Application extends Controller {
     private static MensagemDeFeedback mensagemDeFeedback;
     private static Exercicio exercicio;
     private static SeletorAleatorioExercicio seletorAleatorioExercicio;
-
+    private static int idAtual = 0;
     public Application(SolucaoDoExercicio solucaoDoExercicio) {
         this.solucaoDoExercicio = solucaoDoExercicio;
     }
@@ -113,10 +113,20 @@ public class Application extends Controller {
         seletorAleatorioExercicio = new SeletorAleatorioExercicio(exercicio);
         exercicio = seletorAleatorioExercicio.buscaExercicio();
 
-        if (exercicio == null) {
+        if(exercicio != null && idAtual == exercicio.id){
+          if(exercicio.todosNaoResolvidos().size()>1) {
+              setaExercicioNaSecao();
+          }else{
+              session("exercicio", "Você já resolveu todos os exercícios.");
+          }
+
+        }
+       else if (exercicio == null) {
             session("exercicio", "Você já resolveu todos os exercícios.");
         } else {
+            idAtual = exercicio.id;
             session("exercicio", exercicio.enunciado);
+
         }
     }
 
