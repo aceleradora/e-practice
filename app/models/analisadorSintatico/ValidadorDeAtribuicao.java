@@ -13,55 +13,69 @@ public class ValidadorDeAtribuicao implements Validador {
         this.identificadorDeTokens = identificadorDeTokens;
     }
 
+    public boolean validaQuantidadeDeTokens() {
+        if (tokens.size() <= 4) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String mensagemDeErroParaQuantidadeInvalidaDeTokens() {
+        String retorno = "";
+        if (!(validaQuantidadeDeTokens()))
+            retorno = "Existe(m) erros(s) sintático(s) na atribuição. \n";
+        return retorno;
+    }
+
     public boolean validaPrimeiroToken() {
         String token = identificadorDeTokens.identifica(tokens.get(0));
-        if(token == "IDV")
+        if (token == "IDV")
             return true;
         else
             return false;
     }
 
-    public String mensagemDeErroNoPrimeiroToken(){
+    public String mensagemDeErroNoPrimeiroToken() {
         String retorno = "";
-        if (!(validaPrimeiroToken())){
-            retorno =  "Nome de variável incorreto. \n";
+        if (!(validaPrimeiroToken())) {
+            retorno = "Nome de variável incorreto. \n";
         }
         return retorno;
     }
 
-    public boolean validaSegundoToken(){
+    public boolean validaSegundoToken() {
         String token = identificadorDeTokens.identifica(tokens.get(1));
-        if(token.equals("IGUAL"))
+        if (token.equals("IGUAL"))
             return true;
         else
             return false;
     }
 
-    public String mensagemDeErroNoSegundoToken(){
+    public String mensagemDeErroNoSegundoToken() {
         String retorno = "";
-        if (!(validaSegundoToken())){
-            retorno =  "Sinal de igual esperado para atribuição. \n";
+        if (!(validaSegundoToken())) {
+            retorno = "Sinal de igual esperado para atribuição. \n";
         }
         return retorno;
     }
 
     public boolean validaTerceiroToken() {
         String token = identificadorDeTokens.identifica(tokens.get(2));
-        if(token == "NUMERO" || token == "IDV" || token == "CONSTANTE_TIPO_STRING") {
-            return true;
-        }
-        else if(token == "ADICAO" || token == "SUBTRACAO"){
-            String quartoToken = identificadorDeTokens.identifica(tokens.get(3));
-            if (quartoToken == "NUMERO" || quartoToken == "IDV"){
+        if (tokens.size() == 3) {
+            if (token == "NUMERO" || token == "IDV" || token == "CONSTANTE_TIPO_STRING")
                 return true;
-            }
-            else{
+        } else if (tokens.size() == 4) {
+            if (token == "ADICAO" || token == "SUBTRACAO") {
+                String quartoToken = identificadorDeTokens.identifica(tokens.get(3));
+                if (quartoToken == "NUMERO" || quartoToken == "IDV")
+                    return true;
+            } else
                 return false;
-            }
         }
-        else
-            return false;
+        return false;
     }
+
 
     public String mensagemDeErroNoTerceiroToken(){
         String retorno = "";
@@ -69,10 +83,11 @@ public class ValidadorDeAtribuicao implements Validador {
             if (tokens.size() == 3) {
                 retorno = "Variável, valor numérico ou uma string são esperados. \n";
             }
-            else if (tokens.size() == 4) {
-                retorno = "Sinais positivo ou negativo, seguidos de variável ou valor numérico, são esperados. \n";
+                else
+                    retorno = "Existe(m) erros(s) sintático(s) na atribuição. \n";
             }
-        }
+
+
         return retorno;
     }
 
@@ -81,6 +96,7 @@ public class ValidadorDeAtribuicao implements Validador {
         boolean retorno = false;
         this.tokens = tokens;
         retorno =
+                validaQuantidadeDeTokens() &&
                 validaPrimeiroToken() &&
                 validaSegundoToken() &&
                 validaTerceiroToken();
@@ -91,7 +107,7 @@ public class ValidadorDeAtribuicao implements Validador {
     @Override
     public String retornaMensagemErro(){
         String mensagem = "";
-        mensagem = mensagemDeErroNoPrimeiroToken() + mensagemDeErroNoSegundoToken()
+        mensagem = mensagemDeErroParaQuantidadeInvalidaDeTokens() + mensagemDeErroNoPrimeiroToken() + mensagemDeErroNoSegundoToken()
                 + mensagemDeErroNoTerceiroToken();
         return mensagem;
     }

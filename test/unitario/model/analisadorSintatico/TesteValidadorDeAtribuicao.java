@@ -194,8 +194,31 @@ public class TesteValidadorDeAtribuicao {
         validadorDeAtribuicao.valida(tokens);
         String mensagemDeErro = validadorDeAtribuicao.retornaMensagemErro();
 
-        assertThat(mensagemDeErro, is("Sinais positivo ou negativo, seguidos de variável ou valor numérico, são esperados. \n"));
+        assertThat(mensagemDeErro, is("Existe(m) erros(s) sintático(s) na atribuição. \n"));
     }
+
+    @Test
+    public void retornaMensagemDeErroQuandoForAtribuidoDoisTokensEOTerceiroNaoForSinalPositivoOuNegativo() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi = a b");
+
+        validadorDeAtribuicao.valida(tokens);
+        String mensagemDeErro = validadorDeAtribuicao.retornaMensagemErro();
+
+        assertThat(mensagemDeErro, is("Existe(m) erros(s) sintático(s) na atribuição. \n"));
+
+    }
+
+    @Test
+    public void retornaMensagemDeErroQuandoQuantidadeDeTokensForInvalida() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi = a b c");
+
+        validadorDeAtribuicao.valida(tokens);
+        String mensagemDeErro = validadorDeAtribuicao.retornaMensagemErro();
+
+        assertThat(mensagemDeErro, is("Existe(m) erros(s) sintático(s) na atribuição. \n"));
+    }
+
+
 }
 
 
