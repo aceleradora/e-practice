@@ -33,13 +33,12 @@ public class ValidadorDeResultado implements Validador {
 
     @Override
     public boolean valida(ArrayList<String> tokens) {
-
-/*
         tokensDoUsuario = tokens;
-        if(validaResultadoDoUsuario() && comparaTiposDosResultados()) return true;
-*/
+        if(validaResultadoDoUsuario() && comparaTiposDosResultados()) {
+            return true;
+        }
 
-        return true;
+        return false;
     }
 
     @Override
