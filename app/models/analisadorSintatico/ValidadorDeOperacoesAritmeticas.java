@@ -35,7 +35,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
                 } else {
                     return false;
                 }
-                setaFlagUnarioDeAcordoComToken(tokens.get(i));
+                setaFlagUnarioDeAcordoComIndiceDeToken(i);
             }
         }
         if (ultimoTokenForUmOperador(tokenEh))
@@ -43,12 +43,20 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
         return valida;
     }
 
-    private void setaFlagUnarioDeAcordoComToken(String token) {
-        if (token.equals("*") || token.equals("/") || token.equals("=")) {
+    private void setaFlagUnarioDeAcordoComIndiceDeToken(int indice) {
+        if (tokenForOperadorDiferenteDeSomaOuSubtracao(indice) || tokenForSomaOuSubtracaoEOProximoForParentesesAbrindo(indice)) {
             proximoOperandoPodeSerUnario = true;
         } else {
             proximoOperandoPodeSerUnario = false;
         }
+    }
+
+    private boolean tokenForSomaOuSubtracaoEOProximoForParentesesAbrindo(int indice) {
+        return ((tokens.get(indice).equals("+") || tokens.get(indice).equals("-")) && (indice < tokens.size() - 1) && tokens.get(indice + 1).equals("("));
+    }
+
+    private boolean tokenForOperadorDiferenteDeSomaOuSubtracao(int indice) {
+        return tokens.get(indice).equals("*") || tokens.get(indice).equals("/") || tokens.get(indice).equals("=");
     }
 
     private boolean ultimoTokenForUmOperador(String tokenEh) {
