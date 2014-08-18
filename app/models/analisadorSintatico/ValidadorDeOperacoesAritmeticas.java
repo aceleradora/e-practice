@@ -33,9 +33,13 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
                 }
             }
         }
-        if (tokenEh.equals("OPERANDO"))
+        if (ultimoTokenForUmOperador(tokenEh))
             valida = false;
         return valida;
+    }
+
+    private boolean ultimoTokenForUmOperador(String tokenEh) {
+        return tokenEh.equals("OPERANDO");
     }
 
     private boolean utilizacaoDeParentesesEstaCorreta() {
@@ -72,7 +76,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
     public boolean temExpressaoDentroDoParenteses() {
         if(aberturaEFechamentoDeParentesesEstaCorreta()) {
             for (int i = 0; i < tokens.size(); i++) {
-                if (tokenAtualForParentesesAbrindoEProximoTokenForParentesesFechando(i)) {
+                if (tokenAtualForParentesesAbertoEProximoTokenForParentesesFechando(i)) {
                     return false;
                 }
             }
@@ -81,7 +85,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
         return false;
     }
 
-    private boolean tokenAtualForParentesesAbrindoEProximoTokenForParentesesFechando(int i) {
+    private boolean tokenAtualForParentesesAbertoEProximoTokenForParentesesFechando(int i) {
         return tokens.get(i).equals("(") && estaDentroDaListaEProximoTokenForParentesesFechado(i);
     }
 
