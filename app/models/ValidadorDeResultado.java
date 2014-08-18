@@ -1,30 +1,23 @@
 package models;
 
-import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
+import models.exercicioProposto.Exercicio;
 
 import java.util.ArrayList;
 
 public class ValidadorDeResultado {
-    private IdentificadorDeToken identificadorDeToken;
-    private TabelaDeSimbolos tabelaDeSimbolos;
 
-    public ValidadorDeResultado(TabelaDeSimbolos tabelaDeSimbolos) {
-        identificadorDeToken = new IdentificadorDeToken();
-        this.tabelaDeSimbolos = tabelaDeSimbolos;
-    }
+    public boolean validaResultadoDoUsuario(Exercicio solucaoReal, SolucaoDoExercicio solucaoDoExercicio) {
 
-    public boolean valida(ArrayList<String> solucao) {
 
-        if (tabelaDeSimbolos.simboloExiste(solucao.get(1)) &&
-                tabelaDeSimbolos.verificaSeExisteVariavelDeResultado(solucao.get(1))) {
+        Lexer lexer = new Lexer();
+        ArrayList<String> resultado = lexer.tokenizar(solucaoDoExercicio.getSolucaoDoUsuario());
+
+        if(resultado.get(2).equals(solucaoReal.possivelSolucao.getSolucaoDoUsuario())){
+
             return true;
-        } else {
-            return false;
         }
-    }
-
-    private boolean tokenIdentificadoENumero(String token) {
-        return identificadorDeToken.identifica(token).equals("NUMERO");
+        return false;
     }
 }
+
