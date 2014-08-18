@@ -107,8 +107,19 @@ public class ValidadorDeAtribuicao implements Validador {
     @Override
     public String retornaMensagemErro(){
         String mensagem = "";
-        mensagem = mensagemDeErroParaQuantidadeInvalidaDeTokens() + mensagemDeErroNoPrimeiroToken() + mensagemDeErroNoSegundoToken()
-                + mensagemDeErroNoTerceiroToken();
+
+        if(mensagem == ""){
+            mensagem = mensagemDeErroParaQuantidadeInvalidaDeTokens();
+        }
+        if(mensagem == ""){
+            mensagem = mensagemDeErroNoPrimeiroToken();
+        }
+        if(mensagem == ""){
+            mensagem = mensagemDeErroNoSegundoToken();
+        }
+        if(mensagem == ""){
+            mensagem = mensagemDeErroNoTerceiroToken();
+        }
         return mensagem;
     }
 }
