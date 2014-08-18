@@ -1,7 +1,5 @@
 package models;
 
-import models.analisadorLexico.IdentificadorDeToken;
-import models.analisadorLexico.Lexer;
 import models.exercicioProposto.Exercicio;
 
 import java.util.ArrayList;
@@ -21,7 +19,7 @@ public class ValidadorDeResultado {
         return comparaResultados;
     }
 
-    public boolean comparaTiposDoResultado(SolucaoDoExercicio solucaoDoUsuario, SolucaoDoExercicio possivelSolucao) {
+    public boolean comparaTiposDosResultados(SolucaoDoExercicio solucaoDoUsuario, SolucaoDoExercicio possivelSolucao) {
 
         String tipoSolucaoDoUsuario = tabelaDeSimbolos.getTipoSimbolo(solucaoDoUsuario.getSolucaoDoUsuario());
         String tipoPossivelSolucao = tabelaDeSimbolos.getTipoSimbolo(possivelSolucao.getSolucaoDoUsuario());

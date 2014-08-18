@@ -1,4 +1,4 @@
-package unitario.model;
+ package unitario.model;
 
 import models.SolucaoDoExercicio;
 import models.TabelaDeSimbolos;
@@ -67,7 +67,7 @@ public class TesteValidadorDeResultado {
         when(tabelaDeSimbolos.getTipoSimbolo(solucaoDoUsuario.getSolucaoDoUsuario())).thenReturn("String");
         when(tabelaDeSimbolos.getTipoSimbolo(possivelSolucao.getSolucaoDoUsuario())).thenReturn("Inteiro");
 
-        boolean resultado = validadorDeResultado.comparaTiposDoResultado(solucaoDoUsuario, possivelSolucao);
+        boolean resultado = validadorDeResultado.comparaTiposDosResultados(solucaoDoUsuario, possivelSolucao);
 
         assertThat(resultado, is(false));
     }
