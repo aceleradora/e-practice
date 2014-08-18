@@ -26,6 +26,7 @@ public class TesteValidadorDeResultado {
         ValidadorDeResultado validadorDeResultado;
         Lexer lexer;
         @Mock TabelaDeSimbolos tabelaDeSimbolos;
+        ArrayList<String> tokens;
 
 
     @Before
@@ -33,18 +34,18 @@ public class TesteValidadorDeResultado {
 
         solucaoDoUsuario = new SolucaoDoExercicio("resultado = 2");
         possivelSolucao = new SolucaoDoExercicio("2");
-        exercicio = new Exercicio("1 + 1", possivelSolucao, false);
-        validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos);
         lexer = new Lexer();
+        exercicio = new Exercicio("1 + 1", possivelSolucao, false);
+        tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
+        validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos, tokens, exercicio);
 
     }
 
     @Test
     public void quandoVarresIgualAoResultadoDoExercicioRetornaTrue() throws Exception {
 
-        ArrayList<String> tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
 
-        boolean resultado = validadorDeResultado.validaResultadoDoUsuario(exercicio, tokens);
+        boolean resultado = validadorDeResultado.validaResultadoDoUsuario();
 
         assertThat(resultado, is(true));
     }
@@ -53,9 +54,11 @@ public class TesteValidadorDeResultado {
     public void quandoVarresDoTipoStringEhIgualAOResultadoDoExercicioRetornaTrue() throws Exception {
         solucaoDoUsuario.solucaoDoUsuario = "resultado = \"abacaxi\"";
         exercicio.possivelSolucao = new SolucaoDoExercicio("\"abacaxi\"");
-        ArrayList<String> tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
+        tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
 
-        boolean resultado = validadorDeResultado.validaResultadoDoUsuario(exercicio, tokens);
+        ValidadorDeResultado validadorDeResultado1 = new ValidadorDeResultado(tabelaDeSimbolos, tokens, exercicio);
+
+        boolean resultado = validadorDeResultado1.validaResultadoDoUsuario();
 
         assertThat(resultado, is(true));
     }
@@ -72,5 +75,15 @@ public class TesteValidadorDeResultado {
         assertThat(resultado, is(false));
     }
 
+    @Test
+    public void dadoQueOExercicioEstaInvalidoRetornaMensagemDeErro() throws Exception {
 
+        ArrayList<String> tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
+
+        boolean resultado = validadorDeResultado.valida(tokens);
+
+        assertThat(resultado, is(true));
+    }
+
+    
 }
