@@ -304,6 +304,28 @@ public class TesteValidadorDeOperacoesAritmeticas {
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
     }
 
+    @Test
+    public void retornaVerdadeiroQuandoValidaASomaDeDuasExpressoesEntreParenteses() throws Exception {
+        tokens.add("x");
+        tokens.add("=");
+        tokens.add("(");
+        tokens.add("(");
+        tokens.add("5");
+        tokens.add("+");
+        tokens.add("3");
+        tokens.add(")");
+        tokens.add("+");
+        tokens.add("(");
+        tokens.add("2");
+        tokens.add("-");
+        tokens.add("3");
+        tokens.add(")");
+        tokens.add(")");
+
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
+
+    }
+
     private void criaTokensDeExpressaoVazia() {
         tokens.add("(");
         tokens.add(")");
