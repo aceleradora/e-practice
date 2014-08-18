@@ -47,16 +47,31 @@ public class ValidadorDeAtribuicao implements Validador {
 
     public boolean validaTerceiroToken() {
         String token = identificadorDeTokens.identifica(tokens.get(2));
-        if(token == "NUMERO" || token == "IDV" || token == "CONSTANTE_TIPO_STRING")
+        if(token == "NUMERO" || token == "IDV" || token == "CONSTANTE_TIPO_STRING") {
             return true;
+        }
+        else if(token == "ADICAO" || token == "SUBTRACAO"){
+            String quartoToken = identificadorDeTokens.identifica(tokens.get(3));
+            if (quartoToken == "NUMERO" || quartoToken == "IDV"){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
         else
             return false;
     }
 
     public String mensagemDeErroNoTerceiroToken(){
         String retorno = "";
-        if (!(validaTerceiroToken())){
-            retorno =  "Variável, valor numérico ou uma string são esperados. \n";
+        if (!(validaTerceiroToken())) {
+            if (tokens.size() == 3) {
+                retorno = "Variável, valor numérico ou uma string são esperados. \n";
+            }
+            else if (tokens.size() == 4) {
+                retorno = "Sinais positivo ou negativo, seguidos de variável ou valor numérico, são esperados. \n";
+            }
         }
         return retorno;
     }

@@ -1,66 +1,40 @@
 package unitario.model;
 
-import models.TabelaDeSimbolos;
+import models.SolucaoDoExercicio;
 import models.ValidadorDeResultado;
-import models.analisadorLexico.IdentificadorDeToken;
-import models.analisadorLexico.Lexer;
-import models.analisadorSemantico.ValidadorDeAtribuicao;
-import models.analisadorSemantico.ValidadorDeDeclaracaoDeVariavel;
+import models.exercicioProposto.Exercicio;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class TesteValidadorDeResultado {
-    private TabelaDeSimbolos tabelaDeSimbolos;
-        Lexer lexer;
-        ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
-        ValidadorDeAtribuicao validadorDeAtribuicao;
+
+
+
+        SolucaoDoExercicio solucaoDoUsuario;
+        SolucaoDoExercicio possivelSolucao;
+        Exercicio exercicio;
         ValidadorDeResultado validadorDeResultado;
-        ArrayList<String> tokensDeclaracao;
-        ArrayList<String> tokensAtribuicao;
-        String declaracao;
-        String atribuicao;
 
     @Before
     public void setUp() throws Exception {
-        tabelaDeSimbolos = new TabelaDeSimbolos();
-        lexer = new Lexer();
-        validadorDeDeclaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tabelaDeSimbolos);
-        validadorDeAtribuicao = new ValidadorDeAtribuicao(tabelaDeSimbolos);
-        validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos);
-        tokensAtribuicao = new ArrayList<String>();
-        tokensDeclaracao = new ArrayList<String>();
+
+        solucaoDoUsuario = new SolucaoDoExercicio("resultado = 2");
+        possivelSolucao = new SolucaoDoExercicio("2");
+        exercicio = new Exercicio("1 + 1", possivelSolucao, false);
+        validadorDeResultado = new ValidadorDeResultado();
+
     }
 
     @Test
-    public void retornaVerdadeiroQuandoVariavelXFoiDeclaradaComoVarresInteiroERecebeUmNumero() throws Exception {
-        declaracao = "varres x : Inteiro\n";
-        declaracao += "x = 1";
-        tokensDeclaracao = lexer.tokenizar(declaracao);
-        validadorDeDeclaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tabelaDeSimbolos);
-        validadorDeDeclaracaoDeVariavel.valida(tokensDeclaracao);
+    public void quandoVarresIgualAoResultadoDoExercicioRetornaTrue() throws Exception {
 
-        ValidadorDeResultado validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos);
+        boolean resultado = validadorDeResultado.validaResultadoDoUsuario(exercicio, solucaoDoUsuario);
 
-        assertThat(validadorDeResultado.valida(tokensDeclaracao), is(true));
+        assertThat(resultado, is(true));
+
     }
-
-    @Test
-    public void retornaFalsoQuandoVariavelForDeclaradaComoVarresInteiroERecebeString() throws Exception {
-        declaracao = "varres x : Inteiro";
-        atribuicao = " x = \"abacaxi\"";
-        tokensDeclaracao = lexer.tokenizar(declaracao);
-        validadorDeDeclaracaoDeVariavel.valida(tokensDeclaracao);
-        tokensAtribuicao = lexer.tokenizar(atribuicao);
-        validadorDeAtribuicao.valida(tokensAtribuicao);
-
-        assertThat(validadorDeResultado.valida(tokensDeclaracao), is(true));
-        assertThat(validadorDeResultado.valida(tokensAtribuicao), is(false));
-    }
-
 }
