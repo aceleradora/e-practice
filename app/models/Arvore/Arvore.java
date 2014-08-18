@@ -2,7 +2,6 @@ package models.Arvore;
 
 import java.util.ArrayList;
 
-
 public class Arvore {
     Nodo raiz;
     public Arvore() {
