@@ -61,7 +61,6 @@ public class TestePostFix {
 
         String resultado = luiz.criaPosfix(tokens);
         assertThat(resultado, is("AB+CD-/"));
-
     }
 
     @Test
@@ -82,18 +81,80 @@ public class TestePostFix {
 
         String resultado = luiz.criaPosfix(tokens);
         assertThat(resultado, is("AB+CD-/E*"));
-
     }
 
+    @Test
+    public void dadoUmaOperacaoComParentesesCercadaDeOperacoesSemParentesesDeveRetornarUmaOperacaoPosFix() throws Exception {
+        tokens.add("A");
+        tokens.add("*");
+        tokens.add("(");
+        tokens.add("B");
+        tokens.add("+");
+        tokens.add("C");
+        tokens.add(")");
+        tokens.add("/");
+        tokens.add("D");
+        tokens.add("-");
+        tokens.add("E");
 
-//    infix
-//    A*(B+C)/D-E dadoUmaOperacaoComParentesesCercadaDeOperacoesSemParentesesDeveRetornarUmaOperacaoPosFix
-//    A+(B-(C+(D-(E+F)))) dadoUmaOperacoesComQuatroParentesesAninhadosDeveRetornarUmaOperacaoPosFix
-//    A*(B+(C*(D+(E*(F+G))))) dadoUmaOperacoesComCincoParentesesAninhadosDeveRetornarUmaOperacaoPosFix
-//
-//    posfix
-//    ABC+*D/E-
-//    ABCDEF+-+-+
-//    ABCDEFG+*+*+*
+        String resultado = luiz.criaPosfix(tokens);
+        assertThat(resultado, is("ABC+*D/E-"));
+    }
+
+    @Test
+    public void dadoUmaOperacoesComQuatroParentesesAninhadosDeveRetornarUmaOperacaoPosFix() throws Exception {
+        tokens.add("A");
+        tokens.add("+");
+        tokens.add("(");
+        tokens.add("B");
+        tokens.add("-");
+        tokens.add("(");
+        tokens.add("C");
+        tokens.add("+");
+        tokens.add("(");
+        tokens.add("D");
+        tokens.add("-");
+        tokens.add("(");
+        tokens.add("E");
+        tokens.add("+");
+        tokens.add("F");
+        tokens.add(")");
+        tokens.add(")");
+        tokens.add(")");
+        tokens.add(")");
+
+        String resultado = luiz.criaPosfix(tokens);
+        assertThat(resultado, is("ABCDEF+-+-+"));
+    }
+
+    @Test
+    public void dadoUmaOperacoesComCincoParentesesAninhadosDeveRetornarUmaOperacaoPosFix() throws Exception {
+        tokens.add("A");
+        tokens.add("*");
+        tokens.add("(");
+        tokens.add("B");
+        tokens.add("+");
+        tokens.add("(");
+        tokens.add("C");
+        tokens.add("*");
+        tokens.add("(");
+        tokens.add("D");
+        tokens.add("+");
+        tokens.add("(");
+        tokens.add("E");
+        tokens.add("*");
+        tokens.add("(");
+        tokens.add("F");
+        tokens.add("+");
+        tokens.add("G");
+        tokens.add(")");
+        tokens.add(")");
+        tokens.add(")");
+        tokens.add(")");
+        tokens.add(")");
+
+        String resultado = luiz.criaPosfix(tokens);
+        assertThat(resultado, is("ABCDEFG+*+*+*"));
+    }
 
 }
