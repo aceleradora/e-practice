@@ -167,6 +167,35 @@ public class TesteValidadorDeAtribuicao {
         assertThat(mensagemDeErro, is("Variável, valor numérico ou uma string são esperados. \n"));
 
     }
+
+    @Test
+    public void retornaTrueQuandoOTerceiroTokenForUmSinalDeAdicao() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi = + 1");
+
+        boolean retorno = validadorDeAtribuicao.valida(tokens);
+
+        assertThat(retorno, is(true));
+
+    }
+
+    @Test
+    public void retornaTrueQuandoTerceiroTokenForUmSinalDeSubtracao() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi = +1");
+
+        boolean retorno = validadorDeAtribuicao.valida(tokens);
+
+        assertTrue(retorno);
+    }
+
+    @Test
+    public void retornaMensagemDeErroQuandoTerceiroTokenNaoForUmSinalDeAdicaoOuSubtracao() throws Exception {
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi = * 2");
+
+        validadorDeAtribuicao.valida(tokens);
+        String mensagemDeErro = validadorDeAtribuicao.retornaMensagemErro();
+
+        assertThat(mensagemDeErro, is("Sinais positivo ou negativo, seguidos de variável ou valor numérico, são esperados. \n"));
+    }
 }
 
 
