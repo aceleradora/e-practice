@@ -28,5 +28,6 @@ public class ValidadorDeResultado {
 
         return tipoSolucaoDoUsuario.equals(tipoPossivelSolucao);
     }
+
 }
 

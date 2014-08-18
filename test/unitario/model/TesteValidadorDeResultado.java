@@ -47,7 +47,17 @@ public class TesteValidadorDeResultado {
         boolean resultado = validadorDeResultado.validaResultadoDoUsuario(exercicio, tokens);
 
         assertThat(resultado, is(true));
+    }
 
+    @Test
+    public void quandoVarresDoTipoStringEhIgualAOResultadoDoExercicioRetornaTrue() throws Exception {
+        solucaoDoUsuario.solucaoDoUsuario = "resultado = \"abacaxi\"";
+        exercicio.possivelSolucao = new SolucaoDoExercicio("\"abacaxi\"");
+        ArrayList<String> tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
+
+        boolean resultado = validadorDeResultado.validaResultadoDoUsuario(exercicio, tokens);
+
+        assertThat(resultado, is(true));
     }
 
     @Test
@@ -61,4 +71,6 @@ public class TesteValidadorDeResultado {
 
         assertThat(resultado, is(false));
     }
+
+
 }
