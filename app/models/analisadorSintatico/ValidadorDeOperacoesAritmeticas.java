@@ -72,7 +72,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
     public boolean temExpressaoDentroDoParenteses() {
         if(aberturaEFechamentoDeParentesesEstaCorreta()) {
             for (int i = 0; i < tokens.size(); i++) {
-                if (tokenAtualForParentesesAbrindoEProximoTokenForParentesesFechando(i)) {
+                if (tokenAtualForParentesesAbertoEProximoTokenForParentesesFechando(i)) {
                     return false;
                 }
             }
@@ -81,7 +81,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
         return false;
     }
 
-    private boolean tokenAtualForParentesesAbrindoEProximoTokenForParentesesFechando(int i) {
+    private boolean tokenAtualForParentesesAbertoEProximoTokenForParentesesFechando(int i) {
         return tokens.get(i).equals("(") && estaDentroDaListaEProximoTokenForParentesesFechado(i);
     }
 
