@@ -28,9 +28,4 @@ public class QuebradorDeCodigoEmLinhas {
     private void removeEspacosEmBrancoDoArray() {
         codigoQuebrado.removeAll(Arrays.asList(null, ""));
     }
-
-
-    public ArrayList<String> getCodigoQuebrado() {
-        return codigoQuebrado;
-    }
 }

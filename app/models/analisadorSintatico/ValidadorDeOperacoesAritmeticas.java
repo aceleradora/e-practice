@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class ValidadorDeOperacoesAritmeticas implements Validador {
     private IdentificadorDeToken identificadorDeTokens;
     private ArrayList<String> tokens;
+    private boolean proximoOperandoPodeSerUnario;
 
     public ValidadorDeOperacoesAritmeticas() {
         identificadorDeTokens = new IdentificadorDeToken();
@@ -19,23 +20,35 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
 
     private boolean testaExpressao(){
         String tokenEh = "OPERANDO";
+        proximoOperandoPodeSerUnario = false;
         boolean valida = utilizacaoDeParentesesEstaCorreta();
         if (!valida)
             return false;
         for (int i = 0; i < tokens.size(); i++) {
             if (!tokenEhParenteses(tokens.get(i))) {
                 String tokenAtual = identificaSeTokenEhOperandoOuOperador(tokens.get(i));
-                if (tokenAtual.equals(tokenEh)) {
+                if (proximoOperandoPodeSerUnario && (tokens.get(i).equals("+") || tokens.get(i).equals("-"))) {
+                    valida = true;
+                } else if (tokenAtual.equals(tokenEh)) {
                     valida = true;
                     tokenEh = comutaTokenEh(tokenEh);
                 } else {
                     return false;
                 }
+                setaFlagUnarioDeAcordoComToken(tokens.get(i));
             }
         }
         if (ultimoTokenForUmOperador(tokenEh))
             valida = false;
         return valida;
+    }
+
+    private void setaFlagUnarioDeAcordoComToken(String token) {
+        if (token.equals("*") || token.equals("/") || token.equals("=")) {
+            proximoOperandoPodeSerUnario = true;
+        } else {
+            proximoOperandoPodeSerUnario = false;
+        }
     }
 
     private boolean ultimoTokenForUmOperador(String tokenEh) {

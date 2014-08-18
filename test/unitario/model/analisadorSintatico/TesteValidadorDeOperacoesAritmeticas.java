@@ -326,6 +326,30 @@ public class TesteValidadorDeOperacoesAritmeticas {
 
     }
 
+    @Test
+    public void retornaVerdadeiroQuandoValidaUmaExpressaoUnariaSimples() throws Exception {
+        tokens.add("x");
+        tokens.add("=");
+        tokens.add("-");
+        tokens.add("7");
+
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
+    }
+
+    @Test
+    public void retornaVerdadeiroQuandoValidaUmaExpressaoComUnarioDentroDeParenteses() throws Exception {
+        tokens.add("x");
+        tokens.add("=");
+        tokens.add("5");
+        tokens.add("*");
+        tokens.add("(");
+        tokens.add("-");
+        tokens.add("7");
+        tokens.add(")");
+
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
+    }
+
     private void criaTokensDeExpressaoVazia() {
         tokens.add("(");
         tokens.add(")");
