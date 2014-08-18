@@ -51,9 +51,19 @@ public class GerenciadorSintatico {
         if (listaDeTokensIdentificados.get(0).equals("PALAVRA_RESERVADA") || listaDeTokensIdentificados.get(2).equals(":")) {
             validadorDaExpressao = this.validadorDeDeclaracaoDeVariavel;
         } else if (listaDeTokensIdentificados.contains("ADICAO")) {
-            validadorDaExpressao = this.validadorDeOperacoesAritmeticas;
+            if((listaDeTokensIdentificados.size() <= 4) && (listaDeTokensIdentificados.get(2) == "ADICAO")) {
+                validadorDaExpressao = this.validadorDeAtribuicao;
+            }
+            else {
+                validadorDaExpressao = this.validadorDeOperacoesAritmeticas;
+            }
         } else if (listaDeTokensIdentificados.contains("SUBTRACAO")) {
-            validadorDaExpressao = this.validadorDeOperacoesAritmeticas;
+            if((listaDeTokensIdentificados.size() <= 4) && (listaDeTokensIdentificados.get(2) == "SUBTRACAO")) {
+                validadorDaExpressao = this.validadorDeAtribuicao;
+            }
+            else {
+                validadorDaExpressao = this.validadorDeOperacoesAritmeticas;
+            }
         } else if (listaDeTokensIdentificados.contains("MULTIPLICACAO")) {
             validadorDaExpressao = this.validadorDeOperacoesAritmeticas;
         } else if (listaDeTokensIdentificados.contains("DIVISAO")) {

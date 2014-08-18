@@ -24,6 +24,7 @@ public class TesteGerenciadorSintatico {
     @Mock IdentificadorDeToken identificadorDeToken;
     @Mock ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
     @Mock ValidadorDeAtribuicao validadorDeAtribuicao;
+    @Mock ValidadorDeAtribuicao validadorDeAtribuicaoOperadorUnario;
     @Mock ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;
     @Mock ValidadorDeConcatenacaoDeStrings validadorDeConcatenacaoDeString;
 
@@ -32,6 +33,8 @@ public class TesteGerenciadorSintatico {
     private ArrayList<String> listaDeTokensDeclaracao;
     private String sentencaAtribuicao;
     private ArrayList<String> listaDeTokensAtribuicao;
+    private String sentencaAtribuicaoOperadorUnario;
+    private ArrayList<String> listaDeTokensAtribuicaoOperadorUnario;
     private String sentencaOperacaoAritmetica;
     private ArrayList<String> listaDeTokensOperacaoAritmetica;
     private String sentencaConcatenacaoString;
@@ -46,22 +49,26 @@ public class TesteGerenciadorSintatico {
                 .com(identificadorDeToken)
                 .com(validadorDeDeclaracaoDeVariavel)
                 .com(validadorDeAtribuicao)
+                .com(validadorDeAtribuicaoOperadorUnario)
                 .com(validadorDeOperacoesAritmeticas)
                 .com(validadorDeConcatenacaoDeString)
                 .geraGerenciador();
 
         sentencaDeclaracao = "var x : String";
         sentencaAtribuicao = "x = 1";
+        sentencaAtribuicaoOperadorUnario = "x = + 1";
         sentencaOperacaoAritmetica = "x = 1 + 1";
         sentencaConcatenacaoString = "x = \"abacaxi\" <> \"verde\"";
 
         criaListaDeTokensDeDeclaracao();
         criaListaDeTokensDeAtribuicao();
+        criaListaDeTokensDeAtribuicaoOperadorUnario();
         criaListaDeTokensDeOperacaoAritmetica();
         criaListaDeTokensDeConcatenacaoString();
 
         when(lexer.tokenizar(sentencaDeclaracao)).thenReturn(listaDeTokensDeclaracao);
         when(lexer.tokenizar(sentencaAtribuicao)).thenReturn(listaDeTokensAtribuicao);
+        when(lexer.tokenizar(sentencaAtribuicaoOperadorUnario)).thenReturn(listaDeTokensAtribuicaoOperadorUnario);
         when(lexer.tokenizar(sentencaOperacaoAritmetica)).thenReturn(listaDeTokensOperacaoAritmetica);
         when(lexer.tokenizar(sentencaConcatenacaoString)).thenReturn(listaDeTokensConcatenacaoString);
 
@@ -104,6 +111,14 @@ public class TesteGerenciadorSintatico {
         listaDeTokensAtribuicao.add("1");
     }
 
+    private void criaListaDeTokensDeAtribuicaoOperadorUnario() {
+        listaDeTokensAtribuicaoOperadorUnario = new ArrayList<String>();
+        listaDeTokensAtribuicaoOperadorUnario.add("x");
+        listaDeTokensAtribuicaoOperadorUnario.add("=");
+        listaDeTokensAtribuicaoOperadorUnario.add("+");
+        listaDeTokensAtribuicaoOperadorUnario.add("1");
+    }
+
     @Test
     public void gerenciadorDeValidacaoTokenizaUmaEntrada() throws Exception {
         gerenciadorDeValidacao.interpreta(sentencaDeclaracao);
@@ -136,6 +151,15 @@ public class TesteGerenciadorSintatico {
 
         verify(identificadorDeToken).identifica("x");
         verify(validadorDeAtribuicao).valida(listaDeTokensAtribuicao);
+    }
+
+    @Test
+    public void chamaValidadorDeAtribuicaoSeOTerceiroTokenForSinalPositivoOuNegativo() throws Exception {
+        gerenciadorDeValidacao.interpreta(sentencaAtribuicaoOperadorUnario);
+
+        verify(identificadorDeToken).identifica("+");
+        verify(validadorDeAtribuicaoOperadorUnario).valida(listaDeTokensAtribuicaoOperadorUnario);
+
     }
 
     @Ignore
