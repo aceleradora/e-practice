@@ -6,6 +6,7 @@ import models.ValidadorDeResultado;
 import models.analisadorLexico.Lexer;
 import models.exercicioProposto.Exercicio;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -26,6 +27,7 @@ public class TesteValidadorDeResultado {
         ValidadorDeResultado validadorDeResultado;
         Lexer lexer;
         @Mock TabelaDeSimbolos tabelaDeSimbolos;
+        ArrayList<String> tokens;
 
 
     @Before
@@ -33,18 +35,18 @@ public class TesteValidadorDeResultado {
 
         solucaoDoUsuario = new SolucaoDoExercicio("resultado = 2");
         possivelSolucao = new SolucaoDoExercicio("2");
-        exercicio = new Exercicio("1 + 1", possivelSolucao, false);
-        validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos);
         lexer = new Lexer();
+        exercicio = new Exercicio("1 + 1", possivelSolucao, false);
+        tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
 
     }
 
     @Test
     public void quandoVarresIgualAoResultadoDoExercicioRetornaTrue() throws Exception {
 
-        ArrayList<String> tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
+        ValidadorDeResultado validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos, tokens, exercicio);
 
-        boolean resultado = validadorDeResultado.validaResultadoDoUsuario(exercicio, tokens);
+        boolean resultado = validadorDeResultado.validaResultadoDoUsuario();
 
         assertThat(resultado, is(true));
     }
@@ -53,9 +55,11 @@ public class TesteValidadorDeResultado {
     public void quandoVarresDoTipoStringEhIgualAOResultadoDoExercicioRetornaTrue() throws Exception {
         solucaoDoUsuario.solucaoDoUsuario = "resultado = \"abacaxi\"";
         exercicio.possivelSolucao = new SolucaoDoExercicio("\"abacaxi\"");
-        ArrayList<String> tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
+        tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
 
-        boolean resultado = validadorDeResultado.validaResultadoDoUsuario(exercicio, tokens);
+        ValidadorDeResultado validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos, tokens, exercicio);
+
+        boolean resultado = validadorDeResultado.validaResultadoDoUsuario();
 
         assertThat(resultado, is(true));
     }
@@ -64,10 +68,27 @@ public class TesteValidadorDeResultado {
     public void dadoQueResultadoDoUsuarioEPossivelSolucaoSaoDeTiposDiferentesRetornaFalse() throws Exception {
 
         solucaoDoUsuario = new SolucaoDoExercicio("varres x : String");
-        when(tabelaDeSimbolos.getTipoSimbolo(solucaoDoUsuario.getSolucaoDoUsuario())).thenReturn("String");
-        when(tabelaDeSimbolos.getTipoSimbolo(possivelSolucao.getSolucaoDoUsuario())).thenReturn("Inteiro");
+        tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
+        when(tabelaDeSimbolos.getTipoSimbolo(tokens.get(3))).thenReturn("String");
+        when(tabelaDeSimbolos.getTipoSimbolo(exercicio.possivelSolucao.getSolucaoDoUsuario())).thenReturn("Inteiro");
 
-        boolean resultado = validadorDeResultado.comparaTiposDosResultados(solucaoDoUsuario, possivelSolucao);
+        ValidadorDeResultado validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos, tokens, exercicio);
+
+        boolean resultado = validadorDeResultado.comparaTiposDosResultados();
+
+        assertThat(resultado, is(false));
+    }
+
+
+
+    @Test
+    public void dadoQueOExercicioEstaInvalidoRetornaFalse() throws Exception {
+
+        String declaracaoDeVariavel = "var x : Inteiro";
+        tokens = lexer.tokenizar(declaracaoDeVariavel);
+        ValidadorDeResultado validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos, tokens, exercicio);
+
+        boolean resultado = validadorDeResultado.valida(tokens);
 
         assertThat(resultado, is(false));
     }
