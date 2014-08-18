@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Stack;
 
-/**
- * Created by alunos4 on 12/08/14.
- */
 public class PostFix {
     IdentificadorDeToken identificadorDeToken;
     Stack<String> pilha = new Stack<String>();
@@ -27,6 +24,20 @@ public class PostFix {
                     posfix += tokens.get(i);
             }
 
+            else if(identificadorDeToken.identifica(tokens.get(i)).equals("PARENTESES_ABERTO")){
+                pilha.push(tokens.get(i));
+            }
+
+            else if(identificadorDeToken.identifica(tokens.get(i)).equals("PARENTESES_FECHADO")) {
+                while (!identificadorDeToken.identifica(pilha.peek()).equals("PARENTESES_ABERTO")){
+                    if(!identificadorDeToken.identifica(tokens.get(i)).equals("PARENTESES_ABERTO"))
+                        posfix += pilha.pop();
+                }
+                if(identificadorDeToken.identifica(pilha.peek()).equals("PARENTESES_ABERTO")){
+                    pilha.pop();
+                }
+            }
+
             else if(!pilha.empty()) {
                 if(identificadorDeToken.identifica(pilha.peek()).equals("MULTIPLICACAO") ||
                     identificadorDeToken.identifica(pilha.peek()).equals("DIVISAO")) {
@@ -43,18 +54,6 @@ public class PostFix {
                     identificadorDeToken.identifica(tokens.get(i)).equals("DIVISAO")) {
                         pilha.push(tokens.get(i));
             }
-            else if(identificadorDeToken.identifica(tokens.get(i)).equals("PARENTESES_ABERTO")){
-                pilha.push(tokens.get(i));
-            }
-            else if(identificadorDeToken.identifica(tokens.get(i)).equals("PARENTESES_FECHADO")) {
-                while (!identificadorDeToken.identifica(pilha.peek()).equals("PARENTESES_ABERTO")){
-                    if(!identificadorDeToken.identifica(tokens.get(i)).equals("PARENTESES_ABERTO"))
-                        posfix += pilha.pop();
-                }
-                if(identificadorDeToken.identifica(pilha.peek()).equals("PARENTESES_ABERTO")){
-                    pilha.pop();
-                }
-            }
         }
 
         while(!pilha.empty()) {
@@ -65,6 +64,7 @@ public class PostFix {
         }
 
         return posfix;
-        }
+
+    }
 
 }
