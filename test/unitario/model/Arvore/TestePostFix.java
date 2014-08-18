@@ -20,7 +20,7 @@ public class TestePostFix {
     public void setUp() throws Exception {
         tokens = new ArrayList<String>();
         posFix = new PostFix();
-        espera = new ArrayList<>();
+        espera = new ArrayList<String>();
     }
 
     @Test
