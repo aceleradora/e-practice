@@ -65,6 +65,7 @@ public class Application extends Controller {
 
             } catch (Exception e){
                 flash("status", e.toString());
+                e.printStackTrace();
             }
             return redirect(routes.Application.solucoes());
         }
@@ -76,23 +77,23 @@ public class Application extends Controller {
 
         Exercicio exercicio1 = new Exercicio();
         exercicio1.enunciado = "Dados 3 valores inteiros 5, 12, e 20, calcule:\n" +
-                "    a) A soma dos três valores;\n" +
-                "    b) A multiplicação dos 3 valores;\n" +
-                "    c) A média aritmética dos três valores.";
+                "a) A soma dos três valores;\n" +
+                "b) A multiplicação dos 3 valores;\n" +
+                "c) A média aritmética dos três valores.";
         exercicio1.possivelSolucao = new SolucaoDoExercicio("Solução");
         exercicio1.resolvido = false;
         exercicio1.save();
 
         Exercicio exercicio2 = new Exercicio();
-        exercicio2.enunciado = "As colunas que sustentam a cobertura no Estádio Beira-Rio são de formato\n" +
-                "cilindrico, sabendo que as colunas tem 40m de altura e 8 metros de largura, calcule\n" +
+        exercicio2.enunciado = "As colunas que sustentam a cobertura no Estádio Beira-Rio são de formato " +
+                "cilindrico, sabendo que as colunas tem 40m de altura e 8 metros de largura, calcule " +
                 "o volume de cimento usado para construir estas colunas.";
         exercicio2.possivelSolucao = new SolucaoDoExercicio("Solução");
         exercicio2.resolvido = false;
         exercicio2.save();
 
         Exercicio exercicio3 = new Exercicio();
-        exercicio3.enunciado = "Compute a string resultante de se justapor as palavras \"casa\" com a palavra\n" +
+        exercicio3.enunciado = "Compute a string resultante de se justapor as palavras \"casa\" com a palavra " +
                 "\"mento\" e a palavra \"rápido\". ";
         exercicio3.possivelSolucao = new SolucaoDoExercicio("Solução");
         exercicio3.resolvido = false;
@@ -109,25 +110,37 @@ public class Application extends Controller {
     }
 
     private static void setaExercicioNaSecao() {
-        exercicio = new Exercicio();
-        seletorAleatorioExercicio = new SeletorAleatorioExercicio(exercicio);
-        exercicio = seletorAleatorioExercicio.buscaExercicio();
+        inicializaExercicioESeletorAleatorio();
 
-        if(exercicio != null && idAtual == exercicio.id){
-          if(exercicio.todosNaoResolvidos().size()>1) {
-              setaExercicioNaSecao();
-          }else{
-              session("exercicio", "Você já resolveu todos os exercícios.");
-          }
-
-        }
-       else if (exercicio == null) {
-            session("exercicio", "Você já resolveu todos os exercícios.");
-        } else {
+        if (existeExercicioNoBanco()) {
+            if (existeMaisDeUmExercicioNoBanco()) {
+                while (exercicioSorteadoForOMesmoQueEstavaNaSessao()) {
+                    exercicio = seletorAleatorioExercicio.buscaExercicioNaoResolvido();
+                }
+            }
             idAtual = exercicio.id;
             session("exercicio", exercicio.enunciado);
-
+        } else {
+            session("exercicio", "Você já resolveu todos os exercícios.");
         }
+    }
+
+    private static void inicializaExercicioESeletorAleatorio() {
+        exercicio = new Exercicio();
+        seletorAleatorioExercicio = new SeletorAleatorioExercicio(exercicio);
+        exercicio = seletorAleatorioExercicio.buscaExercicioNaoResolvido();
+    }
+
+    private static boolean existeMaisDeUmExercicioNoBanco() {
+        return exercicio.todosNaoResolvidos().size() > 1;
+    }
+
+    private static boolean exercicioSorteadoForOMesmoQueEstavaNaSessao() {
+        return idAtual == exercicio.id;
+    }
+
+    private static boolean existeExercicioNoBanco() {
+        return exercicio != null;
     }
 
     public static Result setaAbaAtual(String aba) {

@@ -11,7 +11,7 @@ public class SeletorAleatorioExercicio {
         this.exercicio = exercicio;
     }
 
-    public Exercicio buscaExercicio() {
+    public Exercicio buscaExercicioNaoResolvido() {
 
         List<Exercicio> list = exercicio.todosNaoResolvidos();
         if (list.isEmpty()) {

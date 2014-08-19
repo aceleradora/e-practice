@@ -290,7 +290,6 @@ public class GerenciadorDeFeedbackTest {
         assertThat(mensagemDeErro,is("Sinal de igual esperado para atribuição. \n"));
     }
 
-    @Ignore
     @Test
     public void quandoEnvioUmaSolucaoEsquecendoDeFecharAspasAtribuicaoEInvalida() throws Exception {
         String codigo = "var nome : String\nnome = \"Bernardo ";
@@ -298,6 +297,6 @@ public class GerenciadorDeFeedbackTest {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro,is("A variável nome só aceita atribuição de valores do tipo String."));
+        assertThat(mensagemDeErro,is("Variável, valor numérico ou uma string são esperados. \n"));
     }
 }
