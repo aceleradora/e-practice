@@ -29,21 +29,21 @@ public class TesteValidadorDeConcatenacaoDeStrings {
     public void seOTerceiroTokenEUmaVariavelEntaoRetornaUmaMensagemDeSucesso() throws Exception {
         entradaDoUsuario = lexer.tokenizar("x = banana");
         validador.valida(entradaDoUsuario);
-        assertThat(validador.retornaMensagemErro(), is("1) O terceiro token é válido.\n"));
+        assertThat(validador.retornaMensagemErro(), is("O terceiro token é válido.\n"));
     }
 
     @Test
     public void seOTerceiroTokenEUmaStringEntaoRetornaUmaMensagemDeSucesso() throws Exception {
         entradaDoUsuario = lexer.tokenizar("x = \"banana\"");
         validador.valida(entradaDoUsuario);
-        assertThat(validador.retornaMensagemErro(), is("1) O terceiro token é válido.\n"));
+        assertThat(validador.retornaMensagemErro(), is("O terceiro token é válido.\n"));
     }
 
     @Test
     public void seOTerceiroTokenNaoEumaStringOuUmaVariavelEntaoRetornaUmaMensagemDeErro() throws Exception {
         entradaDoUsuario = lexer.tokenizar("x = +");
         validador.valida(entradaDoUsuario);
-        assertThat(validador.retornaMensagemErro(), is("2) Você digitou \"+\" e deveria ser uma variável ou uma constante do tipo String.\n"));
+        assertThat(validador.retornaMensagemErro(), is("Você digitou \"+\" e deveria ser uma variável ou uma constante do tipo String.\n"));
     }
 
     @Test
@@ -64,21 +64,21 @@ public class TesteValidadorDeConcatenacaoDeStrings {
     public void seHouverUmaConcatenacaoComOSimboloDeIgualDeDuasVariáveisStringsEntaoOValidadorNaoIraReconhecer() throws Exception {
         entradaDoUsuario = lexer.tokenizar("x = casa = azul");
         validador.valida(entradaDoUsuario);
-        assertThat(validador.retornaMensagemErro(), is("1) Você digitou \"=\" e deveria ser \"<>\".\n"));
+        assertThat(validador.retornaMensagemErro(), is("Você digitou \"=\" e deveria ser \"<>\".\n"));
     }
 
     @Test
     public void seHouverUmaConcatenacaoComUmaConstanteInteiraEUmaVariavelStringEntaoOValidadorNaoIraReconhecer() throws Exception {
         entradaDoUsuario = lexer.tokenizar("x = 1 <> azul");
         validador.valida(entradaDoUsuario);
-        assertThat(validador.retornaMensagemErro(), is("1) Você digitou \"1\" e deveria ser uma variável ou constante String.\n"));
+        assertThat(validador.retornaMensagemErro(), is("Você digitou \"1\" e deveria ser uma variável ou constante String.\n"));
     }
 
     @Test
     public void seHouverUmaConcatenacaoComOSimboloErradoComUmaConstanteInteiraEUmaVariavelStringEntaoOValidadorNaoIraReconhecer() throws Exception {
         entradaDoUsuario = lexer.tokenizar("x = 1 : azul");
         validador.valida(entradaDoUsuario);
-        assertThat(validador.retornaMensagemErro(), is("1) Você digitou \"1\" e deveria ser uma variável ou constante String.\n"));
+        assertThat(validador.retornaMensagemErro(), is("Você digitou \"1\" e deveria ser uma variável ou constante String.\n"));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class TesteValidadorDeConcatenacaoDeStrings {
     public void seHouverDuasConcatenacoesComUmDosSimbolosErradosEntaoOValidadorIraReconhecer() throws Exception {
         entradaDoUsuario = lexer.tokenizar("x = casa <> grande : azul");
         validador.valida(entradaDoUsuario);
-        assertThat(validador.retornaMensagemErro(), is("1) Você digitou \":\" e deveria ser \"<>\".\n"));
+        assertThat(validador.retornaMensagemErro(), is("Você digitou \":\" e deveria ser \"<>\".\n"));
     }
 
     @Test
