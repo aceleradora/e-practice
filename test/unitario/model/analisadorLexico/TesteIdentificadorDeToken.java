@@ -115,7 +115,7 @@ public class TesteIdentificadorDeToken {
     }
 
     @Test
-    public void testdoisPontosDeveRetornarDeclaracao() throws Exception {
+    public void doisPontosDeveRetornarDeclaracao() throws Exception {
         tokenID = identificadorDeToken.identifica(":");
         assertThat(tokenID, is("DECLARACAO"));
     }

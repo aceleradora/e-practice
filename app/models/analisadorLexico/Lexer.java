@@ -58,7 +58,7 @@ public class Lexer {
                         tokens.add("varres");
                         palavra = "";
                         i = i + 3;
-                    } else if (listaDeSimbolos.contains(converteCaracterParaString(frase.charAt(i + 1)))) {
+                    } else if (listaDeSimbolos.contains(converteCaracterParaString(frase.charAt(i + 1))) && palavra!="") {
                         tokens.add(palavra);
                         palavra = "";
                     }

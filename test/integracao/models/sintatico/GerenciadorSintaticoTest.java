@@ -61,13 +61,19 @@ public class GerenciadorSintaticoTest {
     }
 
     @Test
-    public void dadoQueEuAtribuiUmaConstanteStringAUmaOutraConstanteStringEntaoTereiUmFeedbackNegativo() throws Exception {
+    public void dadoQueEuAtribuiUmaConstanteStringAUmaOutraConstanteStringComEspacoEntaoTereiUmFeedbackNegativo() throws Exception {
         gerenciadorSintatico.interpreta("\"a\" = \"b\"");
         String resultado = gerenciadorSintatico.mostraMensagensDeErro();
 
         assertThat(resultado, is("Nome de variável incorreto. \n"));
     }
 
+    @Test
+    public void dadoQueEuAtribuiUmaConstanteStringAUmaOutraConstanteStringSemEspacoEntaoTereiUmFeedbackNegativo() throws Exception {
+        gerenciadorSintatico.interpreta("\"a\"=\"b\"");
+        String resultado = gerenciadorSintatico.mostraMensagensDeErro();
 
+        assertThat(resultado, is("Nome de variável incorreto. \n"));
+    }
 
 }
