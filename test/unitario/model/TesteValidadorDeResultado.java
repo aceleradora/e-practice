@@ -10,13 +10,11 @@
  import org.junit.runner.RunWith;
  import org.mockito.Mock;
  import org.mockito.runners.MockitoJUnitRunner;
- import org.specs2.specification.so;
 
  import java.util.ArrayList;
 
  import static org.hamcrest.CoreMatchers.is;
  import static org.junit.Assert.assertThat;
- import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TesteValidadorDeResultado {
@@ -28,7 +26,6 @@ public class TesteValidadorDeResultado {
         @Mock TabelaDeSimbolos tabelaDeSimbolos;
         ArrayList<String> tokens;
 
-
     @Before
     public void setUp() throws Exception {
 
@@ -37,7 +34,6 @@ public class TesteValidadorDeResultado {
         lexer = new Lexer();
         exercicio = new Exercicio("enunciado 1 + 1", possivelSolucao, false);
         tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
-
     }
 
     @Test
@@ -63,8 +59,6 @@ public class TesteValidadorDeResultado {
         assertThat(resultado, is(true));
     }
 
-
-
     @Test
     public void dadoQueOExercicioEstaInvalidoRetornaFalse() throws Exception {
 
@@ -87,21 +81,5 @@ public class TesteValidadorDeResultado {
         validadorDeResultado.valida(tokens);
 
         assertThat(validadorDeResultado.retornaMensagemErro(), is("O resultado do exercício não é o esperado!"));
-
-        
-    }
-
-    @Test
-    public void quandoTiposDasSolucoesNaoCombinaRetornaMensagemDeErro() throws Exception {
-
-        //TODO
-
-    }
-
-    @Test
-    public void retornaErroQuandoNaoEncontraVarresNaSolucao() throws Exception {
-
-        //TODO
-
     }
 }

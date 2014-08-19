@@ -35,13 +35,11 @@ public class ValidadorDeResultado implements Validador {
 
     @Override
     public String retornaMensagemErro() {
-        String mensagemDeErro = "";
 
         if(!validaResultadoDoUsuario())
-            mensagemDeErro = "O resultado do exercício não é o esperado!";
+            return "O resultado do exercício não é o esperado!";
         else
-            mensagemDeErro = "";
-        return mensagemDeErro;
+            return "";
     }
 }
 
