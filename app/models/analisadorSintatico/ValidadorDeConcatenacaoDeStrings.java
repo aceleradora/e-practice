@@ -92,7 +92,7 @@ public class ValidadorDeConcatenacaoDeStrings implements Validador {
 
         for(int i = 0; i < mensagens.size(); i++) {
             if(!(mensagens.isEmpty() && mensagens.equals("")))
-                mensagensDeRetorno = (i + 1) + ") " + mensagens.get(i) + "\n";
+                mensagensDeRetorno = mensagens.get(i) + "\n";
         }
 
         return mensagensDeRetorno;
