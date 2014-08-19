@@ -74,6 +74,8 @@ public class GerenciadorSintatico {
             validadorDaExpressao = this.validadorDeConcatenacaoDeStrings;
         } else if(listaDeTokensIdentificados.get(0).equals("IDV")) {
             validadorDaExpressao = this.validadorDeAtribuicao;
+        } else if(listaDeTokensIdentificados.contains("IGUAL")){
+            validadorDaExpressao = validadorDeAtribuicao;
         } else {
             validadorDaExpressao = null;
         }
