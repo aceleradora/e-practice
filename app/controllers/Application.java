@@ -109,25 +109,37 @@ public class Application extends Controller {
     }
 
     private static void setaExercicioNaSecao() {
-        exercicio = new Exercicio();
-        seletorAleatorioExercicio = new SeletorAleatorioExercicio(exercicio);
-        exercicio = seletorAleatorioExercicio.buscaExercicio();
+        inicializaExercicioESeletorAleatorio();
 
-        if(exercicio != null && idAtual == exercicio.id){
-          if(exercicio.todosNaoResolvidos().size()>1) {
-              setaExercicioNaSecao();
-          }else{
-              session("exercicio", "Você já resolveu todos os exercícios.");
-          }
-
-        }
-       else if (exercicio == null) {
-            session("exercicio", "Você já resolveu todos os exercícios.");
-        } else {
+        if (existeExercicioNoBanco()) {
+            if (existeMaisDeUmExercicioNoBanco()) {
+                while (exercicioSorteadoForOMesmoQueEstavaNaSessao()) {
+                    exercicio = seletorAleatorioExercicio.buscaExercicioNaoResolvido();
+                }
+            }
             idAtual = exercicio.id;
             session("exercicio", exercicio.enunciado);
-
+        } else {
+            session("exercicio", "Você já resolveu todos os exercícios.");
         }
+    }
+
+    private static void inicializaExercicioESeletorAleatorio() {
+        exercicio = new Exercicio();
+        seletorAleatorioExercicio = new SeletorAleatorioExercicio(exercicio);
+        exercicio = seletorAleatorioExercicio.buscaExercicioNaoResolvido();
+    }
+
+    private static boolean existeMaisDeUmExercicioNoBanco() {
+        return exercicio.todosNaoResolvidos().size() > 1;
+    }
+
+    private static boolean exercicioSorteadoForOMesmoQueEstavaNaSessao() {
+        return idAtual == exercicio.id;
+    }
+
+    private static boolean existeExercicioNoBanco() {
+        return exercicio != null;
     }
 
     public static Result setaAbaAtual(String aba) {

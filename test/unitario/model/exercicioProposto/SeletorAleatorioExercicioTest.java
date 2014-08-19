@@ -50,8 +50,8 @@ public class SeletorAleatorioExercicioTest {
         ArrayList<Exercicio> lista2 = new ArrayList<Exercicio>();
 
         for(int i = 0; i<20; i++) {
-            lista1.add(seletorAleatorioExercicio.buscaExercicio());
-            lista2.add(seletorAleatorioExercicio.buscaExercicio());
+            lista1.add(seletorAleatorioExercicio.buscaExercicioNaoResolvido());
+            lista2.add(seletorAleatorioExercicio.buscaExercicioNaoResolvido());
         }
 
         assertThat(lista1.toArray(),not(equalTo(lista2.toArray())));
@@ -59,7 +59,7 @@ public class SeletorAleatorioExercicioTest {
 
     @Test
     public void selecionaUmExercicioAleatorioNaoResolvidoNoBanco() throws Exception {
-        seletorAleatorioExercicio.buscaExercicio();
+        seletorAleatorioExercicio.buscaExercicioNaoResolvido();
 
         verify(exercicio).todosNaoResolvidos();
     }
@@ -70,6 +70,6 @@ public class SeletorAleatorioExercicioTest {
 
         when(exercicio.todosNaoResolvidos()).thenReturn(exerciciosResolvidos);
 
-        assertNull(seletorAleatorioExercicio.buscaExercicio());
+        assertNull(seletorAleatorioExercicio.buscaExercicioNaoResolvido());
     }
 }
