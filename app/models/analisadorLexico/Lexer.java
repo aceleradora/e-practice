@@ -39,16 +39,18 @@ public class Lexer {
             if (frase.charAt(i) != ' ') {
                 palavra += frase.charAt(i);
 
-                if (frase.charAt(i)=='\"') {
-                    int t = i + 1;
-                    while (frase.charAt(t)!='\"' && t<frase.length()-1) {
+                if (i+1 < frase.length()) {
+                    if (frase.charAt(i)=='\"' && (i + 1 < frase.length() - 1)) {
+                        int t = i + 1;
+                        while (frase.charAt(t) != '\"' && t < frase.length() - 1) {
+                            palavra += frase.charAt(t);
+                            t++;
+                        }
                         palavra += frase.charAt(t);
-                        t++;
+                        i = t;
+                        tokens.add(palavra);
+                        palavra = "";
                     }
-                    palavra += frase.charAt(t);
-                    i = t;
-                    tokens.add(palavra);
-                    palavra = "";
                 }
 
                 if (i+1 < frase.length()) {
