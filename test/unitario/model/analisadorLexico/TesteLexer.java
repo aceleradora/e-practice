@@ -210,4 +210,23 @@ public class TesteLexer {
         assertThat(tokens.size(), is(5));
         assertThat(tokens.get(3), is("\"\""));
     }
+
+    @Test
+    public void parentesesAberto() throws Exception {
+        tokens = lexer.tokenizar("nome = \"Nome ");
+
+        assertThat(tokens.get(0), is("nome"));
+        assertThat(tokens.get(1), is("="));
+        assertThat(tokens.get(2), is("\"Nome"));
+    }
+
+    @Test
+    public void dadaUmaAtribuicaoDeVarResComEspacamentoDeveRetornarUmaListaComUmTokenParaCadaPalavra() throws Exception {
+        tokens = lexer.tokenizar("varres numero : Integer");
+        assertThat(tokens.size(), is(4));
+        assertThat(tokens.get(0), is("varres"));
+        assertThat(tokens.get(1), is("numero"));
+        assertThat(tokens.get(2), is(":"));
+        assertThat(tokens.get(3), is("Integer"));
+    }
 }
