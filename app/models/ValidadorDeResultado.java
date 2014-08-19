@@ -23,18 +23,11 @@ public class ValidadorDeResultado implements Validador {
         return comparaResultados;
     }
 
-    public boolean comparaTiposDosResultados() {
-
-        String tipoSolucaoDoUsuario = tabelaDeSimbolos.getTipoSimbolo(tokensDoUsuario.get(3));
-        String tipoPossivelSolucao = tabelaDeSimbolos.getTipoSimbolo(solucaoReal.possivelSolucao.getSolucaoDoUsuario());
-
-        return tipoSolucaoDoUsuario.equals(tipoPossivelSolucao);
-    }
 
     @Override
     public boolean valida(ArrayList<String> tokens) {
         tokensDoUsuario = tokens;
-        if(validaResultadoDoUsuario() && comparaTiposDosResultados()) {
+        if(validaResultadoDoUsuario()) {
             return true;
         }
         return false;
