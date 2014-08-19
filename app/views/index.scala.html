@@ -5,7 +5,7 @@
 
 <div class="container-fluid" id="head">
     <div class="row">
-        <div id="heading" class="col-sm-12">
+        <div id="heading" class="col-md-12">
             <img class="logo" src="assets/images/logo_e-practice.png"/>
         </div>
     </div>
@@ -13,7 +13,7 @@
 
 <div class="container-fluid" id="body">
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-md-3">
             <section id="painel">
                 <ul class='tabs'>
                     <li><a id='tabLink1' href='#tab1' class='@session.get("tabLink1")'>Exercício</a></li>
@@ -138,7 +138,7 @@
                 </div>
             </section>
         </div>
-        <div class="col-sm-9">
+        <div class="col-md-9">
             <section id="terminal"  class="row">
                 @form(routes.Application.novaSolucao(), 'id -> "formCodigo") {
                 @helper.input(field = solucaoForm("solucaoDoUsuario"), '_showConstraints -> false, '_label -> "") { (id, name, value, args) =>
@@ -161,7 +161,7 @@
     </div>
 
     <div class="row" id="footer">
-        <div class="col-sm-12"></div>
+        <div class="col-md-12"></div>
     </div>
 </div>
 

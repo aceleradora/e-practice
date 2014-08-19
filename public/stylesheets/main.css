@@ -1,6 +1,6 @@
 html, body, main{
-    height: 100%;
-    height: calc(100% - 50px);
+    /*height: 100%;
+    height: calc(100% - 75px);*/
 }
 
 #head {
@@ -11,9 +11,9 @@ html, body, main{
     color: white;
 }
 
-#body {
+/*#body {
     height: 100%;
-}
+}*/
 
 #body > div.row:first-child{
     background-color: rgb(229, 229, 229);
@@ -21,7 +21,7 @@ html, body, main{
 
 #footer {
     position: absolute;
-    height: 25px;
+    height: 23px;
     background-color: #141414;
     width: 100%;
 }
@@ -128,7 +128,7 @@ html, body, main{
 }
 
 #mensagemDeTexto {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500 !important;
     font-style: italic;
     color: #F5EAE1;
