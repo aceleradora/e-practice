@@ -41,8 +41,8 @@ import java.util.ArrayList;
 
 public class Nodo {
     Nodo pai = null;
-    Nodo filhoEsquerda;
-    Nodo filhoDireita;
+//    Nodo filhoEsquerda;
+//    Nodo filhoDireita;
     ArrayList<Nodo> filhos = new ArrayList<Nodo>();
     String token;
     public Nodo(String valor) {
@@ -75,7 +75,7 @@ public class Nodo {
         return null;
     }
     public void adicionaFilho(Nodo filho) {
-        filhos.add(filho);
+       filhos.add(filho);
         filho.setPai(this);
     }
     public boolean comparaFilhos(ArrayList<Nodo> filhosParaComparar) {

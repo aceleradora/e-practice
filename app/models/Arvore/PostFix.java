@@ -10,18 +10,23 @@ public class PostFix {
     IdentificadorDeToken identificadorDeToken;
     Stack<String> pilha = new Stack<String>();
     Queue<Character> fila;
-    ArrayList<String> posfix = new ArrayList<String>();
+
+
+    ArrayList<String> postFix = new ArrayList<String>();
 
     public PostFix(){
         identificadorDeToken = new IdentificadorDeToken();
     }
 
+    public ArrayList<String> getPostFix() {
+        return postFix;
+    }
     public ArrayList criaPosfix(ArrayList<String> tokens) {
         for(int i = 0; i < tokens.size(); i++) {
 
             if(identificadorDeToken.identifica(tokens.get(i)).equals("NUMERO") ||
                 identificadorDeToken.identifica(tokens.get(i)).equals("IDV")) {
-                    posfix.add(tokens.get(i));
+                    postFix.add(tokens.get(i));
             }
 
             else if(identificadorDeToken.identifica(tokens.get(i)).equals("PARENTESES_ABERTO")){
@@ -31,7 +36,7 @@ public class PostFix {
             else if(identificadorDeToken.identifica(tokens.get(i)).equals("PARENTESES_FECHADO")) {
                 while (!identificadorDeToken.identifica(pilha.peek()).equals("PARENTESES_ABERTO")){
                     if(!identificadorDeToken.identifica(tokens.get(i)).equals("PARENTESES_ABERTO"))
-                        posfix.add(pilha.pop());
+                        postFix.add(pilha.pop());
                 }
                 if(identificadorDeToken.identifica(pilha.peek()).equals("PARENTESES_ABERTO")){
                     pilha.pop();
@@ -41,7 +46,7 @@ public class PostFix {
             else if(!pilha.empty()) {
                 if(identificadorDeToken.identifica(pilha.peek()).equals("MULTIPLICACAO") ||
                     identificadorDeToken.identifica(pilha.peek()).equals("DIVISAO")) {
-                    posfix.add(pilha.pop());
+                    postFix.add(pilha.pop());
                     pilha.push(tokens.get(i));
                 }
                 else{
@@ -60,10 +65,10 @@ public class PostFix {
             if(identificadorDeToken.identifica(pilha.peek()).equals("PARENTESES_FECHADO")){
                 pilha.pop();
             }
-            posfix.add(pilha.pop());
+            postFix.add(pilha.pop());
         }
 
-        return posfix;
+        return postFix;
 
     }
 
