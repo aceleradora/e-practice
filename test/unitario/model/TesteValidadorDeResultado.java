@@ -15,7 +15,6 @@
 
  import static org.hamcrest.CoreMatchers.is;
  import static org.junit.Assert.assertThat;
- import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TesteValidadorDeResultado {
@@ -27,20 +26,18 @@ public class TesteValidadorDeResultado {
         @Mock TabelaDeSimbolos tabelaDeSimbolos;
         ArrayList<String> tokens;
 
-
     @Before
     public void setUp() throws Exception {
 
         solucaoDoUsuario = new SolucaoDoExercicio("resultado = 2");
         possivelSolucao = new SolucaoDoExercicio("2");
         lexer = new Lexer();
-        exercicio = new Exercicio("1 + 1", possivelSolucao, false);
+        exercicio = new Exercicio("enunciado 1 + 1", possivelSolucao, false);
         tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
-
     }
 
     @Test
-    public void quandoVarresIgualAoResultadoDoExercicioRetornaTrue() throws Exception {
+    public void quandoVarresDoTipoInteiroEhIgualAoResultadoDoExercicioRetornaTrue() throws Exception {
 
         ValidadorDeResultado validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos, tokens, exercicio);
 
@@ -63,27 +60,10 @@ public class TesteValidadorDeResultado {
     }
 
     @Test
-    public void dadoQueResultadoDoUsuarioEPossivelSolucaoSaoDeTiposDiferentesRetornaFalse() throws Exception {
-
-        solucaoDoUsuario = new SolucaoDoExercicio("varres x : String");
-        tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
-        when(tabelaDeSimbolos.getTipoSimbolo(tokens.get(3))).thenReturn("String");
-        when(tabelaDeSimbolos.getTipoSimbolo(exercicio.possivelSolucao.getSolucaoDoUsuario())).thenReturn("Inteiro");
-
-        ValidadorDeResultado validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos, tokens, exercicio);
-
-        boolean resultado = validadorDeResultado.comparaTiposDosResultados();
-
-        assertThat(resultado, is(false));
-    }
-
-
-
-    @Test
     public void dadoQueOExercicioEstaInvalidoRetornaFalse() throws Exception {
 
-        String declaracaoDeVariavel = "var x : Inteiro";
-        tokens = lexer.tokenizar(declaracaoDeVariavel);
+        String solucaoDoUsuario = "x = 3";
+        tokens = lexer.tokenizar(solucaoDoUsuario);
         ValidadorDeResultado validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos, tokens, exercicio);
 
         boolean resultado = validadorDeResultado.valida(tokens);
@@ -94,30 +74,12 @@ public class TesteValidadorDeResultado {
     @Test
     public void quandoRespostasNaoCombinamRetornaMensagemDeErro() throws Exception {
 
-        String solucaoDoUsuario = "varres x : String\n";
-        solucaoDoUsuario += "x = \"abacaxi\"";
+        String solucaoDoUsuario = "x = 3";
         tokens = lexer.tokenizar(solucaoDoUsuario);
-
         ValidadorDeResultado validadorDeResultado = new ValidadorDeResultado(tabelaDeSimbolos, tokens, exercicio);
 
-        boolean comparacaoDeResultados = validadorDeResultado.valida(tokens);
-        String mensagem = validadorDeResultado.retornaMensagemErro();
+        validadorDeResultado.valida(tokens);
 
-        assertThat(comparacaoDeResultados, is(false));
-        assertThat(mensagem, is("O resultado do exercício não é o esperado!"));
-    }
-
-    @Test
-    public void quandoTiposDasSolucoesNaoCombinaRetornaMensagemDeErro() throws Exception {
-
-        //TODO
-
-    }
-
-    @Test
-    public void retornaErroQuandoNaoEncontraVarresNaSolucao() throws Exception {
-
-        //TODO
-
+        assertThat(validadorDeResultado.retornaMensagemErro(), is("O resultado do exercício não é o esperado!"));
     }
 }
