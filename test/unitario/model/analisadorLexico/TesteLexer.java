@@ -212,7 +212,7 @@ public class TesteLexer {
     }
 
     @Test
-    public void parentesesAberto() throws Exception {
+    public void dadoQueDigiteiUmaStringComAspasAbertaMasNaoFechadaEntaoTereiUmTokenComAString() throws Exception {
         tokens = lexer.tokenizar("nome = \"Nome ");
 
         assertThat(tokens.get(0), is("nome"));
@@ -248,4 +248,5 @@ public class TesteLexer {
         assertThat(tokens.get(1), is("="));
         assertThat(tokens.get(2), is("teste\""));
     }
+
 }

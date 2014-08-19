@@ -5,7 +5,6 @@ import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
 import models.analisadorSintatico.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -52,13 +51,23 @@ public class GerenciadorSintaticoTest {
         assertThat(resultado, is("Existem erros na expressão aritmetica."));
     }
 
-    @Ignore
     @Test
     public void validaExpressaoInvalida() throws Exception {
 
         gerenciadorSintatico.interpreta("n = a \"\" b");
         String resultado = gerenciadorSintatico.mostraMensagensDeErro();
 
-        assertThat(resultado, is("Existem erros."));
+        assertThat(resultado, is("Existe(m) erros(s) sintático(s) na atribuição. \n"));
     }
+
+    @Test
+    public void dadoQueEuAtribuiUmaConstanteStringAUmaOutraConstanteStringEntaoTereiUmFeedbackNegativo() throws Exception {
+        gerenciadorSintatico.interpreta("\"a\" = \"b\"");
+        String resultado = gerenciadorSintatico.mostraMensagensDeErro();
+
+        assertThat(resultado, is("Nome de variável incorreto. \n"));
+    }
+
+
+
 }
