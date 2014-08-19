@@ -337,11 +337,25 @@ public class TesteValidadorDeOperacoesAritmeticas {
     }
 
     @Test
-    public void retornaVerdadeiroQuandoValidaUmaExpressaoComUnarioDentroDeParenteses() throws Exception {
+    public void retornaVerdadeiroQuandoValidaMultiplicandoUmUnarioDentroDeParenteses() throws Exception {
         tokens.add("x");
         tokens.add("=");
         tokens.add("5");
         tokens.add("*");
+        tokens.add("(");
+        tokens.add("-");
+        tokens.add("7");
+        tokens.add(")");
+
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
+    }
+
+    @Test
+    public void retornaVerdadeiroQuandoValidaSubtraindoUmUnarioDentroDeParenteses() throws Exception {
+        tokens.add("x");
+        tokens.add("=");
+        tokens.add("5");
+        tokens.add("-");
         tokens.add("(");
         tokens.add("-");
         tokens.add("7");

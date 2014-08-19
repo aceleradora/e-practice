@@ -1,6 +1,9 @@
+html, body, main{
+    height: 100%;
+    height: calc(100% - 50px);
+}
+
 #head {
-    position: fixed;
-    top: 0;
     width: 100%;
     height: 50px;
     font-size: 28px;
@@ -9,24 +12,18 @@
 }
 
 #body {
-    position: fixed;
-    top: 0;
     height: 100%;
-    width: 100%;
-    margin-top: 50px;
-    margin-bottom: 35px;
+}
+
+#body > div.row:first-child{
+    background-color: rgb(229, 229, 229);
 }
 
 #footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 35px;
+    position: absolute;
+    height: 25px;
     background-color: #141414;
-}
-
-.col-sm-3 {
-    min-height: 100%;
+    width: 100%;
 }
 
 #painel {
@@ -138,13 +135,8 @@
 }
 
 #botoes {
-
     text-align: right;
     padding-right: 5px;
-
-
- 
-
 }
 
 #botaoProximo {
@@ -155,7 +147,7 @@
     margin-right: 5px;
 }
 
-pre {
+pre{
     width: 94%;
     white-space: pre-wrap;
     word-break: inherit;
@@ -164,8 +156,8 @@ pre {
 
 .logo{
     width: 385px;
-    margin-top: 4px;
-    right: -13px;
+    margin-top: 7px;
+    right: 15px;
     position: absolute;
 }
 
@@ -181,11 +173,14 @@ pre {
     padding: 7px;
 }
 
+.btn {
+    border: 1px solid #FFF;
+}
+
 .btn:hover {
-        box-shadow: 0px 3px 5px rgba(0, 0, 0, 1) inset;
+    border: 1px solid #000;
 }
 
 .hover {
     background-color: #999 !important;
 }
-
