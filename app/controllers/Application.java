@@ -64,8 +64,7 @@ public class Application extends Controller {
                 exercicio.save();
 
             } catch (Exception e){
-                flash("status", e.toString());
-                e.printStackTrace();
+                flash("status", "Erro: Sintaxe não reconhecida.");
             }
             return redirect(routes.Application.solucoes());
         }

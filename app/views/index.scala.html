@@ -132,7 +132,11 @@
                         @if(flash.get("mensagemDeFeedback") != null){
                             <p><pre>@flash.get("mensagemDeFeedback")</pre></p>
                         } else {
-                            <p>@flash.get("mensagemDeFeedback")</p>
+                            @if(flash.get("solucaoDoUsuario") != null){
+                                <p><pre>Código inválido. Sintaxe não reconhecida.</pre></p>
+                            } else {
+                                <p>@flash.get("mensagemDeFeedback")</p>
+                            }
                         }
                     </div>
                 </div>
