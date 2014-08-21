@@ -1,37 +1,29 @@
 package models.Arvore;
 
-import java.util.ArrayList;
-
 public class Arvore {
-    Nodo raiz;
+    private Nodo raiz;
+
     public Arvore() {
-        this.raiz = null;
+        raiz = null;
     }
+
     public Nodo getRaiz() {
         return raiz;
     }
+
     public void setRaiz(Nodo raiz) {
         this.raiz = raiz;
     }
+
     public boolean comparaRaiz(Nodo raiz) {
-        boolean retorno = false;
-        if(this.getRaiz()==raiz) {
-            retorno = true;
-        }
-        return retorno;
-    }
-    public boolean comparaArvore(Arvore arvore) {
-        boolean retorno = false;
-        Nodo raizParaComparar = arvore.getRaiz();
-        boolean comparacaoDeRaiz = comparaRaiz(raizParaComparar);
-        if(comparacaoDeRaiz){
-            Nodo raizDeComparacao = arvore.getRaiz();
-            ArrayList<Nodo> filhosParaComparar = raizDeComparacao.getFilhos();
-            Nodo raiz = this.getRaiz();
-            boolean comparaFilhos = raiz.comparaFilhos(filhosParaComparar);
-            retorno = comparaFilhos;
-        }
-        return retorno;
+        return this.raiz == raiz ? true : false;
     }
 
+    public boolean comparaArvore(Arvore arvoreParaComparar) {
+        return raizEFilhosSaoIguais(arvoreParaComparar) ? true : false;
+    }
+
+    private boolean raizEFilhosSaoIguais(Arvore arvoreParaComparar) {
+        return comparaRaiz(arvoreParaComparar.getRaiz()) && raiz.comparaFilhos(arvoreParaComparar.getRaiz().getFilhos());
+    }
 }

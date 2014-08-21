@@ -3,9 +3,6 @@ package models.Arvore;
 import models.analisadorLexico.IdentificadorDeToken;
 import java.util.ArrayList;
 
-/**
- * Created by alunos4 on 19/08/14.
- */
 public class PopulaArvore {
 
     IdentificadorDeToken identificadorDeToken;

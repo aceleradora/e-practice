@@ -4,7 +4,6 @@ import models.Arvore.Arvore;
 import models.Arvore.Nodo;
 import models.Arvore.PopulaArvore;
 import models.Arvore.PostFix;
-import org.fest.assertions.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -15,7 +14,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TestePopulaArvore {
     @Test
     public void testaPopularUmaArvoreSimples() throws Exception {
-        Arvore arvore = new Arvore();
+        Arvore arvore;
+        PopulaArvore populaArvore = new PopulaArvore();
         PostFix postFix = new PostFix();
         ArrayList<String> tokens = new ArrayList<String>();
         tokens.add("A");
@@ -23,7 +23,6 @@ public class TestePopulaArvore {
         tokens.add("B");
         postFix.criaPosfix(tokens);
         ArrayList<String> postfix = postFix.getPostFix();
-        PopulaArvore populaArvore = new PopulaArvore();
         arvore = populaArvore.populaArvore(postfix);
         Nodo raiz = new Nodo("+");
         assertThat(arvore.getRaiz().getToken(),is(raiz.getToken()));

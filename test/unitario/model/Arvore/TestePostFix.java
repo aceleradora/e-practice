@@ -5,17 +5,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
 public class TestePostFix {
-
     ArrayList<String> tokens;
     PostFix posFix;
     ArrayList<String> espera;
+
     @Before
     public void setUp() throws Exception {
         tokens = new ArrayList<String>();
