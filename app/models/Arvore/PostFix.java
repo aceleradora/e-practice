@@ -9,8 +9,6 @@ import java.util.Stack;
 public class PostFix {
     IdentificadorDeToken identificadorDeToken;
     Stack<String> pilha = new Stack<String>();
-    Queue<Character> fila;
-
 
     ArrayList<String> postFix = new ArrayList<String>();
 

@@ -1,6 +1,7 @@
 package unitario.model.Arvore;
 
 import models.Arvore.PostFix;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,15 +10,38 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class TestePostFix {
-    ArrayList<String> tokens;
-    PostFix posFix;
-    ArrayList<String> espera;
+    private PostFix posFix;
+    private ArrayList<String> tokens;
+    private ArrayList<String> espera;
+    private ArrayList<String> resultado;
 
     @Before
     public void setUp() throws Exception {
-        tokens = new ArrayList<String>();
         posFix = new PostFix();
+        tokens = new ArrayList<String>();
         espera = new ArrayList<String>();
+        resultado = new ArrayList<String>();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        tokens.clear();
+        espera.clear();
+        resultado.clear();
+    }
+
+    @Test
+    public void posfixaParaABSomaQuandoRecebeASomaB() throws Exception {
+        tokens.add("A");
+        tokens.add("+");
+        tokens.add("B");
+
+        espera.add("A");
+        espera.add("B");
+        espera.add("+");
+
+        resultado = posFix.criaPosfix(tokens);
+        assertEquals(resultado, espera);
     }
 
     @Test
@@ -25,8 +49,7 @@ public class TestePostFix {
         tokens.add("A"); tokens.add("+"); tokens.add("B"); tokens.add("*"); tokens.add("C");
         espera.add("A"); espera.add("B"); espera.add("C"); espera.add("*"); espera.add("+");
 
-        ArrayList resultado = posFix.criaPosfix(tokens);
-
+        resultado = posFix.criaPosfix(tokens);
         assertEquals(resultado, espera);
     }
 
@@ -35,7 +58,7 @@ public class TestePostFix {
         tokens.add("A"); tokens.add("*"); tokens.add("("); tokens.add("B"); tokens.add("+"); tokens.add("C"); tokens.add(")");
         espera.add("A"); espera.add("B"); espera.add("C"); espera.add("+"); espera.add("*");
 
-        ArrayList resultado = posFix.criaPosfix(tokens);
+        resultado = posFix.criaPosfix(tokens);
         assertEquals(resultado, espera);
     }
 
@@ -46,8 +69,7 @@ public class TestePostFix {
 
         espera.add("A"); espera.add("B"); espera.add("+"); espera.add("C"); espera.add("D"); espera.add("-"); espera.add("/");
 
-        ArrayList resultado = posFix.criaPosfix(tokens);
-
+        resultado = posFix.criaPosfix(tokens);
         assertEquals(resultado, espera);
     }
 
@@ -59,7 +81,7 @@ public class TestePostFix {
         espera.add("A"); espera.add("B"); espera.add("+"); espera.add("C"); espera.add("D"); espera.add("-"); espera.add("/");
         espera.add("E"); espera.add("*");
 
-        ArrayList resultado = posFix.criaPosfix(tokens);
+        resultado = posFix.criaPosfix(tokens);
         assertEquals(resultado, espera);
     }
 
@@ -71,7 +93,7 @@ public class TestePostFix {
         espera.add("A"); espera.add("B"); espera.add("C"); espera.add("+"); espera.add("*"); espera.add("D"); espera.add("/");
         espera.add("E"); espera.add("-");
 
-        ArrayList resultado = posFix.criaPosfix(tokens);
+        resultado = posFix.criaPosfix(tokens);
         assertEquals(resultado, espera);
     }
 
@@ -84,7 +106,7 @@ public class TestePostFix {
         espera.add("A"); espera.add("B"); espera.add("C"); espera.add("D"); espera.add("E"); espera.add("F"); espera.add("+");
         espera.add("-"); espera.add("+"); espera.add("-"); espera.add("+");
 
-        ArrayList resultado = posFix.criaPosfix(tokens);
+        resultado = posFix.criaPosfix(tokens);
         assertEquals(resultado, espera);
     }
 
@@ -98,7 +120,7 @@ public class TestePostFix {
         espera.add("A"); espera.add("B"); espera.add("C"); espera.add("D"); espera.add("E"); espera.add("F"); espera.add("G");
         espera.add("+"); espera.add("*"); espera.add("+"); espera.add("*"); espera.add("+"); espera.add("*");
 
-        ArrayList resultado = posFix.criaPosfix(tokens);
+        resultado = posFix.criaPosfix(tokens);
         assertEquals(resultado, espera);
     }
 
@@ -111,8 +133,7 @@ public class TestePostFix {
         espera.add("300"); espera.add("23"); espera.add("+"); espera.add("43"); espera.add("21"); espera.add("-"); espera.add("*");
         espera.add("84"); espera.add("7"); espera.add("+"); espera.add("/");
 
-        ArrayList resultado = posFix.criaPosfix(tokens);
+        resultado = posFix.criaPosfix(tokens);
         assertEquals(resultado,espera);
     }
-
 }

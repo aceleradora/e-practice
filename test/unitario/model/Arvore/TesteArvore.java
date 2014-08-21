@@ -37,7 +37,7 @@ public class TesteArvore {
         arvore.setRaiz(raiz);
         arvore.getRaiz().adicionaFilho(filho);
         assertNotNull(arvore.getRaiz().getFilhos());
-        assertThat(arvore.getRaiz().getFilhos().size(),is(1));
+        assertThat(arvore.getRaiz().getFilhos().size(), is(1));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class TesteArvore {
         arvore.getRaiz().adicionaFilho(filho);
         arvore.getRaiz().adicionaFilho(irmao);
         assertNotNull(arvore.getRaiz().getFilhos());
-        assertThat(arvore.getRaiz().getFilhos().size(),is(2));
+        assertThat(arvore.getRaiz().getFilhos().size(), is(2));
     }
 
     @Test
@@ -91,7 +91,7 @@ public class TesteArvore {
     }
 
     @Test
-    public void tentaCompararFilhosDeArvoresDiferentes() throws Exception {
+    public void compararFilhosDeArvoresDiferentes() throws Exception {
         Arvore arvoreUm = new Arvore();
         Arvore arvoreDois = new Arvore();
         Nodo paiUm = new Nodo("paiUm");
@@ -112,6 +112,6 @@ public class TesteArvore {
         arvoreDois.getRaiz().adicionaFilho(filho22);
         arvoreDois.getRaiz().adicionaFilho(filho23);
         boolean comparacao = arvoreUm.comparaArvore(arvoreDois);
-        assertThat(comparacao,is(not(true)));
+        assertThat(comparacao, is(not(true)));
     }
 }
