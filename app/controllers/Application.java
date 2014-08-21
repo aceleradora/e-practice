@@ -42,7 +42,7 @@ public class Application extends Controller {
         return ok(views.html.index.render(all, solucaoDoExercicioForm));
     }
 
-    public static Result novaSolucao() {
+    public static Result novaSolucao() throws Exception {
         Form<SolucaoDoExercicio> formPreenchido = solucaoDoExercicioForm.bindFromRequest();
 
         criaSessaoParaAbas("tabLink3");
@@ -65,6 +65,8 @@ public class Application extends Controller {
 
             } catch (Exception e){
                 flash("status", "Erro: Sintaxe não reconhecida.");
+                flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
+                exercicio.save();
             }
             return redirect(routes.Application.solucoes());
         }
