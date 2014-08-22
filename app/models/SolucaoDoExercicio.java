@@ -1,10 +1,10 @@
 package models;
 
+import models.exercicioProposto.Exercicio;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -16,6 +16,12 @@ public class SolucaoDoExercicio extends Model{
 
     @Constraints.Required (message = "A solução do exercício está vazia. Preencha corretamente.")
     public String solucaoDoUsuario;
+
+    @Column(columnDefinition = "Integer")
+    public int idDoUsuario;
+
+    @ManyToOne
+    Exercicio exercicio;
 
     public SolucaoDoExercicio(String solucaoDoUsuario){
         this.solucaoDoUsuario = solucaoDoUsuario;
@@ -39,5 +45,13 @@ public class SolucaoDoExercicio extends Model{
 
     public String getSolucaoDoUsuario() {
         return solucaoDoUsuario;
+    }
+
+    public Exercicio getExercicio(){
+        return exercicio;
+    }
+
+    public void setExercicio(Exercicio exercicio){
+        this.exercicio = exercicio;
     }
 }
