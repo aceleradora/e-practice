@@ -15,7 +15,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
-public class TesteValidadorDeOperacoesAritmeticas {
+public class ValidadorDeOperacoesAritmeticasTeste {
 
     ArrayList<String> tokens;
     TabelaDeSimbolos tabela;

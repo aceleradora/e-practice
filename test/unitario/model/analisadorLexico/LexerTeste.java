@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-public class TesteLexer {
+public class LexerTeste {
 
     private Lexer lexer;
     private ArrayList<String> tokens;

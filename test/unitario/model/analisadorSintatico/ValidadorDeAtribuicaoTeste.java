@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import java.util.ArrayList;
 
-public class TesteValidadorDeAtribuicao {
+public class ValidadorDeAtribuicaoTeste {
     Lexer lexer;
     IdentificadorDeToken identificadorDeToken;
     ValidadorDeAtribuicao validadorDeAtribuicao;

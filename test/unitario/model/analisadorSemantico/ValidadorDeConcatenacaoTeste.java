@@ -14,7 +14,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TesteValidadorDeConcatenacao {
+public class ValidadorDeConcatenacaoTeste {
 
     TabelaDeSimbolos tabelaDeSimbolos;
     ArrayList<String> tokens;

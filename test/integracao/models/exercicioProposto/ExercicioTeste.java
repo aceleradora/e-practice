@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.running;
 
-public class ExercicioTest {
+public class ExercicioTeste {
 
     @Before
     public void setUp() throws Exception {

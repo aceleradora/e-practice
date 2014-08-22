@@ -7,7 +7,7 @@ import org.junit.*;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
-public class TesteValidadorDeOperacoesAritmeticas {
+public class ValidadorDeOperacoesAritmeticasTeste {
 
     private ArrayList<String> tokens;
     ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;

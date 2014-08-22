@@ -11,10 +11,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class TesteValidadorDeDeclaracaoDeVariavel {
+public class ValidadorDeDeclaracaoDeVariavelTeste {
 
     public ArrayList<String> tokens = new ArrayList<String>();
-    public ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
+    public models.analisadorSintatico.ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
     public TabelaDeSimbolos tabelaDeSimbolos;
 
     @Before
@@ -24,7 +24,7 @@ public class TesteValidadorDeDeclaracaoDeVariavel {
         tokens.add("x");
         tokens.add(":");
         tokens.add("String");
-        validadorDeDeclaracaoDeVariavel = new ValidadorDeDeclaracaoDeVariavel(tabelaDeSimbolos);
+        validadorDeDeclaracaoDeVariavel = new models.analisadorSintatico.ValidadorDeDeclaracaoDeVariavel(tabelaDeSimbolos);
     }
 
     @Test

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class TesteValidadorGenerico {
+public class ValidadorGenericoTeste {
 
     ValidadorGenerico validadorGenerico;
     Lexer lexer;

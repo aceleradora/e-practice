@@ -10,7 +10,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
-public class TesteArvore {
+public class ArvoreTeste {
     @Test
     public void eConstruidaComRaizNula() throws Exception {
         Arvore arvore = new Arvore();
