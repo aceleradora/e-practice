@@ -73,7 +73,7 @@ public class FeedbackRestricaoSemanticaTeste {
 
     @Test
     public void dadoQueDeclaroAsVariaveisCorretamenteDeveRetornarFeedbackPositivo() throws Exception {
-        codigo = "var x : Inteiro\n";
+        codigo = "varres x : Inteiro\n";
         codigo += "x = 1";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
@@ -86,7 +86,7 @@ public class FeedbackRestricaoSemanticaTeste {
     public void dadoQueDeclareiVariáveisDoTipoStringEDesejoFazerOperaçõesAritméticasDeveRetornarMensagemDeErro() throws Exception {
         codigo = "var x : String\n";
         codigo += "var y : String\n";
-        codigo += "var resultado: String\n";
+        codigo += "varres resultado: String\n";
         codigo += "resultado = x + y";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
@@ -99,7 +99,7 @@ public class FeedbackRestricaoSemanticaTeste {
     public void dadoQueDeclareiVariaveisDoTipoInteiroEDesejoFazerOperaçõesAritméticasDeveRetornarFeedbackPositivo() throws Exception {
         codigo = "var x: Inteiro\n";
         codigo += "var y: Inteiro\n";
-        codigo += "var resultado: Inteiro\n";
+        codigo += "varres resultado: Inteiro\n";
         codigo += "resultado = x + y\n";
 
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
@@ -113,7 +113,7 @@ public class FeedbackRestricaoSemanticaTeste {
     public void dadoQueDeclareiVariaveisDoTipoInteiroEDesejoFazerOperaçõesDeConcatenacaoDeveRetornarMensagemDeErro() throws Exception {
         codigo = "var x: Inteiro\n";
         codigo += "var y: Inteiro\n";
-        codigo += "var resultado: Inteiro\n";
+        codigo += "varres resultado: Inteiro\n";
         codigo += "resultado = x <> y\n";
 
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
@@ -127,7 +127,7 @@ public class FeedbackRestricaoSemanticaTeste {
     public void dadoQueTentoConcatenarUmInteiroComUmaStringReceboMensagemDeErro() throws Exception {
         codigo = "var x: Inteiro\n";
         codigo += "var y: String\n";
-        codigo += "var resultado: String\n";
+        codigo += "varres resultado: String\n";
         codigo += "resultado = x <> y\n";
 
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
@@ -141,7 +141,7 @@ public class FeedbackRestricaoSemanticaTeste {
     public void dadoQueTentoConcatenarDuasVariaveisDoTipoStringReceboFeedbackPositivo() throws Exception {
         codigo = "var x: String\n";
         codigo += "var y: String\n";
-        codigo += "var resultado: String\n";
+        codigo += "varres resultado: String\n";
         codigo += "resultado = x <> y\n";
 
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);

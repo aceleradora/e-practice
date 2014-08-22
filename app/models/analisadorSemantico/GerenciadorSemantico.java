@@ -1,5 +1,6 @@
 package models.analisadorSemantico;
 
+import models.TabelaDeSimbolos;
 import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
@@ -16,6 +17,7 @@ public class GerenciadorSemantico {
     private ValidadorGenerico validadorGenerico;
     private Validador validador;
     private ArrayList<String> tokens;
+    private TabelaDeSimbolos tabelaDeSimbolos;
 
     public GerenciadorSemantico(ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao, ValidadorDeAtribuicao validadorDeAtribuicao, ValidadorDeConcatenacao validadorDeConcatenacao, ValidadorDeOperacoesAritmeticas validadorDeOperacaoAritmetica, ValidadorGenerico validadorGenerico) {
         this.validadorDeDeclaracao = validadorDeDeclaracao;
@@ -62,5 +64,9 @@ public class GerenciadorSemantico {
 
     private String primeiroTokenIdentificado() {
         return identificadorDeToken.identifica(tokens.get(0));
+    }
+
+    public TabelaDeSimbolos getTabelaDeSimbolos() {
+        return tabelaDeSimbolos;
     }
 }
