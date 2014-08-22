@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static models.SolucaoDoExercicio.all;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static play.test.Helpers.fakeApplication;

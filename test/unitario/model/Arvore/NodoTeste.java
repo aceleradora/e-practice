@@ -41,7 +41,6 @@ public class NodoTeste {
 
     @Test
     public void podeAdicionarUmFilho() throws Exception {
-
         nodoPai.adicionaFilho(nodoFilho);
 
         assertNotNull(nodoPai.getFilhos());
@@ -49,15 +48,13 @@ public class NodoTeste {
 
     @Test
     public void podeCompararFilhos() throws Exception {
-
         Nodo segundoFilho = new Nodo("SegundoFilho");
-        nodoPai.adicionaFilho(segundoFilho);
         ArrayList<Nodo> listaDeFilhos = new ArrayList<Nodo>();
         listaDeFilhos.add(nodoFilho);
         listaDeFilhos.add(segundoFilho);
 
+        nodoPai.adicionaFilho(nodoFilho);
+        nodoPai.adicionaFilho(segundoFilho);
         assertTrue(nodoPai.comparaFilhos(listaDeFilhos));
-
-
     }
 }
