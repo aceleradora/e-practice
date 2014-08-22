@@ -35,6 +35,6 @@ public class ValidadorGenericoTeste {
         ArrayList<String> tokens = lexer.tokenizar(declaracao);
         validadorGenerico.valida(tokens);
 
-        assertThat(validadorGenerico.retornaMensagemErro(), is("Código inválido.\nSintaxe não reconhecida."));
+        assertThat(validadorGenerico.retornaMensagemErro(), is("Código inválido.\nSemântica não reconhecida."));
     }
 }

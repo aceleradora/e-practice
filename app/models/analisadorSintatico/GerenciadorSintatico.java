@@ -3,8 +3,8 @@ package models.analisadorSintatico;
 import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GerenciadorSintatico {
 
@@ -14,18 +14,18 @@ public class GerenciadorSintatico {
     private ValidadorDeAtribuicao validadorDeAtribuicao;
     private ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;
     private ValidadorDeConcatenacaoDeStrings validadorDeConcatenacaoDeStrings;
+    private ValidadorGenerico validadorGenerico;
     private Validador validador;
     private ArrayList<String> tokens;
-    private ArrayList<String> listaDeMensagensDeErro;
 
-    public GerenciadorSintatico(Lexer lexer, IdentificadorDeToken identificadorDeToken, ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel, ValidadorDeAtribuicao validadorDeAtribuicao, ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas, ValidadorDeConcatenacaoDeStrings validadorDeConcatenacaoDeStrings) {
+    public GerenciadorSintatico(Lexer lexer, IdentificadorDeToken identificadorDeToken, ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel, ValidadorDeAtribuicao validadorDeAtribuicao, ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas, ValidadorDeConcatenacaoDeStrings validadorDeConcatenacaoDeStrings, ValidadorGenerico validadorGenerico) {
         this.lexer = lexer;
         this.identificadorDeToken = identificadorDeToken;
         this.validadorDeDeclaracaoDeVariavel = validadorDeDeclaracaoDeVariavel;
         this.validadorDeAtribuicao = validadorDeAtribuicao;
         this.validadorDeOperacoesAritmeticas = validadorDeOperacoesAritmeticas;
         this.validadorDeConcatenacaoDeStrings = validadorDeConcatenacaoDeStrings;
-        this.listaDeMensagensDeErro = new ArrayList<String>();
+        this.validadorGenerico = validadorGenerico;
     }
 
     public void interpreta(String sentenca) {
@@ -48,7 +48,8 @@ public class GerenciadorSintatico {
     private Validador tipoValidador(ArrayList<String> listaDeTokensIdentificados){
         Validador validadorDaExpressao;
 
-        if (listaDeTokensIdentificados.get(0).equals("PALAVRA_RESERVADA") || listaDeTokensIdentificados.get(2).equals(":")) {
+        //listaDeTokensIdentificados.get(0).equals("PALAVRA_RESERVADA") || listaDeTokensIdentificados.get(2).equals(":")
+        if (listaDeTokensIdentificados.get(0).equals("PALAVRA_RESERVADA") || listaDeTokensIdentificados.contains("TIPO_DE_VARIAVEL")) {
             validadorDaExpressao = this.validadorDeDeclaracaoDeVariavel;
         } else if (listaDeTokensIdentificados.contains("ADICAO")) {
             if((listaDeTokensIdentificados.size() <= 4) && (listaDeTokensIdentificados.get(2) == "ADICAO")) {
@@ -77,7 +78,7 @@ public class GerenciadorSintatico {
         } else if(listaDeTokensIdentificados.contains("IGUAL")){
             validadorDaExpressao = validadorDeAtribuicao;
         } else {
-            validadorDaExpressao = null;
+            validadorDaExpressao = validadorGenerico;
         }
 
         return validadorDaExpressao;

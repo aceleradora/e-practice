@@ -10,6 +10,7 @@ public class GerenciadorBuilder {
     private ValidadorDeAtribuicao validadorDeAtribuicao;
     private ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;
     private ValidadorDeConcatenacaoDeStrings validadorDeConcatenacaoDeStrings;
+    private ValidadorGenerico validadorGenerico;
 
     public GerenciadorBuilder com(Lexer lexer) {
         this.lexer = lexer;
@@ -42,8 +43,13 @@ public class GerenciadorBuilder {
         return this;
     }
 
+    public GerenciadorBuilder com(ValidadorGenerico validador){
+        this.validadorGenerico = validador;
+        return this;
+    }
+
     public GerenciadorSintatico geraGerenciador() {
         return new GerenciadorSintatico(lexer, identificadorDeToken, validadorDeDeclaracaoDeVariavel,
-                validadorDeAtribuicao, validadorDeOperacoesAritmeticas, validadorDeConcatenacaoDeStrings);
+                validadorDeAtribuicao, validadorDeOperacoesAritmeticas, validadorDeConcatenacaoDeStrings, validadorGenerico);
     }
 }
