@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.fluentlenium.core.filter.FilterConstructor.withName;
+import static org.junit.Assert.assertEquals;
 import static play.test.Helpers.*;
 
 public class ApplicationTest {
@@ -33,6 +34,7 @@ public class ApplicationTest {
             }
         });
     }
+
     @Test
     public void rotaSolucoesComMetodoPostDeveRenderizarUmaView() throws Exception {
         running(fakeApplication(), new Runnable() {
@@ -97,6 +99,7 @@ public class ApplicationTest {
                 String label = browser.$("#status").getText();
 
                 assertThat(label).isEqualTo("Status: erro!");
+
             }
         });
     }
