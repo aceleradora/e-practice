@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestePostFix {
+public class PostFixTeste {
     private PostFix posFix;
     private ArrayList<String> tokens;
     private ArrayList<String> espera;

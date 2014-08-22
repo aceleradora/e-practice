@@ -17,7 +17,7 @@
  import static org.junit.Assert.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TesteValidadorDeResultado {
+public class ValidadorDeResultadoTeste {
 
         SolucaoDoExercicio solucaoDoUsuario;
         SolucaoDoExercicio possivelSolucao;

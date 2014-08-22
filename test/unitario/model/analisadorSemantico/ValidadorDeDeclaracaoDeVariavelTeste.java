@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TesteValidadorDeDeclaracaoDeVariavel {
+public class ValidadorDeDeclaracaoDeVariavelTeste {
 
     @Mock private TabelaDeSimbolos tabelaMock;
     private ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao;
