@@ -7,6 +7,7 @@ import play.db.ebean.Model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
@@ -25,6 +26,9 @@ public class Exercicio extends Model{
 
     @Column(columnDefinition = "boolean DEFAULT false")
     public boolean resolvido = false;
+
+    @OneToMany
+    List<SolucaoDoExercicio> solucoesDoUsuario;
 
     public Exercicio() {}
 

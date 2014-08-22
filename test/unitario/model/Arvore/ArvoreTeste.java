@@ -63,9 +63,9 @@ public class ArvoreTeste {
 
         arvore.setRaiz(raiz);
         arvore.getRaiz().adicionaFilho(filho);
-        arvore.getRaiz().getFilho("filho").adicionaFilho(neto);
-        assertNotNull(arvore.getRaiz().getFilho("filho").getFilhos());
-        assertThat(arvore.getRaiz().getFilho("filho").getFilhos().size(), is(1));
+        arvore.getRaiz().getFilhoComValor("filho").adicionaFilho(neto);
+        assertNotNull(arvore.getRaiz().getFilhoComValor("filho").getFilhos());
+        assertThat(arvore.getRaiz().getFilhoComValor("filho").getFilhos().size(), is(1));
     }
 
     @Test

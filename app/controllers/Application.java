@@ -10,6 +10,8 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class Application extends Controller {
 
@@ -24,6 +26,7 @@ public class Application extends Controller {
     }
 
     public static Result index() {
+        session("id", geraNovoIdDeUsuario());
         return redirect(routes.Application.criaExercicios());
     }
 
@@ -52,7 +55,11 @@ public class Application extends Controller {
             return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido));
         } else{
             try{
-                SolucaoDoExercicio.create(formPreenchido.get());
+                Map<String, String> solucao = formPreenchido.data();
+                SolucaoDoExercicio solucaoDoUsuario = new SolucaoDoExercicio(solucao.get("solucaoDoUsuario"));
+                solucaoDoUsuario.setExercicio(exercicio);
+                solucaoDoUsuario.idDoUsuario = Integer.parseInt(session("id"));
+                solucaoDoUsuario.save();
 
                 mensagemDeFeedback = new MensagemDeFeedback(formPreenchido.get().solucaoDoUsuario);
 
@@ -73,7 +80,10 @@ public class Application extends Controller {
     }
 
     public static Result criaExercicios() {
+        List<SolucaoDoExercicio> todasSolucoes = Ebean.find(SolucaoDoExercicio.class).findList();
         List<Exercicio> todosExercicios = Ebean.find(Exercicio.class).findList();
+
+        Ebean.delete(todasSolucoes);
         Ebean.delete(todosExercicios);
 
         Exercicio exercicio1 = new Exercicio();
@@ -155,6 +165,12 @@ public class Application extends Controller {
         session("tabLink2", "");
         session("tabLink3", "");
         session(aba, "active");
+    }
+
+    private static String geraNovoIdDeUsuario(){
+        Random random = new Random();
+        int randomInteiro = random.nextInt();
+        return String.valueOf(randomInteiro);
     }
 
 }

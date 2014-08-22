@@ -1,6 +1,5 @@
 package smoke;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import play.libs.F;
 import play.test.TestBrowser;

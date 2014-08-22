@@ -14,6 +14,7 @@ public class Nodo {
     public void setPai(Nodo pai) {
         this.pai = pai;
     }
+
     public ArrayList<Nodo> getFilhos() {
         return filhos;
     }
@@ -22,33 +23,53 @@ public class Nodo {
         return token;
     }
 
-    public Nodo getFilho(String valor) {
-        for(Nodo filho: filhos){
-            if(filho.getToken() == valor){
+    public Nodo getPai() {
+        return pai;
+    }
+
+    public Nodo getFilhoComValor(String valor) {
+        for(Nodo filho : filhos) {
+            if(tokenDoNodoForIgualAoValor(filho, valor)){
                 return filho;
             }
         }
         return null;
     }
 
+    private boolean tokenDoNodoForIgualAoValor(Nodo nodo, String valor) {
+        return nodo.getToken().equals(valor);
+    }
+
     public void adicionaFilho(Nodo filho) {
-       filhos.add(filho);
+        filhos.add(filho);
         filho.setPai(this);
     }
 
     public boolean comparaFilhos(ArrayList<Nodo> filhosParaComparar) {
-        boolean retorno = false;
-        for(Nodo filho: filhos){
-            for(Nodo outroFilho: filhos){
-                if( filho == outroFilho){
-                    retorno = true;
-                }
-            }
-        }
-        return retorno;
+        if (listaDeFilhosTemTamanhoDiferenteDaListaParaComparar(filhosParaComparar))
+            return false;
+
+        return percorreAsListasComparandoOsNodos(filhosParaComparar);
     }
 
-    public Nodo getPai() {
-        return pai;
+    private boolean percorreAsListasComparandoOsNodos(ArrayList<Nodo> filhosParaComparar) {
+        for (int i = 0; i < filhos.size(); i++) {
+            if (nodosSaoDiferentes(filhosParaComparar, i))
+                return false;
+        }
+        return true;
+    }
+
+    private boolean nodosSaoDiferentes(ArrayList<Nodo> filhosParaComparar, int indiceDaLista) {
+        return filhos.get(indiceDaLista) != filhosParaComparar.get(indiceDaLista);
+    }
+
+    private boolean listaDeFilhosTemTamanhoDiferenteDaListaParaComparar(ArrayList<Nodo> filhosParaComparar) {
+        return filhos.size() != filhosParaComparar.size();
+    }
+
+    public boolean equals(Object o) {
+        Nodo nodo = (Nodo) o;
+        return (nodo != null && nodo.getToken().equals(token)) ? true : false;
     }
 }
