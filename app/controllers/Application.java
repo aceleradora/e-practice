@@ -26,7 +26,6 @@ public class Application extends Controller {
     }
 
     public static Result index() {
-        //session().clear();
         session("id", geraNovoIdDeUsuario());
         return redirect(routes.Application.criaExercicios());
     }

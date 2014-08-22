@@ -21,6 +21,9 @@ public class ExercicioTeste {
         running(fakeApplication(), new Runnable() {
             public void run() {
                 List<Exercicio> todosExercicios = Ebean.find(Exercicio.class).findList();
+                List<SolucaoDoExercicio> todasSolucoes = Ebean.find(SolucaoDoExercicio.class).findList();
+
+                Ebean.delete(todasSolucoes);
                 Ebean.delete(todosExercicios);
 
                 Exercicio exercicio1 = new Exercicio();
