@@ -1,4 +1,4 @@
-package unitario.model.analisadorSemantico;
+package models.analisadorSemantico;
 
 import models.Validador;
 
@@ -13,6 +13,6 @@ public class ValidadorGenerico implements Validador {
 
     @Override
     public String retornaMensagemErro() {
-        return "Código inválido. Sintaxe não reconhecida.";
+        return "Código inválido.\nSintaxe não reconhecida.";
     }
 }
