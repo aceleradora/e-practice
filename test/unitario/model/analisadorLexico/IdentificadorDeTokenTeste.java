@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-public class TesteIdentificadorDeToken {
+public class IdentificadorDeTokenTeste {
 
     private IdentificadorDeToken identificadorDeToken;
     private String tokenID;

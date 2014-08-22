@@ -21,12 +21,13 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TesteGerenciadorSemantico {
+public class GerenciadorSemanticoTeste {
 
     @Mock ValidadorDeAtribuicao validadorDeAtribuicao;
     @Mock ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao;
     @Mock ValidadorDeConcatenacao validadorDeConcatenacao;
     @Mock ValidadorDeOperacoesAritmeticas validadorDeOperacaoAritmetica;
+    @Mock ValidadorGenerico validadorGenerico;
 
 
     private String declaracaoString;
@@ -54,6 +55,7 @@ public class TesteGerenciadorSemantico {
                 .com(validadorDeDeclaracao)
                 .com(validadorDeConcatenacao)
                 .com(validadorDeOperacaoAritmetica)
+                .com(validadorGenerico)
                 .geraGerenciador();
 
         declaracaoString = "var nome : String";
@@ -194,6 +196,7 @@ public class TesteGerenciadorSemantico {
                 .com(validadorDeDeclaracao)
                 .com(validadorDeConcatenacao)
                 .com(validadorDeOperacaoAritmetica)
+                .com(validadorGenerico)
                 .geraGerenciador();
 
         gerenciadorSemantico.interpreta("var x : String");
@@ -211,6 +214,7 @@ public class TesteGerenciadorSemantico {
                 .com(validadorDeDeclaracao)
                 .com(validadorDeConcatenacao)
                 .com(validadorDeOperacaoAritmetica)
+                .com(validadorGenerico)
                 .geraGerenciador();
 
         gerenciadorSemantico.interpreta("x1 = \"lala\"");
@@ -229,6 +233,7 @@ public class TesteGerenciadorSemantico {
                 .com(validadorDeDeclaracao)
                 .com(validadorDeConcatenacao)
                 .com(validadorDeOperacaoAritmetica)
+                .com(validadorGenerico)
                 .geraGerenciador();
 
         gerenciadorSemantico.interpreta("x = 1");
@@ -249,8 +254,8 @@ public class TesteGerenciadorSemantico {
                 .com(validadorDeDeclaracao)
                 .com(validadorDeConcatenacao)
                 .com(validadorDeOperacaoAritmetica)
+                .com(validadorGenerico)
                 .geraGerenciador();
-
 
         gerenciadorSemantico.interpreta("x = x <> y");
 
@@ -270,8 +275,8 @@ public class TesteGerenciadorSemantico {
                 .com(validadorDeDeclaracao)
                 .com(validadorDeConcatenacao)
                 .com(validadorDeOperacaoAritmetica)
+                .com(validadorGenerico)
                 .geraGerenciador();
-
 
         gerenciadorSemantico.interpreta("x = z <> y");
 
@@ -289,9 +294,30 @@ public class TesteGerenciadorSemantico {
                 .com(validadorDeDeclaracao)
                 .com(validadorDeConcatenacao)
                 .com(validadorDeOperacaoAritmetica)
+                .com(validadorGenerico)
                 .geraGerenciador();
 
         gerenciadorSemantico.interpreta("x = z + y");
+
         assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("A variável x não foi declarada."));
     }
+
+    @Test
+    public void retornaMensagemDeErroQuandoDigitoAlgoSemNexo() throws Exception {
+        ValidadorGenerico validador = new ValidadorGenerico();
+        validadorGenerico = validador;
+
+        GerenciadorBuilder gerenciadorBuilder = new GerenciadorBuilder();
+        gerenciadorSemantico = gerenciadorBuilder.com(validadorDeAtribuicao)
+                .com(validadorDeDeclaracao)
+                .com(validadorDeConcatenacao)
+                .com(validadorDeOperacaoAritmetica)
+                .com(validadorGenerico)
+                .geraGerenciador();
+
+        gerenciadorSemantico.interpreta("\"fdighiszhg\"");
+
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("Código inválido.\nSintaxe não reconhecida."));
+    }
+
 }

@@ -14,15 +14,17 @@ public class GerenciadorSemantico {
     private ValidadorDeAtribuicao validadorDeAtribuicao;
     private ValidadorDeConcatenacao validadorDeConcatenacao;
     private ValidadorDeOperacoesAritmeticas validadorDeOperacaoAritmetica;
+    private ValidadorGenerico validadorGenerico;
     private Validador validador;
     private ArrayList<String> tokens;
     private TabelaDeSimbolos tabelaDeSimbolos;
 
-    public GerenciadorSemantico(ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao, ValidadorDeAtribuicao validadorDeAtribuicao, ValidadorDeConcatenacao validadorDeConcatenacao, ValidadorDeOperacoesAritmeticas validadorDeOperacaoAritmetica) {
+    public GerenciadorSemantico(ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracao, ValidadorDeAtribuicao validadorDeAtribuicao, ValidadorDeConcatenacao validadorDeConcatenacao, ValidadorDeOperacoesAritmeticas validadorDeOperacaoAritmetica, ValidadorGenerico validadorGenerico) {
         this.validadorDeDeclaracao = validadorDeDeclaracao;
         this.validadorDeAtribuicao = validadorDeAtribuicao;
         this.validadorDeConcatenacao = validadorDeConcatenacao;
         this.validadorDeOperacaoAritmetica = validadorDeOperacaoAritmetica;
+        this.validadorGenerico = validadorGenerico;
         lexer = new Lexer();
         tokens = new ArrayList<String>();
         identificadorDeToken = new IdentificadorDeToken();
@@ -47,6 +49,8 @@ public class GerenciadorSemantico {
             validador = validadorDeConcatenacao;
         } else if (primeiroTokenIdentificado().equals("IDV")) {
             validador = validadorDeAtribuicao;
+        } else {
+            validador = validadorGenerico;
         }
     }
 

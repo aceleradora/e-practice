@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-public class TesteFeedbackRestricaoSemantica {
+public class FeedbackRestricaoSemanticaTeste {
 
     private GerenciadorSintatico gerenciadorSintatico;
     private GerenciadorSemantico gerenciadorSemantico;

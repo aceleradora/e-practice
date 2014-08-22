@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class TestePopulaArvore {
+public class PopulaArvoreTeste {
     @Test
     public void testaPopularUmaArvoreSimples() throws Exception {
         ArrayList<String> posFix = new ArrayList<String>();

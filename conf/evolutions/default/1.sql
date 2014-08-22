@@ -13,6 +13,8 @@ create table exercicio (
 create table solucao_do_exercicio (
   id                        integer not null,
   solucao_do_usuario        varchar(255),
+  id_do_usuario             Integer,
+  exercicio_id              integer,
   constraint pk_solucao_do_exercicio primary key (id))
 ;
 
@@ -20,6 +22,8 @@ create sequence exercicio_seq;
 
 create sequence solucao_do_exercicio_seq;
 
+alter table solucao_do_exercicio add constraint fk_solucao_do_exercicio_exerci_1 foreign key (exercicio_id) references exercicio (id);
+create index ix_solucao_do_exercicio_exerci_1 on solucao_do_exercicio (exercicio_id);
 
 
 

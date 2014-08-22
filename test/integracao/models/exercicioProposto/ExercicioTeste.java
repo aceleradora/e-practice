@@ -8,19 +8,21 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static models.SolucaoDoExercicio.all;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.running;
 
-public class ExercicioTest {
+public class ExercicioTeste {
 
     @Before
     public void setUp() throws Exception {
         running(fakeApplication(), new Runnable() {
             public void run() {
                 List<Exercicio> todosExercicios = Ebean.find(Exercicio.class).findList();
+                List<SolucaoDoExercicio> todasSolucoes = Ebean.find(SolucaoDoExercicio.class).findList();
+
+                Ebean.delete(todasSolucoes);
                 Ebean.delete(todosExercicios);
 
                 Exercicio exercicio1 = new Exercicio();

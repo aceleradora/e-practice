@@ -2,91 +2,74 @@ package models.Arvore;
 
 import java.util.ArrayList;
 
-//public class Nodo{
-//    private Nodo pai;
-//    private Nodo filhoEsquerda;
-//    private Nodo filhoDireita;
-//    private String token;
-//    public Nodo(String token) {
-//        pai = null;
-//        filhoEsquerda = null;
-//        filhoDireita = null;
-//        this.token = token;
-//    }
-//    public Nodo getFilhoDireita() {
-//        return filhoDireita;
-//    }
-//    public void setFilhoDireita(Nodo nodo) {
-//        filhoDireita = nodo;
-//    }
-//    public Nodo getFilhoEsquerda() {
-//        return filhoEsquerda;
-//    }
-//    public void setFilhoEsquerda(Nodo nodo) {
-//        filhoEsquerda = nodo;
-//    }
-//    public Nodo getPai() {
-//        return pai;
-//    }
-//    public void setPai(Nodo nodo) {
-//        pai = nodo;
-//    }
-//    public String getToken() {
-//        return token;
-//    }
-//    public void setToken(String token) {
-//        this.token = token;
-//    }
-//}
-
 public class Nodo {
-    Nodo pai = null;
-//    Nodo filhoEsquerda;
-//    Nodo filhoDireita;
-    ArrayList<Nodo> filhos = new ArrayList<Nodo>();
-    String token;
+    private Nodo pai = null;
+    private ArrayList<Nodo> filhos = new ArrayList<Nodo>();
+    private String token;
+
     public Nodo(String valor) {
-        this.token = valor;
+        token = valor;
     }
-    public Nodo getPai() {
-        return pai;
-    }
+
     public void setPai(Nodo pai) {
         this.pai = pai;
     }
+
     public ArrayList<Nodo> getFilhos() {
         return filhos;
     }
-    public void setFilhos(ArrayList<Nodo> filhos) {
-        this.filhos = filhos;
-    }
+
     public String getToken() {
         return token;
     }
-    public void setToken(String token) {
-        this.token = token;
+
+    public Nodo getPai() {
+        return pai;
     }
-    public Nodo getFilho(String valor) {
-        for(Nodo filho: filhos){
-            if(filho.getToken() == valor){
+
+    public Nodo getFilhoComValor(String valor) {
+        for(Nodo filho : filhos) {
+            if(tokenDoNodoForIgualAoValor(filho, valor)){
                 return filho;
             }
         }
         return null;
     }
+
+    private boolean tokenDoNodoForIgualAoValor(Nodo nodo, String valor) {
+        return nodo.getToken().equals(valor);
+    }
+
     public void adicionaFilho(Nodo filho) {
-       filhos.add(filho);
+        filhos.add(filho);
         filho.setPai(this);
     }
+
     public boolean comparaFilhos(ArrayList<Nodo> filhosParaComparar) {
-        boolean retorno = false;
-        for(Nodo filho: filhos){
-            for(Nodo outroFilho: filhos){
-                if( filho == outroFilho){
-                    retorno = true;
-                }
-            }
+        if (listaDeFilhosTemTamanhoDiferenteDaListaParaComparar(filhosParaComparar))
+            return false;
+
+        return percorreAsListasComparandoOsNodos(filhosParaComparar);
+    }
+
+    private boolean percorreAsListasComparandoOsNodos(ArrayList<Nodo> filhosParaComparar) {
+        for (int i = 0; i < filhos.size(); i++) {
+            if (nodosSaoDiferentes(filhosParaComparar, i))
+                return false;
         }
-        return retorno;
+        return true;
+    }
+
+    private boolean nodosSaoDiferentes(ArrayList<Nodo> filhosParaComparar, int indiceDaLista) {
+        return filhos.get(indiceDaLista) != filhosParaComparar.get(indiceDaLista);
+    }
+
+    private boolean listaDeFilhosTemTamanhoDiferenteDaListaParaComparar(ArrayList<Nodo> filhosParaComparar) {
+        return filhos.size() != filhosParaComparar.size();
+    }
+
+    public boolean equals(Object o) {
+        Nodo nodo = (Nodo) o;
+        return (nodo != null && nodo.getToken().equals(token)) ? true : false;
     }
 }

@@ -10,7 +10,7 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class GerenciadorSintaticoTest {
+public class GerenciadorSintaticoTeste {
 
         GerenciadorSintatico gerenciadorSintatico;
     private IdentificadorDeToken identificadorDeToken;

@@ -18,7 +18,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TesteGerenciadorSintatico {
+public class GerenciadorSintaticoTeste {
 
     @Mock Lexer lexer;
     @Mock IdentificadorDeToken identificadorDeToken;
