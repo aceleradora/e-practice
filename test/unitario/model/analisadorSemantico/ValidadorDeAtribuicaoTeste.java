@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class TesteValidadorDeAtribuicao {
+public class ValidadorDeAtribuicaoTeste {
 
     TabelaDeSimbolos tabelaDeSimbolos;
     ValidadorDeAtribuicao validadorDeAtribuicao;

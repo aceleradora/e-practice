@@ -9,7 +9,7 @@ import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.running;
 
 
-public class SolucaoDoExercicioTest {
+public class SolucaoDoExercicioTeste {
     @Ignore
     @Test
     public void quandoChamaOMetodoCreateSalvaUmaSolucaoNoBanco() {

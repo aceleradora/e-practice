@@ -25,6 +25,7 @@ public class MensagemDeFeedback {
     private models.analisadorSemantico.ValidadorDeAtribuicao validadorDeAtribuicaoSemantico;
     private models.analisadorSemantico.ValidadorDeConcatenacao validadorDeConcatenacaoSemantico;
     private models.analisadorSemantico.ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticasSemantico;
+    private models.analisadorSemantico.ValidadorGenerico validadorGenerico;
 
     public MensagemDeFeedback(String codigo) {
         this.lexer = new Lexer();
@@ -40,10 +41,11 @@ public class MensagemDeFeedback {
         this.validadorDeAtribuicaoSemantico = new models.analisadorSemantico.ValidadorDeAtribuicao(tabelaDeSimbolos);
         this.validadorDeConcatenacaoSemantico = new models.analisadorSemantico.ValidadorDeConcatenacao(tabelaDeSimbolos);
         this.validadorDeOperacoesAritmeticasSemantico = new models.analisadorSemantico.ValidadorDeOperacoesAritmeticas(tabelaDeSimbolos);
+        this.validadorGenerico = new models.analisadorSemantico.ValidadorGenerico();
 
         this.quebradorDeCodigoEmLinhas = new QuebradorDeCodigoEmLinhas();
         this.gerenciadorSintatico = new GerenciadorSintatico(lexer, identificadorDeToken, validadorDeDeclaracaoSintatico, validadorDeAtribuicaoSintatico, validadorDeOperacoesAritmeticasSintatico, validadorDeConcatenacaoSintatico);
-        this.gerenciadorSemantico = new GerenciadorSemantico(validadorDeDeclaracaoSemantico, validadorDeAtribuicaoSemantico, validadorDeConcatenacaoSemantico, validadorDeOperacoesAritmeticasSemantico);
+        this.gerenciadorSemantico = new GerenciadorSemantico(validadorDeDeclaracaoSemantico, validadorDeAtribuicaoSemantico, validadorDeConcatenacaoSemantico, validadorDeOperacoesAritmeticasSemantico, validadorGenerico);
         this.gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas);
         this.solucaoDoExercicio = new SolucaoDoExercicio(codigo);
 

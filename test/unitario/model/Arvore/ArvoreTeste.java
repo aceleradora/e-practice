@@ -10,7 +10,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
-public class TesteArvore {
+public class ArvoreTeste {
     @Test
     public void eConstruidaComRaizNula() throws Exception {
         Arvore arvore = new Arvore();
@@ -63,9 +63,9 @@ public class TesteArvore {
 
         arvore.setRaiz(raiz);
         arvore.getRaiz().adicionaFilho(filho);
-        arvore.getRaiz().getFilho("filho").adicionaFilho(neto);
-        assertNotNull(arvore.getRaiz().getFilho("filho").getFilhos());
-        assertThat(arvore.getRaiz().getFilho("filho").getFilhos().size(), is(1));
+        arvore.getRaiz().getFilhoComValor("filho").adicionaFilho(neto);
+        assertNotNull(arvore.getRaiz().getFilhoComValor("filho").getFilhos());
+        assertThat(arvore.getRaiz().getFilhoComValor("filho").getFilhos().size(), is(1));
     }
 
     @Test

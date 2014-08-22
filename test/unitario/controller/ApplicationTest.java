@@ -14,11 +14,15 @@ import static play.test.Helpers.*;
 public class ApplicationTest {
     @Test
     public void quandoChamaOMetodoIndexRedirecionaParaOutraRota() {
-        Result result;
+        running(fakeApplication(), new Runnable() {
+            public void run() {
+                Result result;
 
-        result = callAction(controllers.routes.ref.Application.index());
+                result = callAction(controllers.routes.ref.Application.index());
 
-        assertThat(status(result)).isEqualTo(SEE_OTHER);
+                assertThat(status(result)).isEqualTo(SEE_OTHER);
+            }
+        });
     }
 
     @Test

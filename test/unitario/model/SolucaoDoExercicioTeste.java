@@ -8,7 +8,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by alunos4 on 09/07/14.
  */
-public class SolucaoDoExercicioTest {
+public class SolucaoDoExercicioTeste {
 
     @Test
     public void SolucaoNaoPodeTerCorpoVazio() {
