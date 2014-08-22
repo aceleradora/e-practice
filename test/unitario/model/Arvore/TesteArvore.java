@@ -114,4 +114,5 @@ public class TesteArvore {
         boolean comparacao = arvoreUm.comparaArvore(arvoreDois);
         assertThat(comparacao, is(not(true)));
     }
+    
 }
