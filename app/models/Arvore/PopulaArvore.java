@@ -1,53 +1,37 @@
 package models.Arvore;
 
-import models.analisadorLexico.IdentificadorDeToken;
 import java.util.ArrayList;
 
 public class PopulaArvore {
-
-    IdentificadorDeToken identificadorDeToken;
-
-    ArrayList<String> temp= new ArrayList<String>();
-
-    public Arvore populaArvore(ArrayList<String> postfix) {
+    public Arvore populaArvoreAPartirDeUmPostFix(ArrayList<String> postfix) {
         Arvore arvore = new Arvore();
-        if(ultimoTokenEhOperador(postfix)) {
-            Nodo nodo = new Nodo(postfix.get((postfix.size()-1)));
-            arvore.setRaiz(nodo);
-        }
-        if((postfix.size())==3){
-            if(isOperando(postfix,0)){
-                arvore.getRaiz().adicionaFilho(new Nodo(postfix.get(0)));
+        Nodo nodoAuxiliar = null;
+        int posicaoDoUltimoOperando = 0;
+
+        for (int i = 0; i < postfix.size(); i++) {
+            if (isOperador(postfix.get(i))) {
+                if (nodoAuxiliar == null) {
+                    nodoAuxiliar = new Nodo(postfix.get(i));
+                    nodoAuxiliar.adicionaFilho(new Nodo(postfix.get(i - 2)));
+                    nodoAuxiliar.adicionaFilho(new Nodo(postfix.get(i - 1)));
+                    posicaoDoUltimoOperando = i - 2;
+                } else {
+                    Nodo temp = new Nodo(postfix.get(i));
+                    temp.adicionaFilho(nodoAuxiliar);
+                    temp.adicionaFilho(new Nodo(postfix.get(posicaoDoUltimoOperando - 1)));
+                    nodoAuxiliar = temp;
+                    posicaoDoUltimoOperando -= 1;
+                }
             }
-            if(isOperando(postfix,1)){
-                arvore.getRaiz().adicionaFilho((new Nodo(postfix.get(1))));
-
-            }
         }
-
-        //Nodo
-        //arvore.getRaiz().adicionaFilho();
-
+        arvore.setRaiz(nodoAuxiliar);
         return arvore;
-        }
-
-    private boolean isOperando(ArrayList<String> postfix, int posicao) {
-        identificadorDeToken = new IdentificadorDeToken();
-        return identificadorDeToken.identifica(postfix.get(posicao)).equals("IDV") ||
-               identificadorDeToken.identifica(postfix.get(posicao)).equals("NUMERO");
-
     }
 
-    public boolean isOperador(ArrayList<String> postfix, int posicao) {
-        return postfix.get(posicao).equals("+") ||
-        postfix.get(posicao).equals("-") ||
-        postfix.get(posicao).equals("*") ||
-        postfix.get(posicao).equals("/");
+    public boolean isOperador(String token) {
+        return token.equals("+") ||
+        token.equals("-") ||
+        token.equals("*") ||
+        token.equals("/");
     }
-
-    private boolean ultimoTokenEhOperador(ArrayList<String> postfix){
-        return isOperador(postfix,postfix.size()-1);
-    }
-
 }
-

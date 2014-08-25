@@ -41,8 +41,10 @@ public class Nodo {
     }
 
     public void adicionaFilho(Nodo filho) {
-        filhos.add(filho);
-        filho.setPai(this);
+        if (filhos.size() < 2) {
+            filhos.add(filho);
+            filho.setPai(this);
+        }
     }
 
     public boolean comparaFilhos(ArrayList<Nodo> filhosParaComparar) {
