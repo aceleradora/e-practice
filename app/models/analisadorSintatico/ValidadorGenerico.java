@@ -1,10 +1,10 @@
-package models.analisadorSemantico;
+package models.analisadorSintatico;
 
 import models.Validador;
 
 import java.util.ArrayList;
 
-public class ValidadorGenerico implements Validador {
+public class ValidadorGenerico implements Validador{
 
     @Override
     public boolean valida(ArrayList<String> tokens) {
@@ -13,6 +13,6 @@ public class ValidadorGenerico implements Validador {
 
     @Override
     public String retornaMensagemErro() {
-        return "Código inválido.\nSemântica não reconhecida.";
+        return "Código inválido.\nSintaxe não reconhecida.";
     }
 }

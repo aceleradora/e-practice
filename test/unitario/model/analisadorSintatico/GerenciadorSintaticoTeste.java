@@ -27,8 +27,9 @@ public class GerenciadorSintaticoTeste {
     @Mock ValidadorDeAtribuicao validadorDeAtribuicaoOperadorUnario;
     @Mock ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;
     @Mock ValidadorDeConcatenacaoDeStrings validadorDeConcatenacaoDeString;
+    @Mock ValidadorGenerico validadorGenerico;
 
-    private GerenciadorSintatico gerenciadorDeValidacao;
+    private GerenciadorSintatico gerenciadorSintatico;
     private String sentencaDeclaracao;
     private ArrayList<String> listaDeTokensDeclaracao;
     private String sentencaAtribuicao;
@@ -39,19 +40,19 @@ public class GerenciadorSintaticoTeste {
     private ArrayList<String> listaDeTokensOperacaoAritmetica;
     private String sentencaConcatenacaoString;
     private ArrayList<String> listaDeTokensConcatenacaoString;
-    private String sentenca;
 
     @Before
     public void setUp() throws Exception {
         GerenciadorBuilder builder = new GerenciadorBuilder();
 
-        gerenciadorDeValidacao = builder.com(lexer)
+        gerenciadorSintatico = builder.com(lexer)
                 .com(identificadorDeToken)
                 .com(validadorDeDeclaracaoDeVariavel)
                 .com(validadorDeAtribuicao)
                 .com(validadorDeAtribuicaoOperadorUnario)
                 .com(validadorDeOperacoesAritmeticas)
                 .com(validadorDeConcatenacaoDeString)
+                .com(validadorGenerico)
                 .geraGerenciador();
 
         sentencaDeclaracao = "var x : String";
@@ -72,10 +73,17 @@ public class GerenciadorSintaticoTeste {
         when(lexer.tokenizar(sentencaOperacaoAritmetica)).thenReturn(listaDeTokensOperacaoAritmetica);
         when(lexer.tokenizar(sentencaConcatenacaoString)).thenReturn(listaDeTokensConcatenacaoString);
 
+
         when(identificadorDeToken.identifica("var")).thenReturn("PALAVRA_RESERVADA");
         when(identificadorDeToken.identifica("x")).thenReturn("IDV");
         when(identificadorDeToken.identifica("+")).thenReturn("ADICAO");
         when(identificadorDeToken.identifica("<>")).thenReturn("CONCATENACAO");
+
+        ArrayList<String> listaDeTokensGenerico = new ArrayList<String>();
+        listaDeTokensGenerico.add("\"fdighiszhg\"");
+
+        when(lexer.tokenizar("\"fdighiszhg\"")).thenReturn(listaDeTokensGenerico);
+        when(identificadorDeToken.identifica("\"fdighiszhg\"")).thenReturn("CONSTANTE_TIPO_STRING");
     }
 
     private void criaListaDeTokensDeConcatenacaoString() {
@@ -121,14 +129,14 @@ public class GerenciadorSintaticoTeste {
 
     @Test
     public void gerenciadorDeValidacaoTokenizaUmaEntrada() throws Exception {
-        gerenciadorDeValidacao.interpreta(sentencaDeclaracao);
+        gerenciadorSintatico.interpreta(sentencaDeclaracao);
 
         verify(lexer).tokenizar("var x : String");
     }
 
     @Test
     public void identificaAEntradaTokenizada() throws Exception {
-        gerenciadorDeValidacao.interpreta(sentencaDeclaracao);
+        gerenciadorSintatico.interpreta(sentencaDeclaracao);
 
         verify(identificadorDeToken).identifica("var");
         verify(identificadorDeToken).identifica("x");
@@ -138,7 +146,7 @@ public class GerenciadorSintaticoTeste {
 
     @Test
     public void chamaValidadorDeDeclaracaoDeVariavelSePrimeiroTokenForVar() throws Exception {
-        gerenciadorDeValidacao.interpreta(sentencaDeclaracao);
+        gerenciadorSintatico.interpreta(sentencaDeclaracao);
 
         verify(identificadorDeToken).identifica("var");
         verify(validadorDeDeclaracaoDeVariavel).valida(listaDeTokensDeclaracao);
@@ -147,7 +155,7 @@ public class GerenciadorSintaticoTeste {
     @Ignore
     @Test
     public void chamaValidadorDeAtribuicaoSePrimeiroTokenForIDV() throws Exception {
-        gerenciadorDeValidacao.interpreta(sentencaAtribuicao);
+        gerenciadorSintatico.interpreta(sentencaAtribuicao);
 
         verify(identificadorDeToken).identifica("x");
         verify(validadorDeAtribuicao).valida(listaDeTokensAtribuicao);
@@ -155,7 +163,7 @@ public class GerenciadorSintaticoTeste {
 
     @Test
     public void chamaValidadorDeAtribuicaoSeOTerceiroTokenForSinalPositivoOuNegativo() throws Exception {
-        gerenciadorDeValidacao.interpreta(sentencaAtribuicaoOperadorUnario);
+        gerenciadorSintatico.interpreta(sentencaAtribuicaoOperadorUnario);
 
         verify(identificadorDeToken).identifica("+");
         verify(validadorDeAtribuicaoOperadorUnario).valida(listaDeTokensAtribuicaoOperadorUnario);
@@ -165,7 +173,7 @@ public class GerenciadorSintaticoTeste {
     @Ignore
     @Test
     public void chamaValidadorDeOperacoesAritmeticasSeContiverTokenOperadorMatematico() throws Exception {
-        gerenciadorDeValidacao.interpreta(sentencaOperacaoAritmetica);
+        gerenciadorSintatico.interpreta(sentencaOperacaoAritmetica);
 
         verify(identificadorDeToken).identifica("+");
         verify(validadorDeOperacoesAritmeticas).valida(listaDeTokensOperacaoAritmetica);
@@ -174,7 +182,7 @@ public class GerenciadorSintaticoTeste {
     @Ignore
     @Test
     public void chamaValidadorDeConcatenacaoDeStringsSeContiverSimboloDeConcatenacao() throws Exception {
-        gerenciadorDeValidacao.interpreta(sentencaConcatenacaoString);
+        gerenciadorSintatico.interpreta(sentencaConcatenacaoString);
 
         verify(identificadorDeToken).identifica("<>");
         verify(validadorDeConcatenacaoDeString).valida(listaDeTokensConcatenacaoString);
@@ -185,12 +193,12 @@ public class GerenciadorSintaticoTeste {
 
         when(validadorDeDeclaracaoDeVariavel.retornaMensagemErro()).thenReturn("1");
 
-        gerenciadorDeValidacao.interpreta(sentencaDeclaracao);
-        gerenciadorDeValidacao.mostraMensagensDeErro();
+        gerenciadorSintatico.interpreta(sentencaDeclaracao);
+        gerenciadorSintatico.mostraMensagensDeErro();
 
         verify(validadorDeDeclaracaoDeVariavel).retornaMensagemErro();
 
-        assertThat(gerenciadorDeValidacao.mostraMensagensDeErro(), is("1"));
+        assertThat(gerenciadorSintatico.mostraMensagensDeErro(), is("1"));
     }
 
     @Ignore
@@ -199,12 +207,31 @@ public class GerenciadorSintaticoTeste {
 
         when(validadorDeAtribuicao.retornaMensagemErro()).thenReturn("2");
 
-        gerenciadorDeValidacao.interpreta(sentencaAtribuicao);
-        gerenciadorDeValidacao.mostraMensagensDeErro();
+        gerenciadorSintatico.interpreta(sentencaAtribuicao);
+        gerenciadorSintatico.mostraMensagensDeErro();
 
         verify(validadorDeAtribuicao).retornaMensagemErro();
 
-        assertThat(gerenciadorDeValidacao.mostraMensagensDeErro(), is("2"));
+        assertThat(gerenciadorSintatico.mostraMensagensDeErro(), is("2"));
     }
 
+    @Test
+    public void retornaMensagemDeErroQuandoDigitoAlgoSemNexo() throws Exception {
+        ValidadorGenerico validador = new ValidadorGenerico();
+        validadorGenerico = validador;
+
+        GerenciadorBuilder gerenciadorBuilder = new GerenciadorBuilder();
+        gerenciadorSintatico = gerenciadorBuilder.com(identificadorDeToken)
+                .com(lexer)
+                .com(validadorDeAtribuicao)
+                .com(validadorDeConcatenacaoDeString)
+                .com(validadorDeDeclaracaoDeVariavel)
+                .com(validadorDeOperacoesAritmeticas)
+                .com(validadorGenerico)
+                .geraGerenciador();
+
+        gerenciadorSintatico.interpreta("\"fdighiszhg\"");
+
+        assertThat(gerenciadorSintatico.mostraMensagensDeErro(), is("Código inválido.\nSintaxe não reconhecida."));
+    }
 }

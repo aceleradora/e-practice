@@ -6,6 +6,7 @@ import models.analisadorSemantico.GerenciadorBuilder;
 import models.analisadorSemantico.ValidadorDeAtribuicao;
 import models.analisadorSemantico.ValidadorDeDeclaracaoDeVariavel;
 import models.analisadorSemantico.ValidadorDeOperacoesAritmeticas;
+import models.analisadorSemantico.ValidadorGenerico;
 import models.analisadorSintatico.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -285,7 +286,6 @@ public class GerenciadorSemanticoTeste {
 
     @Test
     public void chamaValidadorDeOperacaoAritmetricasDeSentencaComVariavelNaoDeclaradaERetornaAMensagemDeErro() throws Exception {
-
         TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
         ValidadorDeOperacoesAritmeticas validador = new ValidadorDeOperacoesAritmeticas(tabelaDeSimbolos);
         validadorDeOperacaoAritmetica = validador;
@@ -317,7 +317,7 @@ public class GerenciadorSemanticoTeste {
 
         gerenciadorSemantico.interpreta("\"fdighiszhg\"");
 
-        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("Código inválido.\nSintaxe não reconhecida."));
+        assertThat(gerenciadorSemantico.mostraMensagensDeErro(), is("Código inválido.\nSemântica não reconhecida."));
     }
 
 }
