@@ -24,7 +24,6 @@ public class GerenciadorSintaticoTeste {
     @Mock IdentificadorDeToken identificadorDeToken;
     @Mock ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
     @Mock ValidadorDeAtribuicao validadorDeAtribuicao;
-    @Mock ValidadorDeAtribuicao validadorDeAtribuicaoOperadorUnario;
     @Mock ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticas;
     @Mock ValidadorDeConcatenacaoDeStrings validadorDeConcatenacaoDeString;
     @Mock ValidadorGenerico validadorGenerico;
@@ -49,14 +48,13 @@ public class GerenciadorSintaticoTeste {
                 .com(identificadorDeToken)
                 .com(validadorDeDeclaracaoDeVariavel)
                 .com(validadorDeAtribuicao)
-                .com(validadorDeAtribuicaoOperadorUnario)
                 .com(validadorDeOperacoesAritmeticas)
                 .com(validadorDeConcatenacaoDeString)
                 .com(validadorGenerico)
                 .geraGerenciador();
 
         sentencaDeclaracao = "var x : String";
-        sentencaAtribuicao = "x = 1";
+        sentencaAtribuicao = "x = \"c\"";
         sentencaAtribuicaoOperadorUnario = "x = + 1";
         sentencaOperacaoAritmetica = "x = 1 + 1";
         sentencaConcatenacaoString = "x = \"abacaxi\" <> \"verde\"";
@@ -78,6 +76,9 @@ public class GerenciadorSintaticoTeste {
         when(identificadorDeToken.identifica("x")).thenReturn("IDV");
         when(identificadorDeToken.identifica("+")).thenReturn("ADICAO");
         when(identificadorDeToken.identifica("<>")).thenReturn("CONCATENACAO");
+        when(identificadorDeToken.identifica("=")).thenReturn("IGUAL");
+        when(identificadorDeToken.identifica("\"c\"")).thenReturn("CONSTANTE_TIPO_STRING");
+
 
         ArrayList<String> listaDeTokensGenerico = new ArrayList<String>();
         listaDeTokensGenerico.add("\"fdighiszhg\"");
@@ -116,7 +117,7 @@ public class GerenciadorSintaticoTeste {
         listaDeTokensAtribuicao = new ArrayList<String>();
         listaDeTokensAtribuicao.add("x");
         listaDeTokensAtribuicao.add("=");
-        listaDeTokensAtribuicao.add("1");
+        listaDeTokensAtribuicao.add("\"c\"");
     }
 
     private void criaListaDeTokensDeAtribuicaoOperadorUnario() {
@@ -152,7 +153,6 @@ public class GerenciadorSintaticoTeste {
         verify(validadorDeDeclaracaoDeVariavel).valida(listaDeTokensDeclaracao);
     }
 
-    @Ignore
     @Test
     public void chamaValidadorDeAtribuicaoSePrimeiroTokenForIDV() throws Exception {
         gerenciadorSintatico.interpreta(sentencaAtribuicao);
@@ -166,11 +166,10 @@ public class GerenciadorSintaticoTeste {
         gerenciadorSintatico.interpreta(sentencaAtribuicaoOperadorUnario);
 
         verify(identificadorDeToken).identifica("+");
-        verify(validadorDeAtribuicaoOperadorUnario).valida(listaDeTokensAtribuicaoOperadorUnario);
+        verify(validadorDeAtribuicao).valida(listaDeTokensAtribuicaoOperadorUnario);
 
     }
 
-    @Ignore
     @Test
     public void chamaValidadorDeOperacoesAritmeticasSeContiverTokenOperadorMatematico() throws Exception {
         gerenciadorSintatico.interpreta(sentencaOperacaoAritmetica);
@@ -179,7 +178,6 @@ public class GerenciadorSintaticoTeste {
         verify(validadorDeOperacoesAritmeticas).valida(listaDeTokensOperacaoAritmetica);
     }
 
-    @Ignore
     @Test
     public void chamaValidadorDeConcatenacaoDeStringsSeContiverSimboloDeConcatenacao() throws Exception {
         gerenciadorSintatico.interpreta(sentencaConcatenacaoString);
@@ -190,7 +188,6 @@ public class GerenciadorSintaticoTeste {
 
     @Test
     public void chamaMensagemDeErroDeCadaValidadorERetornaOPrimeiroErro() throws Exception {
-
         when(validadorDeDeclaracaoDeVariavel.retornaMensagemErro()).thenReturn("1");
 
         gerenciadorSintatico.interpreta(sentencaDeclaracao);
@@ -201,10 +198,8 @@ public class GerenciadorSintaticoTeste {
         assertThat(gerenciadorSintatico.mostraMensagensDeErro(), is("1"));
     }
 
-    @Ignore
     @Test
     public void chamaMensagemDeErroIgnoraLinhasEmBrancoERetornaErros() throws Exception {
-
         when(validadorDeAtribuicao.retornaMensagemErro()).thenReturn("2");
 
         gerenciadorSintatico.interpreta(sentencaAtribuicao);
