@@ -10,7 +10,7 @@ import static play.test.Helpers.running;
 
 
 public class SolucaoDoExercicioTeste {
-    @Ignore
+
     @Test
     public void quandoChamaOMetodoCreateSalvaUmaSolucaoNoBanco() {
         running(fakeApplication(), new Runnable() {
@@ -20,7 +20,7 @@ public class SolucaoDoExercicioTeste {
             novaSolucao.save();
             SolucaoDoExercicio novaSolucaoNoBanco = SolucaoDoExercicio.find.ref(novaSolucao.id);
 
-            assertEquals(novaSolucaoNoBanco.solucaoDoUsuario, "var x = 1");
+            assertEquals("var x = 1", novaSolucaoNoBanco.getSolucaoDoUsuario());
             SolucaoDoExercicio.delete(novaSolucao.id);
             }
         });
