@@ -1,20 +1,24 @@
 $(document).ready(function(){
     fadeOutStatusBotao();
 
-    $("#botaoDeEnviar").click(function(){
-        desabilitaBotao();
-        $("#formCodigo").submit();
-    });
-
-    $("#botaoDeLimpar").click(function () {
-        var btn = this;
-        setTimeout(function () { $(btn).attr('disabled', 'disabled'); }, 1);
-        return true;
-    });
-
     $("#botao-de-limpar").click(function(){
         limpaASolucao();
+
     });
+
+    $("#botao-de-enviar").click(function(){
+            if($("#tab1 > .abas > pre").html() == "Você já resolveu todos os exercícios.") {
+                  $("#botao-de-enviar").attr("disabled", "disabled");
+            }
+            else {
+                $("#formCodigo").submit();
+            }
+        });
+
+     var caixaDeTexto = $("#solucaoDoUsuario");
+     if(caixaDeTexto[0].value == "") {
+        $("#botao-de-limpar").attr("disabled", "disabled");
+     }
 
     $("#botao-proximo-exercicio").click(function(){
         proximoExercicio();
@@ -27,12 +31,33 @@ $(document).ready(function(){
     criarLinhas('solucaoDoUsuario');
 });
 
+document.onkeyup=function(e){
+ var caixaDeTexto = $("#solucaoDoUsuario");
+    if(caixaDeTexto[0].value != "") {
+
+        $("#botao-de-limpar").prop("disabled", false);
+    }
+
+    var key = e.which || e.keyCode;
+
+
+
+    if(key == 8) {
+
+        if(caixaDeTexto[0].value == "") {
+
+            $("#botao-de-limpar").prop("disabled", true);
+        }
+    }
+}
+
 function limpaASolucao() {
     var caixaDeTexto = $("#solucaoDoUsuario");
     if(caixaDeTexto[0].value != ""){
         var confirmacao = confirm("Você deseja apagar a solucao?");
         if (confirmacao) {
             $("#solucaoDoUsuario").val("");
+            $("#botao-de-limpar").attr("disabled", "disabled");
         }
     }
 }
@@ -40,6 +65,7 @@ function limpaASolucao() {
 function desabilitaBotao() {
     $("#botaoDeEnviar").attr("disabled");
 };
+
 
 function proximoExercicio(){
     var caixaDeTexto = $("#solucaoDoUsuario")
