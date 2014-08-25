@@ -5,7 +5,6 @@ import models.analisadorLexico.QuebradorDeCodigoEmLinhas;
 import models.analisadorSemantico.GerenciadorSemantico;
 import models.analisadorSintatico.GerenciadorSintatico;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -64,9 +63,10 @@ public class GerenciadorDeFeedbackTeste {
         verify(gerenciadorSintatico).interpreta(linha2);
     }
 
-    @Ignore
     @Test
     public void dadoQueFoiRecebidoUmCodigoSintaticamenteCorretoEntaoDeveSerChamadoOMetodoInterpretaDaClasseGerenciadorDeValidacaoSemantico() throws Exception {
+        when(gerenciadorSintatico.mostraMensagensDeErro()).thenReturn("");
+
         String codigo = "var x : String\n x = \"casa\"";
         String linha1 = "var x : String";
         String linha2 = "x = \"casa\"";
@@ -75,9 +75,7 @@ public class GerenciadorDeFeedbackTeste {
 
         gerenciadorDeFeedback.pegaFeedback();
 
-        verify(gerenciadorSintatico).interpreta(linha1);
         verify(gerenciadorSemantico).interpreta(linha1);
-        verify(gerenciadorSintatico).interpreta(linha2);
         verify(gerenciadorSemantico).interpreta(linha2);
     }
 
@@ -91,13 +89,4 @@ public class GerenciadorDeFeedbackTeste {
         verify(gerenciadorSintatico, times(3)).interpreta(anyString());
     }
 
-    @Ignore
-    @Test
-    public void dadoQueNaoTenhoErroSintaticoEntaoChamoGerenciadorSemantico() throws Exception {
-        String codigo = "numero = 2 + 2";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
-        gerenciadorDeFeedback.pegaFeedback();
-
-        verify(gerenciadorSemantico).mostraMensagensDeErro();
-    }
 }
