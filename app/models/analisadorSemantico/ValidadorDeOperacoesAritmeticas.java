@@ -4,8 +4,11 @@ import models.TabelaDeSimbolos;
 import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
+import models.arvore.PostFix;
+import models.calculadora.CalculadoraDeResultado;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ValidadorDeOperacoesAritmeticas implements Validador{
 
@@ -14,10 +17,16 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
     private ArrayList<String> listaDetokens;
     String tokenInvalido;
     int tipoDeErro;
+    private ArrayList<String> tokensParaPosFixar;
+    private PostFix postFix;
+    private CalculadoraDeResultado calculadoraDeResultado;
 
     public ValidadorDeOperacoesAritmeticas(TabelaDeSimbolos tabela) {
         identificadorDeToken = new IdentificadorDeToken();
         this.tabelaDeSimbolos = tabela;
+        postFix = new PostFix();
+        tokensParaPosFixar = new ArrayList<>();
+        calculadoraDeResultado = new CalculadoraDeResultado(tabelaDeSimbolos);
     }
 
     public boolean valida(ArrayList<String> tokens) {
@@ -37,7 +46,20 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
                     }
                 }
             }
+        copiaTokensDaExpressaoASerResolvida();
+        int resultado = calculaValorDaExpressaoAritmetica();
+        tabelaDeSimbolos.atualizaValor(listaDetokens.get(0), String.valueOf(resultado));
         return true;
+    }
+
+    private int calculaValorDaExpressaoAritmetica() {
+        return calculadoraDeResultado.calculaOperacaoAPartirDoPostFix(postFix.criaPosfix(tokensParaPosFixar));
+    }
+
+    private void copiaTokensDaExpressaoASerResolvida() {
+        for (int i = 2; i < listaDetokens.size(); i++) {
+            tokensParaPosFixar.add(listaDetokens.get(i));
+        }
     }
 
     @Override
