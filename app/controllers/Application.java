@@ -3,6 +3,7 @@ package controllers;
 import com.avaje.ebean.Ebean;
 import models.MensagemDeFeedback;
 import models.SolucaoDoExercicio;
+import models.Usuario;
 import models.exercicioProposto.Exercicio;
 import models.exercicioProposto.SeletorAleatorioExercicio;
 import play.data.Form;
@@ -21,6 +22,7 @@ public class Application extends Controller {
     private static Exercicio exercicio;
     private static SeletorAleatorioExercicio seletorAleatorioExercicio;
     private static int idAtual = 0;
+    private static Usuario usuario;
     public Application(SolucaoDoExercicio solucaoDoExercicio) {
         this.solucaoDoExercicio = solucaoDoExercicio;
     }
@@ -70,6 +72,9 @@ public class Application extends Controller {
                 exercicio.resolvido = true;
                 exercicio.save();
 
+                usuario.exerciciosResolvidos.add(exercicio);
+                usuario.save();
+
             } catch (Exception e){
                 flash("status", "Erro: Sintaxe não reconhecida.");
                 flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
@@ -80,11 +85,18 @@ public class Application extends Controller {
     }
 
     public static Result criaExercicios() {
+        List<Usuario> todosUsuarios = Ebean.find(Usuario.class).findList();
         List<SolucaoDoExercicio> todasSolucoes = Ebean.find(SolucaoDoExercicio.class).findList();
         List<Exercicio> todosExercicios = Ebean.find(Exercicio.class).findList();
 
+        for(Usuario usuario: todosUsuarios){
+            Ebean.deleteManyToManyAssociations(usuario, "exerciciosResolvidos");
+        }
+
         Ebean.delete(todasSolucoes);
         Ebean.delete(todosExercicios);
+        Ebean.delete(todosUsuarios);
+
 
         Exercicio exercicio1 = new Exercicio();
         exercicio1.enunciado = "Dados 3 valores inteiros 5, 12, e 20, calcule:\n" +
@@ -109,6 +121,9 @@ public class Application extends Controller {
         exercicio3.possivelSolucao = new SolucaoDoExercicio("Solução");
         exercicio3.resolvido = false;
         exercicio3.save();
+
+        usuario = new Usuario();
+        usuario.save();
 
         return redirect(routes.Application.selecionaProximoExercicio());
     }
