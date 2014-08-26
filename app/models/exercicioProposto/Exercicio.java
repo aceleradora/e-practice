@@ -1,13 +1,12 @@
 package models.exercicioProposto;
 
 import models.SolucaoDoExercicio;
+import models.Usuario;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +28,9 @@ public class Exercicio extends Model{
 
     @OneToMany
     List<SolucaoDoExercicio> solucoesDoUsuario;
+
+    @ManyToMany
+    List<Usuario> usuarios;
 
     public Exercicio() {}
 
