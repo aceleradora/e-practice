@@ -23,7 +23,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
         identificadorDeToken = new IdentificadorDeToken();
         this.tabelaDeSimbolos = tabela;
         postFix = new PostFix();
-        tokensParaPosFixar = new ArrayList<>();
+        tokensParaPosFixar = new ArrayList<String>();
         calculadoraDeResultado = new CalculadoraDeResultado(tabelaDeSimbolos);
     }
 
