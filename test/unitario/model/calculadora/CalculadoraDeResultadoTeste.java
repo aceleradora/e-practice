@@ -95,4 +95,14 @@ public class CalculadoraDeResultadoTeste {
         int resultado = calculadora.calculaOperacaoAPartirDoPostFix(postfix);
         assertThat(resultado, is(21));
     }
+
+    @Test
+    public void retorna10QuandoValidaOPostFixZEAVariavelZTemValor10() throws Exception {
+        postfix.add("z");
+        tabelaDeSimbolos.adicionaSimbolo("z", "Inteiro");
+        tabelaDeSimbolos.atualizaValor("z", "10");
+
+        int resultado = calculadora.calculaOperacaoAPartirDoPostFix(postfix);
+        assertThat(resultado, is(10));
+    }
 }
