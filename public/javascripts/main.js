@@ -10,6 +10,7 @@ $(document).ready(function(){
         $("#botao-de-limpar").attr("disabled", "disabled");
     }
 
+    desabilitaBotaoDeProximoQuandoNaoExistemMaisExercicios();
     $("#botao-proximo-exercicio").click(function(){
         proximoExercicio();
     });
@@ -34,6 +35,12 @@ $(document).ready(function(){
 function desabilitaBotaoDeEnviarQuandoNaoExistemMaisExercicios(){
     if($("#tab1 > .abas > pre").html() == "Você já resolveu todos os exercícios.") {
         $("#botao-de-enviar").attr("disabled", "disabled");
+    }
+}
+
+function desabilitaBotaoDeProximoQuandoNaoExistemMaisExercicios(){
+    if($("#tab1 > .abas > pre").html() == "Você já resolveu todos os exercícios.") {
+        $("#botao-proximo-exercicio").attr("disabled", "disabled");
     }
 }
 
