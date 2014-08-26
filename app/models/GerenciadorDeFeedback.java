@@ -8,19 +8,21 @@ import models.analisadorSintatico.GerenciadorSintatico;
 import java.util.ArrayList;
 
 public class GerenciadorDeFeedback {
-
     private ArrayList<String> codigoQuebrado;
     private GerenciadorSintatico gerenciadorSintatico;
     private GerenciadorSemantico gerenciadorSemantico;
     private QuebradorDeCodigoEmLinhas quebradorDeCodigo;
+    private TabelaDeSimbolos tabelaDeSimbolos;
     private ValidadorDeVariavelDeResultado validadorDeVariavelDeResultado;
     private String mensagemSintatica = "";
     private String mensagemSemantica = "";
+    private String resultadoCalculado = "";
 
-    public GerenciadorDeFeedback(String codigo, GerenciadorSintatico gerenciadorSintatico, GerenciadorSemantico gerenciadorSemantico, QuebradorDeCodigoEmLinhas quebradorDeCodigo) {
+    public GerenciadorDeFeedback(String codigo, GerenciadorSintatico gerenciadorSintatico, GerenciadorSemantico gerenciadorSemantico, QuebradorDeCodigoEmLinhas quebradorDeCodigo, TabelaDeSimbolos tabelaDeSimbolos) {
         this.gerenciadorSintatico = gerenciadorSintatico;
         this.gerenciadorSemantico = gerenciadorSemantico;
         this.quebradorDeCodigo = quebradorDeCodigo;
+        this.tabelaDeSimbolos = tabelaDeSimbolos;
         this.codigoQuebrado = this.quebradorDeCodigo.quebra(codigo);
         validadorDeVariavelDeResultado = new ValidadorDeVariavelDeResultado(codigoQuebrado);
     }
@@ -44,7 +46,13 @@ public class GerenciadorDeFeedback {
                 }
             }
         }
-        return mensagemSintatica + mensagemSemantica;
+        for (String variavelDeResultado : tabelaDeSimbolos.getVariaveisDeResultado()) {
+            resultadoCalculado += "Resultado: " + tabelaDeSimbolos.getValor(variavelDeResultado) + " \n";
+        }
+        if (mensagemSemantica.equals("Seu código está correto.\n"))
+            return mensagemSintatica + mensagemSemantica + resultadoCalculado;
+        else
+            return mensagemSintatica + mensagemSemantica;
     }
 
 

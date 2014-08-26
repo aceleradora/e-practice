@@ -18,7 +18,10 @@ public class ValidadorDeAtribuicao implements Validador {
     public boolean valida(ArrayList<String> tokens) {
         this.tokens = tokens;
         if (validaVariavel() && validaExpressao()) {
-            tabelaDeSimbolos.atualizaValor(tokens.get(0), tokens.get(2));
+            if (identificadorDeToken.identifica(tokens.get(2)).equals("NUMERO") || identificadorDeToken.identifica(tokens.get(2)).equals("CONSTANTE_TIPO_STRING"))
+                tabelaDeSimbolos.atualizaValor(tokens.get(0), tokens.get(2));
+            else
+                tabelaDeSimbolos.atualizaValor(tokens.get(0), tabelaDeSimbolos.getValor(tokens.get(2)));
             return true;
         }
         return false;

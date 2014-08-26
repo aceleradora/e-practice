@@ -49,4 +49,8 @@ public class TabelaDeSimbolos {
     public void atualizaValor(String identificador, String novoValor) {
         tabelaDeValores.put(identificador, novoValor);
     }
+
+    public ArrayList<String> getVariaveisDeResultado() {
+        return ponteirosParaVariaveisDeResultado;
+    }
 }
