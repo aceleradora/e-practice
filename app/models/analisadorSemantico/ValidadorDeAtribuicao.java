@@ -17,7 +17,11 @@ public class ValidadorDeAtribuicao implements Validador {
 
     public boolean valida(ArrayList<String> tokens) {
         this.tokens = tokens;
-        return validaVariavel() && validaExpressao();
+        if (validaVariavel() && validaExpressao()) {
+            tabelaDeSimbolos.atualizaValor(tokens.get(0), tokens.get(2));
+            return true;
+        }
+        return false;
     }
 
     public String retornaMensagemErro() {
@@ -32,6 +36,10 @@ public class ValidadorDeAtribuicao implements Validador {
 
     private boolean validaVariavel() {
         return tabelaDeSimbolos.simboloExiste(tokens.get(0));
+    }
+
+    private boolean validaExpressao() {
+        return(ehAtribuicaoDeInteirosValida() || ehAtribuicaoDeStringsSimplesValida());
     }
 
     private boolean ehAtribuicaoDeInteirosValida() {
@@ -58,9 +66,5 @@ public class ValidadorDeAtribuicao implements Validador {
     private boolean verificaSeSegundoTokenEhConstanteStringOuVariavelString() {
         return identificadorDeToken.identifica(tokens.get(2)).equals("CONSTANTE_TIPO_STRING")
                 || tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(2), "String");
-    }
-
-    private boolean validaExpressao() {
-        return(ehAtribuicaoDeInteirosValida() || ehAtribuicaoDeStringsSimplesValida());
     }
 }
