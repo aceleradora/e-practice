@@ -1,4 +1,4 @@
-package models.Arvore;
+package models.arvore;
 
 
 public class Variavel {

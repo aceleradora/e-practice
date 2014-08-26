@@ -1,4 +1,4 @@
-package models.Arvore;
+package models.arvore;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -14,11 +14,11 @@ public class PopuladorDeArvore {
         inicializaAtributos();
         for (String elemento : postfix) {
             if (isOperador(elemento)) {
-                reitraOsDoisUltimosNodosDaPilha();
-                criaNodoDoElementoOperadorComOsNodosRemovidosDaPilha(elemento);
-                devolveNodoCriadoParaAPilha();
+                retiraOsDoisUltimosNodosDaPilha();
+                criaNodoDoElementoOperadorComOsNodosRetiradosDaPilha(elemento);
+                colocaNodoCriadoNaPilha();
             } else {
-                adicionaElementoParaAPilha(elemento);
+                colocaNodoDeOperandoNaPilha(elemento);
             }
         }
         criaArvoreAPartirDosNodosDaPilha();
@@ -34,26 +34,26 @@ public class PopuladorDeArvore {
         pilhaDeNodos = new Stack<Nodo>();
     }
 
-    private Nodo adicionaElementoParaAPilha(String elemento) {
+    private Nodo colocaNodoDeOperandoNaPilha(String elemento) {
         return pilhaDeNodos.push(new Nodo(elemento));
     }
 
-    private Nodo devolveNodoCriadoParaAPilha() {
+    private Nodo colocaNodoCriadoNaPilha() {
         return pilhaDeNodos.push(nodoAPartirDosPops);
     }
 
-    private void criaNodoDoElementoOperadorComOsNodosRemovidosDaPilha(String elemento) {
+    private void criaNodoDoElementoOperadorComOsNodosRetiradosDaPilha(String elemento) {
         nodoAPartirDosPops = new Nodo(elemento);
         nodoAPartirDosPops.adicionaFilho(operandoDaEsquerda);
         nodoAPartirDosPops.adicionaFilho(operandoDaDireita);
     }
 
-    private void reitraOsDoisUltimosNodosDaPilha() {
+    private void retiraOsDoisUltimosNodosDaPilha() {
         operandoDaDireita = pilhaDeNodos.pop();
         operandoDaEsquerda = pilhaDeNodos.pop();
     }
 
-    public boolean isOperador(String token) {
+    private boolean isOperador(String token) {
         return token.equals("+") ||
         token.equals("-") ||
         token.equals("*") ||
