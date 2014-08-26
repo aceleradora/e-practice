@@ -1,23 +1,28 @@
 $(document).ready(function(){
     fadeOutStatusBotao();
 
-    $("#botaoDeEnviar").click(function(){
-        desabilitaBotao();
-        $("#formCodigo").submit();
-    });
-
-    $("#botaoDeLimpar").click(function () {
-        var btn = this;
-        setTimeout(function () { $(btn).attr('disabled', 'disabled'); }, 1);
-        return true;
-    });
-
     $("#botao-de-limpar").click(function(){
         limpaASolucao();
     });
 
+    var caixaDeTexto = $("#solucaoDoUsuario");
+    if(caixaDeTexto[0].value == "") {
+        $("#botao-de-limpar").attr("disabled", "disabled");
+    }
+
+    desabilitaBotaoDeProximoQuandoNaoExistemMaisExercicios();
     $("#botao-proximo-exercicio").click(function(){
         proximoExercicio();
+    });
+
+
+    $(document).keyup(function(evento){
+        desabilitaBotaoDeLimparQuandoNaoHouverTextoNoConsole();
+    });
+
+    desabilitaBotaoDeEnviarQuandoNaoExistemMaisExercicios();
+    $("#botao-de-enviar").click(function(){
+        $("#formCodigo").submit();
     });
 
     $("#formCodigo").submit(function(){
@@ -27,12 +32,36 @@ $(document).ready(function(){
     criarLinhas('solucaoDoUsuario');
 });
 
+function desabilitaBotaoDeEnviarQuandoNaoExistemMaisExercicios(){
+    if($("#tab1 > .abas > pre").html() == "Você já resolveu todos os exercícios.") {
+        $("#botao-de-enviar").attr("disabled", "disabled");
+    }
+}
+
+function desabilitaBotaoDeProximoQuandoNaoExistemMaisExercicios(){
+    if($("#tab1 > .abas > pre").html() == "Você já resolveu todos os exercícios.") {
+        $("#botao-proximo-exercicio").attr("disabled", "disabled");
+    }
+}
+
+function desabilitaBotaoDeLimparQuandoNaoHouverTextoNoConsole(){
+   var caixaDeTexto = $("#solucaoDoUsuario");
+    if(caixaDeTexto[0].value != "") {
+        $("#botao-de-limpar").prop("disabled", false);
+    }
+
+    if(caixaDeTexto[0].value == "") {
+        $("#botao-de-limpar").prop("disabled", true);
+    }
+}
+
 function limpaASolucao() {
     var caixaDeTexto = $("#solucaoDoUsuario");
     if(caixaDeTexto[0].value != ""){
         var confirmacao = confirm("Você deseja apagar a solucao?");
         if (confirmacao) {
             $("#solucaoDoUsuario").val("");
+            $("#botao-de-limpar").attr("disabled", "disabled");
         }
     }
 }
@@ -40,6 +69,7 @@ function limpaASolucao() {
 function desabilitaBotao() {
     $("#botaoDeEnviar").attr("disabled");
 };
+
 
 function proximoExercicio(){
     var caixaDeTexto = $("#solucaoDoUsuario")

@@ -21,6 +21,8 @@ public class ValidadorDeResultadoTeste {
 
         SolucaoDoExercicio solucaoDoUsuario;
         SolucaoDoExercicio possivelSolucao;
+        SolucaoDoExercicio solucaoDoProfessor;
+
         Exercicio exercicio;
         Lexer lexer;
         @Mock TabelaDeSimbolos tabelaDeSimbolos;
@@ -31,8 +33,9 @@ public class ValidadorDeResultadoTeste {
 
         solucaoDoUsuario = new SolucaoDoExercicio("resultado = 2");
         possivelSolucao = new SolucaoDoExercicio("2");
+        solucaoDoProfessor = new SolucaoDoExercicio("resultado = 2");
         lexer = new Lexer();
-        exercicio = new Exercicio("enunciado 1 + 1", possivelSolucao, false);
+        exercicio = new Exercicio("enunciado 1 + 1", possivelSolucao, false, solucaoDoProfessor);
         tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
     }
 
