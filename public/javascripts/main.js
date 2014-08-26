@@ -3,25 +3,25 @@ $(document).ready(function(){
 
     $("#botao-de-limpar").click(function(){
         limpaASolucao();
-
     });
 
-    $("#botao-de-enviar").click(function(){
-            if($("#tab1 > .abas > pre").html() == "Você já resolveu todos os exercícios.") {
-                  $("#botao-de-enviar").attr("disabled", "disabled");
-            }
-            else {
-                $("#formCodigo").submit();
-            }
-        });
-
-     var caixaDeTexto = $("#solucaoDoUsuario");
-     if(caixaDeTexto[0].value == "") {
+    var caixaDeTexto = $("#solucaoDoUsuario");
+    if(caixaDeTexto[0].value == "") {
         $("#botao-de-limpar").attr("disabled", "disabled");
-     }
+    }
 
     $("#botao-proximo-exercicio").click(function(){
         proximoExercicio();
+    });
+
+
+    $(document).keyup(function(evento){
+        desabilitaBotaoDeLimparQuandoNaoHouverTextoNoConsole();
+    });
+
+    desabilitaBotaoDeEnviarQuandoNaoExistemMaisExercicios();
+    $("#botao-de-enviar").click(function(){
+        $("#formCodigo").submit();
     });
 
     $("#formCodigo").submit(function(){
@@ -31,23 +31,20 @@ $(document).ready(function(){
     criarLinhas('solucaoDoUsuario');
 });
 
-document.onkeyup=function(e){
- var caixaDeTexto = $("#solucaoDoUsuario");
-    if(caixaDeTexto[0].value != "") {
+function desabilitaBotaoDeEnviarQuandoNaoExistemMaisExercicios(){
+    if($("#tab1 > .abas > pre").html() == "Você já resolveu todos os exercícios.") {
+        $("#botao-de-enviar").attr("disabled", "disabled");
+    }
+}
 
+function desabilitaBotaoDeLimparQuandoNaoHouverTextoNoConsole(){
+   var caixaDeTexto = $("#solucaoDoUsuario");
+    if(caixaDeTexto[0].value != "") {
         $("#botao-de-limpar").prop("disabled", false);
     }
 
-    var key = e.which || e.keyCode;
-
-
-
-    if(key == 8) {
-
-        if(caixaDeTexto[0].value == "") {
-
-            $("#botao-de-limpar").prop("disabled", true);
-        }
+    if(caixaDeTexto[0].value == "") {
+        $("#botao-de-limpar").prop("disabled", true);
     }
 }
 
