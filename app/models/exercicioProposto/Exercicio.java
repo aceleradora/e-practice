@@ -24,6 +24,10 @@ public class Exercicio extends Model{
     @Column(columnDefinition = "TEXT")
     public SolucaoDoExercicio possivelSolucao;
 
+    @Constraints.Required
+    @Column(columnDefinition = "TEXT")
+    public SolucaoDoExercicio solucaoDoProfessor;
+
     @Column(columnDefinition = "boolean DEFAULT false")
     public boolean resolvido = false;
 
@@ -32,10 +36,11 @@ public class Exercicio extends Model{
 
     public Exercicio() {}
 
-    public Exercicio(String enunciado, SolucaoDoExercicio possivelSolucao, boolean resolvido) {
+    public Exercicio(String enunciado, SolucaoDoExercicio possivelSolucao, boolean resolvido, SolucaoDoExercicio solucaoDoProfessor) {
 
         this.enunciado = enunciado;
         this.possivelSolucao = possivelSolucao;
+        this.solucaoDoProfessor = solucaoDoProfessor;
         this.resolvido = resolvido;
     }
 
@@ -65,5 +70,4 @@ public class Exercicio extends Model{
         result = 31 * result + enunciado.hashCode();
         return result;
     }
-
 }

@@ -1,6 +1,6 @@
-package unitario.model.Arvore;
+package unitario.model.arvore;
 
-import models.Arvore.PostFix;
+import models.arvore.PostFix;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

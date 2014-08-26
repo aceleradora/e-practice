@@ -1,6 +1,6 @@
-package unitario.model.Arvore;
+package unitario.model.arvore;
 
-import models.Arvore.Nodo;
+import models.arvore.Nodo;
 import org.junit.Before;
 import org.junit.Test;
 

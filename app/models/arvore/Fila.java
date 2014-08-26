@@ -1,4 +1,4 @@
-package models.Arvore;
+package models.arvore;
 
 import java.util.ArrayList;
 
