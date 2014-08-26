@@ -15,6 +15,14 @@ public class ValidadorDeConcatenacaoDeStrings implements Validador {
         identificador = new IdentificadorDeToken();
     }
 
+    private String validaSegundoToken() {
+        if (comparaToken(1, "IGUAL")) {
+            return "O segundo token é válido.";
+        } else {
+            return "Você digitou \""+ tokens.get(1) +"\" e deveria ser um simbolo de atribuição (\"=\").";
+        }
+    }
+
     private String validaTerceiroToken() {
         if (comparaToken(2,"IDV") || comparaToken(2,"CONSTANTE_TIPO_STRING")) {
             return "O terceiro token é válido.";
@@ -82,6 +90,10 @@ public class ValidadorDeConcatenacaoDeStrings implements Validador {
     public String retornaMensagemErro() {
         ArrayList<String> mensagens = new ArrayList<String>();
         String mensagensDeRetorno = "";
+
+        if(!validaSegundoToken().equals("O segundo token é válido.")) {
+            mensagens.add(validaSegundoToken());
+        }
 
         if((!validaTerceiroToken().equals("O terceiro token é válido.")) && quantidadeDeTokensDepoisDoSinalDeIgual() == 1) {
             mensagens.add(validaTerceiroToken());

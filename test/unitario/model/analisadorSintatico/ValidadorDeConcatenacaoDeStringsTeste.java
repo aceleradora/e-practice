@@ -136,4 +136,12 @@ public class ValidadorDeConcatenacaoDeStringsTeste {
 
         assertThat(valida, is(false));
     }
+
+    @Test
+    public void seHouverUmSinalDeDoisPontosEntreIdvEAConcatenacaoRetornaUmaMensagemDeErro() throws Exception {
+        entradaDoUsuario = lexer.tokenizar("x : \"casa\" <> \"azul\"");
+        validador.valida(entradaDoUsuario);
+        assertThat(validador.retornaMensagemErro(), is("Você digitou \":\" e deveria ser um simbolo de atribuição (\"=\").\n"));
+    }
+
 }
