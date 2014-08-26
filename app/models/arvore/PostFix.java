@@ -1,9 +1,8 @@
-package models.Arvore;
+package models.arvore;
 
 import models.analisadorLexico.IdentificadorDeToken;
 
 import java.util.ArrayList;
-import java.util.Queue;
 import java.util.Stack;
 
 public class PostFix {

@@ -1,7 +1,7 @@
-package unitario.model.Arvore;
+package unitario.model.arvore;
 
-import models.Arvore.Arvore;
-import models.Arvore.PopuladorDeArvore;
+import models.arvore.Arvore;
+import models.arvore.PopuladorDeArvore;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
-package unitario.model.Arvore;
+package unitario.model.arvore;
 
-import models.Arvore.Arvore;
-import models.Arvore.Nodo;
+import models.arvore.Arvore;
+import models.arvore.Nodo;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertNotNull;

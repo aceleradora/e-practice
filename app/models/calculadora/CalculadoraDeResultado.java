@@ -10,17 +10,23 @@ public class CalculadoraDeResultado {
 
     public int calculaOperacaoAPartirDoPostFix(ArrayList<String> postfix) {
         pilhaDeNumeros = new Stack<Integer>();
-        int resultado = 0;
         for (String elemento : postfix) {
             if (isOperador(elemento)) {
                 retiraOsDoisUltimosNumerosDaPilha();
-                resultado = realizaOperacaoAdequada(elemento);
-                pilhaDeNumeros.push(resultado);
+                devolveParaAPilhaOResultadoDaOperacao(elemento);
             } else {
-                pilhaDeNumeros.push(Integer.parseInt(elemento));
+                colocaOperandoNaPilha(elemento);
             }
         }
         return pilhaDeNumeros.pop();
+    }
+
+    private Integer colocaOperandoNaPilha(String elemento) {
+        return pilhaDeNumeros.push(Integer.parseInt(elemento));
+    }
+
+    private Integer devolveParaAPilhaOResultadoDaOperacao(String elemento) {
+        return pilhaDeNumeros.push(realizaOperacaoAdequada(elemento));
     }
 
     private int realizaOperacaoAdequada(String operacao) {
