@@ -3,23 +3,21 @@ package models.analisadorSemantico;
 import models.TabelaDeSimbolos;
 import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
-import models.analisadorLexico.Lexer;
 import models.arvore.PostFix;
 import models.calculadora.CalculadoraDeResultado;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ValidadorDeOperacoesAritmeticas implements Validador{
 
-    private IdentificadorDeToken identificadorDeToken;
-    private TabelaDeSimbolos tabelaDeSimbolos;
-    private ArrayList<String> listaDetokens;
-    String tokenInvalido;
-    int tipoDeErro;
-    private ArrayList<String> tokensParaPosFixar;
     private PostFix postFix;
+    private ArrayList<String> listaDetokens;
+    private ArrayList<String> tokensParaPosFixar;
+    private TabelaDeSimbolos tabelaDeSimbolos;
+    private IdentificadorDeToken identificadorDeToken;
     private CalculadoraDeResultado calculadoraDeResultado;
+    private String tokenInvalido;
+    private int tipoDeErro;
 
     public ValidadorDeOperacoesAritmeticas(TabelaDeSimbolos tabela) {
         identificadorDeToken = new IdentificadorDeToken();
@@ -52,6 +50,14 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
         return true;
     }
 
+    public String retornaMensagemErro() {
+        if (tipoDeErro == 1)
+            return "A variável " + tokenInvalido + " não foi declarada.";
+        if (tipoDeErro == 2)
+            return "A variável " + tokenInvalido + " não é do tipo Inteiro.";
+        return "";
+    }
+
     private int calculaValorDaExpressaoAritmetica() {
         return calculadoraDeResultado.calculaOperacaoAPartirDoPostFix(postFix.criaPosfix(tokensParaPosFixar));
     }
@@ -60,14 +66,5 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
         for (int i = 2; i < listaDetokens.size(); i++) {
             tokensParaPosFixar.add(listaDetokens.get(i));
         }
-    }
-
-    @Override
-    public String retornaMensagemErro() {
-        if (tipoDeErro == 1)
-            return "A variável " + tokenInvalido + " não foi declarada.";
-        if (tipoDeErro == 2)
-            return "A variável " + tokenInvalido + " não é do tipo Inteiro.";
-        return "";
     }
 }
