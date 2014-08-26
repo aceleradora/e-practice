@@ -4,38 +4,37 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TabelaDeSimbolos {
-    private HashMap<String, String> tabela;
+    private static final String VALOR_PADRAO_STRING = "";
+    private static final String VALOR_PADRAO_INTEIRO = "0";
+    private HashMap<String, String> tabelaDeTipos;
+    private HashMap<String, String> tabelaDeValores;
     private ArrayList<String> ponteirosParaVariaveisDeResultado;
 
     public TabelaDeSimbolos() {
-        tabela = new HashMap<String, String>();
+        tabelaDeTipos = new HashMap<String, String>();
+        tabelaDeValores = new HashMap<String, String>();
         ponteirosParaVariaveisDeResultado = new ArrayList<String>();
     }
 
     public boolean adicionaSimbolo(String identificador, String tipo){
-        tabela.put(identificador, tipo);
+        tabelaDeTipos.put(identificador, tipo);
+        if (tipo.equals("Inteiro"))
+            tabelaDeValores.put(identificador, VALOR_PADRAO_INTEIRO);
+        else
+            tabelaDeValores.put(identificador, VALOR_PADRAO_STRING);
         return true;
     }
 
     public boolean verificaSeTipoCombina(String idv, String tipo) {
-        if(tipo.equals(tabela.get(idv))) return true;
-        else return false;
+        return tipo.equals(tabelaDeTipos.get(idv));
     }
 
     public boolean simboloExiste(String simbolo) {
-        String simboloDaTabela;
-
-        simboloDaTabela = tabela.get(simbolo);
-        if (simboloDaTabela != null){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return tabelaDeTipos.get(simbolo) != null;
     }
 
     public String getTipoSimbolo(String simbolo) {
-        String tipoDoSimboloNaTabela = tabela.get(simbolo);
+        String tipoDoSimboloNaTabela = tabelaDeTipos.get(simbolo);
         return tipoDoSimboloNaTabela;
     }
 
@@ -43,7 +42,11 @@ public class TabelaDeSimbolos {
         ponteirosParaVariaveisDeResultado.add(identificador);
     }
 
-    public boolean verificaSeExisteVariavelDeResultado(String identificador) {
-        return ponteirosParaVariaveisDeResultado.contains(identificador);
+    public String getValor(String identificador) {
+        return tabelaDeValores.get(identificador);
+    }
+
+    public void atualizaValor(String identificador, String novoValor) {
+        tabelaDeValores.put(identificador, novoValor);
     }
 }
