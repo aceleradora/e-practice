@@ -1,5 +1,6 @@
 package unitario.model.calculadora;
 
+import models.TabelaDeSimbolos;
 import models.calculadora.CalculadoraDeResultado;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,11 +13,13 @@ import static org.junit.Assert.assertThat;
 public class CalculadoraDeResultadoTeste {
     private ArrayList<String> postfix;
     private CalculadoraDeResultado calculadora;
+    private TabelaDeSimbolos tabelaDeSimbolos;
 
     @Before
     public void setUp() throws Exception {
         postfix = new ArrayList<String>();
-        calculadora = new CalculadoraDeResultado();
+        tabelaDeSimbolos = new TabelaDeSimbolos();
+        calculadora = new CalculadoraDeResultado(tabelaDeSimbolos);
     }
 
     @Test
@@ -63,5 +66,33 @@ public class CalculadoraDeResultadoTeste {
 
         int resultado = calculadora.calculaOperacaoAPartirDoPostFix(postfix);
         assertThat(resultado, is(5));
+    }
+
+    @Test
+    public void retornaTresQuandoValidaOPostFixXDoisSomaEAVariavelXTemValorUm() throws Exception {
+        postfix.add("x");
+        postfix.add("2");
+        postfix.add("+");
+        tabelaDeSimbolos.adicionaSimbolo("x", "Inteiro");
+        tabelaDeSimbolos.atualizaValor("x", "1");
+
+        int resultado = calculadora.calculaOperacaoAPartirDoPostFix(postfix);
+        assertThat(resultado, is(3));
+    }
+
+    @Test
+    public void retorna21QuanfdoValidaPostFixTresXYSomaMultiplicacaoEAVariavelXTemValor2EVariavelYTemValor5() throws Exception {
+        postfix.add("3");
+        postfix.add("x");
+        postfix.add("y");
+        postfix.add("+");
+        postfix.add("*");
+        tabelaDeSimbolos.adicionaSimbolo("x", "Inteiro");
+        tabelaDeSimbolos.adicionaSimbolo("y", "Inteiro");
+        tabelaDeSimbolos.atualizaValor("x", "2");
+        tabelaDeSimbolos.atualizaValor("y", "5");
+
+        int resultado = calculadora.calculaOperacaoAPartirDoPostFix(postfix);
+        assertThat(resultado, is(21));
     }
 }
