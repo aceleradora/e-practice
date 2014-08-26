@@ -55,7 +55,6 @@ public class ExercicioTeste {
                 Exercicio exercicioDoBanco = new Exercicio();
 
                 List<Exercicio> listaDeExercicios = exercicioDoBanco.todosNaoResolvidos();
-
                 assertThat(2, is(listaDeExercicios.size()));
             }
         });
