@@ -72,13 +72,19 @@ public class Application extends Controller {
                 exercicio.resolvido = true;
                 exercicio.save();
 
-                usuario.exerciciosResolvidos.add(exercicio);
+                if(!usuario.exerciciosResolvidos.contains(exercicio)) {
+                    usuario.exerciciosResolvidos.add(exercicio);
+                }
+
                 usuario.save();
 
             } catch (Exception e){
                 flash("status", "Erro: Sintaxe não reconhecida.");
                 flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
-                exercicio.save();
+
+                if(exercicio != null) {
+                    exercicio.save();
+                }
             }
             return redirect(routes.Application.solucoes());
         }
