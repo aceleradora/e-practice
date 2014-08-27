@@ -147,7 +147,7 @@ public class Application extends Controller {
         if (existeExercicioNoBanco()) {
             if (existeMaisDeUmExercicioNoBanco()) {
                 while (exercicioSorteadoForOMesmoQueEstavaNaSessao()) {
-                    exercicio = seletorAleatorioExercicio.buscaExercicioNaoResolvido(usuario);
+                    exercicio = seletorAleatorioExercicio.buscaExercicioNaoResolvido();
                 }
             }
             idAtual = exercicio.id;
@@ -159,8 +159,8 @@ public class Application extends Controller {
 
     private static void inicializaExercicioESeletorAleatorio() {
         exercicio = new Exercicio();
-        seletorAleatorioExercicio = new SeletorAleatorioExercicio(exercicio);
-        exercicio = seletorAleatorioExercicio.buscaExercicioNaoResolvido(usuario);
+        seletorAleatorioExercicio = new SeletorAleatorioExercicio(usuario);
+        exercicio = seletorAleatorioExercicio.buscaExercicioNaoResolvido();
     }
 
     private static boolean existeMaisDeUmExercicioNoBanco() {

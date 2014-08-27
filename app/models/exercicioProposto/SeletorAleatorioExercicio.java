@@ -6,15 +6,13 @@ import java.util.List;
 import java.util.Random;
 
 public class SeletorAleatorioExercicio {
-    private Exercicio exercicio;
+    private Usuario usuario;
 
-    public SeletorAleatorioExercicio(Exercicio exercicio) {
-        this.exercicio = exercicio;
+    public SeletorAleatorioExercicio(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public Exercicio buscaExercicioNaoResolvido(Usuario usuario) {
-
-//        List<Exercicio> list = exercicio.todosNaoResolvidos();
+    public Exercicio buscaExercicioNaoResolvido() {
         List<Exercicio> list = usuario.todosNaoResolvidos();
         if (list.isEmpty()) {
             return null;
