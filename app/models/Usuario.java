@@ -19,4 +19,10 @@ public class Usuario extends Model {
     public List<Exercicio> exerciciosResolvidos = new ArrayList<Exercicio>();
 
 
+    public List<Exercicio> todosNaoResolvidos() {
+        Exercicio exercicio = new Exercicio();
+        List<Exercicio> todos = exercicio.todos();
+        todos.removeAll(exerciciosResolvidos);
+        return todos;
+    }
 }

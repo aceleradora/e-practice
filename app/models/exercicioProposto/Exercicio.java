@@ -54,6 +54,10 @@ public class Exercicio extends Model{
         return find.where().eq("resolvido", false).findList();
     }
 
+    public List<Exercicio> todos() {
+        return find.all();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
