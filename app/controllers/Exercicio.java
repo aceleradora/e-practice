@@ -45,7 +45,7 @@ public class Exercicio extends Controller {
         exercicio3.possivelSolucao = new SolucaoDoExercicio("Solução");
         exercicio3.save();
 
-        return redirect(routes.Application.selecionaProximoExercicio());
+        return redirect(routes.Application.index());
     }
 
 }
