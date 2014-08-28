@@ -11,11 +11,11 @@ POST    /solucoes                   controllers.Application.novaSolucao()
 GET     /solucoes/proximo-exercicio controllers.Application.selecionaProximoExercicio()
 GET     /solucoes/:id/deletar       controllers.Application.deletaSolucao(id: Integer)
 
+# Exercicio
+GET     /cria-exercicios            controllers.Exercicio.criaExercicios()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 #Ajax - respostas Json
-GET     /solucoes/aba-default/:aba       controllers.Application.setaAbaAtual(aba: String)
-
-# Salva novo exercicio - soluçao temporaria
-GET     /solucoes/cria-exercicios    controllers.Application.criaExercicios()
+GET     /solucoes/aba-default/:aba       controllers.Aba.setaAbaAtual(aba: String)

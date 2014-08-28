@@ -1,5 +1,6 @@
 package unitario.controller;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import play.libs.F;
 import play.mvc.Result;
@@ -9,7 +10,6 @@ import java.util.HashMap;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.fluentlenium.core.filter.FilterConstructor.withName;
-import static org.junit.Assert.assertEquals;
 import static play.test.Helpers.*;
 
 public class ApplicationTest {
@@ -20,19 +20,6 @@ public class ApplicationTest {
                 Result result;
 
                 result = callAction(controllers.routes.ref.Application.index());
-
-                assertThat(status(result)).isEqualTo(SEE_OTHER);
-            }
-        });
-    }
-
-    @Test
-    public void quandoChamaOMetodoCriaExerciciosRedirecionaParaOutraRota() {
-        running(fakeApplication(), new Runnable() {
-            public void run() {
-                Result result;
-
-                result = callAction(controllers.routes.ref.Application.criaExercicios());
 
                 assertThat(status(result)).isEqualTo(SEE_OTHER);
             }
@@ -58,18 +45,18 @@ public class ApplicationTest {
         assertThat(result).isNull();
     }
 
+    @Ignore
     @Test
     public void quandoPostaNovaSolucaoRetornaMensagemDeSucesso() throws Exception {
-
         running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {
             public void invoke(TestBrowser browser) {
 
                 browser.goTo(System.getenv("URL_ENVIRONMENT"));
-                browser.fill("#solucaoDoUsuario").with("var x  = 1");
+                browser.fill("#solucaoDoUsuario").with("varres x : Inteiro\nx = 42");
                 browser.$("#botaoDeEnviar").click();
                 browser.$("#solucaoDoUsuario").submit();
 
-                assertThat(browser.url()).isEqualTo(System.getenv("URL_ENVIRONMENT")+"/solucoes");
+                assertThat(browser.url()).isEqualTo(System.getenv("URL_ENVIRONMENT") + "/solucoes");
                 assertThat(browser.$("#status", 0).getText()).isEqualTo("Status: sua solução foi salva com sucesso!");
             }
         });
@@ -107,5 +94,4 @@ public class ApplicationTest {
             }
         });
     }
-
 }

@@ -1,6 +1,5 @@
 package controllers;
 
-import com.avaje.ebean.Ebean;
 import models.MensagemDeFeedback;
 import models.SolucaoDoExercicio;
 import models.Usuario;
@@ -12,7 +11,6 @@ import play.mvc.Result;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class Application extends Controller {
 
@@ -28,12 +26,14 @@ public class Application extends Controller {
     }
 
     public static Result index() {
-        return redirect(routes.Application.criaExercicios());
+        usuario = new Usuario();
+        usuario.save();
+        return redirect(routes.Application.selecionaProximoExercicio());
     }
 
     public static Result selecionaProximoExercicio(){
         setaExercicioNaSecao();
-        criaSessaoParaAbas("tabLink1");
+        Aba.criaSessaoParaAbas("tabLink1");
         return redirect(routes.Application.solucoes());
     }
 
@@ -49,17 +49,22 @@ public class Application extends Controller {
     public static Result novaSolucao() throws Exception {
         Form<SolucaoDoExercicio> formPreenchido = solucaoDoExercicioForm.bindFromRequest();
 
-        criaSessaoParaAbas("tabLink3");
+        Aba.criaSessaoParaAbas("tabLink3");
 
         if(formPreenchido.hasErrors()){
             flash("status", "Status: erro!");
             return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido));
         } else{
+            String a = "";
+            String b = "";
+            String c = "";
+            String d = "";
             try{
                 Map<String, String> solucao = formPreenchido.data();
                 SolucaoDoExercicio solucaoDoUsuario = new SolucaoDoExercicio(solucao.get("solucaoDoUsuario"));
                 solucaoDoUsuario.setExercicio(exercicio);
                 solucaoDoUsuario.idDoUsuario = usuario.id;
+
                 solucaoDoUsuario.save();
 
                 mensagemDeFeedback = new MensagemDeFeedback(formPreenchido.get().solucaoDoUsuario);
@@ -68,65 +73,26 @@ public class Application extends Controller {
                 flash("mensagemDeFeedback", mensagemDeFeedback.mostraMensagem());
                 flash("status", "Status: sua solução foi salva com sucesso!");
 
-                exercicio.save();
+                a = " A ";
 
                 if(!usuario.exerciciosResolvidos.contains(exercicio)) {
+                    b = " B ";
                     usuario.exerciciosResolvidos.add(exercicio);
+                    c = " C ";
+                    usuario.save();
+                    d = " D ";
                 }
 
-                usuario.save();
-
             } catch (Exception e){
-                flash("status", "Erro: Sintaxe não reconhecida.");
+                flash("status", "Erro: Sintaxe não reconhecida." + a + b + c + d);
                 flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
 
-                if(exercicio != null) {
-                    exercicio.save();
+                if(solucaoDoExercicio != null) {
+                    solucaoDoExercicio.save();
                 }
             }
             return redirect(routes.Application.solucoes());
         }
-    }
-
-    public static Result criaExercicios() {
-        List<Usuario> todosUsuarios = Ebean.find(Usuario.class).findList();
-        List<SolucaoDoExercicio> todasSolucoes = Ebean.find(SolucaoDoExercicio.class).findList();
-        List<Exercicio> todosExercicios = Ebean.find(Exercicio.class).findList();
-
-        for(Usuario usuario: todosUsuarios){
-            Ebean.deleteManyToManyAssociations(usuario, "exerciciosResolvidos");
-        }
-
-        Ebean.delete(todasSolucoes);
-        Ebean.delete(todosExercicios);
-        Ebean.delete(todosUsuarios);
-
-
-        Exercicio exercicio1 = new Exercicio();
-        exercicio1.enunciado = "Dados 3 valores inteiros 5, 12, e 20, calcule:\n" +
-                "a) A soma dos três valores;\n" +
-                "b) A multiplicação dos 3 valores;\n" +
-                "c) A média aritmética dos três valores.";
-        exercicio1.possivelSolucao = new SolucaoDoExercicio("Solução");
-        exercicio1.save();
-
-        Exercicio exercicio2 = new Exercicio();
-        exercicio2.enunciado = "As colunas que sustentam a cobertura no Estádio Beira-Rio são de formato " +
-                "cilindrico, sabendo que as colunas tem 40m de altura e 8 metros de largura, calcule " +
-                "o volume de cimento usado para construir estas colunas.";
-        exercicio2.possivelSolucao = new SolucaoDoExercicio("Solução");
-        exercicio2.save();
-
-        Exercicio exercicio3 = new Exercicio();
-        exercicio3.enunciado = "Compute a string resultante de se justapor as palavras \"casa\" com a palavra " +
-                "\"mento\" e a palavra \"rápido\". ";
-        exercicio3.possivelSolucao = new SolucaoDoExercicio("Solução");
-        exercicio3.save();
-
-        usuario = new Usuario();
-        usuario.save();
-
-        return redirect(routes.Application.selecionaProximoExercicio());
     }
 
     public static Result deletaSolucao(int id) {
@@ -169,24 +135,4 @@ public class Application extends Controller {
     private static boolean existeExercicioNoBanco() {
         return exercicio != null;
     }
-
-    public static Result setaAbaAtual(String aba) {
-        criaSessaoParaAbas(aba);
-
-        return ok("{aba-ativa: " + aba + "}");
-    }
-
-    private static void criaSessaoParaAbas(String aba) {
-        session("tabLink1", "");
-        session("tabLink2", "");
-        session("tabLink3", "");
-        session(aba, "active");
-    }
-
-    private static String geraNovoIdDeUsuario(){
-        Random random = new Random();
-        int randomInteiro = random.nextInt();
-        return String.valueOf(randomInteiro);
-    }
-
 }
