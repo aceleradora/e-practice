@@ -4,7 +4,7 @@ import models.TabelaDeSimbolos;
 import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
 import models.arvore.PostFix;
-import models.calculadora.CalculadoraDeResultado;
+import models.resolveOperacoes.CalculadoraDeResultado;
 
 import java.util.ArrayList;
 

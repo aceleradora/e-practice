@@ -1,7 +1,7 @@
-package unitario.model.calculadora;
+package unitario.model.resolveOperacoes;
 
 import models.TabelaDeSimbolos;
-import models.calculadora.CalculadoraDeResultado;
+import models.resolveOperacoes.CalculadoraDeResultado;
 import org.junit.Before;
 import org.junit.Test;
 
