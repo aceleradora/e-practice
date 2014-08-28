@@ -136,4 +136,5 @@ public class PostFixTeste {
         resultado = posFix.criaPosfix(tokens);
         assertEquals(resultado,espera);
     }
+
 }

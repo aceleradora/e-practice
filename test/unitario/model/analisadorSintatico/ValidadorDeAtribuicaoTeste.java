@@ -4,6 +4,7 @@ import models.analisadorLexico.IdentificadorDeToken;
 import models.analisadorLexico.Lexer;
 import models.analisadorSintatico.ValidadorDeAtribuicao;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -168,6 +169,7 @@ public class ValidadorDeAtribuicaoTeste {
 
     }
 
+    @Ignore
     @Test
     public void retornaTrueQuandoOTerceiroTokenForUmSinalDeAdicao() throws Exception {
         ArrayList<String> tokens = lexer.tokenizar("abacaxi = + 1");
@@ -178,6 +180,7 @@ public class ValidadorDeAtribuicaoTeste {
 
     }
 
+    @Ignore
     @Test
     public void retornaTrueQuandoTerceiroTokenForUmSinalDeSubtracao() throws Exception {
         ArrayList<String> tokens = lexer.tokenizar("abacaxi = +1");
