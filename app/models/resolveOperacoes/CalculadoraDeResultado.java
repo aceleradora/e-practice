@@ -1,4 +1,4 @@
-package models.calculadora;
+package models.resolveOperacoes;
 
 import java.util.ArrayList;
 import java.util.Stack;
