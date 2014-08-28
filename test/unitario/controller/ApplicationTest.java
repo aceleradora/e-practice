@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.fluentlenium.core.filter.FilterConstructor.withName;
-import static org.junit.Assert.assertEquals;
 import static play.test.Helpers.*;
 
 public class ApplicationTest {
@@ -47,7 +46,6 @@ public class ApplicationTest {
 
     @Test
     public void quandoPostaNovaSolucaoRetornaMensagemDeSucesso() throws Exception {
-
         running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {
             public void invoke(TestBrowser browser) {
 
@@ -94,5 +92,4 @@ public class ApplicationTest {
             }
         });
     }
-
 }
