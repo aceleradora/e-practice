@@ -45,23 +45,6 @@ public class ApplicationTest {
         assertThat(result).isNull();
     }
 
-    @Ignore
-    @Test
-    public void quandoPostaNovaSolucaoRetornaMensagemDeSucesso() throws Exception {
-        running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {
-            public void invoke(TestBrowser browser) {
-
-                browser.goTo(System.getenv("URL_ENVIRONMENT"));
-                browser.fill("#solucaoDoUsuario").with("varres x : Inteiro\nx = 42");
-                browser.$("#botaoDeEnviar").click();
-                browser.$("#solucaoDoUsuario").submit();
-
-                assertThat(browser.url()).isEqualTo(System.getenv("URL_ENVIRONMENT") + "/solucoes");
-                assertThat(browser.$("#status", 0).getText()).isEqualTo("Status: sua solução foi salva com sucesso!");
-            }
-        });
-    }
-
     @Test
     public void mantemASolucaoNaCaixaDeTextoAposEnviarASolucao() throws Exception {
         running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {
