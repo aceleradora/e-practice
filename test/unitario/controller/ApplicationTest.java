@@ -1,5 +1,6 @@
 package unitario.controller;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import play.libs.F;
 import play.mvc.Result;
@@ -44,6 +45,7 @@ public class ApplicationTest {
         assertThat(result).isNull();
     }
 
+    @Ignore
     @Test
     public void quandoPostaNovaSolucaoRetornaMensagemDeSucesso() throws Exception {
         running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {
@@ -54,7 +56,7 @@ public class ApplicationTest {
                 browser.$("#botaoDeEnviar").click();
                 browser.$("#solucaoDoUsuario").submit();
 
-                assertThat(browser.url()).isEqualTo(System.getenv("URL_ENVIRONMENT")+"/solucoes");
+                assertThat(browser.url()).isEqualTo(System.getenv("URL_ENVIRONMENT") + "/solucoes");
                 assertThat(browser.$("#status", 0).getText()).isEqualTo("Status: sua solução foi salva com sucesso!");
             }
         });
