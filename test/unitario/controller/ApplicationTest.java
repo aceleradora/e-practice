@@ -52,7 +52,7 @@ public class ApplicationTest {
             public void invoke(TestBrowser browser) {
 
                 browser.goTo(System.getenv("URL_ENVIRONMENT"));
-                browser.fill("#solucaoDoUsuario").with("var x  = 1");
+                browser.fill("#solucaoDoUsuario").with("varres x : Inteiro\nx = 42");
                 browser.$("#botaoDeEnviar").click();
                 browser.$("#solucaoDoUsuario").submit();
 
