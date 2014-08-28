@@ -27,19 +27,6 @@ public class ApplicationTest {
     }
 
     @Test
-    public void quandoChamaOMetodoCriaExerciciosRedirecionaParaOutraRota() {
-        running(fakeApplication(), new Runnable() {
-            public void run() {
-                Result result;
-
-                result = callAction(controllers.routes.ref.Application.criaExercicios());
-
-                assertThat(status(result)).isEqualTo(SEE_OTHER);
-            }
-        });
-    }
-
-    @Test
     public void rotaSolucoesComMetodoPostDeveRenderizarUmaView() throws Exception {
         running(fakeApplication(), new Runnable() {
             public void run() {
