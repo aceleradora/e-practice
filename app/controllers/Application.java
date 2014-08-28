@@ -55,10 +55,6 @@ public class Application extends Controller {
             flash("status", "Status: erro!");
             return badRequest(views.html.index.render(SolucaoDoExercicio.all(), formPreenchido));
         } else{
-            String a = "";
-            String b = "";
-            String c = "";
-            String d = "";
             try{
                 Map<String, String> solucao = formPreenchido.data();
                 SolucaoDoExercicio solucaoDoUsuario = new SolucaoDoExercicio(solucao.get("solucaoDoUsuario"));
@@ -73,18 +69,13 @@ public class Application extends Controller {
                 flash("mensagemDeFeedback", mensagemDeFeedback.mostraMensagem());
                 flash("status", "Status: sua solução foi salva com sucesso!");
 
-                a = " A ";
-
                 if(!usuario.exerciciosResolvidos.contains(exercicio)) {
-                    b = " B ";
                     usuario.exerciciosResolvidos.add(exercicio);
-                    c = " C ";
                     usuario.save();
-                    d = " D ";
                 }
 
             } catch (Exception e){
-                flash("status", "Erro: Sintaxe não reconhecida." + a + b + c + d);
+                flash("status", "Erro: Sintaxe não reconhecida.");
                 flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
 
                 if(solucaoDoExercicio != null) {
