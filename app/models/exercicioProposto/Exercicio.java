@@ -6,7 +6,6 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,9 +26,6 @@ public class Exercicio extends Model{
     @Column(columnDefinition = "TEXT")
     public SolucaoDoExercicio solucaoDoProfessor;
 
-    @Column(columnDefinition = "boolean DEFAULT false")
-    public boolean resolvido = false;
-
     @OneToMany
     List<SolucaoDoExercicio> solucoesDoUsuario;
 
@@ -38,21 +34,16 @@ public class Exercicio extends Model{
 
     public Exercicio() {}
 
-    public Exercicio(String enunciado, SolucaoDoExercicio possivelSolucao, boolean resolvido, SolucaoDoExercicio solucaoDoProfessor) {
+    public Exercicio(String enunciado, SolucaoDoExercicio possivelSolucao, SolucaoDoExercicio solucaoDoProfessor) {
 
         this.enunciado = enunciado;
         this.possivelSolucao = possivelSolucao;
         this.solucaoDoProfessor = solucaoDoProfessor;
-        this.resolvido = resolvido;
     }
 
     private static Model.Finder<Integer,Exercicio> find = new Model.Finder(
             Integer.class, Exercicio.class
     );
-
-    public List<Exercicio> todosNaoResolvidos() {
-        return find.where().eq("resolvido", false).findList();
-    }
 
     public List<Exercicio> todos() {
         return find.all();
