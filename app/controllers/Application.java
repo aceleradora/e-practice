@@ -28,7 +28,6 @@ public class Application extends Controller {
     }
 
     public static Result index() {
-        session("id", geraNovoIdDeUsuario());
         return redirect(routes.Application.criaExercicios());
     }
 
@@ -60,7 +59,7 @@ public class Application extends Controller {
                 Map<String, String> solucao = formPreenchido.data();
                 SolucaoDoExercicio solucaoDoUsuario = new SolucaoDoExercicio(solucao.get("solucaoDoUsuario"));
                 solucaoDoUsuario.setExercicio(exercicio);
-                solucaoDoUsuario.idDoUsuario = Integer.parseInt(session("id"));
+                solucaoDoUsuario.idDoUsuario = usuario.id;
                 solucaoDoUsuario.save();
 
                 mensagemDeFeedback = new MensagemDeFeedback(formPreenchido.get().solucaoDoUsuario);
@@ -69,7 +68,6 @@ public class Application extends Controller {
                 flash("mensagemDeFeedback", mensagemDeFeedback.mostraMensagem());
                 flash("status", "Status: sua solução foi salva com sucesso!");
 
-                exercicio.resolvido = true;
                 exercicio.save();
 
                 if(!usuario.exerciciosResolvidos.contains(exercicio)) {
@@ -110,7 +108,6 @@ public class Application extends Controller {
                 "b) A multiplicação dos 3 valores;\n" +
                 "c) A média aritmética dos três valores.";
         exercicio1.possivelSolucao = new SolucaoDoExercicio("Solução");
-        exercicio1.resolvido = false;
         exercicio1.save();
 
         Exercicio exercicio2 = new Exercicio();
@@ -118,14 +115,12 @@ public class Application extends Controller {
                 "cilindrico, sabendo que as colunas tem 40m de altura e 8 metros de largura, calcule " +
                 "o volume de cimento usado para construir estas colunas.";
         exercicio2.possivelSolucao = new SolucaoDoExercicio("Solução");
-        exercicio2.resolvido = false;
         exercicio2.save();
 
         Exercicio exercicio3 = new Exercicio();
         exercicio3.enunciado = "Compute a string resultante de se justapor as palavras \"casa\" com a palavra " +
                 "\"mento\" e a palavra \"rápido\". ";
         exercicio3.possivelSolucao = new SolucaoDoExercicio("Solução");
-        exercicio3.resolvido = false;
         exercicio3.save();
 
         usuario = new Usuario();

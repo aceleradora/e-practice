@@ -35,7 +35,7 @@ public class ValidadorDeResultadoTeste {
         possivelSolucao = new SolucaoDoExercicio("2");
         solucaoDoProfessor = new SolucaoDoExercicio("resultado = 2");
         lexer = new Lexer();
-        exercicio = new Exercicio("enunciado 1 + 1", possivelSolucao, false, solucaoDoProfessor);
+        exercicio = new Exercicio("enunciado 1 + 1", possivelSolucao, solucaoDoProfessor);
         tokens = lexer.tokenizar(solucaoDoUsuario.getSolucaoDoUsuario());
     }
 
