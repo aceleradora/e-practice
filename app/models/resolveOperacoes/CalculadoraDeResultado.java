@@ -1,5 +1,7 @@
 package models.resolveOperacoes;
 
+import models.TabelaDeSimbolos;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -7,6 +9,11 @@ public class CalculadoraDeResultado {
     private int primeiroOperando;
     private int segundoOperando;
     private Stack<Integer> pilhaDeNumeros;
+    private TabelaDeSimbolos tabelaDeSimbolos;
+
+    public CalculadoraDeResultado(TabelaDeSimbolos tabelaDeSimbolos) {
+        this.tabelaDeSimbolos = tabelaDeSimbolos;
+    }
 
     public int calculaOperacaoAPartirDoPostFix(ArrayList<String> postfix) {
         pilhaDeNumeros = new Stack<Integer>();
@@ -21,8 +28,15 @@ public class CalculadoraDeResultado {
         return pilhaDeNumeros.pop();
     }
 
-    private Integer colocaOperandoNaPilha(String elemento) {
-        return pilhaDeNumeros.push(Integer.parseInt(elemento));
+    private void colocaOperandoNaPilha(String elemento) {
+        if (operandoEVariavel(elemento))
+            pilhaDeNumeros.push(Integer.parseInt(tabelaDeSimbolos.getValor(elemento)));
+        else
+            pilhaDeNumeros.push(Integer.parseInt(elemento));
+    }
+
+    private boolean operandoEVariavel(String elemento) {
+        return tabelaDeSimbolos.simboloExiste(elemento);
     }
 
     private Integer devolveParaAPilhaOResultadoDaOperacao(String elemento) {

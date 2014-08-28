@@ -48,7 +48,7 @@ public class MensagemDeFeedback {
         this.quebradorDeCodigoEmLinhas = new QuebradorDeCodigoEmLinhas();
         this.gerenciadorSintatico = new GerenciadorSintatico(lexer, identificadorDeToken, validadorDeDeclaracaoSintatico, validadorDeAtribuicaoSintatico, validadorDeOperacoesAritmeticasSintatico, validadorDeConcatenacaoSintatico, validadorGenericoSintatico);
         this.gerenciadorSemantico = new GerenciadorSemantico(validadorDeDeclaracaoSemantico, validadorDeAtribuicaoSemantico, validadorDeConcatenacaoSemantico, validadorDeOperacoesAritmeticasSemantico, validadorGenericoSemantico);
-        this.gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas);
+        this.gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos);
         this.solucaoDoExercicio = new SolucaoDoExercicio(codigo);
 
     }

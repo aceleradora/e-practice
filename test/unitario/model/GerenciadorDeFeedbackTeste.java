@@ -1,6 +1,7 @@
 package unitario.model;
 
 import models.GerenciadorDeFeedback;
+import models.TabelaDeSimbolos;
 import models.analisadorLexico.QuebradorDeCodigoEmLinhas;
 import models.analisadorSemantico.GerenciadorSemantico;
 import models.analisadorSintatico.GerenciadorSintatico;
@@ -22,9 +23,11 @@ public class GerenciadorDeFeedbackTeste {
     @Mock private GerenciadorSemantico gerenciadorSemantico;
     @Mock private QuebradorDeCodigoEmLinhas quebradorDeCodigo;
     private GerenciadorDeFeedback gerenciadorDeFeedback;
+    private TabelaDeSimbolos tabelaDeSimbolos;
 
     @Before
     public void setUp() throws Exception {
+        tabelaDeSimbolos = new TabelaDeSimbolos();
         ArrayList<String> linhaUnica = new ArrayList<String>();
         linhaUnica.add("var x : String");
 
@@ -45,7 +48,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboUmCodigoComTresExpressoesEntaoOMetodoQuebraSeraChamado() throws Exception {
         String codigo = "var x : String \n x = 1 \n x = x + 1";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
 
         verify(quebradorDeCodigo, times(1)).quebra(codigo);
     }
@@ -55,7 +58,7 @@ public class GerenciadorDeFeedbackTeste {
         String codigo = "var x : String\n x = \"casa\"";
         String linha1 = "var x : String";
         String linha2 = "x = \"casa\"";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
 
         gerenciadorDeFeedback.pegaFeedback();
 
@@ -71,7 +74,7 @@ public class GerenciadorDeFeedbackTeste {
         String linha1 = "var x : String";
         String linha2 = "x = \"casa\"";
 
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
 
         gerenciadorDeFeedback.pegaFeedback();
 
@@ -82,7 +85,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueFoiRebebidoUmCodigoComTresExpressoesEntaoChamaTresVezesInterpreta() throws Exception {
         String codigo = "var x : String \n x = 1 \n x = x + 1";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
 
         gerenciadorDeFeedback.pegaFeedback();
 

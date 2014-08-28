@@ -1,0 +1,10 @@
+ id  |                                                                                                      enunciado                                                                                                       | resolvido 
+-----+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------
+ 221 | Dados 3 valores inteiros 5, 12, e 20, calcule:                                                                                                                                                                      +| f
+     | a) A soma dos três valores;                                                                                                                                                                                         +| 
+     | b) A multiplicação dos 3 valores;                                                                                                                                                                                   +| 
+     | c) A média aritmética dos três valores.                                                                                                                                                                              | 
+ 222 | As colunas que sustentam a cobertura no Estádio Beira-Rio são de formato cilindrico, sabendo que as colunas tem 40m de altura e 8 metros de largura, calcule o volume de cimento usado para construir estas colunas. | f
+ 223 | Compute a string resultante de se justapor as palavras "casa" com a palavra "mento" e a palavra "rápido".                                                                                                            | f
+(3 rows)
+

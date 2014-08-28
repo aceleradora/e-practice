@@ -15,58 +15,59 @@ public class ValidadorDeAtribuicao implements Validador {
         this.identificadorDeToken = new IdentificadorDeToken();
     }
 
-    public boolean validaVariavel() {
-        boolean retorno = false;
-        if(tabelaDeSimbolos.simboloExiste(tokens.get(0))) {
-            retorno = true;
+    public boolean valida(ArrayList<String> tokens) {
+        this.tokens = tokens;
+        if (validaVariavel() && validaExpressao()) {
+            if (identificadorDeToken.identifica(tokens.get(2)).equals("NUMERO") || identificadorDeToken.identifica(tokens.get(2)).equals("CONSTANTE_TIPO_STRING"))
+                tabelaDeSimbolos.atualizaValor(tokens.get(0), tokens.get(2));
+            else
+                tabelaDeSimbolos.atualizaValor(tokens.get(0), tabelaDeSimbolos.getValor(tokens.get(2)));
+            return true;
         }
-        return retorno;
+        return false;
     }
 
-    public boolean ehAtribuicaoDeInteirosValida() {
-        if (identificadorDeToken.verificaSeTodasOsCaracteresSaoNumeros(tokens.get(2))
-                || tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(2), "Inteiro")) {
-            if (tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(0), "Inteiro")){
-                return true;
-            }
-            else return false;
+    public String retornaMensagemErro() {
+        if (!validaVariavel()) {
+            return "A variável "+tokens.get(0)+" não foi declarada.";
         }
-        else return false;
+        if(!validaExpressao()) {
+            return "A variável "+tokens.get(0)+" só aceita atribuição de valores do tipo "+tabelaDeSimbolos.getTipoSimbolo(tokens.get(0))+".";
+        }
+        return "";
     }
 
-    public boolean ehAtribuicaoDeStringsSimplesValida() {
-        if (identificadorDeToken.identifica(tokens.get(2)).equals("CONSTANTE_TIPO_STRING")
-                || tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(2), "String")) {
-            if (tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(0), "String")){
-                return true;
-            }
-            else return false;
-        }
-        else return false;
+    private boolean validaVariavel() {
+        return tabelaDeSimbolos.simboloExiste(tokens.get(0));
     }
 
-
-    public boolean validaExpressao() {
+    private boolean validaExpressao() {
         return(ehAtribuicaoDeInteirosValida() || ehAtribuicaoDeStringsSimplesValida());
     }
 
-    @Override
-    public boolean valida(ArrayList<String> tokens) {
-        this.tokens = tokens;
-        return validaVariavel() && validaExpressao();
+    private boolean ehAtribuicaoDeInteirosValida() {
+        return (verificaSeSegundoTokenEhNumeroOuVariavelValida()) && primeiroTokenEhVariavelDoTipoInteiro();
     }
 
-    @Override
-    public String retornaMensagemErro() {
-        String erros = "";
-        if (!validaVariavel()) {
-            erros = "A variável "+tokens.get(0)+" não foi declarada.";
-            return erros;
-        }
-        if(!validaExpressao()) {
-            erros = "A variável "+tokens.get(0)+" só aceita atribuição de valores do tipo "+tabelaDeSimbolos.getTipoSimbolo(tokens.get(0))+".";
-            return erros;
-        }
-        return erros;
+    private boolean primeiroTokenEhVariavelDoTipoInteiro() {
+        return tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(0), "Inteiro");
+    }
+
+    private boolean verificaSeSegundoTokenEhNumeroOuVariavelValida() {
+        return identificadorDeToken.verificaSeTodasOsCaracteresSaoNumeros(tokens.get(2))
+                || tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(2), "Inteiro");
+    }
+
+    private boolean ehAtribuicaoDeStringsSimplesValida() {
+        return (verificaSeSegundoTokenEhConstanteStringOuVariavelString()) && primeiroTokenEhVariavelDoTipoString();
+    }
+
+    private boolean primeiroTokenEhVariavelDoTipoString() {
+        return tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(0), "String");
+    }
+
+    private boolean verificaSeSegundoTokenEhConstanteStringOuVariavelString() {
+        return identificadorDeToken.identifica(tokens.get(2)).equals("CONSTANTE_TIPO_STRING")
+                || tabelaDeSimbolos.verificaSeTipoCombina(tokens.get(2), "String");
     }
 }

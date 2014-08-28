@@ -1,5 +1,6 @@
 package unitario.model.exercicioProposto;
 
+import models.Usuario;
 import models.exercicioProposto.Exercicio;
 import models.exercicioProposto.SeletorAleatorioExercicio;
 import org.junit.Before;
@@ -22,7 +23,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SeletorAleatorioExercicioTeste {
-    @Mock Exercicio exercicio;
+    @Mock Usuario usuario;
     private SeletorAleatorioExercicio seletorAleatorioExercicio;
 
     @Before
@@ -38,10 +39,9 @@ public class SeletorAleatorioExercicioTeste {
         exerciciosQueEstariamNoBanco.add(exercicio3);
         exerciciosQueEstariamNoBanco.add(exercicio4);
 
-        when(exercicio.todosNaoResolvidos()).thenReturn(exerciciosQueEstariamNoBanco);
+        when(usuario.todosNaoResolvidos()).thenReturn(exerciciosQueEstariamNoBanco);
 
-        seletorAleatorioExercicio = new SeletorAleatorioExercicio(exercicio);
-
+        seletorAleatorioExercicio = new SeletorAleatorioExercicio(usuario);
     }
 
     @Test
@@ -61,14 +61,14 @@ public class SeletorAleatorioExercicioTeste {
     public void selecionaUmExercicioAleatorioNaoResolvidoNoBanco() throws Exception {
         seletorAleatorioExercicio.buscaExercicioNaoResolvido();
 
-        verify(exercicio).todosNaoResolvidos();
+        verify(usuario).todosNaoResolvidos();
     }
 
     @Test
     public void dadoQueTenhoUmaListaDeExercicioVaziaQuandoBuscoExercicioEntaoTenhoUmRetornoNull() throws Exception {
         List <Exercicio> exerciciosResolvidos = new ArrayList<Exercicio>();
 
-        when(exercicio.todosNaoResolvidos()).thenReturn(exerciciosResolvidos);
+        when(usuario.todosNaoResolvidos()).thenReturn(exerciciosResolvidos);
 
         assertNull(seletorAleatorioExercicio.buscaExercicioNaoResolvido());
     }

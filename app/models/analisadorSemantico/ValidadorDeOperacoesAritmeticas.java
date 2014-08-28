@@ -3,21 +3,28 @@ package models.analisadorSemantico;
 import models.TabelaDeSimbolos;
 import models.Validador;
 import models.analisadorLexico.IdentificadorDeToken;
-import models.analisadorLexico.Lexer;
+import models.arvore.PostFix;
+import models.calculadora.CalculadoraDeResultado;
 
 import java.util.ArrayList;
 
 public class ValidadorDeOperacoesAritmeticas implements Validador{
 
-    private IdentificadorDeToken identificadorDeToken;
-    private TabelaDeSimbolos tabelaDeSimbolos;
+    private PostFix postFix;
     private ArrayList<String> listaDetokens;
-    String tokenInvalido;
-    int tipoDeErro;
+    private ArrayList<String> tokensParaPosFixar;
+    private TabelaDeSimbolos tabelaDeSimbolos;
+    private IdentificadorDeToken identificadorDeToken;
+    private CalculadoraDeResultado calculadoraDeResultado;
+    private String tokenInvalido;
+    private int tipoDeErro;
 
     public ValidadorDeOperacoesAritmeticas(TabelaDeSimbolos tabela) {
         identificadorDeToken = new IdentificadorDeToken();
         this.tabelaDeSimbolos = tabela;
+        postFix = new PostFix();
+        tokensParaPosFixar = new ArrayList<String>();
+        calculadoraDeResultado = new CalculadoraDeResultado(tabelaDeSimbolos);
     }
 
     public boolean valida(ArrayList<String> tokens) {
@@ -37,15 +44,27 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
                     }
                 }
             }
+        copiaTokensDaExpressaoASerResolvida();
+        int resultado = calculaValorDaExpressaoAritmetica();
+        tabelaDeSimbolos.atualizaValor(listaDetokens.get(0), String.valueOf(resultado));
         return true;
     }
 
-    @Override
     public String retornaMensagemErro() {
         if (tipoDeErro == 1)
             return "A variável " + tokenInvalido + " não foi declarada.";
         if (tipoDeErro == 2)
             return "A variável " + tokenInvalido + " não é do tipo Inteiro.";
         return "";
+    }
+
+    private int calculaValorDaExpressaoAritmetica() {
+        return calculadoraDeResultado.calculaOperacaoAPartirDoPostFix(postFix.criaPosfix(tokensParaPosFixar));
+    }
+
+    private void copiaTokensDaExpressaoASerResolvida() {
+        for (int i = 2; i < listaDetokens.size(); i++) {
+            tokensParaPosFixar.add(listaDetokens.get(i));
+        }
     }
 }

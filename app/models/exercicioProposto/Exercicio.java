@@ -1,13 +1,12 @@
 package models.exercicioProposto;
 
 import models.SolucaoDoExercicio;
+import models.Usuario;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,6 +33,9 @@ public class Exercicio extends Model{
     @OneToMany
     List<SolucaoDoExercicio> solucoesDoUsuario;
 
+    @ManyToMany
+    List<Usuario> usuarios;
+
     public Exercicio() {}
 
     public Exercicio(String enunciado, SolucaoDoExercicio possivelSolucao, boolean resolvido, SolucaoDoExercicio solucaoDoProfessor) {
@@ -50,6 +52,10 @@ public class Exercicio extends Model{
 
     public List<Exercicio> todosNaoResolvidos() {
         return find.where().eq("resolvido", false).findList();
+    }
+
+    public List<Exercicio> todos() {
+        return find.all();
     }
 
     @Override
