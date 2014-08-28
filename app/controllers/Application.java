@@ -68,24 +68,26 @@ public class Application extends Controller {
                 SolucaoDoExercicio solucaoDoUsuario = new SolucaoDoExercicio(solucao.get("solucaoDoUsuario"));
                 solucaoDoUsuario.setExercicio(exercicio);
                 solucaoDoUsuario.idDoUsuario = usuario.id;
-                a = " A ";
+
                 solucaoDoUsuario.save();
 
                 mensagemDeFeedback = new MensagemDeFeedback(formPreenchido.get().solucaoDoUsuario);
-                b = " B ";
 
                 flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
                 flash("mensagemDeFeedback", mensagemDeFeedback.mostraMensagem());
                 flash("status", "Status: sua solução foi salva com sucesso!");
 
-                c = " C ";
+                a = " A ";
                 exercicio.save();
 
+                b = " B ";
+
                 if(!usuario.exerciciosResolvidos.contains(exercicio)) {
+                    c = " C ";
                     usuario.exerciciosResolvidos.add(exercicio);
                 }
 
-                d = "D";
+                d = " D ";
                 usuario.save();
 
             } catch (Exception e){
