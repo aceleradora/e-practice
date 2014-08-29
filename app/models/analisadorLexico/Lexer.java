@@ -81,7 +81,7 @@ public class Lexer {
     }
 
     private void divideTokensEmTokensComUnarios(){
-        ArrayList<String> novosTokens = new ArrayList<>();
+        ArrayList<String> novosTokens = new ArrayList<String>();
         String aux = "";
         boolean verificador=false;
 
