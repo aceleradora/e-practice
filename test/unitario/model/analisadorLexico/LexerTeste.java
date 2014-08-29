@@ -286,6 +286,19 @@ public class LexerTeste {
     }
 
     @Test
+    public void dadoUmAtribuicaoComDoisUnariosRetornaUmaListaDeTokens() throws Exception {
+        tokens = lexer.tokenizar("x = -1 --2");
+        assertThat(tokens.size(), is(5));
+        assertThat(tokens.get(0), is("x"));
+        assertThat(tokens.get(1), is("="));
+        assertThat(tokens.get(2), is("-1"));
+        assertThat(tokens.get(3), is("-"));
+        assertThat(tokens.get(4), is("-2"));
+
+
+    }
+
+    @Test
     public void dadoUmaAtribuicaoComUnarioDentroDeParentesesRetornaUmaListaDeTokens() throws Exception {
         tokens = lexer.tokenizar("x = (-2+3)");
         assertThat(tokens.size(), is(7));
@@ -298,4 +311,22 @@ public class LexerTeste {
         assertThat(tokens.get(6), is(")"));
 
     }
+
+    @Test
+    public void dadoUmaAtribuicaoUmSinalDeSubtracaoAntesDeParentesesRetornaUmaListaDeTokens() throws Exception {
+        tokens = lexer.tokenizar("x = -(-2+3)");
+        assertThat(tokens.size(), is(8));
+        assertThat(tokens.get(0), is("x"));
+        assertThat(tokens.get(1), is("="));
+        assertThat(tokens.get(2), is("-"));
+        assertThat(tokens.get(3), is("("));
+        assertThat(tokens.get(4), is("-2"));
+        assertThat(tokens.get(5), is("+"));
+        assertThat(tokens.get(6), is("3"));
+        assertThat(tokens.get(7), is(")"));
+
+    }
+
+
+
 }
