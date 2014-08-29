@@ -39,7 +39,7 @@ public class VerificadorDeOperacaoTeste {
     private GerenciadorSintatico gerenciadorSintatico = new GerenciadorSintatico(lexer, identificadorDeToken, validadorDeDeclaracaoDeVariavelSintatico, validadorDeAtribuicaoSintatico, validadorDeOperacoesAritmeticasSintatico, validadorDeConcatenacaoDeStringsSintatico, validadorGenericoSintatico);
     private GerenciadorSemantico gerenciadorSemantico = new GerenciadorSemantico(validadorDeDeclaracaoDeVariavelSemantico, validadorDeAtribuicaoSemantico, validadorDeConcatenacaoSemantico, validadorDeOperacoesAritmeticasSemantico, validadorGenericoSemantico);
 
-    private models.GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos);
+    private GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos);
 
     @Test
     public void retornaTantoETantoQuandoTenhoAsExpressoesTalETalNoCanvas() throws Exception {
