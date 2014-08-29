@@ -3,9 +3,6 @@ import models.analisadorLexico.Lexer;
 
 import java.util.ArrayList;
 
-/**
- * Created by alunos5 on 22/08/14.
- */
 public class ValidadorDeVariavelDeResultado{
 
     private ArrayList<ArrayList<String>> linhas;
@@ -17,27 +14,23 @@ public class ValidadorDeVariavelDeResultado{
         lexer = new Lexer();
         tokenizaCodigoDaSolucaoDoUsuario();
     }
+
     public void tokenizaCodigoDaSolucaoDoUsuario() {
         linhas = new ArrayList<ArrayList<String>>();
         for (String linha: codigo) {
             linhas.add(lexer.tokenizar(linha));
         }
-
     }
-
-
 
     public String retornaIDVDoVarres() {
         String retorno = "varres não foi declarado";
         for (int i = 0; i < linhas.size(); i++) {
-                if (linhas.get(i).get(0).equals("varres")){
-                    retorno =  linhas.get(i).get(1);
-                }
+            if (linhas.get(i).get(0).equals("varres")){
+                retorno =  linhas.get(i).get(1);
             }
+        }
         return retorno;
     }
-
-
 
     public boolean valida() {
 
@@ -45,7 +38,6 @@ public class ValidadorDeVariavelDeResultado{
             for(int i = 0; i < linhas.size();i++){
                 if(linhas.get(i).get(0).equals(retornaIDVDoVarres())){
                     return true;
-
                 }
             }
         }
@@ -59,10 +51,4 @@ public class ValidadorDeVariavelDeResultado{
         }
         return mensagem;
     }
-
-
-
-
-
-
 }
