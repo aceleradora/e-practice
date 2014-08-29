@@ -47,11 +47,15 @@ public class GerenciadorSemantico {
             validador = validadorDeOperacaoAritmetica;
         } else if(listaDeTokensContemOperadorDeConcatenacao()) {
             validador = validadorDeConcatenacao;
-        } else if (primeiroTokenIdentificado().equals("IDV")) {
+        } else if (listaDeTokensSoContemUmaAtribuicaoSimples()) {
             validador = validadorDeAtribuicao;
         } else {
             validador = validadorGenerico;
         }
+    }
+
+    private boolean listaDeTokensSoContemUmaAtribuicaoSimples() {
+        return primeiroTokenIdentificado().equals("IDV") && tokens.size() == 3;
     }
 
     private boolean listaDeTokensContemOperadorDeConcatenacao() {

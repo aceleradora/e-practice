@@ -29,6 +29,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
 
     public boolean valida(ArrayList<String> tokens) {
         this.listaDetokens = tokens;
+        tokensParaPosFixar.clear();
         for (int i = 0; i < listaDetokens.size(); i++){
 
                 if ((identificadorDeToken.identifica(listaDetokens.get(i)).equals("IDV"))) {
