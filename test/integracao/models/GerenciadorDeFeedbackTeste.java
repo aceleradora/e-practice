@@ -18,7 +18,6 @@ import static org.hamcrest.core.IsNot.not;
 
 public class GerenciadorDeFeedbackTeste {
 
-
     private GerenciadorSintatico gerenciadorSintatico;
     private GerenciadorSemantico gerenciadorSemantico;
     private QuebradorDeCodigoEmLinhas quebradorDeCodigo;
@@ -42,7 +41,6 @@ public class GerenciadorDeFeedbackTeste {
         models.analisadorSemantico.ValidadorDeAtribuicao validadorDeAtribuicaoSemantico = new models.analisadorSemantico.ValidadorDeAtribuicao(tabelaDeSimbolos);
         models.analisadorSemantico.ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticasSemantico = new models.analisadorSemantico.ValidadorDeOperacoesAritmeticas(tabelaDeSimbolos);
         models.analisadorSemantico.ValidadorDeConcatenacao validadorDeConcatenacaoDeStringSemantico = new models.analisadorSemantico.ValidadorDeConcatenacao(tabelaDeSimbolos);
-
 
         gerenciadorSintatico = builderSintatico.com(lexer)
                 .com(identificadorDeToken)

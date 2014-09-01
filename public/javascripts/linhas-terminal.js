@@ -25,7 +25,7 @@
       objLinha.style.textAlign = 'right';
       objLinha.className='linhaObj';
       var string = '';
-      for(var no=1;no<1000;no++){
+      for(var no=1;no<4200;no++){
          if(string.length>0)string = string + '<br>';
          string = string + no;
       }
