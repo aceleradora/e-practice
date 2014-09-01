@@ -57,26 +57,20 @@ public class Application extends Controller {
         } else{
             try{
                 Map<String, String> solucao = formPreenchido.data();
-                SolucaoDoExercicio solucaoDoUsuario = new SolucaoDoExercicio(solucao.get("solucaoDoUsuario"));
-                solucaoDoUsuario.setExercicio(exercicio);
-                solucaoDoUsuario.idDoUsuario = usuario.id;
 
-                solucaoDoUsuario.save();
+                SolucaoDoExercicio solucaoDoUsuario = new SolucaoDoExercicio(solucao.get("solucaoDoUsuario"));
+                solucaoDoUsuario.criaSolucao(exercicio, usuario.id);
 
                 mensagemDeFeedback = new MensagemDeFeedback(formPreenchido.get().solucaoDoUsuario);
 
-                flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
-                flash("mensagemDeFeedback", mensagemDeFeedback.mostraMensagem());
-                flash("status", "Status: sua solução foi salva com sucesso!");
+                mensagemFlashDeSucesso(formPreenchido);
 
                 if(!usuario.exerciciosResolvidos.contains(exercicio)) {
                     usuario.exerciciosResolvidos.add(exercicio);
                     usuario.save();
                 }
-
             } catch (Exception e){
-                flash("status", "Erro: Sintaxe não reconhecida.");
-                flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
+                mensagemFlashDeErro(formPreenchido);
 
                 if(solucaoDoExercicio != null) {
                     solucaoDoExercicio.save();
@@ -106,6 +100,17 @@ public class Application extends Controller {
         exercicio = new Exercicio();
         seletorAleatorioExercicio = new SeletorAleatorioExercicio(usuario);
         exercicio = seletorAleatorioExercicio.buscaExercicioNaoResolvido();
+    }
+
+    private static void mensagemFlashDeErro(Form<SolucaoDoExercicio> formPreenchido) {
+        flash("status", "Erro: Sintaxe não reconhecida.");
+        flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
+    }
+
+    private static void mensagemFlashDeSucesso(Form<SolucaoDoExercicio> formPreenchido) {
+        flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
+        flash("mensagemDeFeedback", mensagemDeFeedback.mostraMensagem());
+        flash("status", "Status: sua solução foi salva com sucesso!");
     }
 
     private static boolean existeMaisDeUmExercicioNoBanco() {
