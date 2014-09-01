@@ -21,18 +21,19 @@ public class Exercicio extends Model{
 
     @Constraints.Required
     @Column(columnDefinition = "TEXT")
-    public SolucaoDoExercicio solucaoDoProfessor;
+    public String solucaoDoProfessor;
+
+    private ArrayList<String> resultadoDoProfessor;
 
     @OneToMany
     List<SolucaoDoExercicio> solucoesDoUsuario;
 
     @ManyToMany
     List<Usuario> usuarios;
-    private ArrayList<String> resultadoDoProfessor;
 
     public Exercicio() {}
 
-    public Exercicio(String enunciado, SolucaoDoExercicio solucaoDoProfessor) {
+    public Exercicio(String enunciado, String solucaoDoProfessor) {
         this.enunciado = enunciado;
         this.solucaoDoProfessor = solucaoDoProfessor;
     }
@@ -46,11 +47,11 @@ public class Exercicio extends Model{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
 
-        Exercicio exercicio = (Exercicio) o;
+        Exercicio exercicio = (Exercicio) object;
 
         if (!enunciado.equals(exercicio.enunciado)) return false;
 

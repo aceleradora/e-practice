@@ -29,6 +29,7 @@ public class Exercicio extends Controller {
                 "a) A soma dos três valores;\n" +
                 "b) A multiplicação dos 3 valores;\n" +
                 "c) A média aritmética dos três valores.";
+        exercicio1.solucaoDoProfessor = "solucao do professor 1";
         exercicio1.save();
 
         models.exercicioProposto.Exercicio exercicio2 = new models.exercicioProposto.Exercicio();
@@ -36,11 +37,13 @@ public class Exercicio extends Controller {
                 "cilindrico, sabendo que as colunas tem 40m de altura e 8 metros de largura, calcule " +
                 "o volume de cimento usado para construir estas colunas.";
         exercicio2.save();
+        exercicio2.solucaoDoProfessor = "solucao do professor 2";
 
         models.exercicioProposto.Exercicio exercicio3 = new models.exercicioProposto.Exercicio();
         exercicio3.enunciado = "Compute a string resultante de se justapor as palavras \"casa\" com a palavra " +
                 "\"mento\" e a palavra \"rápido\". ";
         exercicio3.save();
+        exercicio3.solucaoDoProfessor = "solucao do professor 3";
 
         return redirect(routes.Application.index());
     }
