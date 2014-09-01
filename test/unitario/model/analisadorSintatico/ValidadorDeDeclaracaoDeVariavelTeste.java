@@ -16,6 +16,7 @@ public class ValidadorDeDeclaracaoDeVariavelTeste {
     public ArrayList<String> tokens = new ArrayList<String>();
     public models.analisadorSintatico.ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoDeVariavel;
     public TabelaDeSimbolos tabelaDeSimbolos;
+    private boolean validacao;
 
     @Before
     public void setUp() throws Exception {
@@ -100,11 +101,87 @@ public class ValidadorDeDeclaracaoDeVariavelTeste {
         tokensVarres.add("x");
         tokensVarres.add(":");
         tokensVarres.add("String");
-        boolean validacao = validadorDeDeclaracaoDeVariavel.valida(tokensVarres);
+        validacao = validadorDeDeclaracaoDeVariavel.valida(tokensVarres);
 
         assertEquals(true, validacao);
     }
 
+    @Test
+    public void retornaFalseQuandoTemUmIDVInvalido() throws Exception {
+        ArrayList<String> tokensVarres = new ArrayList<String>();
+        tokensVarres.add("varres");
+        tokensVarres.add("x!");
+        tokensVarres.add(":");
+        tokensVarres.add("String");
+        validacao = validadorDeDeclaracaoDeVariavel.valida(tokensVarres);
+
+        assertThat(validacao,is(false));
     }
+
+    @Test
+    public void retornaFalseQuandoIDVContemArroba() throws Exception {
+        ArrayList<String> tokensVarres = new ArrayList<String>();
+        tokensVarres.add("varres");
+        tokensVarres.add("abac@xi");
+        tokensVarres.add(":");
+        tokensVarres.add("Inteiro");
+
+        validacao = validadorDeDeclaracaoDeVariavel.valida(tokensVarres);
+
+        assertThat(validacao, is(false));
+    }
+
+    @Test
+    public void retornaFalseQuandoIDVContemHash() throws Exception {
+        ArrayList<String> tokensVarres = new ArrayList<String>();
+        tokensVarres.add("varres");
+        tokensVarres.add("aba#42");
+        tokensVarres.add(":");
+        tokensVarres.add("Inteiro");
+
+        validacao = validadorDeDeclaracaoDeVariavel.valida(tokensVarres);
+
+        assertThat(validacao, is(false));
+    }
+
+    @Test
+    public void retornaFalseQuandoIDVContemCifrao() throws Exception {
+        ArrayList<String> tokensVarres = new ArrayList<String>();
+        tokensVarres.add("varres");
+        tokensVarres.add("a$$ar");
+        tokensVarres.add(":");
+        tokensVarres.add("Inteiro");
+
+        validacao = validadorDeDeclaracaoDeVariavel.valida(tokensVarres);
+
+        assertThat(validacao, is(false));
+    }
+
+    @Test
+    public void retornaFalseQuandoIDVContemPorcentagem() throws Exception {
+        ArrayList<String> tokensVarres = new ArrayList<String>();
+        tokensVarres.add("varres");
+        tokensVarres.add("a%bc");
+        tokensVarres.add(":");
+        tokensVarres.add("String");
+
+        validacao = validadorDeDeclaracaoDeVariavel.valida(tokensVarres);
+
+        assertThat(validacao, is(false));
+    }
+
+    @Test
+    public void retornaFalseQuandoIDVContem() throws Exception {
+        ArrayList<String> tokensVarres = new ArrayList<String>();
+        tokensVarres.add("varres");
+        tokensVarres.add("a$$ar");
+        tokensVarres.add(":");
+        tokensVarres.add("Inteiro");
+
+        validacao = validadorDeDeclaracaoDeVariavel.valida(tokensVarres);
+
+        assertThat(validacao, is(false));
+    }
+}
 
 

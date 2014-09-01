@@ -24,7 +24,18 @@ public class ValidadorDeDeclaracaoDeVariavel implements Validador {
     }
 
     private boolean validaSeSegundoTokenEIdv() {
-        return identificadorDeToken.identifica(tokens.get(1)).equals("IDV");
+        return (identificadorDeToken.identifica(tokens.get(1)).equals("IDV") && idvTemSimbolosValidos(tokens.get(1)));
+    }
+
+    private boolean idvTemSimbolosValidos(String idv) {
+        return !idv.contains("@") && !idv.contains("!") && !idv.contains("#") && !idv.contains("$") && !idv.contains("%")
+            && !idv.contains("¨") && !idv.contains("&") && !idv.contains("*") && !idv.contains("(") && !idv.contains(")")
+            && !idv.contains("-") && !idv.contains("+") && !idv.contains(".") && !idv.contains("²") && !idv.contains("³")
+            && !idv.contains("¹") && !idv.contains("¢") && !idv.contains("¬") && !idv.contains("£") && !idv.contains("^")
+            && !idv.contains("´") && !idv.contains("`") && !idv.contains("/") && !idv.contains("\\") && !idv.contains("°")
+            && !idv.contains("ª") && !idv.contains("º") && !idv.contains("~") && !idv.contains("[") && !idv.contains("]")
+            && !idv.contains("{") && !idv.contains("}") && !idv.contains("?") && !idv.contains(";") && !idv.contains(":")
+            && !idv.contains("<") && !idv.contains(">") && !idv.contains("|") && !idv.contains("§");
     }
 
     private boolean validaSeTerceiroTokenEDoisPontos() {
