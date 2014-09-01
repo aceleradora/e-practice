@@ -86,13 +86,6 @@ public class Application extends Controller {
         }
     }
 
-    public static Result deletaSolucao(int id) {
-        SolucaoDoExercicio.delete(id);
-        flash("status", "Status: deletado!");
-
-        return redirect(routes.Application.solucoes());
-    }
-
     private static void setaExercicioNaSecao() {
         inicializaExercicioESeletorAleatorio();
 

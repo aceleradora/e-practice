@@ -1,6 +1,5 @@
 package unitario.controller;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import play.libs.F;
 import play.mvc.Result;
