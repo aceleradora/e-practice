@@ -21,15 +21,7 @@ public class Exercicio extends Model{
 
     @Constraints.Required
     @Column(columnDefinition = "TEXT")
-    public SolucaoDoExercicio possivelSolucao;
-
-    @Constraints.Required
-    @Column(columnDefinition = "TEXT")
     public SolucaoDoExercicio solucaoDoProfessor;
-
-    @Constraints.Required
-    @Column(columnDefinition = "TEXT")
-    public ArrayList<String> resultadosDoProfessor;
 
     @OneToMany
     List<SolucaoDoExercicio> solucoesDoUsuario;
@@ -40,11 +32,9 @@ public class Exercicio extends Model{
 
     public Exercicio() {}
 
-    public Exercicio(String enunciado, SolucaoDoExercicio possivelSolucao, SolucaoDoExercicio solucaoDoProfessor, ArrayList<String> resultadosDoProfessor) {
+    public Exercicio(String enunciado, SolucaoDoExercicio solucaoDoProfessor) {
         this.enunciado = enunciado;
-        this.possivelSolucao = possivelSolucao;
         this.solucaoDoProfessor = solucaoDoProfessor;
-        this.resultadosDoProfessor = resultadosDoProfessor;
     }
 
     private static Model.Finder<Integer,Exercicio> find = new Model.Finder(
