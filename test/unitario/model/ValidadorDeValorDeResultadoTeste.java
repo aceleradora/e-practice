@@ -17,25 +17,65 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class ValidadorDeValorDeResultadoTeste {
     @Mock Exercicio exercicio;
+    private ArrayList<String> resultadosDoUsuario;
+    ArrayList<String> resultadoDoProfessor;
+    private boolean resultadosSaoIguais;
 
     @Before
     public void setUp() throws Exception {
-        ArrayList<String> resultadoDoProfessor = new ArrayList<String>();
-        resultadoDoProfessor.add("Oi");
-        resultadoDoProfessor.add("Tchau");
+        resultadoDoProfessor = new ArrayList<String>();
+
 
         when(exercicio.getResultadoDoProfessor()).thenReturn(resultadoDoProfessor);
+        resultadosDoUsuario = new ArrayList<String>();
     }
 
     @Test
     public void resultadoDoUsuarioDeveTerOMesmoNumeroDeVarresQueODoResultadoDoProfessor() throws Exception {
         ValidadorDeValorDeResultado validadorDeValorDeResultado = new ValidadorDeValorDeResultado(exercicio);
-        ArrayList<String> resultadosDoUsuario = new ArrayList<String>();
+        resultadoDoProfessor.add("Oi");
+        resultadoDoProfessor.add("Tchau");
+
         resultadosDoUsuario.add("Oi");
         resultadosDoUsuario.add("Tchau");
 
-        boolean resultadosSaoIguais = validadorDeValorDeResultado.comparaResultados(resultadosDoUsuario);
+        resultadosSaoIguais = validadorDeValorDeResultado.comparaResultados(resultadosDoUsuario);
 
         assertThat(resultadosSaoIguais, is(true));
     }
+
+    //TODO: testes com valores Inteiros
+
+    @Test
+    public void resultadoComNumeroDeVariaveisEValoresIguaisAoEsperadoDeveRetornarTrue() throws Exception {
+        ValidadorDeValorDeResultado validadorDeValorDeResultado = new ValidadorDeValorDeResultado(exercicio);
+
+        resultadoDoProfessor.add("5");
+        resultadoDoProfessor.add("8");
+
+        resultadosDoUsuario.add("8");
+        resultadosDoUsuario.add("5");
+
+        resultadosSaoIguais = validadorDeValorDeResultado.comparaResultados(resultadosDoUsuario);
+
+        assertThat(resultadosSaoIguais, is(true));
+    }
+
+    @Test
+    public void resultadoComNumeroDeVariaveisDiferentesEValoresDiferentesDeveRetornarFalse() throws Exception {
+        ValidadorDeValorDeResultado validadorDeValorDeResultado = new ValidadorDeValorDeResultado(exercicio);
+
+        resultadoDoProfessor.add("5");
+        resultadoDoProfessor.add("8");
+        resultadoDoProfessor.add("9");
+
+        resultadosDoUsuario.add("8");
+        resultadosDoUsuario.add("5");
+
+        resultadosSaoIguais = validadorDeValorDeResultado.comparaResultados(resultadosDoUsuario);
+
+        assertThat(resultadosSaoIguais, is(false));
+    }
+
+
 }

@@ -59,4 +59,10 @@ public class SolucaoDoExercicio extends Model{
     public void setExercicio(Exercicio exercicio){
         this.exercicio = exercicio;
     }
+
+    public void criaSolucao(Exercicio exercicio, int id) {
+        setExercicio(exercicio);
+        idDoUsuario = id;
+        save();
+    }
 }

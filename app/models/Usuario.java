@@ -25,4 +25,11 @@ public class Usuario extends Model {
         todos.removeAll(exerciciosResolvidos);
         return todos;
     }
+
+    public void seNaoHouverExercicioResolvidoAdicionaExercicio(Exercicio exercicio) {
+        if(!exerciciosResolvidos.contains(exercicio)) {
+            exerciciosResolvidos.add(exercicio);
+            save();
+        }
+    }
 }
