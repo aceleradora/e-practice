@@ -148,6 +148,6 @@ public class FeedbackRestricaoSemanticaTeste {
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
-        assertThat(mensagem, is("Seu código está correto.\nResultado:  \n"));
+        assertThat(mensagem, is("Seu código está correto.\nResultado: \"\" \n"));
     }
 }

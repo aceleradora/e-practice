@@ -20,6 +20,7 @@ public class Lexer {
             return tokens;
         } else {
             divideAFraseEmTokensEAdicionaNaLista(this.frase);
+            if(tokens.size()>3) divideTokensEmTokensComUnarios();
         }
         return tokens;
     }
@@ -33,6 +34,7 @@ public class Lexer {
         return frase.equals("");
     }
 
+    //TODO - refatorar
     private void divideAFraseEmTokensEAdicionaNaLista(String frase) {
         String palavra = "";
         for (int i = 0; i < frase.length(); i++) {
@@ -52,6 +54,7 @@ public class Lexer {
                         palavra = "";
                     }
                 }
+
 
                 if (i+1 < frase.length()) {
                     if(frase.charAt(i)=='r' && frase.charAt(i+1)=='r' && frase.charAt(i+2)=='e' && frase.charAt(i+3)=='s') {
@@ -78,6 +81,32 @@ public class Lexer {
         }
     }
 
+    private void divideTokensEmTokensComUnarios(){
+        ArrayList<String> novosTokens = new ArrayList<String>();
+        String aux = "";
+        boolean verificador=false;
+
+        for (int i = 0; i < tokens.size(); i++){
+
+                if (tokens.get(i).equals("+") || tokens.get(i).equals("-")){
+                    if(verificaTokenAnterior(i) && verificaSeProximoTokenEhNumero(i)){
+
+                    aux = tokens.get(i) + tokens.get(i+1);
+                    novosTokens.add(aux);
+                        i++;
+                }
+                    else{
+                        novosTokens.add(tokens.get(i));
+                    }
+                }
+                else {
+                    novosTokens.add(tokens.get(i));
+                }
+        }
+
+        if(verificador=true) tokens = novosTokens;
+    }
+
     private String converteCaracterParaString(char caracter) {
         return String.valueOf(caracter);
     }
@@ -98,4 +127,36 @@ public class Lexer {
         listaDeSimbolos.add("<>");
     }
 
+
+    private boolean verificaTokenAnterior(int i){
+        boolean verificador = false;
+
+        if(tokens.get(i-1) == null){
+            return verificador;
+        }
+            if (tokens.get(i-1).equals("=")
+                    || tokens.get(i-1).equals("+")
+                    || tokens.get(i-1).equals("-")
+                    || tokens.get(i-1).equals("*")
+                    || tokens.get(i-1).equals("/")
+                    || tokens.get(i-1).equals("(")){
+            verificador = true;
+            }
+        return verificador;
+    }
+
+    private boolean verificaSeProximoTokenEhNumero(int i){
+        boolean verificador = false;
+
+        if(tokens.get(i+1) == null){
+            return verificador;
+        }
+            if (Character.isDigit(tokens.get(i + 1).charAt(0))){
+            verificador = true;
+        }
+        else if(Character.isLetter(tokens.get(i + 1).charAt(0))){
+            verificador = true;
+        }
+        return verificador;
+    }
 }

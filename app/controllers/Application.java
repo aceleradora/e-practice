@@ -65,10 +65,8 @@ public class Application extends Controller {
 
                 mensagemFlashDeSucesso(formPreenchido);
 
-                if(!usuario.exerciciosResolvidos.contains(exercicio)) {
-                    usuario.exerciciosResolvidos.add(exercicio);
-                    usuario.save();
-                }
+                usuario.seNaoHouverExercicioResolvidoAdicionaExercicio(exercicio);
+
             } catch (Exception e){
                 mensagemFlashDeErro(formPreenchido);
 

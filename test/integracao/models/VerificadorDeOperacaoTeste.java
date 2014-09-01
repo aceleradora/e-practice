@@ -22,6 +22,14 @@ public class VerificadorDeOperacaoTeste {
                             "x = 1 + 3\n" +
                             "y = x + 2";
 
+    private String codigo2 = "varres resultado : String\n" +
+                             "resultado = \"casa\" <> \"velha\"\n";
+
+    private String codigo3 = "varres resultado : String\n" +
+                             "var x : String\n" +
+                             "x = \"casa\"\n" +
+                             "resultado = x <> \"velha\"\n";
+
     private Lexer lexer = new Lexer();
     private TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
     private IdentificadorDeToken identificadorDeToken = new IdentificadorDeToken();
@@ -39,11 +47,24 @@ public class VerificadorDeOperacaoTeste {
     private GerenciadorSintatico gerenciadorSintatico = new GerenciadorSintatico(lexer, identificadorDeToken, validadorDeDeclaracaoDeVariavelSintatico, validadorDeAtribuicaoSintatico, validadorDeOperacoesAritmeticasSintatico, validadorDeConcatenacaoDeStringsSintatico, validadorGenericoSintatico);
     private GerenciadorSemantico gerenciadorSemantico = new GerenciadorSemantico(validadorDeDeclaracaoDeVariavelSemantico, validadorDeAtribuicaoSemantico, validadorDeConcatenacaoSemantico, validadorDeOperacoesAritmeticasSemantico, validadorGenericoSemantico);
 
-    private GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos);
+    @Test
+    public void retornaOResultadoDaOperacaoQuandoTenhoUmaExpressaoAritmeticaNoCanvas() throws Exception {
+        GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos);
+        String feedback = gerenciadorDeFeedback.pegaFeedback();
+        assertThat(feedback, is("Seu código está correto.\nResultado: 4 \nResultado: 6 \n"));
+    }
 
     @Test
-    public void retornaTantoETantoQuandoTenhoAsExpressoesTalETalNoCanvas() throws Exception {
-        String s = gerenciadorDeFeedback.pegaFeedback();
-        assertThat(s, is("Seu código está correto.\nResultado: 4 \nResultado: 6 \n"));
+    public void retornaAConcatenacaoDasStringsQuandoTenhoUmaExpressaoDeConcatenacaoNoCanvas() throws Exception {
+        GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo2, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos);
+        String feedback = gerenciadorDeFeedback.pegaFeedback();
+        assertThat(feedback, is("Seu código está correto.\nResultado: \"casavelha\" \n"));
+    }
+
+    @Test
+    public void retornaAConcatenacaoDasStringsQuandoTenhoUmaExpressaoDeConcatenacaoComUmaVariavelNoCanvas() throws Exception {
+        GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo3, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos);
+        String feedback = gerenciadorDeFeedback.pegaFeedback();
+        assertThat(feedback, is("Seu código está correto.\nResultado: \"casavelha\" \n"));
     }
 }
