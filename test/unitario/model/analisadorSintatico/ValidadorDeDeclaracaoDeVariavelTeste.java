@@ -171,10 +171,10 @@ public class ValidadorDeDeclaracaoDeVariavelTeste {
     }
 
     @Test
-    public void retornaFalseQuandoIDVContem() throws Exception {
+    public void retornaFalseQuandoIDVContemTrema() throws Exception {
         ArrayList<String> tokensVarres = new ArrayList<String>();
         tokensVarres.add("varres");
-        tokensVarres.add("a$$ar");
+        tokensVarres.add("abc¨");
         tokensVarres.add(":");
         tokensVarres.add("Inteiro");
 
@@ -182,6 +182,38 @@ public class ValidadorDeDeclaracaoDeVariavelTeste {
 
         assertThat(validacao, is(false));
     }
+
+    @Test
+    public void retornaFalseQuandoIDVContemEComercial() throws Exception {
+        ArrayList<String> tokensVarres = new ArrayList<String>();
+        tokensVarres.add("varres");
+        tokensVarres.add("ab&c");
+        tokensVarres.add(":");
+        tokensVarres.add("Inteiro");
+
+        validacao = validadorDeDeclaracaoDeVariavel.valida(tokensVarres);
+
+        assertThat(validacao, is(false));
+    }
+
+    @Test
+    public void retornaFalseQuandoIDVContemAsterisco() throws Exception {
+        ArrayList<String> tokensVarres = new ArrayList<String>();
+        tokensVarres.add("varres");
+        tokensVarres.add("ab*c");
+        tokensVarres.add(":");
+        tokensVarres.add("Inteiro");
+
+        validacao = validadorDeDeclaracaoDeVariavel.valida(tokensVarres);
+
+        assertThat(validacao, is(false));
+    }
+
+
+
+
+
+
 }
 
 

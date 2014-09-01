@@ -19,7 +19,7 @@ public class IdentificadorDeToken {
         if (token.charAt(0) == '\"' && token.charAt(token.length()-1) == '\"') {
             return "CONSTANTE_TIPO_STRING";
         }
-        if (Character.isLetter(token.charAt(0))) {
+        if (Character.isLetter(token.charAt(0))||token.charAt(0)=='_') {
             return "IDV";
         }
         if (Character.isDigit(token.charAt(0))) {
