@@ -55,6 +55,7 @@ public class Lexer {
                     }
                 }
 
+
                 if (i+1 < frase.length()) {
                     if(frase.charAt(i)=='r' && frase.charAt(i+1)=='r' && frase.charAt(i+2)=='e' && frase.charAt(i+3)=='s') {
                         tokens.add("varres");

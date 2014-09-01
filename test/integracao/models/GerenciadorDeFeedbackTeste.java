@@ -135,14 +135,16 @@ public class GerenciadorDeFeedbackTeste {
 
     @Test
     public void dadoQueReceboUmaConcatenacaoDeStringsValidasRetornoUmaMensagemDeSucesso() throws Exception {
-        String codigo = "varres z : String\nvar nome : String\n" +
+        String codigo = "varres z : String\n" +
+                "var nome : String\n" +
                 "nome = \"Bernardo\"\n" +
-                "nome = \"nome\" <> \"José\"\nz = nome";
+                "nome = nome <> \"José\"\n" +
+                "z = nome";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está correto.\nResultado: \"Bernardo\" \n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\nResultado: \"BernardoJosé\" \n"));
     }
 
     @Test
@@ -188,13 +190,15 @@ public class GerenciadorDeFeedbackTeste {
 
     @Test
     public void dadoQueReceboUmaConcatenacaoDeStringsValidasComUmEspacoAntesDasStringsRetornoUmaMensagemDeSucesso() throws Exception {
-        String codigo = "varres z : String\nvar nome : String\n" +
-                "nome =   \"nome:\" <>     \"José\"\nz=nome";
+        String codigo = "varres z : String\n" +
+                "var nome : String\n" +
+                "nome =   \"nome:\" <>     \"José\"\n" +
+                "z=nome";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está correto.\nResultado:  \n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\nResultado: \"nome:José\" \n"));
     }
 
     @Test
