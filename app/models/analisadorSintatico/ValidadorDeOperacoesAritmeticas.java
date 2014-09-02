@@ -44,7 +44,8 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
     }
 
     private void setaFlagUnarioDeAcordoComIndiceDeToken(int indice) {
-        if (tokenForOperadorDiferenteDeSomaOuSubtracao(indice) || tokenForSomaOuSubtracaoEOProximoForParentesesAbrindo(indice)) {
+        if (tokenForSimboloDeMultiplicacaoDivisaoAdicaoSubtracaoOuIgual(indice) ||
+                tokenForSomaOuSubtracaoEOProximoForParentesesAbrindo(indice)) {
             proximoOperandoPodeSerUnario = true;
         } else {
             proximoOperandoPodeSerUnario = false;
@@ -55,8 +56,12 @@ public class ValidadorDeOperacoesAritmeticas implements Validador {
         return ((tokens.get(indice).equals("+") || tokens.get(indice).equals("-")) && (indice < tokens.size() - 1) && tokens.get(indice + 1).equals("("));
     }
 
-    private boolean tokenForOperadorDiferenteDeSomaOuSubtracao(int indice) {
-        return tokens.get(indice).equals("*") || tokens.get(indice).equals("/") || tokens.get(indice).equals("=");
+    private boolean tokenForSimboloDeMultiplicacaoDivisaoAdicaoSubtracaoOuIgual(int indice) {
+        return tokens.get(indice).equals("*") ||
+                tokens.get(indice).equals("/") ||
+                tokens.get(indice).equals("=") ||
+                tokens.get(indice).equals("+") ||
+                tokens.get(indice).equals("-");
     }
 
     private boolean ultimoTokenForUmOperador(String tokenEh) {

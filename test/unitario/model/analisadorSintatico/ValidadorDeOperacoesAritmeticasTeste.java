@@ -373,6 +373,17 @@ public class ValidadorDeOperacoesAritmeticasTeste {
         assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is(""));
     }
 
+    @Test
+    public void deveEstarValidoUmaExpressaoQueContenhaNumeroUmOperadorDeAdicaoENumeroUnario() throws Exception {
+        tokens.add("5");
+        tokens.add("+");
+        tokens.add("+");
+        tokens.add("6");
+
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
+        assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is(""));
+    }
+
     private void criaTokensDeExpressaoVazia() {
         tokens.add("(");
         tokens.add(")");
