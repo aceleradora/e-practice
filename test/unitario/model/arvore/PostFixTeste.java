@@ -137,4 +137,23 @@ public class PostFixTeste {
         assertEquals(resultado,espera);
     }
 
+    @Test
+    public void dadoOperacaoComUnarioDeveRetornarUmaOperacaoPosFix() throws Exception {
+        tokens.add("1"); tokens.add("*"); tokens.add("-2");
+
+        espera.add("1"); espera.add("-2"); espera.add("*");
+
+        resultado = posFix.criaPosfix(tokens);
+        assertEquals(resultado,espera);
+    }
+
+    @Test
+    public void dadoOperacaoComUnarioDentroDeParentesesComAExpressaoNegadaDeveRetornarUmaOperacaoPosFix() throws Exception {
+        tokens.add("-1"); tokens.add("*"); tokens.add("("); tokens.add("-2"); tokens.add("*"); tokens.add("4");tokens.add(")");
+
+        espera.add("-1"); espera.add("-2"); espera.add("4"); espera.add("*"); espera.add("*");
+
+        resultado = posFix.criaPosfix(tokens);
+        assertEquals(resultado,espera);
+    }
 }

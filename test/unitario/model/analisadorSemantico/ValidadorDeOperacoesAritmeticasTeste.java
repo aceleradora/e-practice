@@ -137,6 +137,4 @@ public class ValidadorDeOperacoesAritmeticasTeste {
 
         assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is(""));
     }
-
-
 }

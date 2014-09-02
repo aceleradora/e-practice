@@ -70,7 +70,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
         }
     }
 
-    private void divideTokensEmTokensComUnarios(){
+    public void divideTokensEmTokensComUnarios(){
         ArrayList<String> novosTokens = new ArrayList<String>();
         String aux = "";
         boolean verificador = false;
