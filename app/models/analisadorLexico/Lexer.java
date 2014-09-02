@@ -20,7 +20,6 @@ public class Lexer {
             return tokens;
         } else {
             divideAFraseEmTokensEAdicionaNaLista(this.frase);
-            if(tokens.size()>3) divideTokensEmTokensComUnarios();
         }
         return tokens;
     }
@@ -55,7 +54,6 @@ public class Lexer {
                     }
                 }
 
-
                 if (i+1 < frase.length()) {
                     if(frase.charAt(i)=='r' && frase.charAt(i+1)=='r' && frase.charAt(i+2)=='e' && frase.charAt(i+3)=='s') {
                         tokens.add("varres");
@@ -79,32 +77,6 @@ public class Lexer {
                 }
             }
         }
-    }
-
-    private void divideTokensEmTokensComUnarios(){
-        ArrayList<String> novosTokens = new ArrayList<String>();
-        String aux = "";
-        boolean verificador=false;
-
-        for (int i = 0; i < tokens.size(); i++){
-
-                if (tokens.get(i).equals("+") || tokens.get(i).equals("-")){
-                    if(verificaTokenAnterior(i) && verificaSeProximoTokenEhNumero(i)){
-
-                    aux = tokens.get(i) + tokens.get(i+1);
-                    novosTokens.add(aux);
-                        i++;
-                }
-                    else{
-                        novosTokens.add(tokens.get(i));
-                    }
-                }
-                else {
-                    novosTokens.add(tokens.get(i));
-                }
-        }
-
-        if(verificador=true) tokens = novosTokens;
     }
 
     private String converteCaracterParaString(char caracter) {

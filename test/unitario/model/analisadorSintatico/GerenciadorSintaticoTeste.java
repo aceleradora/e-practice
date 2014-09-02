@@ -6,7 +6,6 @@ import models.analisadorLexico.Lexer;
 import java.util.ArrayList;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -211,7 +210,7 @@ public class GerenciadorSintaticoTeste {
     }
 
     @Test
-    public void retornaMensagemDeErroQuandoDigitoAlgoSemNexo() throws Exception {
+      public void retornaMensagemDeErroQuandoDigitoAlgoSemNexo() throws Exception {
         ValidadorGenerico validador = new ValidadorGenerico();
         validadorGenerico = validador;
 
@@ -228,5 +227,44 @@ public class GerenciadorSintaticoTeste {
         gerenciadorSintatico.interpreta("\"fdighiszhg\"");
 
         assertThat(gerenciadorSintatico.mostraMensagensDeErro(), is("Código inválido.\nSintaxe não reconhecida."));
+    }
+
+    @Test
+    public void retornaMensagemAcertoQuandoFacoUmaMultiplicacaoComUnario() throws Exception {
+
+        ArrayList<String> listaDeTokensUnario = new ArrayList<String>();
+        listaDeTokensUnario.add("resultado");
+        listaDeTokensUnario.add("=");
+        listaDeTokensUnario.add("1");
+        listaDeTokensUnario.add("*");
+        listaDeTokensUnario.add("+");
+        listaDeTokensUnario.add("2");
+
+        when(lexer.tokenizar("resultado=1*+2")).thenReturn(listaDeTokensUnario);
+        when(identificadorDeToken.identifica("resultado")).thenReturn("IDV");
+        when(identificadorDeToken.identifica("=")).thenReturn("IGUAL");
+        when(identificadorDeToken.identifica("1")).thenReturn("NUMERO");
+        when(identificadorDeToken.identifica("*")).thenReturn("MULTIPLICACAO");
+        when(identificadorDeToken.identifica("+")).thenReturn("ADICAO");
+        when(identificadorDeToken.identifica("2")).thenReturn("NUMERO");
+        when(validadorDeOperacoesAritmeticas.valida(listaDeTokensUnario)).thenReturn(true);
+
+        ValidadorDeOperacoesAritmeticas validador = new ValidadorDeOperacoesAritmeticas();
+        validadorDeOperacoesAritmeticas = validador;
+
+        GerenciadorBuilder gerenciadorBuilder = new GerenciadorBuilder();
+        gerenciadorSintatico = gerenciadorBuilder.com(identificadorDeToken)
+                .com(lexer)
+                .com(validadorDeAtribuicao)
+                .com(validadorDeConcatenacaoDeString)
+                .com(validadorDeDeclaracaoDeVariavel)
+                .com(validadorDeOperacoesAritmeticas)
+                .com(validadorGenerico)
+                .geraGerenciador();
+
+        String codigo = "resultado=1*+2";
+        gerenciadorSintatico.interpreta(codigo);
+
+        assertThat(gerenciadorSintatico.mostraMensagensDeErro(), is(""));
     }
 }

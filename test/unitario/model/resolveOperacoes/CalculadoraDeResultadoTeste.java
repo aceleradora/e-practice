@@ -105,4 +105,26 @@ public class CalculadoraDeResultadoTeste {
         int resultado = calculadora.calculaOperacaoAPartirDoPostFix(postfix);
         assertThat(resultado, is(10));
     }
+
+    @Test
+    public void retornaMenos2QuandoValidaPostFixUmMenosDoisMultiplicacao() throws Exception {
+        postfix.add("1");
+        postfix.add("-2");
+        postfix.add("*");
+
+        int resultado = calculadora.calculaOperacaoAPartirDoPostFix(postfix);
+        assertThat(resultado, is(-2));
+    }
+
+    @Test
+    public void retorna8QuandoValidaPostfixMenosUmMenosDoisQuatroMultiplicacaoMultiplicacao() throws Exception {
+        postfix.add("-1");
+        postfix.add("-2");
+        postfix.add("4");
+        postfix.add("*");
+        postfix.add("*");
+
+        int resultado = calculadora.calculaOperacaoAPartirDoPostFix(postfix);
+        assertThat(resultado, is(8));
+    }
 }

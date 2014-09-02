@@ -169,10 +169,9 @@ public class ValidadorDeAtribuicaoTeste {
 
     }
 
-    @Ignore
     @Test
     public void retornaTrueQuandoOTerceiroTokenForUmSinalDeAdicao() throws Exception {
-        ArrayList<String> tokens = lexer.tokenizar("abacaxi = + 1");
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi = +1");
 
         boolean retorno = validadorDeAtribuicao.valida(tokens);
 
@@ -180,10 +179,9 @@ public class ValidadorDeAtribuicaoTeste {
 
     }
 
-    @Ignore
     @Test
     public void retornaTrueQuandoTerceiroTokenForUmSinalDeSubtracao() throws Exception {
-        ArrayList<String> tokens = lexer.tokenizar("abacaxi = +1");
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi = -1");
 
         boolean retorno = validadorDeAtribuicao.valida(tokens);
 
