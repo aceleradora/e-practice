@@ -13,9 +13,9 @@ public class ValidadorDeValorDeResultado {
     }
 
     public boolean comparaResultados(ArrayList<String> resultadosDoUsuario) {
-        if (resultadosDoUsuario.size() != exercicio.getResultadoDoProfessor().size()) {
+        if (resultadosDoUsuario.size() != exercicio.getResultadosDoProfessorComoLista().size()) {
             return false;
         }
-        return resultadosDoUsuario.containsAll(exercicio.getResultadoDoProfessor());
+        return resultadosDoUsuario.containsAll(exercicio.getResultadosDoProfessorComoLista());
     }
 }

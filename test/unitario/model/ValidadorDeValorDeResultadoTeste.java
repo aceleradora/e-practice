@@ -26,7 +26,7 @@ public class ValidadorDeValorDeResultadoTeste {
         resultadoDoProfessor = new ArrayList<String>();
 
 
-        when(exercicio.getResultadoDoProfessor()).thenReturn(resultadoDoProfessor);
+        when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadoDoProfessor);
         resultadosDoUsuario = new ArrayList<String>();
     }
 
@@ -76,6 +76,4 @@ public class ValidadorDeValorDeResultadoTeste {
 
         assertThat(resultadosSaoIguais, is(false));
     }
-
-
 }

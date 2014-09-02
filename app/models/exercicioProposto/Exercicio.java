@@ -23,7 +23,9 @@ public class Exercicio extends Model{
     @Column(columnDefinition = "TEXT")
     public String solucaoDoProfessor;
 
-    private ArrayList<String> resultadoDoProfessor;
+    @Constraints.Required
+    @Column(columnDefinition = "TEXT")
+    public String resultadoDoProfessor;
 
     @OneToMany
     List<SolucaoDoExercicio> solucoesDoUsuario;
@@ -46,6 +48,15 @@ public class Exercicio extends Model{
         return find.all();
     }
 
+    public List<String> getResultadosDoProfessorComoLista() {
+        ArrayList<String> resultados = new ArrayList<String>();
+        String[] resultadosDivididos = resultadoDoProfessor.split("\n");
+        for (String resultado : resultadosDivididos) {
+            resultados.add(resultado);
+        }
+        return resultados;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
@@ -63,9 +74,5 @@ public class Exercicio extends Model{
         int result = 1;
         result = 31 * result + enunciado.hashCode();
         return result;
-    }
-
-    public ArrayList<String> getResultadoDoProfessor() {
-        return resultadoDoProfessor;
     }
 }
