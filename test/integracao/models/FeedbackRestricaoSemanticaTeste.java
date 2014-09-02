@@ -64,7 +64,7 @@ public class FeedbackRestricaoSemanticaTeste {
     public void dadoQueDeclaroAMesmaVariavelDuasVezesDeveRetornarMensagemDeErro() throws Exception {
         codigo = "var x : String \n";
         codigo += "var x : String";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
@@ -75,7 +75,7 @@ public class FeedbackRestricaoSemanticaTeste {
     public void dadoQueDeclaroAsVariaveisCorretamenteDeveRetornarFeedbackPositivo() throws Exception {
         codigo = "varres x : Inteiro\n";
         codigo += "x = 1";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
@@ -88,7 +88,7 @@ public class FeedbackRestricaoSemanticaTeste {
         codigo += "var y : String\n";
         codigo += "varres resultado: String\n";
         codigo += "resultado = x + y";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
@@ -102,7 +102,7 @@ public class FeedbackRestricaoSemanticaTeste {
         codigo += "varres resultado: Inteiro\n";
         codigo += "resultado = x + y\n";
 
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
@@ -116,7 +116,7 @@ public class FeedbackRestricaoSemanticaTeste {
         codigo += "varres resultado: Inteiro\n";
         codigo += "resultado = x <> y\n";
 
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
@@ -130,7 +130,7 @@ public class FeedbackRestricaoSemanticaTeste {
         codigo += "varres resultado: String\n";
         codigo += "resultado = x <> y\n";
 
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
@@ -144,7 +144,7 @@ public class FeedbackRestricaoSemanticaTeste {
         codigo += "varres resultado: String\n";
         codigo += "resultado = x <> y\n";
 
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);

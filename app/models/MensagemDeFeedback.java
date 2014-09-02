@@ -5,6 +5,8 @@ import models.analisadorLexico.Lexer;
 import models.analisadorLexico.QuebradorDeCodigoEmLinhas;
 import models.analisadorSemantico.*;
 import models.analisadorSintatico.*;
+import models.exercicioProposto.Exercicio;
+
 
 public class MensagemDeFeedback {
 
@@ -16,6 +18,7 @@ public class MensagemDeFeedback {
     private Lexer lexer;
     private IdentificadorDeToken identificadorDeToken;
     private TabelaDeSimbolos tabelaDeSimbolos;
+
     private models.analisadorSintatico.ValidadorDeAtribuicao validadorDeAtribuicaoSintatico;
     private models.analisadorSintatico.ValidadorDeDeclaracaoDeVariavel validadorDeDeclaracaoSintatico;
     private models.analisadorSintatico.ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticasSintatico;
@@ -28,7 +31,7 @@ public class MensagemDeFeedback {
     private models.analisadorSemantico.ValidadorDeOperacoesAritmeticas validadorDeOperacoesAritmeticasSemantico;
     private models.analisadorSemantico.ValidadorGenerico validadorGenericoSemantico;
 
-    public MensagemDeFeedback(String codigo) {
+    public MensagemDeFeedback(String codigo, Exercicio exercicio) {
         this.lexer = new Lexer();
         this.identificadorDeToken = new IdentificadorDeToken();
         this.tabelaDeSimbolos = new TabelaDeSimbolos();
@@ -49,9 +52,8 @@ public class MensagemDeFeedback {
         this.gerenciadorSintatico = new GerenciadorSintatico(lexer, identificadorDeToken, validadorDeDeclaracaoSintatico, validadorDeAtribuicaoSintatico, validadorDeOperacoesAritmeticasSintatico, validadorDeConcatenacaoSintatico, validadorGenericoSintatico);
         this.gerenciadorSemantico = new GerenciadorSemantico(validadorDeDeclaracaoSemantico, validadorDeAtribuicaoSemantico, validadorDeConcatenacaoSemantico, validadorDeOperacoesAritmeticasSemantico, validadorGenericoSemantico);
 
-        this.gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos);
+        this.gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos, exercicio);
         this.solucaoDoExercicio = new SolucaoDoExercicio(codigo);
-
     }
 
     public String mostraMensagem(){

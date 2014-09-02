@@ -48,7 +48,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboUmCodigoComTresExpressoesEntaoOMetodoQuebraSeraChamado() throws Exception {
         String codigo = "var x : String \n x = 1 \n x = x + 1";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         verify(quebradorDeCodigo, times(1)).quebra(codigo);
     }
@@ -58,7 +58,7 @@ public class GerenciadorDeFeedbackTeste {
         String codigo = "var x : String\n x = \"casa\"";
         String linha1 = "var x : String";
         String linha2 = "x = \"casa\"";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         gerenciadorDeFeedback.pegaFeedback();
 
@@ -74,7 +74,7 @@ public class GerenciadorDeFeedbackTeste {
         String linha1 = "var x : String";
         String linha2 = "x = \"casa\"";
 
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         gerenciadorDeFeedback.pegaFeedback();
 
@@ -85,7 +85,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueFoiRebebidoUmCodigoComTresExpressoesEntaoChamaTresVezesInterpreta() throws Exception {
         String codigo = "var x : String \n x = 1 \n x = x + 1";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         gerenciadorDeFeedback.pegaFeedback();
 

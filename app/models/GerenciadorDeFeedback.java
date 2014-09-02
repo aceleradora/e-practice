@@ -4,6 +4,7 @@ import models.analisadorLexico.QuebradorDeCodigoEmLinhas;
 import models.analisadorSemantico.GerenciadorSemantico;
 import models.analisadorSemantico.ValidadorDeVariavelDeResultado;
 import models.analisadorSintatico.GerenciadorSintatico;
+import models.exercicioProposto.Exercicio;
 
 import java.util.ArrayList;
 
@@ -17,13 +18,15 @@ public class GerenciadorDeFeedback {
     private String mensagemSintatica = "";
     private String mensagemSemantica = "";
     private String resultadoCalculado = "";
+    private Exercicio exercicio;
 
-    public GerenciadorDeFeedback(String codigo, GerenciadorSintatico gerenciadorSintatico, GerenciadorSemantico gerenciadorSemantico, QuebradorDeCodigoEmLinhas quebradorDeCodigo, TabelaDeSimbolos tabelaDeSimbolos) {
+    public GerenciadorDeFeedback(String codigo, GerenciadorSintatico gerenciadorSintatico, GerenciadorSemantico gerenciadorSemantico, QuebradorDeCodigoEmLinhas quebradorDeCodigo, TabelaDeSimbolos tabelaDeSimbolos, Exercicio exercicio) {
         this.gerenciadorSintatico = gerenciadorSintatico;
         this.gerenciadorSemantico = gerenciadorSemantico;
         this.quebradorDeCodigo = quebradorDeCodigo;
         this.tabelaDeSimbolos = tabelaDeSimbolos;
         this.codigoQuebrado = this.quebradorDeCodigo.quebra(codigo);
+        this.exercicio = exercicio;
         validadorDeVariavelDeResultado = new ValidadorDeVariavelDeResultado(codigoQuebrado);
     }
 
@@ -46,6 +49,9 @@ public class GerenciadorDeFeedback {
                 }
             }
         }
+
+
+
         for (String variavelDeResultado : tabelaDeSimbolos.getVariaveisDeResultado()) {
             resultadoCalculado += "Resultado: " + tabelaDeSimbolos.getValor(variavelDeResultado) + " \n";
         }

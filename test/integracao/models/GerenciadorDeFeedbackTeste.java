@@ -62,7 +62,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboUmaDeclaracaoDeVariavelInvalidaRetornoUmaMensagemDeErro() throws Exception {
         String codigo = "var x = Inteiro";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -73,7 +73,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboUmaDeclaracaoDeVariavelValidaRetornoUmaMensagemDeSucesso() throws Exception {
         String codigo = "varres z : String\nvar x : Inteiro\nz=\"queijo\"\n";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -83,7 +83,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboDuasDeclaracoesDeVariaveisRetornoMensagemDeSucesso() throws Exception {
         String codigo = "varres z : Inteiro\nvar x : Inteiro\nvar y : Inteiro\nz = x";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -93,7 +93,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboDuasDeclaracoesDeStringsValidasComEspacoNoInicioDaDeclaracaoRetornoMensagemDeSucesso() throws Exception {
         String codigo = "varres z : String\n var x : String \n var y: String\nz = \"resultado\"";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -103,7 +103,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboDuasDeclaracoesDeVariaveisInvalidasRetornoUmaMensagemDeErro() throws Exception {
         String codigo = "varres z : String\n var x: Sting \n vars y: intiro";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -114,7 +114,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboDuasDeclaracoesDeVariaveisInvalidasComOTipoMinusculoRetornoUmaMensagemDeErro() throws Exception {
         String codigo = "varres z : String\nvar x : Inteiro\nvar y: inteiro";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -124,7 +124,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboDuasAtribuicoesDeValoresNumericosValidosRetornoMensagemDeSucesso() throws Exception {
         String codigo = "varres z : Inteiro\nvar x : Inteiro\nvar y : Inteiro\nx = 4\ny = 5\nz = y";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -138,7 +138,7 @@ public class GerenciadorDeFeedbackTeste {
                 "nome = \"Bernardo\"\n" +
                 "nome = nome <> \"José\"\n" +
                 "z = nome";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -149,7 +149,7 @@ public class GerenciadorDeFeedbackTeste {
     public void dadoQueReceboUmaOPeracaoDeAritmeticaValidaRetornoUmaMensagemDeSucesso() throws Exception {
         String codigo = "varres z : Inteiro\nvar numero : Inteiro\n" +
                 "numero = (2 + 2) * 5\nz = numero";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -159,7 +159,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboDuasDeclaracoesInvalidasRetornoUmaMensagemDeErro() throws Exception {
         String codigo = "varres z : String\nvar x = Inteiro\nvar \"erro\" : String";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -169,7 +169,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboDuasAtribuicoesInvalidasRetornoUmaMensagemDeErro() throws Exception {
         String codigo = "varres z : String\nx : 2\ny : +3";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -179,7 +179,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboDuasOperacoesAritmeticasInvalidasRetornoUmaMensagemDeErro() throws Exception {
         String codigo = "varres z : String\nnumero = 2( +2";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -192,7 +192,7 @@ public class GerenciadorDeFeedbackTeste {
                 "var nome : String\n" +
                 "nome =   \"nome:\" <>     \"José\"\n" +
                 "z=nome";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -202,7 +202,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboUmaConcatenacaoDeNumerosInvalidaEntaoRetornoUmaMensagemDeErro() throws Exception {
         String codigo = "varres z : String\nvar x : String\nx = 10 <> 20";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -212,7 +212,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboUmaConcatenacaoDeStringsUtilizandoSimboloMaiorEMenorEMaisValidasRetornoUmaMensagemDeErroDiferenteDeVazio() throws Exception {
         String codigo = "varres z : String\n\"nome:\" <> \"Bernardo\" + \"José\"";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -222,7 +222,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboUmaOperacaoAritmeticaInvalidaRetornoUmaMensagemDeErro() throws Exception {
         String codigo = "varres z : String\nnumero = 2 + 2)";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -232,7 +232,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueReceboUmaOperacaoAritmeticaInvalidaUtilizandoDoisOperadoresJuntosRetornoUmaMensagemDeErro() throws Exception {
         String codigo = "varres z : String\nnumero = 2 * + 2";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -243,7 +243,7 @@ public class GerenciadorDeFeedbackTeste {
     public void dadoQueReceboUmaExpressaoSemEspacoRetornaMensagemDeSucesso() throws Exception {
         String codigo = "varres z : Inteiro\nvar numero : Inteiro\n" +
                 "numero=2+2\nz=numero";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -254,7 +254,7 @@ public class GerenciadorDeFeedbackTeste {
     public void dadoQueNaoDeclareiAVariaveLEAtribuiOValorUmEntaoTereiUmaMensagemDeErro() throws Exception {
         String codigo = "varres z : String\nx = 1";
 
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
         assertThat(mensagemDeErro, is("A variável x não foi declarada."));
@@ -265,7 +265,7 @@ public class GerenciadorDeFeedbackTeste {
         String codigo = "varres z : String\nvar x : String\n" +
                 "x = 1";
 
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
         assertThat(mensagemDeErro, is("A variável x só aceita atribuição de valores do tipo String."));
@@ -274,7 +274,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueAtribuoUmaOperacaoAritmeticaDeUmIdvComUmNumeroAUmIdvEntãoReceboUmaMensagemDeSucesso() throws Exception {
         String codigo = "varres z : Inteiro\nvar x : Inteiro\nvar y : Inteiro\nz = y + 1";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico,gerenciadorSemantico,quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -284,7 +284,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void dadoQueFizUmaAtribuicaoUtilizandoDoisPontosNoLugarDeIgualRetornoMensagemDeErro() throws Exception {
         String codigo = "varres z : String\nnome : \"Bernardo\" ";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico,gerenciadorSemantico,quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -294,7 +294,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void quandoEnvioUmaSolucaoEsquecendoDeFecharAspasAtribuicaoEInvalida() throws Exception {
         String codigo = "varres z : String\nvar nome : String\nnome = \"Bernardo ";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico,gerenciadorSemantico,quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -304,7 +304,7 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void quandoEuEnvioUmaSolucaoSemVarresDeclaradoRetornaInvalido() throws Exception {
         String codigo = "varres z : String\nvar x : String\nx=\"teste\"";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo,gerenciadorSintatico,gerenciadorSemantico,quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
@@ -314,11 +314,10 @@ public class GerenciadorDeFeedbackTeste {
     @Test
     public void quandoEuEnvioExercicioVazioOValidadorDeVariavelDeResultadoRetornaMensagemDeSolucaoVazia() throws Exception {
         String codigo = "";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo,gerenciadorSintatico,gerenciadorSemantico,quebradorDeCodigo, tabelaDeSimbolos);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
         assertThat(mensagemDeErro,is("O terminal está vazio.\n"));
-
     }
 }

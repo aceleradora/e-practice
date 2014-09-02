@@ -61,7 +61,7 @@ public class Application extends Controller {
                 SolucaoDoExercicio solucaoDoUsuario = new SolucaoDoExercicio(solucao.get("solucaoDoUsuario"));
                 solucaoDoUsuario.criaSolucao(exercicio, usuario.id);
 
-                mensagemDeFeedback = new MensagemDeFeedback(formPreenchido.get().solucaoDoUsuario);
+                mensagemDeFeedback = new MensagemDeFeedback(formPreenchido.get().solucaoDoUsuario, exercicio);
 
                 mensagemFlashDeSucesso(formPreenchido);
 
