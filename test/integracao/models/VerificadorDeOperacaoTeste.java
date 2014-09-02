@@ -11,12 +11,26 @@ import models.analisadorSintatico.ValidadorDeAtribuicao;
 import models.analisadorSintatico.ValidadorDeDeclaracaoDeVariavel;
 import models.analisadorSintatico.ValidadorDeOperacoesAritmeticas;
 import models.analisadorSintatico.ValidadorGenerico;
+import models.exercicioProposto.Exercicio;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class VerificadorDeOperacaoTeste {
+
+    @Mock
+    private Exercicio exercicio;
     private String codigo = "varres x : Inteiro\n" +
                             "varres y : Inteiro\n" +
                             "x = 1 + 3\n" +
@@ -46,24 +60,30 @@ public class VerificadorDeOperacaoTeste {
     private models.analisadorSemantico.ValidadorGenerico validadorGenericoSemantico = new models.analisadorSemantico.ValidadorGenerico();
     private GerenciadorSintatico gerenciadorSintatico = new GerenciadorSintatico(lexer, identificadorDeToken, validadorDeDeclaracaoDeVariavelSintatico, validadorDeAtribuicaoSintatico, validadorDeOperacoesAritmeticasSintatico, validadorDeConcatenacaoDeStringsSintatico, validadorGenericoSintatico);
     private GerenciadorSemantico gerenciadorSemantico = new GerenciadorSemantico(validadorDeDeclaracaoDeVariavelSemantico, validadorDeAtribuicaoSemantico, validadorDeConcatenacaoSemantico, validadorDeOperacoesAritmeticasSemantico, validadorGenericoSemantico);
+    private ArrayList<String> resultadosDoUsuario = new ArrayList<String>();
+
+    @Before
+    public void setUp() throws Exception {
+        when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
+    }
 
     @Test
     public void retornaOResultadoDaOperacaoQuandoTenhoUmaExpressaoAritmeticaNoCanvas() throws Exception {
-        GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos, null);
+        GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos, exercicio);
         String feedback = gerenciadorDeFeedback.pegaFeedback();
         assertThat(feedback, is("Seu código está correto.\nResultado: 4 \nResultado: 6 \n"));
     }
 
     @Test
     public void retornaAConcatenacaoDasStringsQuandoTenhoUmaExpressaoDeConcatenacaoNoCanvas() throws Exception {
-        GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo2, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos, null);
+        GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo2, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos, exercicio);
         String feedback = gerenciadorDeFeedback.pegaFeedback();
         assertThat(feedback, is("Seu código está correto.\nResultado: \"casavelha\" \n"));
     }
 
     @Test
     public void retornaAConcatenacaoDasStringsQuandoTenhoUmaExpressaoDeConcatenacaoComUmaVariavelNoCanvas() throws Exception {
-        GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo3, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos, null);
+        GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo3, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos, exercicio);
         String feedback = gerenciadorDeFeedback.pegaFeedback();
         assertThat(feedback, is("Seu código está correto.\nResultado: \"casavelha\" \n"));
     }

@@ -38,12 +38,14 @@ public class Exercicio extends Controller {
                 "cilindrico, sabendo que as colunas tem 40m de altura e 8 metros de largura, calcule " +
                 "o volume de cimento usado para construir estas colunas.";
         exercicio2.solucaoDoProfessor = "solucao do professor 2";
+        exercicio2.resultadoDoProfessor = "2009";
         exercicio2.save();
 
         models.exercicioProposto.Exercicio exercicio3 = new models.exercicioProposto.Exercicio();
         exercicio3.enunciado = "Compute a string resultante de se justapor as palavras \"casa\" com a palavra " +
-                "\"mento\" e a palavra \"rápido\". ";
+                "\"mento\" e a palavra \" rápido\". ";
         exercicio3.solucaoDoProfessor = "solucao do professor 3";
+        exercicio3.resultadoDoProfessor = "\"casamento rápido\"";
         exercicio3.save();
 
         return redirect(routes.Application.index());
