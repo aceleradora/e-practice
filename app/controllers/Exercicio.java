@@ -30,7 +30,7 @@ public class Exercicio extends Controller {
                 "b) A multiplicação dos 3 valores;\n" +
                 "c) A média aritmética dos três valores.";
         exercicio1.solucaoDoProfessor = "solucao do professor 1";
-        exercicio1.resultadoDoProfessor = "37\n1200\n400";
+        exercicio1.resultadoDoProfessor = "37\n1200\n12";
         exercicio1.save();
 
         models.exercicioProposto.Exercicio exercicio2 = new models.exercicioProposto.Exercicio();
