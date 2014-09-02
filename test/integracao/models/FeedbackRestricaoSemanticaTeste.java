@@ -8,21 +8,31 @@ import models.analisadorLexico.QuebradorDeCodigoEmLinhas;
 import models.analisadorSemantico.GerenciadorSemantico;
 import models.analisadorSintatico.GerenciadorSintatico;
 import models.analisadorSintatico.ValidadorDeConcatenacaoDeStrings;
+import models.exercicioProposto.Exercicio;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.ArrayList;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class FeedbackRestricaoSemanticaTeste {
 
+    @Mock private Exercicio exercicio;
     private GerenciadorSintatico gerenciadorSintatico;
     private GerenciadorSemantico gerenciadorSemantico;
     private QuebradorDeCodigoEmLinhas quebradorDeCodigo;
     private GerenciadorDeFeedback gerenciadorDeFeedback;
     private TabelaDeSimbolos tabelaDeSimbolos;
     private String codigo;
+    private ArrayList<String> resultadosDoUsuario = new ArrayList<String>();
 
     @Before
     public void setUp() throws Exception {
@@ -58,13 +68,15 @@ public class FeedbackRestricaoSemanticaTeste {
                 .geraGerenciador();
 
         quebradorDeCodigo = new QuebradorDeCodigoEmLinhas();
+
+        when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
     }
 
     @Test
     public void dadoQueDeclaroAMesmaVariavelDuasVezesDeveRetornarMensagemDeErro() throws Exception {
         codigo = "var x : String \n";
         codigo += "var x : String";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, exercicio);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
@@ -75,7 +87,7 @@ public class FeedbackRestricaoSemanticaTeste {
     public void dadoQueDeclaroAsVariaveisCorretamenteDeveRetornarFeedbackPositivo() throws Exception {
         codigo = "varres x : Inteiro\n";
         codigo += "x = 1";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, exercicio);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
@@ -88,7 +100,7 @@ public class FeedbackRestricaoSemanticaTeste {
         codigo += "var y : String\n";
         codigo += "varres resultado: String\n";
         codigo += "resultado = x + y";
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, exercicio);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
@@ -102,7 +114,7 @@ public class FeedbackRestricaoSemanticaTeste {
         codigo += "varres resultado: Inteiro\n";
         codigo += "resultado = x + y\n";
 
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, exercicio);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
@@ -116,7 +128,7 @@ public class FeedbackRestricaoSemanticaTeste {
         codigo += "varres resultado: Inteiro\n";
         codigo += "resultado = x <> y\n";
 
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, exercicio);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
@@ -130,7 +142,7 @@ public class FeedbackRestricaoSemanticaTeste {
         codigo += "varres resultado: String\n";
         codigo += "resultado = x <> y\n";
 
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, exercicio);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);
@@ -144,7 +156,7 @@ public class FeedbackRestricaoSemanticaTeste {
         codigo += "varres resultado: String\n";
         codigo += "resultado = x <> y\n";
 
-        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, null);
+        gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, exercicio);
         String mensagem = gerenciadorDeFeedback.pegaFeedback();
 
         assertNotNull(mensagem);

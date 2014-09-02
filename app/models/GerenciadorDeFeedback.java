@@ -50,11 +50,19 @@ public class GerenciadorDeFeedback {
             }
         }
 
-
+        ArrayList<String> resultadosDoUsuario = new ArrayList<String>();
 
         for (String variavelDeResultado : tabelaDeSimbolos.getVariaveisDeResultado()) {
             resultadoCalculado += "Resultado: " + tabelaDeSimbolos.getValor(variavelDeResultado) + " \n";
+            resultadosDoUsuario.add(tabelaDeSimbolos.getValor(variavelDeResultado));
         }
+
+        ValidadorDeValorDeResultado validadorDeValorDeResultado = new ValidadorDeValorDeResultado(exercicio);
+        boolean usuarioAcertouOsResultados = validadorDeValorDeResultado.comparaResultados(resultadosDoUsuario);
+        if (!usuarioAcertouOsResultados && NaoContemErrosSintaticos() && NaoContemErrosSemanticos()) {
+            mensagemSemantica = "Resposta incorreta!";
+        }
+
         if (mensagemSemantica.equals("Seu código está correto.\n"))
             return mensagemSintatica + mensagemSemantica + resultadoCalculado;
         else
