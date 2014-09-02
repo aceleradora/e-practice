@@ -105,4 +105,14 @@ public class CalculadoraDeResultadoTeste {
         int resultado = calculadora.calculaOperacaoAPartirDoPostFix(postfix);
         assertThat(resultado, is(10));
     }
+
+    @Test
+    public void testeteste() throws Exception {
+        postfix.add("1");
+        postfix.add("-2");
+        postfix.add("*");
+
+        int resultado = calculadora.calculaOperacaoAPartirDoPostFix(postfix);
+        assertThat(resultado, is(-2));
+    }
 }

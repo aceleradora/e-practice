@@ -6,13 +6,10 @@ import models.analisadorLexico.Lexer;
 import models.analisadorSemantico.ValidadorDeOperacoesAritmeticas;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.DynamicAny._DynValueStub;
-import scalaz.std.string;
 
 import java.util.ArrayList;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class ValidadorDeOperacoesAritmeticasTeste {
@@ -58,7 +55,6 @@ public class ValidadorDeOperacoesAritmeticasTeste {
         tokens = lexer.tokenizar(declaracao);
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
-
     }
 
     @Test
@@ -90,6 +86,57 @@ public class ValidadorDeOperacoesAritmeticasTeste {
         validadorDeOperacoesAritmeticas.valida(tokens);
 
         assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is("A variável y não é do tipo Inteiro."));
-
     }
+
+    @Test
+    public void dadaUmaMultiplicacaoComUnarioRetornaUmaMensagemDeAcerto() throws Exception {
+        tabela.adicionaSimbolo("resultado","Inteiro");
+        String declaracao = "resultado=1*-2";
+        tokens = lexer.tokenizar(declaracao);
+        validadorDeOperacoesAritmeticas.valida(tokens);
+
+        assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is(""));
+    }
+
+    @Test
+    public void dadaUmaMultiplicacaoComDoisUnarioRetornaUmaMensagemDeAcerto() throws Exception {
+        tabela.adicionaSimbolo("resultado","Inteiro");
+        String declaracao = "resultado=-1*-2";
+        tokens = lexer.tokenizar(declaracao);
+        validadorDeOperacoesAritmeticas.valida(tokens);
+
+        assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is(""));
+    }
+
+    @Test
+    public void dadaUmaSomaComDoisUnarioRetornaUmaMensagemDeAcerto() throws Exception {
+        tabela.adicionaSimbolo("resultado","Inteiro");
+        String declaracao = "resultado=-1+-2";
+        tokens = lexer.tokenizar(declaracao);
+        validadorDeOperacoesAritmeticas.valida(tokens);
+
+        assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is(""));
+    }
+
+    @Test
+    public void dadaUmaSomaComDoisUnarioEntreParentesesRetornaUmaMensagemDeAcerto() throws Exception {
+        tabela.adicionaSimbolo("resultado","Inteiro");
+        String declaracao = "resultado=(-1)+(-2)";
+        tokens = lexer.tokenizar(declaracao);
+        validadorDeOperacoesAritmeticas.valida(tokens);
+
+        assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is(""));
+    }
+
+    @Test
+    public void dadaUmaSomaComUnarioEntreParentesesComUmUnarioNegandoAExpressaoRetornaUmaMensagemDeAcerto() throws Exception {
+        tabela.adicionaSimbolo("resultado","Inteiro");
+        String declaracao = "resultado=-(-2+1)";
+        tokens = lexer.tokenizar(declaracao);
+        validadorDeOperacoesAritmeticas.valida(tokens);
+
+        assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is(""));
+    }
+
+
 }

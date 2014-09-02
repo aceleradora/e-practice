@@ -3,7 +3,6 @@ package unitario.model.analisadorLexico;
 import models.analisadorLexico.Lexer;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -126,7 +125,6 @@ public class LexerTeste {
         assertThat(tokens.get(2), is("\"Joao\""));
         assertThat(tokens.get(3), is ("<>"));
         assertThat(tokens.get(4), is("\"Henrique\""));
-
     }
 
     @Test
@@ -158,14 +156,12 @@ public class LexerTeste {
     @Test
     public void tokenizaUmaOperacaoComAbreParentesesColadoADireitaDeUmOperando() throws Exception {
         tokens = lexer.tokenizar("numero = 2+( 5 * 5 )");
-
         assertThat(tokens.size(), is(9));
     }
 
     @Test
     public void tokenizaUmaOperacaoAritmeticaQueTenhaOOperadorSemEspacamentoDosOperandos() throws Exception {
         tokens = lexer.tokenizar("numero=2+2-5/7*8");
-
         assertThat(tokens.size(), is(11));
     }
 
@@ -189,14 +185,12 @@ public class LexerTeste {
     @Test
     public void tokenizaUmaOperacaoComParentesesESemEspacamentos() throws Exception {
         tokens = lexer.tokenizar("numero=2+(2-5)/(7*8)");
-
         assertThat(tokens.size(), is(15));
     }
 
     @Test
     public void tokenizaUmaStringComDoisPontos() throws Exception {
         tokens = lexer.tokenizar("nome = \"Nome: Leonardo\"");
-
         assertThat(tokens.size(), is(3));
         assertThat(tokens.get(0), is("nome"));
         assertThat(tokens.get(1), is("="));
@@ -206,7 +200,6 @@ public class LexerTeste {
     @Test
     public void tokenizaUmaAtribuicaoDeExpressaoAritmeticaContendoAspas() throws Exception {
         tokens = lexer.tokenizar("n = 2 \"\" 2");
-
         assertThat(tokens.size(), is(5));
         assertThat(tokens.get(3), is("\"\""));
     }
@@ -214,7 +207,6 @@ public class LexerTeste {
     @Test
     public void dadoQueDigiteiUmaStringComAspasAbertaMasNaoFechadaEntaoTereiUmTokenComAString() throws Exception {
         tokens = lexer.tokenizar("nome = \"Nome ");
-
         assertThat(tokens.get(0), is("nome"));
         assertThat(tokens.get(1), is("="));
         assertThat(tokens.get(2), is("\"Nome"));
@@ -250,83 +242,11 @@ public class LexerTeste {
     }
 
     @Test
-    public void dadoUmaAtribuicaoDeUmIdvComNumeroUnarioRetornaUmasListaComTokensIncluindoTokenUnario() throws Exception {
-
-        tokens = lexer.tokenizar("x = - 1");
-        assertThat(tokens.size(), is(3));
-        assertThat(tokens.get(0), is("x"));
-        assertThat(tokens.get(1), is("="));
-        assertThat(tokens.get(2), is("-1"));
-
-
-
-    }
-
-    @Test
-    public void dadoUmaAtribuicaoDeUmaOperacaovComtendoNumeroUnarioRetornaUmasListaComTokensIncluindoTokenUnario() throws Exception {
-
-        tokens = lexer.tokenizar("x = - 2 - 1");
-        assertThat(tokens.size(), is(5));
-        assertThat(tokens.get(0), is("x"));
-        assertThat(tokens.get(1), is("="));
-        assertThat(tokens.get(2), is("-2"));
-        assertThat(tokens.get(3), is("-"));
-        assertThat(tokens.get(4), is("1"));
-
-    }
-
-    @Test
     public void dadoUmaAtribuicaoFaltandoOperandoRetornaUmaListaComTresTokens() throws Exception {
         tokens = lexer.tokenizar("x = - ");
         assertThat(tokens.size(), is(3));
         assertThat(tokens.get(0), is("x"));
         assertThat(tokens.get(1), is("="));
         assertThat(tokens.get(2), is("-"));
-
     }
-
-    @Test
-    public void dadoUmAtribuicaoComDoisUnariosRetornaUmaListaDeTokens() throws Exception {
-        tokens = lexer.tokenizar("x = -1 --2");
-        assertThat(tokens.size(), is(5));
-        assertThat(tokens.get(0), is("x"));
-        assertThat(tokens.get(1), is("="));
-        assertThat(tokens.get(2), is("-1"));
-        assertThat(tokens.get(3), is("-"));
-        assertThat(tokens.get(4), is("-2"));
-
-
-    }
-
-    @Test
-    public void dadoUmaAtribuicaoComUnarioDentroDeParentesesRetornaUmaListaDeTokens() throws Exception {
-        tokens = lexer.tokenizar("x = (-2+3)");
-        assertThat(tokens.size(), is(7));
-        assertThat(tokens.get(0), is("x"));
-        assertThat(tokens.get(1), is("="));
-        assertThat(tokens.get(2), is("("));
-        assertThat(tokens.get(3), is("-2"));
-        assertThat(tokens.get(4), is("+"));
-        assertThat(tokens.get(5), is("3"));
-        assertThat(tokens.get(6), is(")"));
-
-    }
-
-    @Test
-    public void dadoUmaAtribuicaoUmSinalDeSubtracaoAntesDeParentesesRetornaUmaListaDeTokens() throws Exception {
-        tokens = lexer.tokenizar("x = -(-2+3)");
-        assertThat(tokens.size(), is(8));
-        assertThat(tokens.get(0), is("x"));
-        assertThat(tokens.get(1), is("="));
-        assertThat(tokens.get(2), is("-"));
-        assertThat(tokens.get(3), is("("));
-        assertThat(tokens.get(4), is("-2"));
-        assertThat(tokens.get(5), is("+"));
-        assertThat(tokens.get(6), is("3"));
-        assertThat(tokens.get(7), is(")"));
-
-    }
-
-
-
 }

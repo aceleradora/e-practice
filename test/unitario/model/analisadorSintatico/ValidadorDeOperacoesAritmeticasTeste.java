@@ -290,7 +290,6 @@ public class ValidadorDeOperacoesAritmeticasTeste {
         tokens.add("5");
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(false));
-
     }
 
     @Test
@@ -323,7 +322,6 @@ public class ValidadorDeOperacoesAritmeticasTeste {
         tokens.add(")");
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
-
     }
 
     @Test
@@ -362,6 +360,17 @@ public class ValidadorDeOperacoesAritmeticasTeste {
         tokens.add(")");
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
+    }
+
+    @Test
+    public void deveEstarValidoUmaExpressaoQueContenhaUmaMultiplicacaoComUnario() throws Exception {
+        tokens.add("1");
+        tokens.add("*");
+        tokens.add("-");
+        tokens.add("2");
+
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
+        assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is(""));
     }
 
     private void criaTokensDeExpressaoVazia() {

@@ -70,8 +70,9 @@ public class PostFix {
     }
 
     private boolean verificaSeForNumeroOuIDV(ArrayList<String> tokens, int i) {
-        return identificadorDeToken.identifica(tokens.get(i)).equals("NUMERO") ||
-            identificadorDeToken.identifica(tokens.get(i)).equals("IDV");
+        return tokens.get(i).length() > 1 ||
+               identificadorDeToken.identifica(tokens.get(i)).equals("NUMERO") ||
+               identificadorDeToken.identifica(tokens.get(i)).equals("IDV");
     }
 
     private boolean verificaSeForOperadorPrioritario() {
