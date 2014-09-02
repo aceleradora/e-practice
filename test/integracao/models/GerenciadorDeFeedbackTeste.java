@@ -99,6 +99,10 @@ public class GerenciadorDeFeedbackTeste {
 
     @Test
     public void dadoQueReceboDuasDeclaracoesDeVariaveisRetornoMensagemDeSucesso() throws Exception {
+        resultadosDoUsuario = new ArrayList<String>();
+        resultadosDoUsuario.add("0");
+        when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
+
         String codigo = "varres z : Inteiro\nvar x : Inteiro\nvar y : Inteiro\nz = x";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, exercicio);
 
@@ -129,7 +133,6 @@ public class GerenciadorDeFeedbackTeste {
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
         assertThat(mensagemDeErro, is(not(containsString("Seu código está correto."))));
-        assertThat(mensagemDeErro, is(not(containsString("Seu código está correto."))));
     }
 
     @Test
@@ -144,6 +147,10 @@ public class GerenciadorDeFeedbackTeste {
 
     @Test
     public void dadoQueReceboDuasAtribuicoesDeValoresNumericosValidosRetornoMensagemDeSucesso() throws Exception {
+        resultadosDoUsuario = new ArrayList<String>();
+        resultadosDoUsuario.add("5");
+        when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
+
         String codigo = "varres z : Inteiro\nvar x : Inteiro\nvar y : Inteiro\nx = 4\ny = 5\nz = y";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, exercicio);
 
@@ -154,6 +161,10 @@ public class GerenciadorDeFeedbackTeste {
 
     @Test
     public void dadoQueReceboUmaConcatenacaoDeStringsValidasRetornoUmaMensagemDeSucesso() throws Exception {
+        resultadosDoUsuario = new ArrayList<String>();
+        resultadosDoUsuario.add("\"BernardoJosé\"");
+        when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
+
         String codigo = "varres z : String\n" +
                 "var nome : String\n" +
                 "nome = \"Bernardo\"\n" +

@@ -85,6 +85,10 @@ public class FeedbackRestricaoSemanticaTeste {
 
     @Test
     public void dadoQueDeclaroAsVariaveisCorretamenteDeveRetornarFeedbackPositivo() throws Exception {
+        resultadosDoUsuario = new ArrayList<String>();
+        resultadosDoUsuario.add("1");
+        when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
+
         codigo = "varres x : Inteiro\n";
         codigo += "x = 1";
         gerenciadorDeFeedback = new GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigo, tabelaDeSimbolos, exercicio);
@@ -96,6 +100,10 @@ public class FeedbackRestricaoSemanticaTeste {
 
     @Test
     public void dadoQueDeclareiVariáveisDoTipoStringEDesejoFazerOperaçõesAritméticasDeveRetornarMensagemDeErro() throws Exception {
+        resultadosDoUsuario = new ArrayList<String>();
+        resultadosDoUsuario.add("");
+        when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
+
         codigo = "var x : String\n";
         codigo += "var y : String\n";
         codigo += "varres resultado: String\n";
@@ -109,6 +117,10 @@ public class FeedbackRestricaoSemanticaTeste {
 
     @Test
     public void dadoQueDeclareiVariaveisDoTipoInteiroEDesejoFazerOperaçõesAritméticasDeveRetornarFeedbackPositivo() throws Exception {
+        resultadosDoUsuario = new ArrayList<String>();
+        resultadosDoUsuario.add("0");
+        when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
+
         codigo = "var x: Inteiro\n";
         codigo += "var y: Inteiro\n";
         codigo += "varres resultado: Inteiro\n";
@@ -123,6 +135,10 @@ public class FeedbackRestricaoSemanticaTeste {
 
     @Test
     public void dadoQueDeclareiVariaveisDoTipoInteiroEDesejoFazerOperaçõesDeConcatenacaoDeveRetornarMensagemDeErro() throws Exception {
+        resultadosDoUsuario = new ArrayList<String>();
+        resultadosDoUsuario.add("");
+        when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
+
         codigo = "var x: Inteiro\n";
         codigo += "var y: Inteiro\n";
         codigo += "varres resultado: Inteiro\n";
@@ -137,6 +153,10 @@ public class FeedbackRestricaoSemanticaTeste {
 
     @Test
     public void dadoQueTentoConcatenarUmInteiroComUmaStringReceboMensagemDeErro() throws Exception {
+        resultadosDoUsuario = new ArrayList<String>();
+        resultadosDoUsuario.add("");
+        when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
+
         codigo = "var x: Inteiro\n";
         codigo += "var y: String\n";
         codigo += "varres resultado: String\n";
@@ -151,6 +171,10 @@ public class FeedbackRestricaoSemanticaTeste {
 
     @Test
     public void dadoQueTentoConcatenarDuasVariaveisDoTipoStringReceboFeedbackPositivo() throws Exception {
+        resultadosDoUsuario = new ArrayList<String>();
+        resultadosDoUsuario.add("\"\"");
+        when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
+
         codigo = "var x: String\n";
         codigo += "var y: String\n";
         codigo += "varres resultado: String\n";

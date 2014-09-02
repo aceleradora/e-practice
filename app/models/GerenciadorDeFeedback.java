@@ -59,7 +59,7 @@ public class GerenciadorDeFeedback {
 
         ValidadorDeValorDeResultado validadorDeValorDeResultado = new ValidadorDeValorDeResultado(exercicio);
         boolean usuarioAcertouOsResultados = validadorDeValorDeResultado.comparaResultados(resultadosDoUsuario);
-        if (!usuarioAcertouOsResultados && NaoContemErrosSintaticos() && NaoContemErrosSemanticos()) {
+        if (!usuarioAcertouOsResultados && NaoContemErrosSintaticos() && mensagemSemantica.equals("Seu código está correto.\n")) {
             mensagemSemantica = "Resposta incorreta!";
         }
 
