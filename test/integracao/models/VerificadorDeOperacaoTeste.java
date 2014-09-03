@@ -72,7 +72,7 @@ public class VerificadorDeOperacaoTeste {
         when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
         GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos, exercicio);
         String feedback = gerenciadorDeFeedback.pegaFeedback();
-        assertThat(feedback, is("Seu código está correto.\nResultado: 4 \nResultado: 6 \n"));
+        assertThat(feedback, is("Seu código está correto.\nSua resposta: 4 \nSua resposta: 6 \n"));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class VerificadorDeOperacaoTeste {
         when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
         GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo2, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos, exercicio);
         String feedback = gerenciadorDeFeedback.pegaFeedback();
-        assertThat(feedback, is("Seu código está correto.\nResultado: \"casavelha\" \n"));
+        assertThat(feedback, is("Seu código está correto.\nSua resposta: \"casavelha\" \n"));
     }
 
     @Test
@@ -92,6 +92,6 @@ public class VerificadorDeOperacaoTeste {
         when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
         GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo3, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos, exercicio);
         String feedback = gerenciadorDeFeedback.pegaFeedback();
-        assertThat(feedback, is("Seu código está correto.\nResultado: \"casavelha\" \n"));
+        assertThat(feedback, is("Seu código está correto.\nSua resposta: \"casavelha\" \n"));
     }
 }

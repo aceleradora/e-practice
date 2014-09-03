@@ -94,7 +94,7 @@ public class GerenciadorDeFeedbackTeste {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está correto.\nResultado: \"queijo\" \n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\nSua resposta: \"queijo\" \n"));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class GerenciadorDeFeedbackTeste {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está correto.\nResultado: 0 \n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\nSua resposta: 0 \n"));
     }
 
     @Test
@@ -122,7 +122,7 @@ public class GerenciadorDeFeedbackTeste {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está correto.\nResultado: \"resultado\" \n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\nSua resposta: \"resultado\" \n"));
     }
 
     @Test
@@ -156,7 +156,7 @@ public class GerenciadorDeFeedbackTeste {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está correto.\nResultado: 5 \n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\nSua resposta: 5 \n"));
     }
 
     @Test
@@ -174,7 +174,7 @@ public class GerenciadorDeFeedbackTeste {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está correto.\nResultado: \"BernardoJosé\" \n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\nSua resposta: \"BernardoJosé\" \n"));
     }
 
     @Test
@@ -189,7 +189,7 @@ public class GerenciadorDeFeedbackTeste {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está correto.\nResultado: 20 \n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\nSua resposta: 20 \n"));
     }
 
     @Test
@@ -236,7 +236,7 @@ public class GerenciadorDeFeedbackTeste {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está correto.\nResultado: \"nome:José\" \n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\nSua resposta: \"nome:José\" \n"));
     }
 
     @Test
@@ -291,7 +291,7 @@ public class GerenciadorDeFeedbackTeste {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro, is("Seu código está correto.\nResultado: 4 \n"));
+        assertThat(mensagemDeErro, is("Seu código está correto.\nSua resposta: 4 \n"));
     }
 
     @Test
@@ -330,7 +330,7 @@ public class GerenciadorDeFeedbackTeste {
 
         String mensagemDeErro = gerenciadorDeFeedback.pegaFeedback();
 
-        assertThat(mensagemDeErro,is("Seu código está correto.\nResultado: 1 \n"));
+        assertThat(mensagemDeErro,is("Seu código está correto.\nSua resposta: 1 \n"));
     }
 
     @Test
