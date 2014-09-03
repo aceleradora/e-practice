@@ -1,5 +1,6 @@
 package unitario.controller;
 
+import org.junit.Before;
 import org.junit.Test;
 import play.libs.F;
 import play.mvc.Result;
@@ -12,6 +13,16 @@ import static org.fluentlenium.core.filter.FilterConstructor.withName;
 import static play.test.Helpers.*;
 
 public class ApplicationTest {
+    @Before
+    public void setUp() throws Exception {
+        running(testServer(3333), HTMLUNIT, new F.Callback<TestBrowser>() {
+            @Override
+            public void invoke(TestBrowser browser) throws Throwable {
+                browser.goTo(System.getenv("URL_ENVIRONMENT") + "/cria-exercicios");
+            }
+        });
+    }
+
     @Test
     public void quandoChamaOMetodoIndexRedirecionaParaOutraRota() {
         running(fakeApplication(), new Runnable() {
