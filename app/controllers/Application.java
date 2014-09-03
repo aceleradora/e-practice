@@ -34,6 +34,7 @@ public class Application extends Controller {
     public static Result selecionaProximoExercicio(){
         setaExercicioNaSecao();
         Aba.criaSessaoParaAbas("tabLink1");
+        session("solucaoDoProfessor", exercicio.solucaoDoProfessor);
         return redirect(routes.Application.solucoes());
     }
 

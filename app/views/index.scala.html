@@ -138,7 +138,17 @@
                                 <p>@flash.get("mensagemDeFeedback")</p>
                             }
                         }
-                        <a href="#PLACEHOLDER"> Visualizar resultado do exercício</a>
+                        <a href="#PLACEHOLDER"> Visualizar resultado do exercício</a> <br>
+
+                        <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Tun Tun Tun</button>
+                        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <p><pre>@session.get("solucaoDoProfessor")</pre></p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
