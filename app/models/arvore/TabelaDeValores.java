@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class TabelaDeValores {
     ArrayList<Variavel> tabelaDeValores;
 
-
     public void add(Variavel variavel){
         tabelaDeValores.add(variavel);
     }

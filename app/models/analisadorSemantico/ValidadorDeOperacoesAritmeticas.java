@@ -64,9 +64,19 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
     }
 
     private void copiaTokensDaExpressaoASerResolvida() {
+        converteIdvsEmValores();
         divideTokensEmTokensComUnarios();
         for (int i = 2; i < listaDetokens.size(); i++) {
             tokensParaPosFixar.add(listaDetokens.get(i));
+        }
+    }
+
+    private void converteIdvsEmValores() {
+        for (int i = 2; i < listaDetokens.size(); i++) {
+            if(identificadorDeToken.identifica(listaDetokens.get(i)).equals("IDV") &&
+                    !tabelaDeSimbolos.getVariaveisDeResultado().contains(listaDetokens.get(i))){
+                listaDetokens.set(i, tabelaDeSimbolos.getValor(listaDetokens.get(i)));
+            }
         }
     }
 
