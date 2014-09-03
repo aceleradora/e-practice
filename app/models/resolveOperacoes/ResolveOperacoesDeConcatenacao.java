@@ -27,7 +27,6 @@ public class ResolveOperacoesDeConcatenacao {
                 palavra += tokens.get(i);
             }
         }
-
         aux = "\"" + palavra.replaceAll("\"", "") + "\"";
         palavra = aux;
         return palavra;
