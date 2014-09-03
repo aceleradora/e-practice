@@ -87,12 +87,20 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
         for (int i = 0; i < listaDetokens.size(); i++){
             if (listaDetokens.get(i).equals("+") || listaDetokens.get(i).equals("-")){
                 if(verificaTokenAnterior(i) && verificaSeProximoTokenEhNumero(i)){
-                    aux = listaDetokens.get(i) + listaDetokens.get(i+1);
+                    if(listaDetokens.get(i).equals("+")){
+                        aux = listaDetokens.get(i+1);
+                    } else {
+                        aux = listaDetokens.get(i) + listaDetokens.get(i+1);
+                    }
                     novosTokens.add(aux);
                     i++;
                 }
                 else if(verificaTokenAnterior(i) && verificaSeProximoTokenEhParenteseAberto(i)){
-                    aux = listaDetokens.get(i) + "1";
+                    if(listaDetokens.get(i).equals("+")){
+                        aux = "1";
+                    } else {
+                        aux = listaDetokens.get(i) + "1";
+                    }
                     novosTokens.add(aux);
                     novosTokens.add("*");
                 }
