@@ -138,7 +138,20 @@
                                 <p>@flash.get("mensagemDeFeedback")</p>
                             }
                         }
-                        <a href="#PLACEHOLDER"> Visualizar resultado do exercício</a>
+                        <a data-toggle="modal" href="#myModal">Visualizar resultado do exercício</a>
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true" id="x">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Resultado do Exercício</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Resultado: @flash.get("resultadoDoProfessor")</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
