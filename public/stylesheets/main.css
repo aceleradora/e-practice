@@ -72,6 +72,21 @@ html, body, main{
     text-align: center;
 }
 
+.modal-header {
+    font-size: 14px;
+    background-color: #444444;
+    color: #000000;
+    text-align: center;
+}
+
+#x {
+    color: #FFFFFF;
+}
+
+#y {
+    color: #FFFFFF;
+}
+
 .abas h5 {
     padding-left: 10px;
     font-weight: 700;
@@ -87,6 +102,14 @@ html, body, main{
 
 .titulo {
     margin-left: 20px;
+}
+
+.modal-body p {
+    text-align: center;
+}
+
+.modal-body2 p {
+    text-align: center;
 }
 
 .newLine {

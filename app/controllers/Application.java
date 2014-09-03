@@ -34,7 +34,10 @@ public class Application extends Controller {
     public static Result selecionaProximoExercicio(){
         setaExercicioNaSecao();
         Aba.criaSessaoParaAbas("tabLink1");
+        session("resultadoDoProfessor", exercicio.resultadoDoProfessor);
         session("solucaoDoProfessor", exercicio.solucaoDoProfessor);
+
+
         return redirect(routes.Application.solucoes());
     }
 
@@ -69,7 +72,7 @@ public class Application extends Controller {
                 usuario.seNaoHouverExercicioResolvidoAdicionaExercicio(exercicio);
 
             } catch (Exception e){
-                mensagemFlashDeErro(formPreenchido);
+                mensagemFlashDeErro(formPreenchido, e);
 
                 if(solucaoDoExercicio != null) {
                     solucaoDoExercicio.save();
@@ -101,8 +104,8 @@ public class Application extends Controller {
         exercicio = seletorAleatorioExercicio.buscaExercicioNaoResolvido();
     }
 
-    private static void mensagemFlashDeErro(Form<SolucaoDoExercicio> formPreenchido) {
-        flash("status", "Erro: Sintaxe não reconhecida.");
+    private static void mensagemFlashDeErro(Form<SolucaoDoExercicio> formPreenchido, Exception e) {
+        flash("status", "Erro: Sintaxe não reconhecida." + e.getMessage());
         flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
     }
 

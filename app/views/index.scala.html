@@ -138,14 +138,36 @@
                                 <p>@flash.get("mensagemDeFeedback")</p>
                             }
                         }
-                        <a href="#PLACEHOLDER"> Visualizar resultado do exercício</a> <br>
 
-                        <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Tun Tun Tun</button>
-                        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+
+                        <button class="btn btn-default btn-sm btn-spacing" data-toggle="modal" href="#resultadoDoExercicio">Resultado do exercício</button>
+                        <div class="modal fade" id="resultadoDoExercicio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
-                                    <p><pre>@session.get("solucaoDoProfessor")</pre></p>
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true" id="x">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Resultado do Exercício</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Resultado: @session.get("resultadoDoProfessor")</p>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-default btn-sm btn-spacing" data-toggle="modal" href="#solucaoDoProfessor"> Possível solução do professor</button>
+                        <div class="modal fade" id="solucaoDoProfessor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+                            <div class="modal-dialog modal-md">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true" id="y">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title" id="myModalLabel2">Resultado do Exercício</h4>
+                                    </div>
+                                    <div class="modal-body2">
+                                        <p><pre>@session.get("solucaoDoProfessor")</pre></p>
+                                    </div>
                             </div>
                         </div>
 
