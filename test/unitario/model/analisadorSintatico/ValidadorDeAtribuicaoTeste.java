@@ -219,6 +219,26 @@ public class ValidadorDeAtribuicaoTeste {
         assertThat(mensagemDeErro, is("Existe(m) erros(s) sintático(s) na atribuição. \n"));
     }
 
+    @Test
+    public void retornaTrueQuandoOTerceiroTokenForUmSinalDeAdicaoEOQuartoTokenUmIDV() throws Exception {
+        int x = 5;
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi = -" + x);
+
+        boolean retorno = validadorDeAtribuicao.valida(tokens);
+
+        assertThat(retorno, is(true));
+    }
+
+    @Ignore
+    @Test
+    public void retornaTrueQuandoOTerceiroTokenForUmSinalDeAdicaoEOQuartoTokenUmIDVdeValorNegativo() throws Exception {
+        int x = -5;
+        ArrayList<String> tokens = lexer.tokenizar("abacaxi = -" + x);
+
+        boolean retorno = validadorDeAtribuicao.valida(tokens);
+
+        assertThat(retorno, is(true));
+    }
 
 }
 

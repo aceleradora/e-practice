@@ -69,7 +69,7 @@ public class Application extends Controller {
                 usuario.seNaoHouverExercicioResolvidoAdicionaExercicio(exercicio);
 
             } catch (Exception e){
-                mensagemFlashDeErro(formPreenchido);
+                mensagemFlashDeErro(formPreenchido, e);
 
                 if(solucaoDoExercicio != null) {
                     solucaoDoExercicio.save();
@@ -101,8 +101,8 @@ public class Application extends Controller {
         exercicio = seletorAleatorioExercicio.buscaExercicioNaoResolvido();
     }
 
-    private static void mensagemFlashDeErro(Form<SolucaoDoExercicio> formPreenchido) {
-        flash("status", "Erro: Sintaxe não reconhecida.");
+    private static void mensagemFlashDeErro(Form<SolucaoDoExercicio> formPreenchido, Exception e) {
+        flash("status", "Erro: Sintaxe não reconhecida." + e.getMessage());
         flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
     }
 

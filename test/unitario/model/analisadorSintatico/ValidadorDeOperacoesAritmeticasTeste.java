@@ -364,6 +364,8 @@ public class ValidadorDeOperacoesAritmeticasTeste {
 
     @Test
     public void deveEstarValidoUmaExpressaoQueContenhaUmaMultiplicacaoComUnario() throws Exception {
+        tokens.add("x");
+        tokens.add("=");
         tokens.add("1");
         tokens.add("*");
         tokens.add("-");
@@ -375,10 +377,25 @@ public class ValidadorDeOperacoesAritmeticasTeste {
 
     @Test
     public void deveEstarValidoUmaExpressaoQueContenhaNumeroUmOperadorDeAdicaoENumeroUnario() throws Exception {
+        tokens.add("x");
+        tokens.add("=");
         tokens.add("5");
         tokens.add("+");
         tokens.add("+");
         tokens.add("6");
+
+        assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
+        assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is(""));
+    }
+
+    @Test
+    public void deveEstarValidoUmaSomaComIdvUnario() throws Exception {
+        tokens.add("x");
+        tokens.add("=");
+        tokens.add("-");
+        tokens.add("x");
+        tokens.add("+");
+        tokens.add("y");
 
         assertThat(validadorDeOperacoesAritmeticas.valida(tokens), is(true));
         assertThat(validadorDeOperacoesAritmeticas.retornaMensagemErro(), is(""));
