@@ -228,18 +228,6 @@ public class ValidadorDeAtribuicaoTeste {
 
         assertThat(retorno, is(true));
     }
-
-    @Ignore
-    @Test
-    public void retornaTrueQuandoOTerceiroTokenForUmSinalDeAdicaoEOQuartoTokenUmIDVdeValorNegativo() throws Exception {
-        int x = -5;
-        ArrayList<String> tokens = lexer.tokenizar("abacaxi = -" + x);
-
-        boolean retorno = validadorDeAtribuicao.valida(tokens);
-
-        assertThat(retorno, is(true));
-    }
-
 }
 
 
