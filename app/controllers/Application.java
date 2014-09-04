@@ -106,6 +106,7 @@ public class Application extends Controller {
 
     private static void mensagemFlashDeErro(Form<SolucaoDoExercicio> formPreenchido, Exception e) {
         flash("status", "Erro: Sintaxe não reconhecida." + e.getMessage());
+        e.printStackTrace();
         flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
     }
 

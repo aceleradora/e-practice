@@ -13,6 +13,7 @@ import models.analisadorSintatico.ValidadorDeOperacoesAritmeticas;
 import models.analisadorSintatico.ValidadorGenerico;
 import models.exercicioProposto.Exercicio;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -40,6 +41,18 @@ public class VerificadorDeOperacaoTeste {
                              "var x : String\n" +
                              "x = \"casa\"\n" +
                              "resultado = x <> \"velha\"\n";
+
+    private String codigo4 = "var x : Inteiro\n" +
+                             "var z : Inteiro\n" +
+                             "varres y : Inteiro\n" +
+                             "z = -10\n" +
+                             "x = -z + 3\n" +
+                             "y = x + 2";
+
+    private String codigo5 = "var x : Inteiro\n" +
+                             "varres y : Inteiro\n" +
+                             "x = -10\n" +
+                             "y = -x\n";
 
     private Lexer lexer = new Lexer();
     private TabelaDeSimbolos tabelaDeSimbolos = new TabelaDeSimbolos();
@@ -93,5 +106,26 @@ public class VerificadorDeOperacaoTeste {
         GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo3, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos, exercicio);
         String feedback = gerenciadorDeFeedback.pegaFeedback();
         assertThat(feedback, is("Seu código está correto.\nSua resposta: \"casavelha\" \n"));
+    }
+
+    @Ignore
+    @Test
+    public void retorna15QuandoResolveExpressaoComUnario() throws Exception {
+        resultadosDoUsuario = new ArrayList<String>();
+        resultadosDoUsuario.add("15");
+        when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
+        GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo4, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos, exercicio);
+        String feedback = gerenciadorDeFeedback.pegaFeedback();
+        assertThat(feedback, is("Seu código está correto.\nSua resposta: 15 \n"));
+    }
+
+    @Test
+    public void retorna10QuandoResolveExpressaoComUnario() throws Exception {
+        resultadosDoUsuario = new ArrayList<String>();
+        resultadosDoUsuario.add("10");
+        when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
+        GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo5, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos, exercicio);
+        String feedback = gerenciadorDeFeedback.pegaFeedback();
+        assertThat(feedback, is("Seu código está correto.\nSua resposta: 10 \n"));
     }
 }

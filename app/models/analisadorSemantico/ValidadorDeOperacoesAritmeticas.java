@@ -32,7 +32,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
         tokensParaPosFixar.clear();
         for (int i = 0; i < listaDetokens.size(); i++){
 
-                if ((identificadorDeToken.identifica(listaDetokens.get(i)).equals("IDV"))) {
+                if (tokenEhUmaVariavel(i)) {
                     if(!tabelaDeSimbolos.simboloExiste(listaDetokens.get(i))) {
                         tokenInvalido = listaDetokens.get(i);
                         tipoDeErro = 1;
@@ -51,6 +51,10 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
         return true;
     }
 
+    private boolean tokenEhUmaVariavel(int i) {
+        return (identificadorDeToken.identifica(listaDetokens.get(i)).equals("IDV"));
+    }
+
     public String retornaMensagemErro() {
         if (tipoDeErro == 1)
             return "A variável " + tokenInvalido + " não foi declarada.";
@@ -65,6 +69,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
 
     private void copiaTokensDaExpressaoASerResolvida() {
         converteIdvsEmValores();
+        
         divideTokensEmTokensComUnarios();
         for (int i = 2; i < listaDetokens.size(); i++) {
             tokensParaPosFixar.add(listaDetokens.get(i));
@@ -73,7 +78,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
 
     private void converteIdvsEmValores() {
         for (int i = 2; i < listaDetokens.size(); i++) {
-            if(identificadorDeToken.identifica(listaDetokens.get(i)).equals("IDV") &&
+            if(tokenEhUmaVariavel(i) &&
                     !tabelaDeSimbolos.getVariaveisDeResultado().contains(listaDetokens.get(i))){
                 listaDetokens.set(i, tabelaDeSimbolos.getValor(listaDetokens.get(i)));
             }
@@ -83,7 +88,6 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
     public void divideTokensEmTokensComUnarios(){
         ArrayList<String> novosTokens = new ArrayList<String>();
         String aux = "";
-        boolean verificador = false;
         for (int i = 0; i < listaDetokens.size(); i++){
             if (listaDetokens.get(i).equals("+") || listaDetokens.get(i).equals("-")){
                 if(verificaTokenAnterior(i) && verificaSeProximoTokenEhNumero(i)){
@@ -112,7 +116,7 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
                 novosTokens.add(listaDetokens.get(i));
             }
         }
-        if(verificador = true) listaDetokens = novosTokens;
+        listaDetokens = novosTokens;
     }
 
     private boolean verificaTokenAnterior(int i){

@@ -37,7 +37,7 @@ public class PostFix {
             }
 
             else if(!pilha.empty()) {
-                if(verificaSeForOperadorPrioritario()) {
+                if(verificaSeForOperadorPrioritario(tokens, i)) {
                     postFix.add(pilha.pop());
                     pilha.push(tokens.get(i));
                 }
@@ -75,7 +75,11 @@ public class PostFix {
                identificadorDeToken.identifica(tokens.get(i)).equals("IDV");
     }
 
-    private boolean verificaSeForOperadorPrioritario() {
+    private boolean verificaSeForOperadorPrioritario(ArrayList<String> tokens, int indice) {
+        if ((identificadorDeToken.identifica(tokens.get(indice)).equals("ADICAO") || identificadorDeToken.identifica(tokens.get(indice)).equals("SUBTRACAO")) && (identificadorDeToken.identifica(pilha.peek()).equals("ADICAO") ||
+                identificadorDeToken.identifica(pilha.peek()).equals("SUBTRACAO"))) {
+            return true;
+        }
         return identificadorDeToken.identifica(pilha.peek()).equals("MULTIPLICACAO") ||
             identificadorDeToken.identifica(pilha.peek()).equals("DIVISAO");
     }
