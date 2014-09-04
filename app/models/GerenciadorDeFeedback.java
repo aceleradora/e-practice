@@ -31,18 +31,12 @@ public class GerenciadorDeFeedback {
     }
 
     public String pegaFeedback() {
-        for (String linha: codigoQuebrado) {
-            gerenciadorSintatico.interpreta(linha);
-            mensagemSintatica += gerenciadorSintatico.mostraMensagensDeErro();
-        }
+        pegaErrosSintaticos();
         if (NaoContemErrosSintaticos()) {
-            for (String linha: codigoQuebrado) {
-                gerenciadorSemantico.interpreta(linha);
-                mensagemSemantica += gerenciadorSemantico.mostraMensagensDeErro();
-            }
+            pegaErrosSemanticos();
             if (NaoContemErrosSemanticos()) {
                 mensagemSemantica = "Seu código está correto.\n";
-                if(!(validadorDeVariavelDeResultado.valida()) && !(codigoQuebrado.isEmpty())){
+                if(temCodigoNoTerminalMasNaoTemVariavelDeResultado()){
                     mensagemSemantica = validadorDeVariavelDeResultado.retornaMensagemDeErro();
                 }else if(codigoQuebrado.isEmpty()){
                     mensagemSemantica = "O terminal está vazio.\n";
@@ -69,7 +63,23 @@ public class GerenciadorDeFeedback {
             return mensagemSintatica + mensagemSemantica;
     }
 
+    private boolean temCodigoNoTerminalMasNaoTemVariavelDeResultado() {
+        return !(validadorDeVariavelDeResultado.valida()) && !(codigoQuebrado.isEmpty());
+    }
 
+    private void pegaErrosSemanticos() {
+        for (String linha: codigoQuebrado) {
+            gerenciadorSemantico.interpreta(linha);
+            mensagemSemantica += gerenciadorSemantico.mostraMensagensDeErro();
+        }
+    }
+
+    private void pegaErrosSintaticos() {
+        for (String linha: codigoQuebrado) {
+            gerenciadorSintatico.interpreta(linha);
+            mensagemSintatica += gerenciadorSintatico.mostraMensagensDeErro();
+        }
+    }
 
     private boolean NaoContemErrosSintaticos() {
         return mensagemSintatica.equals("");
@@ -78,5 +88,4 @@ public class GerenciadorDeFeedback {
     private boolean NaoContemErrosSemanticos() {
         return mensagemSemantica.equals("");
     }
-
 }
