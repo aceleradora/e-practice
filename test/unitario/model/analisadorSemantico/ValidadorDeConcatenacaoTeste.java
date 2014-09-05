@@ -145,5 +145,23 @@ public class ValidadorDeConcatenacaoTeste {
         assertThat(resultado, is(true));
     }
 
+    @Test
+    public void quandoTenhoUmaConcatenacaoDeVariaveisDoTipoStringSemTerEspaçosEntreElasEntaoDeveConseguirEntenderACOncatenacao() throws Exception {
+        ArrayList<String> tokens2 = new ArrayList<String>();
+        tokens2.add("c");
+        tokens2.add("=");
+        tokens2.add("a");
+        tokens2.add("<>");
+        tokens2.add("b");
+        tokens2.add("<>");
+        tokens2.add("\"rápido\"");
 
+        tabelaDeSimbolos.adicionaSimbolo("a", "String");
+        tabelaDeSimbolos.adicionaSimbolo("b", "String");
+        tabelaDeSimbolos.adicionaSimbolo("c", "String");
+
+        boolean resultado = validador.valida(tokens2);
+
+        assertThat(resultado, is(true));
+    }
 }

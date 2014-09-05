@@ -249,4 +249,17 @@ public class LexerTeste {
         assertThat(tokens.get(1), is("="));
         assertThat(tokens.get(2), is("-"));
     }
+
+    @Test
+    public void dadoUmaConcatenacaoComIdvsColadosNoSimboloDeveConseguirSepararOsTokensCorretamente() throws Exception {
+        tokens = lexer.tokenizar("c=a<>b<>\" rápido\"");
+        assertThat(tokens.size(), is(7));
+        assertThat(tokens.get(0), is("c"));
+        assertThat(tokens.get(1), is("="));
+        assertThat(tokens.get(2), is("a"));
+        assertThat(tokens.get(3), is("<>"));
+        assertThat(tokens.get(4), is("b"));
+        assertThat(tokens.get(5), is("<>"));
+        assertThat(tokens.get(6), is("\" rápido\""));
+    }
 }

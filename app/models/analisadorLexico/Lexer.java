@@ -35,6 +35,7 @@ public class Lexer {
 
     //TODO - refatorar
     private void divideAFraseEmTokensEAdicionaNaLista(String frase) {
+        boolean tokenFoiAdicionado = false;
         String palavra = "";
         for (int i = 0; i < frase.length(); i++) {
             if (frase.charAt(i) != ' ') {
@@ -63,7 +64,7 @@ public class Lexer {
                         tokens.add(palavra);
                         palavra = "";
                     }
-                    else if (frase.charAt(i+1) == ' '  && !palavra.equals("")){
+                    else if (frase.charAt(i+1) == ' '  && !palavra.equals("") || (frase.charAt(i+1) == '<'&&!palavra.equals(""))){
                         tokens.add(palavra);
                         palavra = "";
                     }
