@@ -1,6 +1,9 @@
 $(document).ready(function(){
     fadeOutStatusBotao();
 
+    desabilitaBotaoDeResultadoQuandoNaoExistemMaisExercicios()
+    desabilitaBotaoDeSolucaoQuandoNaoExistemMaisExercicios()
+
     $("#botaoDeResultadoDoExercicio").on("click", function() {
         $("#resultadoDoExercicio").modal("show");
     });
@@ -49,6 +52,18 @@ function desabilitaBotaoDeEnviarQuandoNaoExistemMaisExercicios(){
 function desabilitaBotaoDeProximoQuandoNaoExistemMaisExercicios(){
     if($("#tab1 > .abas > pre").html() == "Você já resolveu todos os exercícios.") {
         $("#botao-proximo-exercicio").attr("disabled", "disabled");
+    }
+}
+
+function desabilitaBotaoDeResultadoQuandoNaoExistemMaisExercicios(){
+    if($("#tab1 > .abas > pre").html() == "Você já resolveu todos os exercícios.") {
+        $("#botaoDeResultadoDoExercicio").attr("disabled", "disabled");
+    }
+}
+
+function desabilitaBotaoDeSolucaoQuandoNaoExistemMaisExercicios(){
+    if($("#tab1 > .abas > pre").html() == "Você já resolveu todos os exercícios.") {
+        $("#botaoDeSolucaoDoProfessor").attr("disabled", "disabled");
     }
 }
 
