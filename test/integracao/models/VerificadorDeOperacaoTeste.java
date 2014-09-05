@@ -42,12 +42,10 @@ public class VerificadorDeOperacaoTeste {
                              "x = \"casa\"\n" +
                              "resultado = x <> \"velha\"\n";
 
-    private String codigo4 = "var x : Inteiro\n" +
-                             "var z : Inteiro\n" +
+    private String codigo4 = "var z : Inteiro\n" +
                              "varres y : Inteiro\n" +
                              "z = -10\n" +
-                             "x = -z + 3\n" +
-                             "y = x + 2";
+                             "y = -z + 2";
 
     private String codigo5 = "var x : Inteiro\n" +
                              "varres y : Inteiro\n" +
@@ -108,15 +106,14 @@ public class VerificadorDeOperacaoTeste {
         assertThat(feedback, is("Seu código está correto.\nSua resposta: \"casavelha\" \n"));
     }
 
-    @Ignore
     @Test
-    public void retorna15QuandoResolveExpressaoComUnario() throws Exception {
+    public void retorna12QuandoResolveExpressaoComUnario() throws Exception {
         resultadosDoUsuario = new ArrayList<String>();
-        resultadosDoUsuario.add("15");
+        resultadosDoUsuario.add("12");
         when(exercicio.getResultadosDoProfessorComoLista()).thenReturn(resultadosDoUsuario);
         GerenciadorDeFeedback gerenciadorDeFeedback = new models.GerenciadorDeFeedback(codigo4, gerenciadorSintatico, gerenciadorSemantico, quebradorDeCodigoEmLinhas, tabelaDeSimbolos, exercicio);
         String feedback = gerenciadorDeFeedback.pegaFeedback();
-        assertThat(feedback, is("Seu código está correto.\nSua resposta: 15 \n"));
+        assertThat(feedback, is("Seu código está correto.\nSua resposta: 12 \n"));
     }
 
     @Test

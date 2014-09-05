@@ -94,7 +94,13 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
                     if(listaDetokens.get(i).equals("+")){
                         aux = listaDetokens.get(i+1);
                     } else {
-                        aux = listaDetokens.get(i) + listaDetokens.get(i+1);
+                        if(listaDetokens.get(i+1).charAt(0)=='-'){
+                            aux = listaDetokens.get(i+1).substring(1);
+                        } else if (listaDetokens.get(i+1).charAt(0)=='+'){
+                            aux = listaDetokens.get(i) + listaDetokens.get(i+1).substring(1);
+                        } else {
+                            aux = listaDetokens.get(i) + listaDetokens.get(i+1);
+                        }
                     }
                     novosTokens.add(aux);
                     i++;
@@ -140,10 +146,15 @@ public class ValidadorDeOperacoesAritmeticas implements Validador{
         if(listaDetokens.get(i+1) == null){
             return verificador;
         }
-        if (Character.isDigit(listaDetokens.get(i + 1).charAt(0))){
-            verificador = true;
+        if(listaDetokens.get(i+1).length()>1){
+            if(listaDetokens.get(i+1).charAt(0)=='-' ||
+                    listaDetokens.get(i+1).charAt(0)=='+'){
+                if(Character.isDigit(listaDetokens.get(i+1).charAt(1))){
+                    verificador = true;
+                }
+            }
         }
-        else if(Character.isLetter(listaDetokens.get(i + 1).charAt(0))){
+        if (Character.isDigit(listaDetokens.get(i + 1).charAt(0))){
             verificador = true;
         }
         return verificador;
