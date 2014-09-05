@@ -1,6 +1,14 @@
 $(document).ready(function(){
     fadeOutStatusBotao();
 
+    $("#botaoDeResultadoDoExercicio").on("click", function() {
+        $("#resultadoDoExercicio").modal("show");
+    });
+
+    $("#botaoDeSolucaoDoProfessor").on("click", function() {
+            $("#solucaoDoProfessor").modal("show");
+        });
+
     $("#botao-de-limpar").click(function(){
         limpaASolucao();
     });
