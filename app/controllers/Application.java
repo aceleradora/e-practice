@@ -26,12 +26,12 @@ public class Application extends Controller {
     }
 
     public static Result index() {
-        usuario = new Usuario();
-        usuario.save();
+        criaNovoUsuario();
         return redirect(routes.Application.selecionaProximoExercicio());
     }
 
     public static Result selecionaProximoExercicio(){
+        criaNovoUsarioCasoNaoExistaUmUsuario();
         setaExercicioNaSecao();
         Aba.criaSessaoParaAbas("tabLink1");
         if (existeExercicioNoBanco()) {
@@ -43,7 +43,7 @@ public class Application extends Controller {
     }
 
     public static Result solucoes() {
-        if(session("exercicio") == null){
+        if(exercicio == null){
             setaExercicioNaSecao();
         }
 
@@ -84,6 +84,7 @@ public class Application extends Controller {
     }
 
     private static void setaExercicioNaSecao() {
+        criaNovoUsarioCasoNaoExistaUmUsuario();
         inicializaExercicioESeletorAleatorio();
 
         if (existeExercicioNoBanco()) {
@@ -128,4 +129,16 @@ public class Application extends Controller {
     private static boolean existeExercicioNoBanco() {
         return exercicio != null;
     }
+
+    private static void criaNovoUsuario() {
+        usuario = new Usuario();
+        usuario.save();
+    }
+
+    private static void criaNovoUsarioCasoNaoExistaUmUsuario() {
+        if(usuario == null) {
+            criaNovoUsuario();
+        }
+    }
+
 }
