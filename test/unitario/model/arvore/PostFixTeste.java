@@ -45,6 +45,18 @@ public class PostFixTeste {
     }
 
     @Test
+    public void posfixaParaABSubtracaoCSubtracaoQuandoRecebeAMenosBMenosC() throws Exception {
+        tokens.add("A"); tokens.add("-"); tokens.add("B"); tokens.add("-");
+        tokens.add("C");
+
+        espera.add("A"); espera.add("B"); espera.add("-"); espera.add("C");
+        espera.add("-");
+
+        resultado = posFix.criaPosfix(tokens);
+        assertEquals(espera, resultado);
+    }
+
+    @Test
     public void dadoUmaOperacaoSemParentesesDeveRetornarUmaOperacaoPosFix() throws Exception {
         tokens.add("A"); tokens.add("+"); tokens.add("B"); tokens.add("*"); tokens.add("C");
         espera.add("A"); espera.add("B"); espera.add("C"); espera.add("*"); espera.add("+");

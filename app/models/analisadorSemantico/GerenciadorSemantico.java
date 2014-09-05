@@ -43,19 +43,19 @@ public class GerenciadorSemantico {
     private void selecionaValidadorAdequado() {
         if (primeiroTokenIdentificado().equals("PALAVRA_RESERVADA")){
             validador = validadorDeDeclaracao;
-        } else if (listaDeTokensContemAlgumOperadorAritmetico()) {
-            validador = validadorDeOperacaoAritmetica;
-        } else if(listaDeTokensContemOperadorDeConcatenacao()) {
-            validador = validadorDeConcatenacao;
         } else if (listaDeTokensSoContemUmaAtribuicaoSimples()) {
             validador = validadorDeAtribuicao;
+        } else if(listaDeTokensContemOperadorDeConcatenacao()) {
+            validador = validadorDeConcatenacao;
+        } else if (listaDeTokensContemAlgumOperadorAritmetico()) {
+            validador = validadorDeOperacaoAritmetica;
         } else {
             validador = validadorGenerico;
         }
     }
 
     private boolean listaDeTokensSoContemUmaAtribuicaoSimples() {
-        return primeiroTokenIdentificado().equals("IDV") && tokens.size() == 3;
+        return primeiroTokenIdentificado().equals("IDV") && (tokens.size() == 3 || tokens.size() == 4);
     }
 
     private boolean listaDeTokensContemOperadorDeConcatenacao() {

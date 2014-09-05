@@ -127,4 +127,16 @@ public class CalculadoraDeResultadoTeste {
         int resultado = calculadora.calculaOperacaoAPartirDoPostFix(postfix);
         assertThat(resultado, is(8));
     }
+
+    @Test
+    public void teste() throws Exception {
+        postfix.add("-5");
+        postfix.add("6");
+        postfix.add("-");
+        postfix.add("10");
+        postfix.add("+");
+
+        int resultado = calculadora.calculaOperacaoAPartirDoPostFix(postfix);
+        assertThat(resultado, is(-1));
+    }
 }
