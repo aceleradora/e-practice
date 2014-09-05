@@ -33,7 +33,7 @@ public class Exercicio extends Controller {
         models.exercicioProposto.Exercicio exercicio2 = new models.exercicioProposto.Exercicio();
         exercicio2.enunciado = getEnunciadoExercicioDois();
         exercicio2.solucaoDoProfessor = getSolucaoExercicioDois();
-        exercicio2.resultadoDoProfessor = "2009";
+        exercicio2.resultadoDoProfessor = "1920";
         exercicio2.save();
 
         models.exercicioProposto.Exercicio exercicio3 = new models.exercicioProposto.Exercicio();
@@ -79,9 +79,9 @@ public class Exercicio extends Controller {
         return "var calculo : Inteiro\n" +
                "varres resultado : Inteiro\n\n" +
 
-               "calculo = 3.14 * (4 * 4) * 40\n\n" +
+               "calculo = 3 * (4 * 4) * 40\n\n" +
 
-               "resultado = 2009\n";
+               "resultado = calculo\n";
     }
 
     private static String getEnunciadoExercicioTres() {
@@ -98,19 +98,6 @@ public class Exercicio extends Controller {
                "palavraUm = \"casa\"\n" +
                "palavraDois = \"mento\"\n" +
                "palavraTres = \" rápido\"\n" +
-               "resultado = \"casamento rápido\"";
+               "resultado = palavraUm <> palavraDois <> palavraTres";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
