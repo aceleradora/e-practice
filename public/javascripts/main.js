@@ -1,12 +1,12 @@
 $(document).ready(function(){
     fadeOutStatusBotao();
 
-    $("#botaoDeResultadoDoExercicio").click(function() {
-        $("#resultadoDoExercicio").modal();
+    $("#botaoDeResultadoDoExercicio").on("click", function() {
+        $("#resultadoDoExercicio").modal("show");
     });
 
-    $("#botaoDeSolucaoDoProfessor").click(function() {
-            $("#solucaoDoProfessor").modal();
+    $("#botaoDeSolucaoDoProfessor").on("click", function() {
+            $("#solucaoDoProfessor").modal("show");
         });
 
     $("#botao-de-limpar").click(function(){
