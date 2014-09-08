@@ -18,6 +18,14 @@ public class Usuario extends Model {
     @ManyToMany(mappedBy = "usuarios")
     public List<Exercicio> exerciciosResolvidos = new ArrayList<Exercicio>();
 
+    private static Model.Finder<Integer,Usuario> find = new Model.Finder(
+            Integer.class, Usuario.class
+    );
+
+    public static Usuario achaUsuarioPorId(String idDoUsuario){
+        Usuario usuario = find.byId(Integer.valueOf(idDoUsuario));
+        return usuario;
+    }
 
     public List<Exercicio> todosNaoResolvidos() {
         Exercicio exercicio = new Exercicio();

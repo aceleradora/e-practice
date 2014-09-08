@@ -20,7 +20,6 @@ public class Application extends Controller {
     private static Exercicio exercicio;
     private static SeletorAleatorioExercicio seletorAleatorioExercicio;
     private static int idAtual = 0;
-    private static Usuario usuario;
     public Application(SolucaoDoExercicio solucaoDoExercicio) {
         this.solucaoDoExercicio = solucaoDoExercicio;
     }
@@ -64,13 +63,12 @@ public class Application extends Controller {
                 Map<String, String> solucao = formPreenchido.data();
 
                 SolucaoDoExercicio solucaoDoUsuario = new SolucaoDoExercicio(solucao.get("solucaoDoUsuario"));
-                solucaoDoUsuario.criaSolucao(exercicio, usuario.id);
 
                 mensagemDeFeedback = new MensagemDeFeedback(formPreenchido.get().solucaoDoUsuario, exercicio);
 
                 mensagemFlashDeSucesso(formPreenchido);
 
-                usuario.seNaoHouverExercicioResolvidoAdicionaExercicio(exercicio);
+                buscaUsuarioNoBanco().seNaoHouverExercicioResolvidoAdicionaExercicio(exercicio);
 
             } catch (Exception e){
                 mensagemFlashDeErro(formPreenchido, e);
@@ -102,7 +100,7 @@ public class Application extends Controller {
 
     private static void inicializaExercicioESeletorAleatorio() {
         exercicio = new Exercicio();
-        seletorAleatorioExercicio = new SeletorAleatorioExercicio(usuario);
+        seletorAleatorioExercicio = new SeletorAleatorioExercicio(buscaUsuarioNoBanco());
         exercicio = seletorAleatorioExercicio.buscaExercicioNaoResolvido();
     }
 
@@ -119,7 +117,7 @@ public class Application extends Controller {
     }
 
     private static boolean existeMaisDeUmExercicioNoBanco() {
-        return usuario.todosNaoResolvidos().size() > 1;
+        return buscaUsuarioNoBanco().todosNaoResolvidos().size() > 1;
     }
 
     private static boolean exercicioSorteadoForOMesmoQueEstavaNaSessao() {
@@ -131,14 +129,22 @@ public class Application extends Controller {
     }
 
     private static void criaNovoUsuario() {
-        usuario = new Usuario();
+        Usuario usuario = new Usuario();
         usuario.save();
+        String idDoUsuario = Integer.toString(usuario.id);
+        session("idDoUsuario", idDoUsuario);
     }
 
     private static void criaNovoUsarioCasoNaoExistaUmUsuario() {
-        if(usuario == null) {
+        if(buscaUsuarioNoBanco() == null) {
             criaNovoUsuario();
         }
+    }
+
+    private static Usuario buscaUsuarioNoBanco(){
+        String idDoUsuario = session("idDoUsuario");
+        Usuario usuario = Usuario.achaUsuarioPorId(idDoUsuario);
+        return usuario;
     }
 
 }
