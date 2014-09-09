@@ -48,6 +48,10 @@ public class Exercicio extends Model{
         return find.all();
     }
 
+    public static Exercicio achaExercicioPorId(String idDoExercicio) {
+        return find.byId(Integer.valueOf(idDoExercicio));
+    }
+
     public List<String> getResultadosDoProfessorComoLista() {
         ArrayList<String> resultados = new ArrayList<String>();
         String[] resultadosDivididos = resultadoDoProfessor.split("\n");
@@ -75,4 +79,5 @@ public class Exercicio extends Model{
         result = 31 * result + enunciado.hashCode();
         return result;
     }
+
 }

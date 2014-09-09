@@ -17,9 +17,8 @@ public class Application extends Controller {
     static Form<SolucaoDoExercicio> solucaoDoExercicioForm = Form.form(SolucaoDoExercicio.class);
     private static SolucaoDoExercicio solucaoDoExercicio;
     private static MensagemDeFeedback mensagemDeFeedback;
-    private static Exercicio exercicio;
     private static SeletorAleatorioExercicio seletorAleatorioExercicio;
-    private static int idAtual = 0;
+
     public Application(SolucaoDoExercicio solucaoDoExercicio) {
         this.solucaoDoExercicio = solucaoDoExercicio;
     }
@@ -34,15 +33,15 @@ public class Application extends Controller {
         setaExercicioNaSecao();
         Aba.criaSessaoParaAbas("tabLink1");
         if (existeExercicioNoBanco()) {
-            session("resultadoDoProfessor", exercicio.resultadoDoProfessor);
-            session("solucaoDoProfessor", exercicio.solucaoDoProfessor);
+            session("resultadoDoProfessor", buscaExercicioNoBanco().resultadoDoProfessor);
+            session("solucaoDoProfessor", buscaExercicioNoBanco().solucaoDoProfessor);
         }
 
         return redirect(routes.Application.solucoes());
     }
 
     public static Result solucoes() {
-        if(exercicio == null){
+        if(buscaExercicioNoBanco() == null){
             setaExercicioNaSecao();
         }
 
@@ -64,11 +63,11 @@ public class Application extends Controller {
 
                 SolucaoDoExercicio solucaoDoUsuario = new SolucaoDoExercicio(solucao.get("solucaoDoUsuario"));
 
-                mensagemDeFeedback = new MensagemDeFeedback(formPreenchido.get().solucaoDoUsuario, exercicio);
+                mensagemDeFeedback = new MensagemDeFeedback(formPreenchido.get().solucaoDoUsuario, buscaExercicioNoBanco());
 
                 mensagemFlashDeSucesso(formPreenchido);
 
-                buscaUsuarioNoBanco().seNaoHouverExercicioResolvidoAdicionaExercicio(exercicio);
+                buscaUsuarioNoBanco().seNaoHouverExercicioResolvidoAdicionaExercicio(buscaExercicioNoBanco());
 
             } catch (Exception e){
                 mensagemFlashDeErro(formPreenchido, e);
@@ -88,25 +87,26 @@ public class Application extends Controller {
         if (existeExercicioNoBanco()) {
             if (existeMaisDeUmExercicioNoBanco()) {
                 while (exercicioSorteadoForOMesmoQueEstavaNaSessao()) {
-                    exercicio = seletorAleatorioExercicio.buscaExercicioNaoResolvido();
+                    session("idDoExercicio", String.valueOf(seletorAleatorioExercicio.buscaExercicioNaoResolvido().id));
                 }
             }
-            idAtual = exercicio.id;
-            session("exercicio", exercicio.enunciado);
+            String idDoExercicioAtualNaSessao = session("idDoExercicio");
+            session("idAtualDoExercicio", idDoExercicioAtualNaSessao);
+            session("exercicio", buscaExercicioNoBanco().enunciado);
         } else {
             session("exercicio", "Você já resolveu todos os exercícios.");
         }
     }
 
     private static void inicializaExercicioESeletorAleatorio() {
-        exercicio = new Exercicio();
+        Exercicio exercicio;
         seletorAleatorioExercicio = new SeletorAleatorioExercicio(buscaUsuarioNoBanco());
         exercicio = seletorAleatorioExercicio.buscaExercicioNaoResolvido();
+        session("idDoExercicio", String.valueOf(exercicio.id));
     }
 
     private static void mensagemFlashDeErro(Form<SolucaoDoExercicio> formPreenchido, Exception e) {
         flash("status", "Erro: Sintaxe não reconhecida." + e.getMessage());
-        e.printStackTrace();
         flash("solucaoDoUsuario", formPreenchido.get().solucaoDoUsuario);
     }
 
@@ -121,11 +121,14 @@ public class Application extends Controller {
     }
 
     private static boolean exercicioSorteadoForOMesmoQueEstavaNaSessao() {
-        return idAtual == exercicio.id;
+        if (session("idAtualDoExercicio") == null || session("idDoExercicio") == null){
+            return false;
+        }
+        return session("idAtualDoExercicio").equals(session("idDoExercicio"));
     }
 
     private static boolean existeExercicioNoBanco() {
-        return exercicio != null;
+        return buscaExercicioNoBanco() != null;
     }
 
     private static void criaNovoUsuario() {
@@ -145,6 +148,12 @@ public class Application extends Controller {
         String idDoUsuario = session("idDoUsuario");
         Usuario usuario = Usuario.achaUsuarioPorId(idDoUsuario);
         return usuario;
+    }
+
+    private static Exercicio buscaExercicioNoBanco(){
+        String idDoExercicio = session("idDoExercicio");
+        Exercicio exercicio = Exercicio.achaExercicioPorId(idDoExercicio);
+        return exercicio;
     }
 
 }
